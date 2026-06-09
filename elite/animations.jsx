@@ -1,0 +1,92 @@
+/* ============================================================
+   ANIMATED BACKGROUND COMPONENTS
+   - <AliveBackground variant="..." /> — floating geometric shapes
+   - <SectionWave /> — animated wave divider
+   ============================================================ */
+
+/* SVG shape library — pure outlines, all use currentColor via stroke */
+const SHAPES = {
+  circle: (
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="44" />
+    </svg>
+  ),
+  triangle: (
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <polygon points="50,8 92,84 8,84" />
+    </svg>
+  ),
+  square: (
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M 12 12 L 88 12 L 88 88 L 12 88 Z" />
+    </svg>
+  ),
+  hex: (
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <polygon points="50,6 90,28 90,72 50,94 10,72 10,28" />
+    </svg>
+  ),
+  ring: (
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="44" />
+      <circle cx="50" cy="50" r="28" />
+    </svg>
+  ),
+  cross: (
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M 50 10 L 50 90 M 10 50 L 90 50" strokeLinecap="round" />
+    </svg>
+  ),
+  wave: (
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M 5 50 Q 25 20, 50 50 T 95 50" />
+    </svg>
+  ),
+  diamond: (
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <polygon points="50,8 92,50 50,92 8,50" />
+    </svg>
+  ),
+};
+
+/* Variants pick different combinations + positions */
+const VARIANTS = {
+  default: ["ring", "triangle", "hex", "square", "circle"],
+  geometric: ["hex", "diamond", "triangle", "cross", "ring"],
+  organic: ["wave", "circle", "ring", "wave", "circle"],
+  minimal: ["circle", "ring", "cross"],
+};
+
+function AliveBackground({ variant = "default" }) {
+  const shapes = VARIANTS[variant] || VARIANTS.default;
+  return (
+    <div className="alive" aria-hidden="true">
+      {shapes.map((name, i) => (
+        <div className={`alive__shape alive__shape--${i + 1}`} key={i}>
+          {SHAPES[name]}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* Section divider wave — between light sections */
+function SectionWave({ flip = false, color = "var(--white)" }) {
+  return (
+    <div className={"section-wave " + (flip ? "section-wave--top" : "")} aria-hidden="true">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path
+          d={
+            "M 0 40 C 240 10, 480 70, 720 40 S 1200 10, 1440 40 L 1440 80 L 0 80 Z " +
+            "M 1440 40 C 1680 10, 1920 70, 2160 40 S 2640 10, 2880 40 L 2880 80 L 1440 80 Z"
+          }
+          fill={color}
+          opacity="0.6"
+        />
+      </svg>
+    </div>
+  );
+}
+
+window.AliveBackground = AliveBackground;
+window.SectionWave = SectionWave;
