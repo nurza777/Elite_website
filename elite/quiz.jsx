@@ -59,7 +59,7 @@ function Quiz() {
         <div className="section-head section-head--center" data-reveal>
           <span className="eyebrow eyebrow--gold">Бесплатный инструмент</span>
           <h2>Узнай, в какой университет ты можешь поступить — за 2 минуты</h2>
-          <p>Более 500 студентов уже прошли оценку шансов</p>
+          <p>Более 1500 студентов уже прошли оценку шансов</p>
         </div>
 
         <div className="quiz card" data-reveal data-delay="1">

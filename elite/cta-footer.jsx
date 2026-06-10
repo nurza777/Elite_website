@@ -11,7 +11,7 @@ function FinalCTA() {
       <div className="wrap finalcta__inner">
         <div className="finalcta__head" data-reveal>
           <span className="eyebrow eyebrow--light">Сделай первый шаг</span>
-          <h2>Через год ты можешь учиться в США.<br/>Решение принимается сегодня.</h2>
+          <h2>Через год ты можешь учиться за границей.<br/>Решение принимается сегодня.</h2>
         </div>
 
         <div className="finalcta__grid">
@@ -20,7 +20,7 @@ function FinalCTA() {
               <div className="pitch__ic">🚀</div>
               <div>
                 <h3 className="pitch__t">Начни сейчас</h3>
-                <p>И уже через год ты в кампусе американского университета — со стипендией и планом.</p>
+                <p>И уже через год ты в кампусе зарубежного университета — со стипендией и планом.</p>
               </div>
             </div>
             <div className="pitch pitch--loss">
@@ -31,7 +31,7 @@ function FinalCTA() {
               </div>
             </div>
             <div className="finalcta__guarantee">
-              <span>✓</span> 500+ студентов уже сделали этот выбор
+              <span>✓</span> 1500+ студентов уже сделали этот выбор
             </div>
           </div>
 

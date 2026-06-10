@@ -128,9 +128,9 @@ function ExitIntent() {
         {!sent ? (
           <>
             <div className="exit__kicker">Прежде чем уходить —</div>
-            <h3 className="exit__h">Забери PDF: чек-лист поступления в США</h3>
+            <h3 className="exit__h">Забери PDF: чек-лист поступления за границу</h3>
             <p className="exit__p">
-              Документы для F-1 визы, дедлайны на 2026, шаблоны эссе и список вопросов
+              Документы для студенческой визы, дедлайны на 2026, шаблоны эссе и список вопросов
               на интервью. <b>14 страниц</b> — то, что мы выдаём студентам на старте.
             </p>
             <form className="exit__form" onSubmit={(e) => { e.preventDefault(); setSent(true); }}>

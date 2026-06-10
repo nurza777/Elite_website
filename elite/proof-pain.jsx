@@ -139,7 +139,7 @@ function Countries() {
       <div className="wrap">
         <div className="countries__grid" data-reveal data-delay="1">
           {COUNTRIES.map((c, i) => (
-            <a href="countries.html" className="country card--lift" key={i}
+            <a href={`country.html?c=${encodeURIComponent(c.name)}`} className="country card--lift" key={i}
                style={{ "--c-bg": c.bg, "--c-accent": c.accent }}>
               {/* Photo area */}
               <div className="country__photo"

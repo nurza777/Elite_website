@@ -59,7 +59,7 @@ function PageUniversities() {
       <PageHero
         eyebrow="Каталог"
         title="База университетов"
-        sub="2 340 университетов в США, Европе и Азии. Фильтруй по стоимости, направлению, рейтингу — и сохраняй те, что нравятся."
+        sub="Партнёрские университеты Elite Academy в США, Европе и Азии. Фильтруй по стоимости, направлению, рейтингу — и сохраняй те, что нравятся."
         variant="default"
       />
       <Universities />
@@ -90,13 +90,32 @@ function PageAdmission() {
     <>
       <PageHero
         eyebrow="Поступление"
-        title="Из Бишкека в кампус США — 6 шагов"
-        sub="Подбор вуза, подготовка к Duolingo и TOEFL, эссе, документы, виза F-1. Финальный урок проводит основатель лично."
+        title="Из Бишкека в зарубежный кампус — 6 шагов"
+        sub="Подбор вуза, подготовка к Duolingo и TOEFL, эссе, документы, студенческая виза. Финальный урок проводит основатель лично."
         variant="default"
       />
       <HowWeWork />
       <Scholarships />
       <Visas />
+      <FinalCTA />
+    </>
+  );
+}
+
+function PageCountry() {
+  return (
+    <>
+      <CountryProfile />
+      <PainSolution />
+      <FinalCTA />
+    </>
+  );
+}
+
+function PageUniversity() {
+  return (
+    <>
+      <UniversityProfile />
       <FinalCTA />
     </>
   );
@@ -108,7 +127,7 @@ function PageStories() {
       <PageHero
         eyebrow="Истории и блог"
         title="Они были такими же, как ты"
-        sub="500+ студентов уже учатся в США и Европе. Здесь — их кейсы, видео-отзывы и статьи о жизни после поступления."
+        sub="1500+ студентов уже учатся за рубежом. Здесь — их кейсы, видео-отзывы и статьи о жизни после поступления."
         variant="organic"
       />
       <Stories />
@@ -144,7 +163,9 @@ function PageHero({ eyebrow, title, sub, variant }) {
 const PAGES = {
   home: PageHome,
   countries: PageCountries,
+  country: PageCountry,
   universities: PageUniversities,
+  university: PageUniversity,
   programs: PagePrograms,
   admission: PageAdmission,
   stories: PageStories,

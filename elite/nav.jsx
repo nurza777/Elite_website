@@ -75,7 +75,7 @@ function Logo({ light }) {
       <span className="logo__mark" aria-hidden="true">EA</span>
       <span className="logo__txt" style={{ color: light ? "#fff" : "var(--navy)" }}>
         Elite <b>Academy</b>
-        <i>образование в США и Европе</i>
+        <i>образование за рубежом</i>
       </span>
     </a>
   );

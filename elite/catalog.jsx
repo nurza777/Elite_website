@@ -603,7 +603,7 @@ function Universities() {
                       </div>
 
                       <div className="uni__levels">{u.levels}</div>
-                      <a href="#" className="btn btn--ghost btn--block uni__more">Подробнее →</a>
+                      <a href={`university.html?u=${encodeURIComponent(u.short)}`} className="btn btn--ghost btn--block uni__more">Подробнее →</a>
                     </div>
                   </article>
                 );
@@ -625,3 +625,7 @@ function Universities() {
 }
 
 window.Universities = Universities;
+/* Shared with university.html profile page (uni-page.jsx) */
+window.EA_UNIS = UNIS;
+window.EA_PALETTE = COUNTRY_PALETTE;
+window.EA_COUNTRY_ISO = COUNTRY_ISO;

@@ -63,8 +63,8 @@ function SavingsCalculator() {
       <div className="wrap">
         <div className="section-head" data-reveal>
           <span className="eyebrow">Калькулятор</span>
-          <h2>Сколько реально стоит<br/>учёба в США с Elite?</h2>
-          <p>Цифры по данным 500+ студентов, поступивших с нашей помощью.</p>
+          <h2>Сколько реально стоит<br/>учёба за рубежом с Elite?</h2>
+          <p>Цифры по данным 1500+ студентов, поступивших с нашей помощью.</p>
         </div>
 
         <div className="calc__layout">
@@ -134,7 +134,7 @@ function SavingsCalculator() {
             <div className="calc__total">
               <span className="calc__total-lab">Сэкономишь за {years} {years === 2 ? "года" : "лет"} обучения</span>
               <div className="calc__total-num">{fmt(animTotal)}</div>
-              <span className="calc__total-sub">Это новая машина, первый взнос за квартиру в Бишкеке или 4 года жизни в США.</span>
+              <span className="calc__total-sub">Это новая машина, первый взнос за квартиру в Бишкеке или 4 года жизни за границей.</span>
             </div>
 
             {fit.length > 0 && (
