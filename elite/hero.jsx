@@ -3,53 +3,216 @@
    ============================================================ */
 const { useState, useEffect, useRef } = React;
 
-function ParticleField() {
+function UniParticles() {
   const ref = useRef(null);
   useEffect(() => {
     const cv = ref.current; if (!cv) return;
     const ctx = cv.getContext("2d");
-    let raf, w, h, dpr = Math.min(window.devicePixelRatio || 1, 2);
-    let dots = [];
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let W = 0, H = 0, raf;
+
+    const UNIS = ["MIT","UCLA","NYU","LSE","TUM","ETH","NUS","KCL","UBC","RU","BU","UIC","HAR","YAL","COL","SCU","ANU"];
+    const PAL  = [
+      { s: "#4A8FC7", t: "#B8D8EC" },
+      { s: "#B8D8EC", t: "#FFFFFF" },
+      { s: "rgba(255,255,255,.6)", t: "#FFFFFF" },
+      { s: "#F4C430", t: "#F4C430" },
+    ];
+
+    // PNG logos — put white-on-transparent files in images/logos/
+    // e.g. images/logos/mit.png, images/logos/ucla.png …
+    const LOGO_NAMES = ["mit","ucla","nyu","lse","tum","eth","nus","kcl","ubc","ru","bu","uic","har","yal","col","scu","anu"];
+    const LOGO_IMGS = {};
+    LOGO_NAMES.forEach(n => {
+      const img = new Image();
+      img.onload = () => { LOGO_IMGS[n] = img; };
+      img.src = `images/logos/${n}.png`;
+    });
+
+    let pts = [], pulseT = -9999;
+    // phase: 'float' → 'form' → 'hold' → 'scatter' → 'float'
+    let phase = "float", phaseT = 0;
+    const DUR = { float: 3200, form: 1700, hold: 2800, scatter: 1300 };
 
     function resize() {
-      w = cv.clientWidth; h = cv.clientHeight;
-      cv.width = w * dpr; cv.height = h * dpr;
+      W = cv.clientWidth || cv.offsetWidth || window.innerWidth;
+      H = cv.clientHeight || cv.offsetHeight || window.innerHeight;
+      cv.width = W * dpr; cv.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const n = Math.min(60, Math.round(w / 22));
-      dots = Array.from({ length: n }, () => ({
-        x: Math.random() * w, y: Math.random() * h,
-        r: Math.random() * 2.2 + 0.6,
-        vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25,
-        light: Math.random() > 0.55,  // light blue vs. mid blue
-      }));
+      spawn();
     }
-    function draw() {
-      ctx.clearRect(0, 0, w, h);
-      for (const d of dots) {
-        d.x += d.vx; d.y += d.vy;
-        if (d.x < 0 || d.x > w) d.vx *= -1;
-        if (d.y < 0 || d.y > h) d.vy *= -1;
-        ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, 7);
-        // light accent blue vs. mid-action blue — both within palette
-        ctx.fillStyle = d.light ? "rgba(184,216,236,0.55)" : "rgba(74,143,199,0.55)";
-        ctx.fill();
+
+    function spawn() {
+      const N = Math.min(88, Math.max(48, Math.floor(W / 13)));
+      pts = Array.from({ length: N }, (_, i) => {
+        const c = PAL[i % PAL.length];
+        return {
+          x: Math.random() * W, y: Math.random() * H, // full hero width
+          vx: (Math.random() - .5) * .55, vy: (Math.random() - .5) * .55,
+          rot: Math.random() * Math.PI * 2,
+          rotV: (Math.random() - .5) * .032,
+          label: UNIS[i % UNIS.length],
+          s: c.s, t: c.t,
+          r: 19 + Math.random() * 9,
+          ox: 0, oy: 0, tx: 0, ty: 0,
+        };
+      });
+    }
+
+    function circleTargets(n) {
+      // Two concentric rings — outer rotates CW, inner CCW during hold
+      const zone = W < 941 ? W : W * 0.45;
+      const cx = zone * 0.5, cy = H * 0.5;
+      const outerR = Math.min(zone * 0.40, H * 0.38);
+      const innerR = outerR * 0.52;
+      const outerN = Math.ceil(n * 0.62);
+      const innerN = n - outerN;
+      const pts = [];
+      for (let i = 0; i < outerN; i++) {
+        const a = (i / outerN) * Math.PI * 2 - Math.PI / 2;
+        pts.push({ x: cx + outerR * Math.cos(a), y: cy + outerR * Math.sin(a),
+                   ring: 0, angle: a, ringR: outerR, cx, cy });
       }
-      for (let i = 0; i < dots.length; i++) {
-        for (let j = i + 1; j < dots.length; j++) {
-          const a = dots[i], b = dots[j];
-          const dx = a.x - b.x, dy = a.y - b.y, dist = Math.hypot(dx, dy);
-          if (dist < 120) {
-            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = `rgba(123,181,220,${0.14 * (1 - dist / 120)})`;
-            ctx.lineWidth = 1; ctx.stroke();
-          }
+      for (let i = 0; i < innerN; i++) {
+        const a = (i / innerN) * Math.PI * 2 - Math.PI / 2;
+        pts.push({ x: cx + innerR * Math.cos(a), y: cy + innerR * Math.sin(a),
+                   ring: 1, angle: a, ringR: innerR, cx, cy });
+      }
+      return pts;
+    }
+
+    function ease3(t) {
+      t = Math.min(Math.max(t, 0), 1);
+      return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function badge(x, y, rot, p, alpha) {
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.translate(x, y); ctx.rotate(rot);
+      ctx.beginPath(); ctx.arc(0, 0, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(5,20,50,.55)"; ctx.fill();
+      ctx.strokeStyle = p.s; ctx.lineWidth = 1.8; ctx.stroke();
+      ctx.beginPath(); ctx.arc(0, 0, p.r * .7, 0, Math.PI * 2);
+      ctx.globalAlpha = alpha * .28; ctx.lineWidth = .7; ctx.stroke();
+      ctx.globalAlpha = alpha;
+      const logoKey = p.label.toLowerCase();
+      if (LOGO_IMGS[logoKey]) {
+        // clip to inner circle, draw (logos are pre-processed to white)
+        ctx.save();
+        ctx.beginPath(); ctx.arc(0, 0, p.r * .68, 0, Math.PI * 2); ctx.clip();
+        const sz = p.r * 1.2;
+        ctx.drawImage(LOGO_IMGS[logoKey], -sz / 2, -sz / 2, sz, sz);
+        ctx.restore();
+      } else {
+        ctx.fillStyle = p.t;
+        ctx.font = `700 ${Math.round(p.r * .46)}px "JetBrains Mono",monospace`;
+        ctx.textAlign = "center"; ctx.textBaseline = "middle";
+        ctx.fillText(p.label, 0, 0);
+      }
+      ctx.restore();
+    }
+
+    function drawPulse(now) {
+      const age = now - pulseT;
+      if (age > 950) return;
+      const t = age / 950;
+      const a = Math.pow(1 - t, 1.6);
+      const zone = W < 941 ? W : W * 0.45;
+      const cx = zone * 0.5, cy = H * 0.5; // centre of both rings
+      const r = Math.min(zone, H) * (0.15 + t * 0.90);
+      const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+      grd.addColorStop(0,   `rgba(220,240,255,${0.7 * a})`);
+      grd.addColorStop(0.3, `rgba(123,181,220,${0.45 * a})`);
+      grd.addColorStop(0.65,`rgba(74,143,199,${0.2 * a})`);
+      grd.addColorStop(1,   `rgba(10,61,104,0)`);
+      ctx.save(); ctx.globalAlpha = 1;
+      ctx.fillStyle = grd;
+      ctx.fillRect(0, 0, W, H);
+      ctx.restore();
+    }
+
+    function tick(now) {
+      ctx.clearRect(0, 0, W, H);
+      const dt = now - phaseT;
+
+      if (phase === "float") {
+        pts.forEach(p => {
+          p.x += p.vx; p.y += p.vy; p.rot += p.rotV;
+          if (p.x < -50) p.x = W + 50; if (p.x > W + 50) p.x = -50;
+          if (p.y < -50) p.y = H + 50; if (p.y > H + 50) p.y = -50;
+          badge(p.x, p.y, p.rot, p, .62);
+        });
+        if (dt > DUR.float) {
+          const tgts = circleTargets(pts.length);
+          pts.forEach((p, i) => {
+            p.ox = p.x; p.oy = p.y;
+            p.tx     = tgts[i]?.x     ?? p.x;
+            p.ty     = tgts[i]?.y     ?? p.y;
+            p.ring   = tgts[i]?.ring  ?? 0;
+            p.angle0 = tgts[i]?.angle ?? 0;
+            p.ringR  = tgts[i]?.ringR ?? 0;
+            p.ringCx = tgts[i]?.cx    ?? 0;
+            p.ringCy = tgts[i]?.cy    ?? 0;
+          });
+          phase = "form"; phaseT = now;
+        }
+
+      } else if (phase === "form") {
+        const e = ease3(dt / DUR.form);
+        pts.forEach(p => {
+          badge(p.ox + (p.tx - p.ox) * e, p.oy + (p.ty - p.oy) * e, p.rot * (1 - e), p, .62 + e * .38);
+          p.rot += p.rotV * (1 - e);
+        });
+        if (dt >= DUR.form) {
+          pts.forEach(p => { p.x = p.tx; p.y = p.ty; p.rot = 0; });
+          pulseT = now; // fire light burst
+          phase = "hold"; phaseT = now;
+        }
+
+      } else if (phase === "hold") {
+        const rotSpd = 0.00052; // rad/ms ≈ full turn in ~12 s
+        pts.forEach(p => {
+          const dir = p.ring === 0 ? 1 : -1; // outer CW, inner CCW
+          const a = p.angle0 + dir * dt * rotSpd;
+          const bx = p.ringCx + p.ringR * Math.cos(a);
+          const by = p.ringCy + p.ringR * Math.sin(a);
+          p.tx = bx; p.ty = by; // scatter will start from final position
+          badge(bx, by, 0, p, 1);
+        });
+        drawPulse(now);
+        if (dt > DUR.hold) {
+          const zone = W < 941 ? W : W * 0.47;
+          pts.forEach(p => {
+            p.ox = p.tx; p.oy = p.ty;
+            p.tx = Math.random() * zone; p.ty = Math.random() * H;
+            p.rotV = (Math.random() - .5) * .07;
+          });
+          phase = "scatter"; phaseT = now;
+        }
+
+      } else if (phase === "scatter") {
+        const e = ease3(dt / DUR.scatter);
+        pts.forEach(p => {
+          p.rot += p.rotV;
+          badge(p.ox + (p.tx - p.ox) * e, p.oy + (p.ty - p.oy) * e, p.rot, p, 1 - e * .38);
+        });
+        if (dt >= DUR.scatter) {
+          pts.forEach(p => {
+            p.x = p.tx; p.y = p.ty;
+            p.vx = (Math.random() - .5) * .55; p.vy = (Math.random() - .5) * .55;
+            p.rot = Math.random() * Math.PI * 2;
+          });
+          phase = "float"; phaseT = now;
         }
       }
-      raf = requestAnimationFrame(draw);
+      raf = requestAnimationFrame(tick);
     }
-    resize(); window.addEventListener("resize", resize);
-    if (!reduce) draw(); else draw(), cancelAnimationFrame(raf);
+
+    resize();
+    window.addEventListener("resize", resize);
+    if (!reduce) { phaseT = performance.now(); raf = requestAnimationFrame(tick); }
     return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
   }, []);
   return <canvas ref={ref} className="hero__canvas" aria-hidden="true" />;
@@ -98,46 +261,49 @@ function Counter({ to, suffix = "", duration = 1600 }) {
 }
 
 const HERO_STATS = [
-  { to: 500, suffix: "+", label: "студентов\nуже в США" },
-  { to: 50, suffix: "+", label: "партнёрских\nуниверситетов" },
-  { to: 90, suffix: "%", label: "получили\nвизу с 1 раза" },
-  { to: 5, suffix: " лет", label: "на рынке\nобразования" },
+  { to: 1500, suffix: "+", label: "студентов\nотправлено" },
+  { to: 500,  suffix: "+", label: "партнёрских\nвузов" },
+  { to: 7,    suffix: "",  label: "стран\nнаправлений" },
+  { to: 5,    suffix: " лет", label: "на рынке\nобразования" },
 ];
+
+function TeamPhoto() {
+  const [err, setErr] = useState(false);
+  if (err) {
+    return <div className="ph ph--dark hero__team-img" data-label="фото команды Elite Academy"></div>;
+  }
+  return (
+    <img
+      src="images/team.jpg"
+      alt="Команда Elite Academy"
+      className="hero__team-img"
+      onError={() => setErr(true)}
+    />
+  );
+}
 
 function Hero() {
   return (
     <section className="hero grain" id="top">
       <div className="hero__mesh" aria-hidden="true"></div>
-      <ParticleField />
+      <UniParticles />
       <div className="wrap hero__grid">
         <div className="hero__left">
           <div className="hero__badge" data-reveal>
             <span className="hero__badge-dot"></span>
-            Аккредитовано ICEF · 500+ студентов уже в США
+            Аккредитовано ICEF · 1500+ студентов за рубежом
           </div>
 
           <h1 className="hero__h1" data-reveal data-delay="1">
-            Твой путь в <span className="grad-gold">американский университет</span> начинается здесь
+            Твой путь к <span className="grad-gold">образованию за рубежом</span> начинается здесь
           </h1>
 
           <p className="hero__sub" data-reveal data-delay="2">
-            Помогаем студентам из Кыргызстана поступить в вузы США и Европы — со стипендиями
-            до <b>$858 000</b>. Без отказов. Без лишних нервов.
+            Отправляем студентов из Кыргызстана в университеты США, Европы и Азии —
+            с частичным или полным грантом. С гарантией по договору.
           </p>
 
-          <div className="hero__search" data-reveal data-delay="3">
-            <svg width="22" height="22" viewBox="0 0 20 20"><circle cx="9" cy="9" r="6.2" stroke="currentColor" strokeWidth="1.8" fill="none"/><path d="M14 14l4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
-            <input placeholder="Найди университет, страну или программу…" />
-            <button className="btn btn--blue hero__search-btn">Искать</button>
-          </div>
-          <div className="hero__sugs" data-reveal data-delay="3">
-            <span>Популярно:</span>
-            {["США", "Италия", "Bellevue College", "Duolingo тест", "Виза"].map((s) => (
-              <a key={s} href="#" className="hero__sug">{s}</a>
-            ))}
-          </div>
-
-          <div className="hero__cta" data-reveal data-delay="4">
+          <div className="hero__cta" data-reveal data-delay="3">
             <a href="#cta" className="btn btn--gold btn--lg">Получить консультацию бесплатно</a>
             <a href="#quiz" className="btn btn--ghost-light btn--lg">Узнать свои шансы →</a>
           </div>
@@ -154,24 +320,29 @@ function Hero() {
           </div>
         </div>
 
-        <div className="hero__right" data-reveal data-delay="2">
-          <div className="success-card glass">
+        <div className="hero__right">
+          <div className="hero__photo-frame" data-reveal data-delay="2">
+            <TeamPhoto />
+          </div>
+          <div className="success-card glass success-card--horiz" data-reveal data-delay="4">
             <div className="success-card__tag">★ Успех недели</div>
-            <div className="ph ph--dark success-card__photo" data-label="фото студентки — Милана"></div>
-            <div className="success-card__body">
-              <div className="success-card__name">Милана поступила в <b>11 университетов</b></div>
-              <div className="success-card__money">
-                <span className="success-card__money-label">Скидок и стипендий</span>
-                <span className="success-card__money-val">$858 000</span>
+            <div className="success-card__horiz-row">
+              <div className="ph ph--dark success-card__avatar" data-label="фото"></div>
+              <div className="success-card__horiz-info">
+                <div className="success-card__name">Нурзар поступила в <b>США</b></div>
+                <div className="success-card__uni">Roosevelt University, Чикаго</div>
+                <a href="stories.html" className="success-card__link">Читать историю →</a>
               </div>
-              <div className="success-card__uni">Bellevue College, США</div>
-              <a href="stories.html" className="success-card__link">Читать историю →</a>
+              <div className="success-card__horiz-money">
+                <div className="success-card__money-label">Стипендий и грантов</div>
+                <div className="success-card__money-val">$120 000</div>
+              </div>
             </div>
             <div className="success-card__foot">
               <div className="ava-stack">
                 {[0,1,2,3].map((i) => <span key={i} className="ava" style={{ zIndex: 4 - i }}></span>)}
               </div>
-              <span><b>+23 студента</b> поступили в этом месяце</span>
+              <span><b>+18 студентов</b> поступили в этом месяце</span>
             </div>
           </div>
         </div>

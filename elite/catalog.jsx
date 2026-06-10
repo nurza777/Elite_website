@@ -1,44 +1,423 @@
 /* ============================================================
    UNIVERSITIES — filter sidebar + grid + sort + save + load more
    ============================================================ */
-const { useState } = React;
+const { useState, useEffect } = React;
 
-const UNIS = [
-  { name: "Massachusetts Institute of Technology", short: "MIT", loc: "Кембридж, США", flag: "🇺🇸", qs: 1, price: 57000, type: "Частный", field: "IT", levels: "Бакалавр · Магистр · PhD" },
-  { name: "Bellevue College", short: "BC", loc: "Сиэтл, США", flag: "🇺🇸", qs: 480, price: 11000, type: "Публичный", field: "Бизнес", levels: "Колледж · Бакалавр", elite: true },
-  { name: "Roosevelt University", short: "RU", loc: "Чикаго, США", flag: "🇺🇸", qs: 390, price: 18500, type: "Частный", field: "Бизнес", levels: "Бакалавр · Магистр", elite: true },
-  { name: "Drake University", short: "DU", loc: "Де-Мойн, США", flag: "🇺🇸", qs: 420, price: 22000, type: "Частный", field: "Право", levels: "Бакалавр · Магистр" },
-  { name: "Politecnico di Milano", short: "PdM", loc: "Милан, Италия", flag: "🇮🇹", qs: 123, price: 3900, type: "Публичный", field: "Инженерия", levels: "Бакалавр · Магистр" },
-  { name: "La Salle University", short: "LSU", loc: "Филадельфия, США", flag: "🇺🇸", qs: 510, price: 21000, type: "Частный", field: "Медицина", levels: "Бакалавр · Магистр", elite: true },
-  { name: "Technical University of Munich", short: "TUM", loc: "Мюнхен, Германия", flag: "🇩🇪", qs: 37, price: 0, type: "Публичный", field: "Инженерия", levels: "Бакалавр · Магистр · PhD" },
-  { name: "Kalamazoo College", short: "KC", loc: "Каламазу, США", flag: "🇺🇸", qs: 460, price: 19500, type: "Частный", field: "Арт", levels: "Бакалавр" },
-  { name: "University College London", short: "UCL", loc: "Лондон, Великобритания", flag: "🇬🇧", qs: 9, price: 31000, type: "Публичный", field: "Право", levels: "Бакалавр · Магистр · PhD" },
+// Parse URL params at script-load time (before React renders)
+const _Q  = new URLSearchParams(window.location.search);
+const _INIT_COUNTRY = _Q.get("country") || "";
+const _INIT_LEVEL   = _Q.get("level")   || "";
+const _INIT_FIELD   = _Q.get("field")   || "";
+
+/* ---------- Raw university data ---------- */
+const UNIS_RAW = [
+  /* ========== ИТАЛИЯ ========== */
+  { name: "Politecnico di Milano",             short: "PoliMi",   loc: "Милан",       country: "Италия",        flag: "🇮🇹", qs: 123,  price: 4290,  type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр" },
+  { name: "Università Bocconi",                short: "Bocconi",  loc: "Милан",       country: "Италия",        flag: "🇮🇹", qs: 171,  price: 15400, type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
+  { name: "University of Bologna",             short: "UniBo",    loc: "Болонья",     country: "Италия",        flag: "🇮🇹", qs: 154,  price: 2750,  type: "Государственный", field: "Бизнес",     levels: "Бакалавр · Магистр", elite: true },
+  { name: "Sapienza University of Rome",       short: "Sapienza", loc: "Рим",         country: "Италия",        flag: "🇮🇹", qs: 214,  price: 2200,  type: "Государственный", field: "Право",      levels: "Бакалавр · Магистр · Foundation" },
+  { name: "University of Padua",               short: "UniPD",    loc: "Падуя",       country: "Италия",        flag: "🇮🇹", qs: 242,  price: 2640,  type: "Государственный", field: "Медицина",   levels: "Бакалавр · Магистр · Foundation" },
+  { name: "Ca'Foscari University",             short: "CaFosc",   loc: "Венеция",     country: "Италия",        flag: "🇮🇹", qs: 601,  price: 2420,  type: "Государственный", field: "Экономика",  levels: "Бакалавр · Магистр · Foundation" },
+  { name: "LUISS",                             short: "LUISS",    loc: "Рим",         country: "Италия",        flag: "🇮🇹", qs: 651,  price: 18700, type: "Частный",         field: "Право",      levels: "Бакалавр · Магистр · Foundation" },
+  { name: "Polytechnic University of Turin",   short: "PoliTO",   loc: "Турин",       country: "Италия",        flag: "🇮🇹", qs: 296,  price: 3850,  type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр" },
+  { name: "University of Milan",               short: "UniMi",    loc: "Милан",       country: "Италия",        flag: "🇮🇹", qs: 301,  price: 2860,  type: "Государственный", field: "Право",      levels: "Бакалавр · Магистр" },
+  { name: "University of Turin",               short: "UniTO",    loc: "Турин",       country: "Италия",        flag: "🇮🇹", qs: 420,  price: 2530,  type: "Государственный", field: "Медицина",   levels: "Бакалавр · Магистр" },
+  { name: "University of Pisa",                short: "UniPI",    loc: "Пиза",        country: "Италия",        flag: "🇮🇹", qs: 385,  price: 2310,  type: "Государственный", field: "IT",         levels: "Бакалавр · Магистр · Foundation" },
+  { name: "Tor Vergata University of Rome",    short: "TorVerg",  loc: "Рим",         country: "Италия",        flag: "🇮🇹", qs: 551,  price: 2090,  type: "Государственный", field: "Медицина",   levels: "Бакалавр · Магистр · Foundation" },
+  { name: "University of Florence",            short: "UniFI",    loc: "Флоренция",   country: "Италия",        flag: "🇮🇹", qs: 451,  price: 2640,  type: "Государственный", field: "Дизайн",     levels: "Бакалавр · Магистр" },
+  { name: "University of Siena",               short: "UniSI",    loc: "Сиена",       country: "Италия",        flag: "🇮🇹", qs: 701,  price: 2200,  type: "Государственный", field: "Медицина",   levels: "Бакалавр · Магистр · Foundation" },
+  { name: "University of Pavia",               short: "UniPV",    loc: "Павия",       country: "Италия",        flag: "🇮🇹", qs: 490,  price: 2420,  type: "Государственный", field: "Медицина",   levels: "Бакалавр · Магистр · Foundation" },
+  { name: "Trento University",                 short: "UniTN",    loc: "Тренто",      country: "Италия",        flag: "🇮🇹", qs: 531,  price: 2090,  type: "Государственный", field: "IT",         levels: "Бакалавр · Магистр" },
+  { name: "University of Trieste",             short: "UniTS",    loc: "Триест",      country: "Италия",        flag: "🇮🇹", qs: 651,  price: 2200,  type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр" },
+  { name: "University of Brescia",             short: "UniBS",    loc: "Брешиа",      country: "Италия",        flag: "🇮🇹", qs: 751,  price: 2310,  type: "Государственный", field: "Медицина",   levels: "Бакалавр · Магистр · Foundation" },
+  { name: "University of Parma",               short: "UniPR",    loc: "Парма",       country: "Италия",        flag: "🇮🇹", qs: 801,  price: 2090,  type: "Государственный", field: "Медицина",   levels: "Бакалавр · Магистр · Foundation" },
+  { name: "LUMSA University",                  short: "LUMSA",    loc: "Рим",         country: "Италия",        flag: "🇮🇹", qs: 951,  price: 7700,  type: "Частный",         field: "Педагогика", levels: "Бакалавр · Магистр" },
+  { name: "Istituto Marangoni Milan",          short: "Marang",   loc: "Милан",       country: "Италия",        flag: "🇮🇹", qs: null, price: 19800, type: "Частный",         field: "Дизайн",     levels: "Бакалавр · Магистр" },
+  { name: "IULM Universita",                   short: "IULM",     loc: "Милан",       country: "Италия",        flag: "🇮🇹", qs: 851,  price: 9900,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
+  { name: "University of Milan Bicocca",       short: "UniMiB",   loc: "Милан",       country: "Италия",        flag: "🇮🇹", qs: 351,  price: 2530,  type: "Государственный", field: "Медицина",   levels: "Бакалавр · Магистр" },
+  { name: "University of Genoa",               short: "UniGE",    loc: "Генуя",       country: "Италия",        flag: "🇮🇹", qs: 551,  price: 2090,  type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр" },
+  { name: "Roma Tre University",               short: "Roma3",    loc: "Рим",         country: "Италия",        flag: "🇮🇹", qs: 701,  price: 1980,  type: "Государственный", field: "Право",      levels: "Бакалавр · Магистр" },
+  { name: "University of Palermo",             short: "UniPA",    loc: "Палермо",     country: "Италия",        flag: "🇮🇹", qs: 801,  price: 1760,  type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр" },
+  { name: "University of Messina",             short: "UniME",    loc: "Мессина",     country: "Италия",        flag: "🇮🇹", qs: 901,  price: 1650,  type: "Государственный", field: "Медицина",   levels: "Бакалавр · Магистр" },
+  { name: "University of Catania",             short: "UniCT",    loc: "Катания",     country: "Италия",        flag: "🇮🇹", qs: 801,  price: 1760,  type: "Государственный", field: "Медицина",   levels: "Бакалавр · Магистр" },
+  { name: "University of Salerno",             short: "UniSA",    loc: "Салерно",     country: "Италия",        flag: "🇮🇹", qs: 851,  price: 1980,  type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр" },
+  { name: "University of Cassino",             short: "UniCAS",   loc: "Кассино",     country: "Италия",        flag: "🇮🇹", qs: 901,  price: 1650,  type: "Государственный", field: "IT",         levels: "Бакалавр · Магистр" },
+  { name: "University of Udine",               short: "UniUD",    loc: "Удине",       country: "Италия",        flag: "🇮🇹", qs: 801,  price: 1980,  type: "Государственный", field: "Бизнес",     levels: "Бакалавр · Магистр" },
+  { name: "University of Campania",            short: "UniCamp",  loc: "Неаполь",     country: "Италия",        flag: "🇮🇹", qs: 851,  price: 1760,  type: "Государственный", field: "Медицина",   levels: "Бакалавр · Магистр" },
+  { name: "University of Bari Aldo-Moro",      short: "UniBa",    loc: "Бари",        country: "Италия",        flag: "🇮🇹", qs: 801,  price: 1870,  type: "Государственный", field: "Право",      levels: "Бакалавр · Магистр" },
+  { name: "Politecnica delle Marche",          short: "UNIVPM",   loc: "Анкона",      country: "Италия",        flag: "🇮🇹", qs: 751,  price: 2090,  type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр" },
+  /* Foundation */
+  { name: "Link Campus University",            short: "LinkCU",   loc: "Рим",         country: "Италия",        flag: "🇮🇹", qs: null, price: 8800,  type: "Частный",         field: "Бизнес",     levels: "Foundation · Бакалавр" },
+  { name: "RUFA – Rome University of Fine Art",short: "RUFA",     loc: "Рим",         country: "Италия",        flag: "🇮🇹", qs: null, price: 9900,  type: "Частный",         field: "Дизайн",     levels: "Foundation · Бакалавр" },
+  { name: "LUM University",                    short: "LUM",      loc: "Бари",        country: "Италия",        flag: "🇮🇹", qs: null, price: 7700,  type: "Частный",         field: "Бизнес",     levels: "Foundation · Бакалавр · Магистр" },
+
+  /* ========== США ========== */
+  { name: "Roosevelt University",              short: "Roosevelt",loc: "Чикаго",      country: "США",           flag: "🇺🇸", qs: 390,  price: 18700, type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", elite: true,  meritBased: true, needBased: true },
+  { name: "Bellevue College",                  short: "Bellevue", loc: "Сиэтл",       country: "США",           flag: "🇺🇸", qs: 480,  price: 11000, type: "Государственный", field: "IT",         levels: "Колледж · Бакалавр", elite: true,  meritBased: true },
+  { name: "La Salle University",               short: "LaSalle",  loc: "Филадельфия", country: "США",           flag: "🇺🇸", qs: 510,  price: 21000, type: "Частный",         field: "Медицина",   levels: "Бакалавр · Магистр", elite: true,  meritBased: true, needBased: true },
+  { name: "Kalamazoo College",                 short: "K-Zoo",    loc: "Каламазу",    country: "США",           flag: "🇺🇸", qs: 460,  price: 19500, type: "Частный",         field: "Дизайн",     levels: "Бакалавр",           elite: true,  meritBased: true, needBased: true },
+  { name: "Westcliff University",              short: "Westcliff",loc: "Ирвайн",      country: "США",           flag: "🇺🇸", qs: 501,  price: 12000, type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", elite: true,  meritBased: true },
+  { name: "SUNY at Buffalo",                   short: "UB",       loc: "Буффало",     country: "США",           flag: "🇺🇸", qs: 326,  price: 16000, type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр · PhD", meritBased: true, needBased: true },
+  { name: "University of Evansville",          short: "UE",       loc: "Эвансвилл",   country: "США",           flag: "🇺🇸", qs: 601,  price: 21500, type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "DePaul University",                 short: "DePaul",   loc: "Чикаго",      country: "США",           flag: "🇺🇸", qs: 601,  price: 23000, type: "Частный",         field: "IT",         levels: "Бакалавр · Магистр", meritBased: true, needBased: true },
+  { name: "Rowan University",                  short: "Rowan",    loc: "Глассборо",   country: "США",           flag: "🇺🇸", qs: 701,  price: 14000, type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Harrisburg University",             short: "HarrisU",  loc: "Харрисберг",  country: "США",           flag: "🇺🇸", qs: null, price: 16500, type: "Частный",         field: "IT",         levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "University of Saint Thomas",        short: "UST",      loc: "Хьюстон",     country: "США",           flag: "🇺🇸", qs: 801,  price: 19000, type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true, needBased: true },
+  { name: "Arizona State University",          short: "ASU",      loc: "Темпе",       country: "США",           flag: "🇺🇸", qs: 290,  price: 20000, type: "Государственный", field: "IT",         levels: "Бакалавр · Магистр · PhD", meritBased: true, needBased: true },
+  { name: "California State University",       short: "CalState", loc: "Калифорния",  country: "США",           flag: "🇺🇸", qs: 601,  price: 14000, type: "Государственный", field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "San Jose State University",         short: "SJSU",     loc: "Сан-Хосе",    country: "США",           flag: "🇺🇸", qs: 651,  price: 13500, type: "Государственный", field: "IT",         levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Golden Gate University",            short: "GGU",      loc: "Сан-Франциско",country: "США",          flag: "🇺🇸", qs: null, price: 18000, type: "Частный",         field: "Право",      levels: "Бакалавр · Магистр" },
+  { name: "Marymount University",              short: "MU",       loc: "Арлингтон",   country: "США",           flag: "🇺🇸", qs: 801,  price: 20500, type: "Частный",         field: "Дизайн",     levels: "Бакалавр · Магистр", meritBased: true, needBased: true },
+  { name: "Adelphi University",                short: "Adelphi",  loc: "Гарден-Сити", country: "США",           flag: "🇺🇸", qs: 701,  price: 22000, type: "Частный",         field: "Медицина",   levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "University of Cincinnati",          short: "UC",       loc: "Цинциннати",  country: "США",           flag: "🇺🇸", qs: 601,  price: 17000, type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр · PhD", meritBased: true },
+  { name: "Temple University",                 short: "Temple",   loc: "Филадельфия", country: "США",           flag: "🇺🇸", qs: 503,  price: 19000, type: "Государственный", field: "Право",      levels: "Бакалавр · Магистр · PhD", meritBased: true },
+  { name: "Drexel University",                 short: "Drexel",   loc: "Филадельфия", country: "США",           flag: "🇺🇸", qs: 603,  price: 30000, type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр", meritBased: true, needBased: true },
+  { name: "Suffolk University",                short: "Suffolk",  loc: "Бостон",      country: "США",           flag: "🇺🇸", qs: 801,  price: 25000, type: "Частный",         field: "Право",      levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Pace University",                   short: "Pace",     loc: "Нью-Йорк",    country: "США",           flag: "🇺🇸", qs: 751,  price: 24000, type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true, needBased: true },
+  { name: "University of Arizona",             short: "UArizona", loc: "Тусон",       country: "США",           flag: "🇺🇸", qs: 376,  price: 18000, type: "Государственный", field: "IT",         levels: "Бакалавр · Магистр · PhD", meritBased: true },
+  { name: "Florida International University",  short: "FIU",      loc: "Майами",      country: "США",           flag: "🇺🇸", qs: 701,  price: 16000, type: "Государственный", field: "Бизнес",     levels: "Бакалавр · Магистр · PhD", meritBased: true },
+  { name: "University of Connecticut",         short: "UConn",    loc: "Сторрс",      country: "США",           flag: "🇺🇸", qs: 490,  price: 18000, type: "Государственный", field: "Бизнес",     levels: "Бакалавр · Магистр · PhD", meritBased: true },
+  { name: "Clarkson University",               short: "Clarkson", loc: "Потсдам",     country: "США",           flag: "🇺🇸", qs: 801,  price: 28000, type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Columbia College Chicago",          short: "ColChic",  loc: "Чикаго",      country: "США",           flag: "🇺🇸", qs: null, price: 21500, type: "Частный",         field: "Дизайн",     levels: "Бакалавр · Магистр" },
+  { name: "New York Film Academy",             short: "NYFA",     loc: "Нью-Йорк",    country: "США",           flag: "🇺🇸", qs: null, price: 28000, type: "Частный",         field: "Дизайн",     levels: "Бакалавр · Магистр" },
+  { name: "Webster University",                short: "Webster",  loc: "Сент-Луис",   country: "США",           flag: "🇺🇸", qs: 801,  price: 18500, type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Simmons University",                short: "Simmons",  loc: "Бостон",      country: "США",           flag: "🇺🇸", qs: 851,  price: 22000, type: "Частный",         field: "Медицина",   levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Florida Institute of Technology",   short: "FloridaTech",loc:"Мельбурн",   country: "США",           flag: "🇺🇸", qs: 801,  price: 22000, type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "North American University",         short: "NAU",      loc: "Хьюстон",     country: "США",           flag: "🇺🇸", qs: null, price: 10500, type: "Частный",         field: "IT",         levels: "Бакалавр · Магистр" },
+  { name: "Radford University",                short: "Radford",  loc: "Рэдфорд",     country: "США",           flag: "🇺🇸", qs: 901,  price: 14000, type: "Государственный", field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Concord University",                short: "Concord",  loc: "Атенс",       country: "США",           flag: "🇺🇸", qs: 901,  price: 10000, type: "Государственный", field: "Бизнес",     levels: "Бакалавр" },
+  { name: "SUNY at Albany",                    short: "UAlbany",  loc: "Олбани",      country: "США",           flag: "🇺🇸", qs: 551,  price: 17500, type: "Государственный", field: "Право",      levels: "Бакалавр · Магистр · PhD", meritBased: true },
+  { name: "Central Washington University",     short: "CWU",      loc: "Элленсберг",  country: "США",           flag: "🇺🇸", qs: null, price: 13500, type: "Государственный", field: "Бизнес",     levels: "Бакалавр · Магистр" },
+  { name: "Connecticut College",               short: "ConnColl", loc: "Нью-Лондон",  country: "США",           flag: "🇺🇸", qs: null, price: 26000, type: "Частный",         field: "Право",      levels: "Бакалавр", meritBased: true, needBased: true },
+  { name: "San Francisco Bay University",      short: "SFBU",     loc: "Сан-Франциско",country: "США",          flag: "🇺🇸", qs: null, price: 14500, type: "Частный",         field: "IT",         levels: "Бакалавр · Магистр" },
+  { name: "Southern California State University",short:"SCSS",    loc: "Лос-Анджелес",country: "США",           flag: "🇺🇸", qs: null, price: 12000, type: "Государственный", field: "Бизнес",     levels: "Бакалавр · Магистр" },
+  /* США — College */
+  { name: "De Anza College",                   short: "DeAnza",   loc: "Купертино",   country: "США",           flag: "🇺🇸", qs: null, price: 9500,  type: "Государственный", field: "IT",         levels: "Колледж" },
+  { name: "Green River College",               short: "GreenRiver",loc:"Оберн",        country: "США",           flag: "🇺🇸", qs: null, price: 10000, type: "Государственный", field: "Бизнес",     levels: "Колледж" },
+  { name: "Seattle Central College",           short: "SCC",      loc: "Сиэтл",       country: "США",           flag: "🇺🇸", qs: null, price: 10500, type: "Государственный", field: "IT",         levels: "Колледж" },
+  { name: "Santa Monica College",              short: "SMC",      loc: "Санта-Моника", country: "США",           flag: "🇺🇸", qs: null, price: 9000,  type: "Государственный", field: "Дизайн",     levels: "Колледж" },
+  { name: "Los Angeles City College",          short: "LACC",     loc: "Лос-Анджелес", country: "США",          flag: "🇺🇸", qs: null, price: 9000,  type: "Государственный", field: "Дизайн",     levels: "Колледж" },
+  { name: "City Colleges of Chicago",          short: "CCC",      loc: "Чикаго",      country: "США",           flag: "🇺🇸", qs: null, price: 9500,  type: "Государственный", field: "Бизнес",     levels: "Колледж" },
+  { name: "Lake Washington Institute of Technology",short:"LWIT", loc: "Кёркленд",    country: "США",           flag: "🇺🇸", qs: null, price: 10000, type: "Государственный", field: "IT",         levels: "Колледж" },
+  { name: "San Francisco City College",        short: "CCSF",     loc: "Сан-Франциско",country: "США",          flag: "🇺🇸", qs: null, price: 9000,  type: "Государственный", field: "IT",         levels: "Колледж" },
+  { name: "Computer System Institute",         short: "CSI",      loc: "Чикаго",      country: "США",           flag: "🇺🇸", qs: null, price: 8500,  type: "Частный",         field: "IT",         levels: "Колледж" },
+
+  /* ========== СЕВЕРНЫЙ КИПР ========== */
+  { name: "Eastern Mediterranean University",  short: "EMU",      loc: "Фамагуста",   country: "Северный Кипр", flag: "🇨🇾", qs: 601,  price: 4500,  type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр · PhD", meritBased: true },
+  { name: "European University of Lefke",      short: "EUL",      loc: "Лефке",       country: "Северный Кипр", flag: "🇨🇾", qs: 701,  price: 3800,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
+  { name: "Cyprus International University",   short: "CIU",      loc: "Никосия",     country: "Северный Кипр", flag: "🇨🇾", qs: null, price: 3200,  type: "Частный",         field: "Медицина",   levels: "Бакалавр · Магистр", meritBased: true },
+
+  /* ========== МАЛАЙЗИЯ ========== */
+  { name: "Monash University Malaysia",        short: "Monash",   loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: 57,   price: 9900,  type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр · PhD", meritBased: true },
+  { name: "University of Nottingham Malaysia", short: "UNM",      loc: "Семеньих",    country: "Малайзия",      flag: "🇲🇾", qs: 103,  price: 8800,  type: "Частный",         field: "IT",         levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "University of Southampton Malaysia",short: "USMalaysia",loc:"Джохор",      country: "Малайзия",      flag: "🇲🇾", qs: 81,   price: 9500,  type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Heriot-Watt University Malaysia",   short: "HWU",      loc: "Путраджая",   country: "Малайзия",      flag: "🇲🇾", qs: 351,  price: 8000,  type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Sunway University",                 short: "Sunway",   loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: 451,  price: 7500,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Taylor's University",               short: "Taylor's", loc: "Субанг-Джая", country: "Малайзия",      flag: "🇲🇾", qs: 401,  price: 7200,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Asia Pacific University (APU)",     short: "APU",      loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: 501,  price: 6600,  type: "Частный",         field: "IT",         levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "HELP University",                   short: "HELP",     loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: 601,  price: 5500,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
+  { name: "INTI International University",     short: "INTI",     loc: "Нилай",       country: "Малайзия",      flag: "🇲🇾", qs: 601,  price: 5800,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
+  { name: "IIUM – International Islamic University Malaysia",short:"IIUM",loc:"Куала-Лумпур",country:"Малайзия",flag:"🇲🇾",qs:401,price:4400,type:"Государственный",field:"Право",levels:"Бакалавр · Магистр · PhD"},
+  { name: "International Medical University (IMU)",short:"IMU",   loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: null, price: 12000, type: "Частный",         field: "Медицина",   levels: "Бакалавр · Магистр" },
+  { name: "Multimedia University (MMU)",        short: "MMU",     loc: "Путраджая",   country: "Малайзия",      flag: "🇲🇾", qs: 501,  price: 5200,  type: "Государственный", field: "IT",         levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "University Teknologi Petronas",      short: "UTP",     loc: "Сери-Искандар",country:"Малайзия",       flag: "🇲🇾", qs: 251,  price: 5500,  type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр · PhD" },
+  { name: "Universiti Tunku Abdul Rahman (UTAR)",short:"UTAR",    loc: "Камpar",      country: "Малайзия",      flag: "🇲🇾", qs: 401,  price: 4800,  type: "Частный",         field: "IT",         levels: "Бакалавр · Магистр" },
+  { name: "SEGi University",                   short: "SEGi",     loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: 701,  price: 4600,  type: "Частный",         field: "Медицина",   levels: "Бакалавр · Магистр" },
+  { name: "Management & Science University (MSU)",short:"MSU",    loc: "Шах-Алам",    country: "Малайзия",      flag: "🇲🇾", qs: 601,  price: 5000,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
+  { name: "MAHSA University",                  short: "MAHSA",    loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: null, price: 6000,  type: "Частный",         field: "Медицина",   levels: "Бакалавр · Магистр" },
+  { name: "University of Reading Malaysia",    short: "UoRM",     loc: "Джохор",      country: "Малайзия",      flag: "🇲🇾", qs: 201,  price: 9000,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Swinburne University Sarawak",      short: "Swinburne",loc: "Кучинг",      country: "Малайзия",      flag: "🇲🇾", qs: 351,  price: 7000,  type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "University of Cyberjaya (UOC)",     short: "UOC",      loc: "Cyberjaya",   country: "Малайзия",      flag: "🇲🇾", qs: null, price: 5500,  type: "Частный",         field: "Медицина",   levels: "Бакалавр · Магистр" },
+  { name: "Le Cordon Bleu Malaysia",           short: "CordonBleu",loc:"Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: null, price: 11000, type: "Частный",         field: "Дизайн",     levels: "Бакалавр" },
+  { name: "UOW Malaysia KDU",                  short: "UOW",      loc: "Шах-Алам",    country: "Малайзия",      flag: "🇲🇾", qs: 501,  price: 6000,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
+  { name: "The One Academy",                   short: "TOA",      loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: null, price: 6500,  type: "Частный",         field: "Дизайн",     levels: "Бакалавр" },
+  { name: "University Kuala Lumpur (UniKL)",   short: "UniKL",    loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: 651,  price: 4400,  type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр" },
+  { name: "University Tenaga Nasional (UNITEN)",short:"UNITEN",   loc: "Путраджая",   country: "Малайзия",      flag: "🇲🇾", qs: 601,  price: 4600,  type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр" },
+  { name: "Tunku Abdul Rahman University College",short:"TARUC",  loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: 501,  price: 3800,  type: "Государственный", field: "IT",         levels: "Колледж · Бакалавр" },
+
+  /* ========== ГЕРМАНИЯ ========== */
+  { name: "University of Europe for Applied Sciences",short:"UE of Europe",loc:"Берлин",country:"Германия",     flag: "🇩🇪", qs: null, price: 9900,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
+  { name: "Gisma University of Applied Sciences",short:"Gisma",   loc: "Берлин",      country: "Германия",      flag: "🇩🇪", qs: null, price: 8800,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
+
+  /* ========== ПОЛЬША ========== */
+  { name: "Vistula University",                short: "Vistula",  loc: "Варшава",     country: "Польша",        flag: "🇵🇱", qs: null, price: 3300,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
+  { name: "UTA – University of Technologies and Arts",short:"UTA",loc:"Варшава",      country: "Польша",        flag: "🇵🇱", qs: null, price: 2750,  type: "Частный",         field: "Дизайн",     levels: "Бакалавр · Магистр" },
+  { name: "VIZJA University",                  short: "VIZJA",    loc: "Варшава",     country: "Польша",        flag: "🇵🇱", qs: null, price: 2200,  type: "Частный",         field: "IT",         levels: "Бакалавр · Магистр" },
+  { name: "PJATK – Polish-Japanese Academy",   short: "PJATK",    loc: "Варшава",     country: "Польша",        flag: "🇵🇱", qs: null, price: 3000,  type: "Частный",         field: "IT",         levels: "Бакалавр · Магистр" },
+
+  /* ========== АВСТРИЯ ========== */
+  { name: "University of Vienna",              short: "UniWien",  loc: "Вена",        country: "Австрия",       flag: "🇦🇹", qs: 137,  price: 880,   type: "Государственный", field: "Право",      levels: "Бакалавр · Магистр · PhD" },
+  { name: "Vienna University of Economics and Business",short:"WU",loc:"Вена",        country: "Австрия",       flag: "🇦🇹", qs: 201,  price: 880,   type: "Государственный", field: "Бизнес",     levels: "Бакалавр · Магистр · PhD" },
+  { name: "Vienna University of Technology",   short: "TU Wien",  loc: "Вена",        country: "Австрия",       flag: "🇦🇹", qs: 176,  price: 880,   type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр · PhD" },
+  { name: "Medical University of Vienna",      short: "MedUni Wien",loc:"Вена",       country: "Австрия",       flag: "🇦🇹", qs: 251,  price: 880,   type: "Государственный", field: "Медицина",   levels: "Бакалавр · Магистр · PhD" },
+  { name: "Medical University of Graz",        short: "MedUni Graz",loc:"Грац",       country: "Австрия",       flag: "🇦🇹", qs: 301,  price: 880,   type: "Государственный", field: "Медицина",   levels: "Бакалавр · Магистр · PhD" },
+  { name: "Medical University of Innsbruck",   short: "MedUni Innsbruck",loc:"Инсбрук",country:"Австрия",       flag: "🇦🇹", qs: 301,  price: 880,   type: "Государственный", field: "Медицина",   levels: "Бакалавр · Магистр · PhD" },
+  { name: "Johannes Kepler University Linz",   short: "JKU Linz", loc: "Линц",        country: "Австрия",       flag: "🇦🇹", qs: 601,  price: 880,   type: "Государственный", field: "IT",         levels: "Бакалавр · Магистр · PhD" },
+  { name: "Vienna University of Applied Arts", short: "Angewandte",loc:"Вена",        country: "Австрия",       flag: "🇦🇹", qs: 351,  price: 880,   type: "Государственный", field: "Дизайн",     levels: "Бакалавр · Магистр" },
+  { name: "University of Music and Performing Arts Vienna",short:"MDW",loc:"Вена",    country: "Австрия",       flag: "🇦🇹", qs: null, price: 880,   type: "Государственный", field: "Дизайн",     levels: "Бакалавр · Магистр" },
 ];
 
-const FIELDS = ["IT", "Бизнес", "Медицина", "Право", "Инженерия", "Арт"];
-const LEVELS = ["Колледж", "Бакалавр", "Магистр", "PhD"];
+/* ISO country codes for flag images (flagcdn.com) */
+const COUNTRY_ISO = {
+  "Италия": "it", "США": "us", "Австрия": "at",
+  "Германия": "de", "Польша": "pl", "Северный Кипр": "cy", "Малайзия": "my",
+};
 
+/* Generated logo map: short → path */
+const LOGO_MAP = {
+  // Италия
+  "PoliMi":"images/logos/catalog/polimi.png",   "Bocconi":"images/logos/catalog/bocconi.png",
+  "UniBo":"images/logos/catalog/unibo.png",      "Sapienza":"images/logos/catalog/sapienza.png",
+  "UniPD":"images/logos/catalog/unipd.png",      "CaFosc":"images/logos/catalog/cafoscari.png",
+  "LUISS":"images/logos/catalog/luiss.png",      "PoliTO":"images/logos/catalog/polito.png",
+  "UniMi":"images/logos/catalog/unimi.png",      "UniTO":"images/logos/catalog/unito.png",
+  "TorVerg":"images/logos/catalog/tverga.png",   "UniFI":"images/logos/catalog/unifi.png",
+  "LUMSA":"images/logos/catalog/lumsa.png",      "IULM":"images/logos/catalog/iulm.png",
+  "Marang":"images/logos/catalog/marang.png",    "Roma3":"images/logos/catalog/roma3.png",
+  "UNIVPM":"images/logos/catalog/univpm.png",    "RUFA":"images/logos/catalog/rufa.png",
+  "LUM":"images/logos/catalog/lum.png",
+  // США
+  "Roosevelt":"images/logos/catalog/roosevelt.png",   "Bellevue":"images/logos/catalog/bellevue.png",
+  "LaSalle":"images/logos/catalog/lasalle.png",       "K-Zoo":"images/logos/catalog/kzoo.png",
+  "Westcliff":"images/logos/catalog/westcliff.png",   "UB":"images/logos/catalog/ub.png",
+  "UE":"images/logos/catalog/ue.png",                 "DePaul":"images/logos/catalog/depaul.png",
+  "Rowan":"images/logos/catalog/rowan.png",           "HarrisU":"images/logos/catalog/harrisu.png",
+  "UST":"images/logos/catalog/ust.png",               "ASU":"images/logos/catalog/asu.png",
+  "CalState":"images/logos/catalog/calstate.png",     "SJSU":"images/logos/catalog/sjsu.png",
+  "GGU":"images/logos/catalog/ggu.png",               "MU":"images/logos/catalog/mu.png",
+  "Adelphi":"images/logos/catalog/adelphi.png",       "UC":"images/logos/catalog/uc.png",
+  "Temple":"images/logos/catalog/temple.png",         "Drexel":"images/logos/catalog/drexel.png",
+  "Suffolk":"images/logos/catalog/suffolk.png",       "Pace":"images/logos/catalog/pace.png",
+  "UArizona":"images/logos/catalog/uarizona.png",     "FIU":"images/logos/catalog/fiu.png",
+  "UConn":"images/logos/catalog/uconn.png",           "Clarkson":"images/logos/catalog/clarkson.png",
+  "ColChic":"images/logos/catalog/colchic.png",       "NYFA":"images/logos/catalog/nyfa.png",
+  "Webster":"images/logos/catalog/webster.png",       "Simmons":"images/logos/catalog/simmons.png",
+  "FloridaTech":"images/logos/catalog/floridatech.png","NAU":"images/logos/catalog/nau.png",
+  "Radford":"images/logos/catalog/radford.png",       "Concord":"images/logos/catalog/concord.png",
+  "UAlbany":"images/logos/catalog/ualb.png",
+  // Австрия
+  "UniWien":"images/logos/catalog/uniwien.png",  "WU":"images/logos/catalog/wu.png",
+  "TU Wien":"images/logos/catalog/tuwien.png",   "MedUni Wien":"images/logos/catalog/muw.png",
+  "MedUni Graz":"images/logos/catalog/mug.png",  "MedUni Innsbruck":"images/logos/catalog/mui.png",
+  "JKU Linz":"images/logos/catalog/jku.png",
+  // Германия
+  "UE of Europe":"images/logos/catalog/ueeurope.png", "Gisma":"images/logos/catalog/gisma.png",
+  // Польша
+  "Vistula":"images/logos/catalog/vistula.png",  "UTA":"images/logos/catalog/uta.png",
+  "VIZJA":"images/logos/catalog/vizja.png",      "PJATK":"images/logos/catalog/pjatk.png",
+  // Малайзия
+  "Monash":"images/logos/catalog/monash.png",       "UNM":"images/logos/catalog/unm.png",
+  "USMalaysia":"images/logos/catalog/usoton.png",   "HWU":"images/logos/catalog/hwu.png",
+  "Sunway":"images/logos/catalog/sunway.png",       "Taylor's":"images/logos/catalog/taylors.png",
+  "APU":"images/logos/catalog/apu.png",             "HELP":"images/logos/catalog/help.png",
+  "INTI":"images/logos/catalog/inti.png",           "IIUM":"images/logos/catalog/iium.png",
+  "IMU":"images/logos/catalog/imu.png",             "MMU":"images/logos/catalog/mmu.png",
+  "UTP":"images/logos/catalog/utp.png",             "UTAR":"images/logos/catalog/utar.png",
+  "SEGi":"images/logos/catalog/segi.png",           "MSU":"images/logos/catalog/msu.png",
+  "MAHSA":"images/logos/catalog/mahsa.png",         "UoRM":"images/logos/catalog/uorm.png",
+  "Swinburne":"images/logos/catalog/swinburne.png", "UOC":"images/logos/catalog/uoc.png",
+  "CordonBleu":"images/logos/catalog/lcb.png",      "UOW":"images/logos/catalog/uow.png",
+  "TOA":"images/logos/catalog/toa.png",             "UniKL":"images/logos/catalog/unikl.png",
+  "UNITEN":"images/logos/catalog/uniten.png",       "TARUC":"images/logos/catalog/taruc.png",
+  // Северный Кипр
+  "EMU":"images/logos/catalog/emu.png",  "EUL":"images/logos/catalog/eul.png",
+  "CIU":"images/logos/catalog/ciu.png",
+};
+
+/* ---------- Country visual palette for campus banner ---------- */
+const COUNTRY_PALETTE = {
+  "Италия":        "linear-gradient(135deg,#c1440e 0%,#8b2a00 100%)",
+  "США":           "linear-gradient(135deg,#0a2463 0%,#1b4f9b 100%)",
+  "Австрия":       "linear-gradient(135deg,#b01020 0%,#6a0812 100%)",
+  "Германия":      "linear-gradient(135deg,#2a2a3e 0%,#14141e 100%)",
+  "Польша":        "linear-gradient(135deg,#c0102e 0%,#780818 100%)",
+  "Северный Кипр": "linear-gradient(135deg,#0d7070 0%,#054040 100%)",
+  "Малайзия":      "linear-gradient(135deg,#005830 0%,#003018 100%)",
+};
+
+/* ---------- Enrich: compute derived / default fields ---------- */
+function enrich(u) {
+  const italy    = u.country === "Италия";
+  const usa      = u.country === "США";
+  const austria  = u.country === "Австрия";
+  const germany  = u.country === "Германия";
+  const malaysia = u.country === "Малайзия";
+  const poland   = u.country === "Польша";
+  const cyprus   = u.country === "Северный Кипр";
+
+  const intake = u.intake ?? (
+    italy   ? ["Осень","Весна"] :
+    usa     ? ["Осень","Весна","Лето"] :
+    (austria || germany) ? ["Осень","Зима"] :
+    (malaysia || cyprus) ? ["Осень","Зима","Весна"] :
+    ["Осень","Зима"]
+  );
+
+  const engTests = u.engTests ?? (
+    italy && u.type === "Государственный"
+              ? ["без теста","IELTS","TOEFL"] :
+    italy     ? ["IELTS","TOEFL","DET"] :
+    usa       ? ["TOEFL","IELTS","DET"] :
+    (austria || germany)
+              ? ["без теста","IELTS","TOEFL"] :
+    malaysia  ? ["IELTS","TOEFL","DET"] :
+    poland    ? ["IELTS","TOEFL","DET"] :
+    cyprus    ? ["IELTS","DET","без теста"] :
+    ["IELTS","TOEFL"]
+  );
+
+  const exams = u.exams ?? (
+    italy && u.field === "Медицина" ? ["IMAT","Cent-s/Tolc"] :
+    italy   ? ["Cent-s/Tolc"] :
+    usa     ? ["SAT"] :
+    []
+  );
+
+  const gpaMin = u.gpaMin ?? (
+    (u.qs && u.qs <= 200) ? "3/4"   :
+    (u.qs && u.qs <= 400) ? "2.5/4" :
+    "2/4"
+  );
+
+  return {
+    dormitory:   true,
+    exchange:    u.type === "Государственный",
+    financialAid: !!(u.meritBased || u.needBased),
+    needBased:   u.needBased  ?? false,
+    meritBased:  u.meritBased ?? false,
+    campus:      null,
+    logo:        LOGO_MAP[u.short] ?? null,
+    ...u,
+    intake,
+    engTests,
+    exams,
+    gpaMin,
+  };
+}
+
+const UNIS = UNIS_RAW.map(enrich);
+
+/* ---------- Filter constants ---------- */
+const ALL_COUNTRIES = ["Италия","США","Северный Кипр","Малайзия","Германия","Польша","Австрия"];
+const FIELDS   = ["IT","Бизнес","Медицина","Право","Инженерия","Дизайн","Экономика","Педагогика"];
+const LEVELS   = ["Колледж","Foundation","Бакалавр","Магистр","PhD"];
+const INTAKES  = ["Осень","Зима","Весна","Лето"];
+const ENG_TESTS= ["TOEFL","IELTS","DET","без теста"];
+const INT_EXAMS= ["SAT","Cent-s/Tolc","IMAT"];
+const GPA_OPTS = ["4/4","3/4","2.5/4","2/4"];
+const TYPES    = ["Государственный","Частный"];
+const COUNTRY_FLAGS = { "Италия":"🇮🇹","США":"🇺🇸","Северный Кипр":"🇨🇾","Малайзия":"🇲🇾","Германия":"🇩🇪","Польша":"🇵🇱","Австрия":"🇦🇹" };
+const GPA_ORDER= { "2/4": 2, "2.5/4": 2.5, "3/4": 3, "4/4": 4 };
+
+/* Logo placeholder colors per country */
+const LOGO_BG = {
+  "Италия":        { bg: "#fceee8", color: "#8b3010" },
+  "США":           { bg: "#e8eef8", color: "#0a2b6a" },
+  "Австрия":       { bg: "#fce8e8", color: "#800818" },
+  "Германия":      { bg: "#e8e8f0", color: "#1a1a30" },
+  "Польша":        { bg: "#fce8ec", color: "#7a0820" },
+  "Северный Кипр": { bg: "#e4f6f6", color: "#055050" },
+  "Малайзия":      { bg: "#e4f8ee", color: "#004020" },
+};
+
+/* Sticker definitions (elite shown separately as blue star) */
+const STICKERS = [
+  { key: "meritBased", label: "Стипендия", cls: "sticker--merit", check: u => u.meritBased },
+  { key: "needBased",  label: "Грант",     cls: "sticker--grant", check: u => u.needBased },
+];
+
+/* ---------- Reusable FilterSection ---------- */
+function FilterSection({ label, children }) {
+  return (
+    <div className="filter">
+      <label className="filter__label">{label}</label>
+      {children}
+    </div>
+  );
+}
+
+/* ============================================================
+   MAIN COMPONENT
+   ============================================================ */
 function Universities() {
-  const [q, setQ] = useState("");
-  const [maxPrice, setMaxPrice] = useState(60000);
-  const [fields, setFields] = useState([]);
-  const [types, setTypes] = useState([]);
-  const [sort, setSort] = useState("rating");
-  const [shown, setShown] = useState(6);
-  const [saved, setSaved] = useState({});
+  const [q,           setQ]       = useState("");
+  const [maxPrice,    setPrice]   = useState(60000);
+  const [selCountries,setCntrs]   = useState(_INIT_COUNTRY ? [_INIT_COUNTRY] : []);
+  const [selLevel,    setLevel]   = useState(_INIT_LEVEL);
+  const [selFields,   setFields]  = useState(_INIT_FIELD   ? [_INIT_FIELD]   : []);
+  const [selIntakes,  setIntakes] = useState([]);
+  const [selEngTests, setEngTests]= useState([]);
+  const [selExams,    setExams]   = useState([]);
+  const [selGpa,      setGpa]     = useState("");
+  const [selType,     setType]    = useState("");
+  const [bools,       setBools]   = useState({});
+  const [sort,        setSort]    = useState("rating");
+  const [shown,       setShown]   = useState(9);
+  const [saved,       setSaved]   = useState({});
 
-  const toggle = (arr, set, v) => set(arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v]);
-  const reset = () => { setQ(""); setMaxPrice(60000); setFields([]); setTypes([]); };
+  // Auto-scroll when arriving from HomeSearch with pre-set filters
+  useEffect(() => {
+    if (_INIT_COUNTRY || _INIT_LEVEL || _INIT_FIELD) {
+      setTimeout(() => {
+        const el = document.getElementById("universities");
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 500);
+    }
+  }, []);
 
-  let list = UNIS.filter((u) =>
-    (!q || u.name.toLowerCase().includes(q.toLowerCase()) || u.loc.toLowerCase().includes(q.toLowerCase())) &&
-    u.price <= maxPrice &&
-    (fields.length === 0 || fields.includes(u.field)) &&
-    (types.length === 0 || types.includes(u.type))
+  const toggle = (arr, set, v) => set(arr.includes(v) ? arr.filter(x => x !== v) : [...arr, v]);
+  const chips  = (arr, set, items) => (
+    <div className="filter__chips">
+      {items.map(v => (
+        <button key={v}
+          className={"filter__chip" + (arr.includes(v) ? " is-on" : "")}
+          onClick={() => toggle(arr, set, v)}>{v}</button>
+      ))}
+    </div>
   );
+  const chipsSingle = (cur, set, items) => (
+    <div className="filter__chips">
+      {items.map(v => (
+        <button key={v}
+          className={"filter__chip" + (cur === v ? " is-on" : "")}
+          onClick={() => set(cur === v ? "" : v)}>{v}</button>
+      ))}
+    </div>
+  );
+
+  const reset = () => {
+    setQ(""); setPrice(60000); setFields([]); setCntrs([]); setLevel("");
+    setIntakes([]); setEngTests([]); setExams([]); setGpa(""); setType("");
+    setBools({});
+  };
+
+  /* ---------- Filter logic ---------- */
+  let list = UNIS.filter(u => {
+    if (q && ![u.name, u.loc, u.short].some(s => s.toLowerCase().includes(q.toLowerCase()))) return false;
+    if (u.price > maxPrice) return false;
+    if (selFields.length    > 0 && !selFields.includes(u.field)) return false;
+    if (selCountries.length > 0 && !selCountries.includes(u.country)) return false;
+    if (selLevel && !u.levels.includes(selLevel)) return false;
+    if (selIntakes.length   > 0 && !selIntakes.some(i  => u.intake.includes(i)))    return false;
+    if (selEngTests.length  > 0 && !selEngTests.some(t  => u.engTests.includes(t))) return false;
+    if (selExams.length     > 0 && !selExams.some(e    => u.exams.includes(e)))     return false;
+    if (selGpa && GPA_ORDER[u.gpaMin] > GPA_ORDER[selGpa]) return false;
+    if (selType && u.type !== selType) return false;
+    if (bools.needBased    && !u.needBased)    return false;
+    if (bools.meritBased   && !u.meritBased)   return false;
+    if (bools.dormitory    && !u.dormitory)    return false;
+    if (bools.financialAid && !u.financialAid) return false;
+    if (bools.exchange     && !u.exchange)     return false;
+    return true;
+  });
+
   list = [...list].sort((a, b) =>
-    sort === "price" ? a.price - b.price : sort === "rating" ? a.qs - b.qs : (b.elite ? 1 : 0) - (a.elite ? 1 : 0)
+    sort === "price"  ? a.price - b.price :
+    sort === "rating" ? (a.qs||9999) - (b.qs||9999) :
+    (b.elite ? 1 : 0) - (a.elite ? 1 : 0)
   );
+
+  const fmtPrice = p => "$" + p.toLocaleString("ru") + "/год";
 
   return (
     <section className="section unis" id="universities">
@@ -46,86 +425,195 @@ function Universities() {
         <div className="section-head" data-reveal>
           <span className="eyebrow">Каталог</span>
           <h2>База университетов</h2>
-          <p>Найдено <b>2 340</b> университетов по всему миру — отфильтруй под себя.</p>
+          <p>Найдено <b>{UNIS.length}</b> партнёрских университетов Elite Academy — отфильтруй под себя.</p>
         </div>
 
-        <div className="unis__hot" data-reveal>Топ-5 вузов, куда поступили наши студенты в этом году — отмечены значком <span className="chip tag-gold">Elite выбор</span></div>
+        <div className="unis__hot" data-reveal>
+          Вузы, куда чаще всего поступают наши студенты — отмечены <span className="uni__star-inline">★</span>
+        </div>
 
         <div className="unis__layout">
-          {/* Filters */}
+
+          {/* ====== FILTER SIDEBAR ====== */}
           <aside className="unis__filters card" data-reveal>
-            <div className="filter">
-              <label className="filter__label">Поиск по названию</label>
+
+            <FilterSection label="Поиск по названию">
               <div className="filter__search">
                 <svg width="16" height="16" viewBox="0 0 20 20"><circle cx="9" cy="9" r="6.2" stroke="currentColor" strokeWidth="1.8" fill="none"/><path d="M14 14l4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
-                <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="MIT, Милан…" />
+                <input value={q} onChange={e => setQ(e.target.value)} placeholder="Bocconi, Малайзия, IT…" />
               </div>
-            </div>
+            </FilterSection>
 
-            <div className="filter">
-              <label className="filter__label">Стоимость в год: <b>до ${maxPrice.toLocaleString("ru")}</b></label>
-              <input type="range" min="0" max="60000" step="1000" value={maxPrice} onChange={(e) => setMaxPrice(+e.target.value)} className="filter__range" />
+            <FilterSection label={<>Стоимость в год: <b>до ${maxPrice.toLocaleString("ru")}</b></>}>
+              <input type="range" min="0" max="60000" step="500" value={maxPrice} onChange={e => setPrice(+e.target.value)} className="filter__range" />
               <div className="filter__range-ends"><span>$0</span><span>$60k</span></div>
-            </div>
+            </FilterSection>
 
-            <div className="filter">
-              <label className="filter__label">Направление</label>
+            <FilterSection label="Страна">
               <div className="filter__chips">
-                {FIELDS.map((f) => (
-                  <button key={f} className={"filter__chip" + (fields.includes(f) ? " is-on" : "")} onClick={() => toggle(fields, setFields, f)}>{f}</button>
+                {ALL_COUNTRIES.map(c => (
+                  <button key={c} className={"filter__chip" + (selCountries.includes(c) ? " is-on" : "")} onClick={() => toggle(selCountries, setCntrs, c)}>
+                    {COUNTRY_ISO[c]
+                      ? <img src={`https://flagcdn.com/20x15/${COUNTRY_ISO[c]}.png`} alt={c} className="filter__flag" />
+                      : null
+                    }
+                    {c}
+                  </button>
                 ))}
               </div>
-            </div>
+            </FilterSection>
 
-            <div className="filter">
-              <label className="filter__label">Тип</label>
-              <div className="filter__chips">
-                {["Публичный","Частный"].map((t) => (
-                  <button key={t} className={"filter__chip" + (types.includes(t) ? " is-on" : "")} onClick={() => toggle(types, setTypes, t)}>{t}</button>
-                ))}
-              </div>
+            <FilterSection label="Учебный год">
+              {chips(selIntakes, setIntakes, INTAKES)}
+            </FilterSection>
+
+            <FilterSection label="Уровень программы">
+              {chipsSingle(selLevel, setLevel, LEVELS)}
+            </FilterSection>
+
+            <FilterSection label="Направление">
+              {chips(selFields, setFields, FIELDS)}
+            </FilterSection>
+
+            <FilterSection label="Языковой тест">
+              {chips(selEngTests, setEngTests, ENG_TESTS)}
+            </FilterSection>
+
+            <FilterSection label="Внутренние экзамены">
+              {chips(selExams, setExams, INT_EXAMS)}
+            </FilterSection>
+
+            <FilterSection label="Минимальный GPA">
+              {chipsSingle(selGpa, setGpa, GPA_OPTS)}
+            </FilterSection>
+
+            <FilterSection label="Тип вуза">
+              {chipsSingle(selType, setType, TYPES)}
+            </FilterSection>
+
+            <div className="filter filter--checks">
+              <label className="filter__label">Доп. условия</label>
+              {[
+                ["needBased",    "Need-based стипендия"],
+                ["meritBased",   "Merit-based стипендия"],
+                ["dormitory",    "Общежитие"],
+                ["financialAid", "Финансовая помощь"],
+                ["exchange",     "Программы обмена"],
+              ].map(([key, lbl]) => (
+                <label key={key} className="filter__check">
+                  <input type="checkbox" checked={!!bools[key]} onChange={e => setBools(b => ({...b, [key]: e.target.checked}))} />
+                  <span>{lbl}</span>
+                </label>
+              ))}
             </div>
 
             <div className="filter__actions">
               <button className="btn btn--ghost" onClick={reset}>Сбросить</button>
-              <button className="btn btn--blue">Применить</button>
+              <span className="unis__count-sm">{list.length} вузов</span>
             </div>
           </aside>
 
-          {/* Results */}
+          {/* ====== RESULTS ====== */}
           <div className="unis__results">
             <div className="unis__toolbar">
               <span className="unis__count">Найдено <b>{list.length}</b></span>
               <div className="unis__sort">
                 <span>Сортировка:</span>
-                {[["rating","по рейтингу"],["price","по цене"],["pop","по популярности"]].map(([k,l]) => (
+                {[["rating","по рейтингу"],["price","по цене"],["pop","Elite выбор"]].map(([k,l]) => (
                   <button key={k} className={sort === k ? "is-on" : ""} onClick={() => setSort(k)}>{l}</button>
                 ))}
               </div>
             </div>
 
             <div className="unis__grid">
-              {list.slice(0, shown).map((u, i) => (
-                <article className="uni card card--lift" data-tilt key={i}>
-                  {u.elite && <span className="uni__elite chip tag-gold">Elite выбор</span>}
-                  <div className="uni__top">
-                    <div className="ph uni__logo" data-label={u.short}></div>
-                    <button className={"uni__save" + (saved[u.name] ? " is-on" : "")} aria-label="Сохранить" onClick={() => setSaved((s) => ({ ...s, [u.name]: !s[u.name] }))}>♡</button>
-                  </div>
-                  <h3 className="uni__name">{u.name}</h3>
-                  <div className="uni__loc">{u.flag} {u.loc}</div>
-                  <div className="uni__rows">
-                    <div className="uni__row"><span>Рейтинг QS</span><b>#{u.qs}</b></div>
-                    <div className="uni__row"><span>Стоимость</span><b>{u.price === 0 ? "Бесплатно" : "$" + u.price.toLocaleString("ru") + "/год"}</b></div>
-                  </div>
-                  <div className="uni__levels">{u.levels}</div>
-                  <a href="#" className="btn btn--ghost btn--block uni__more">Подробнее →</a>
-                </article>
-              ))}
+              {list.slice(0, shown).map((u, i) => {
+                const bannerBg = u.campus
+                  ? { backgroundImage: `url(${u.campus})`, backgroundSize: "cover", backgroundPosition: "center" }
+                  : { background: COUNTRY_PALETTE[u.country] || "#1a2a4a" };
+                const activeStickers = STICKERS.filter(s => s.check(u));
+                const isBachelor = u.levels.includes("Бакалавр") || u.levels.includes("Колледж") || u.levels.includes("Foundation");
+                const isMaster   = u.levels.includes("Магистр");
+
+                const lp = LOGO_BG[u.country] || { bg: "#edf0f8", color: "#1a2a4a" };
+                const initials = u.name.split(" ").filter(w => /[A-Za-z]/.test(w[0])).slice(0,2).map(w => w[0]).join("").toUpperCase();
+
+                return (
+                  <article className="uni card" key={i}>
+                    {/* Campus banner */}
+                    <div className="uni__banner" style={bannerBg}>
+                      <div className="uni__banner-overlay" />
+                      {/* Stickers: Стипендия / Грант */}
+                      {activeStickers.length > 0 && (
+                        <div className="uni__stickers">
+                          {activeStickers.map(s => (
+                            <span key={s.key} className={`uni__sticker ${s.cls}`}>{s.label}</span>
+                          ))}
+                        </div>
+                      )}
+                      {/* Blue star for Elite unis */}
+                      {u.elite && <span className="uni__elite-star" title="Elite выбор">★</span>}
+                      {/* Country flag image (works on Windows/all browsers) */}
+                      {COUNTRY_ISO[u.country] && (
+                        <img
+                          className="uni__banner-flag"
+                          src={`https://flagcdn.com/40x30/${COUNTRY_ISO[u.country]}.png`}
+                          srcSet={`https://flagcdn.com/80x60/${COUNTRY_ISO[u.country]}.png 2x`}
+                          alt={u.country}
+                        />
+                      )}
+                    </div>
+
+                    {/* Card body */}
+                    <div className="uni__body">
+                      <div className="uni__head-row">
+                        {u.logo
+                          ? <img src={u.logo} className="uni__logo-img" alt={u.short} />
+                          : <div className="uni__logo-ph" title={u.name}
+                                 style={{ background: lp.bg, color: lp.color }}>
+                              {initials || u.short.slice(0,2).toUpperCase()}
+                            </div>
+                        }
+                        <button
+                          className={"uni__save" + (saved[u.name] ? " is-on" : "")}
+                          aria-label="Сохранить"
+                          onClick={() => setSaved(s => ({...s, [u.name]: !s[u.name]}))}
+                        >♡</button>
+                      </div>
+
+                      <h3 className="uni__name">{u.name}</h3>
+                      <div className="uni__loc">📍 {u.loc} · {u.country}</div>
+
+                      <div className="uni__rows">
+                        {u.qs && (
+                          <div className="uni__row"><span>QS рейтинг</span><b>#{u.qs}</b></div>
+                        )}
+                        {isBachelor && (
+                          <div className="uni__row"><span>Бакалавр</span><b>{fmtPrice(u.price)}</b></div>
+                        )}
+                        {isMaster && (
+                          <div className="uni__row"><span>Магистр</span><b>{fmtPrice(u.price)}</b></div>
+                        )}
+                      </div>
+
+                      <div className="uni__tags">
+                        <span className={"uni__type-tag uni__type-tag--" + (u.type === "Государственный" ? "gov" : "priv")}>
+                          {u.type}
+                        </span>
+                        <span className="uni__field-tag">{u.field}</span>
+                      </div>
+
+                      <div className="uni__levels">{u.levels}</div>
+                      <a href="#" className="btn btn--ghost btn--block uni__more">Подробнее →</a>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
 
             {shown < list.length ? (
-              <button className="btn btn--dark unis__load" onClick={() => setShown((s) => s + 3)}>Загрузить ещё</button>
+              <button className="btn btn--dark unis__load" onClick={() => setShown(s => s + 6)}>
+                Загрузить ещё ({list.length - shown} вузов)
+              </button>
             ) : list.length === 0 ? (
               <div className="unis__empty">Ничего не нашлось — попробуй смягчить фильтры.</div>
             ) : null}

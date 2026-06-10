@@ -1,25 +1,75 @@
 /* ============================================================
    STORIES (carousel + grid) · VISAS · BLOG · TEAM
    ============================================================ */
-const { useState } = React;
+const { useState, useRef } = React;
 
 const STORY_CARDS = [
-  { name: "Байель", from: "из Нооката — онлайн", quote: "Сдал Duolingo на 105 баллов и поступил в Bellevue College. Всё — дистанционно, не выезжая из Нооката.", uni: "🎓 Bellevue College, Сиэтл" },
-  { name: "Анара", from: "из Бишкека", quote: "Думала, что грантов не существует. Получила $312 000 и место в Rowan University. Главное — правильно подать.", uni: "🎓 Rowan University, Нью-Джерси" },
-  { name: "Тимур", from: "из Оша — спортсмен", quote: "Спортивный грант покрыл почти всё обучение. Команда помогла собрать видео-портфолио и связаться с тренером.", uni: "🎓 Drake University, Айова" },
+  {
+    name: "Элана",
+    from: "🇮🇹 Италия",
+    quote: "Я всегда мечтала учиться в Европе. Elite Academy помогли с документами, языком и нашли грант. Теперь учусь в Италии!",
+    uni: "🎓 Университет в Италии",
+    videoSrc: "videos/elana.mp4",
+    poster: "thumbs/elana.jpg"
+  },
+  {
+    name: "Нурзар",
+    from: "🇺🇸 США",
+    quote: "Даже не верила, что смогу поступить в США. С Elite Academy всё оказалось реально — сейчас уже второй курс!",
+    uni: "🎓 Университет в США",
+    videoSrc: "videos/nurzar.mp4",
+    poster: "thumbs/nurzar.jpg"
+  },
+  {
+    name: "Анель",
+    from: "🇮🇹 Италия",
+    quote: "Команда Elite Academy — профессионалы. Они знают каждый шаг и помогают на каждом этапе. Без них я бы не справилась.",
+    uni: "🎓 Университет в Италии",
+    videoSrc: "videos/anel.mp4",
+    poster: "thumbs/anel.jpg"
+  },
 ];
 
 const STORY_GRID = [
-  { n: "Милана", u: "Bellevue College", s: "$858 000", t: "Из Бишкека" },
-  { n: "Нуржамал", u: "Saint Leo Univ.", s: "$88 000", t: "Из регионов" },
-  { n: "Айпери", u: "Kalamazoo College", s: "$156 000", t: "Из регионов" },
-  { n: "Эрлан", u: "Roosevelt Univ.", s: "$72 000", t: "Спортсмены" },
-  { n: "Адель", u: "Drake University", s: "$204 000", t: "До 22 лет" },
-  { n: "Бектур", u: "La Salle Univ.", s: "$96 000", t: "С отказом ранее" },
-  { n: "Жанель", u: "UCL", s: "$48 000", t: "Из Бишкека" },
-  { n: "Данияр", u: "Roosevelt Univ.", s: "$120 000", t: "25+" },
+  { n: "Элана",     u: "Università degli Studi",  s: "Грант",     t: "Италия" },
+  { n: "Нурсултан", u: "Università di Bologna",   s: "Грант",     t: "Италия" },
+  { n: "Анель",     u: "Università di Roma",      s: "Грант",     t: "Италия" },
+  { n: "Амирхан",   u: "Politecnico di Milano",   s: "Грант",     t: "Италия" },
+  { n: "Асема",     u: "Università di Torino",    s: "Стипендия", t: "Италия" },
+  { n: "Калия",     u: "Università di Napoli",    s: "Стипендия", t: "Италия" },
+  { n: "Нурзар",    u: "Roosevelt University",    s: "$120 000",  t: "США"    },
+  { n: "Амир",      u: "Bellevue College",        s: "$95 000",   t: "США"    },
+  { n: "Исламбек",  u: "La Salle University",     s: "$88 000",   t: "США"    },
+  { n: "Кенжекан",  u: "Università di Padova",    s: "Грант",     t: "Италия" },
 ];
-const STORY_FILTERS = ["Все", "Из Бишкека", "Из регионов", "До 22 лет", "25+", "Спортсмены", "С отказом ранее"];
+const STORY_FILTERS = ["Все", "Италия", "США"];
+
+function StorySlide({ s }) {
+  const videoRef = useRef(null);
+  const [playing, setPlaying] = useState(false);
+
+  function handlePlay() {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) { v.play(); setPlaying(true); }
+    else { v.pause(); setPlaying(false); }
+  }
+
+  return (
+    <div className="story-big">
+      <div className="story-big__photo story-big__photo--video" onClick={handlePlay}>
+        <video ref={videoRef} src={s.videoSrc} poster={s.poster} preload="none" playsInline className="story-big__video-bg" />
+        {!playing && <span className="story-big__play">▶</span>}
+      </div>
+      <div className="story-big__body">
+        <div className="story-big__name">{s.name}</div>
+        <div className="story-big__from">{s.from}</div>
+        <p className="story-big__quote">«{s.quote}»</p>
+        <div className="story-big__uni">{s.uni}</div>
+      </div>
+    </div>
+  );
+}
 
 function Stories() {
   const [idx, setIdx] = useState(0);
@@ -31,28 +81,15 @@ function Stories() {
     <section className="section stories" id="stories">
       <div className="wrap">
         <div className="section-head" data-reveal>
-          <span className="eyebrow">Истории студентов</span>
-          <h2>Они были такими же, как ты.<br/>Теперь они учатся в США.</h2>
+          <span className="eyebrow">Наши студенты</span>
+          <h2>Они были такими же, как ты.<br/><span className="text-blue">Теперь учатся за рубежом.</span></h2>
         </div>
 
         {/* Carousel */}
         <div className="story-carousel" data-reveal>
           <div className="story-carousel__viewport">
             <div className="story-carousel__track" style={{ transform: `translateX(-${idx * 100}%)` }}>
-              {STORY_CARDS.map((s, i) => (
-                <div className="story-big" key={i}>
-                  <div className="ph story-big__photo" data-label={"видео-отзыв · " + s.name}>
-                    <span className="story-big__play">▶</span>
-                  </div>
-                  <div className="story-big__body">
-                    <div className="story-big__name">{s.name}</div>
-                    <div className="story-big__from">{s.from}</div>
-                    <p className="story-big__quote">«{s.quote}»</p>
-                    <div className="story-big__uni">{s.uni}</div>
-                    <a href="#" className="story-big__video">▶ Смотреть видео-отзыв</a>
-                  </div>
-                </div>
-              ))}
+              {STORY_CARDS.map((s, i) => <StorySlide key={i} s={s} />)}
             </div>
           </div>
           <div className="story-carousel__nav">

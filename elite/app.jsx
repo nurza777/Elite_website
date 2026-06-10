@@ -25,10 +25,13 @@ function PageHome() {
     <>
       <Hero />
       <TrustBar />
-      <PainSolution />
+      <HomeSearch />
+      <BeyondDiploma />
       <Countries />
-      <Quiz />
-      <SavingsCalculator />
+      <MediaFeed />
+      <Stories />
+      <PainSolution />
+      <AboutUs />
       <FinalCTA />
     </>
   );

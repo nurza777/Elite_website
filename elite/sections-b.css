@@ -2,6 +2,141 @@
    SECTIONS B — scholar, timeline, stories, visas, blog, team, cta, footer
    ============================================================ */
 
+/* ─────────────────────────────────────────────────────────────
+   BEYOND DIPLOMA — визуальный bento-grid
+   ───────────────────────────────────────────────────────────── */
+.beyond {
+  padding: 72px 0 80px;
+  background: var(--white);
+  overflow: hidden;
+}
+
+.beyond__head {
+  margin-bottom: 36px;
+}
+.beyond__eyebrow {
+  font-size: 13px; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 8px;
+}
+.beyond__h2 {
+  font-family: var(--font-head); font-weight: 900;
+  font-size: clamp(32px, 4.5vw, 54px);
+  line-height: 1.05; color: var(--navy);
+}
+
+/* Bento grid — полная ширина без wrap */
+.beyond__grid {
+  display: grid;
+  grid-template-columns: 2.1fr 1fr 1fr;
+  grid-template-rows: 320px 220px;
+  gap: 10px;
+  padding: 0 max(16px, calc((100vw - 1280px) / 2));
+}
+
+/* Cell base */
+.beyond__cell {
+  border-radius: 22px;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  transition: transform .4s cubic-bezier(.34,1.3,.64,1),
+              box-shadow .4s ease;
+}
+.beyond__cell:hover {
+  transform: scale(1.025);
+  box-shadow: 0 24px 60px -12px rgba(10,35,90,.22);
+  z-index: 2;
+}
+
+/* Gradient backgrounds — заменяются на фото через background-image */
+.beyond__cell--travel {
+  grid-column: 1; grid-row: 1 / 3;      /* большая левая ячейка */
+  background:
+    radial-gradient(ellipse 70% 50% at 30% 40%, rgba(30,100,210,.6), transparent),
+    linear-gradient(175deg, #0d2f6e 0%, #0a1c44 55%, #040e28 100%);
+}
+.beyond__cell--career {
+  grid-column: 2; grid-row: 1;
+  background: linear-gradient(150deg, #0e3460 0%, #091e3a 100%);
+}
+.beyond__cell--friends {
+  grid-column: 3; grid-row: 1;
+  background: linear-gradient(150deg, #1a4f72 0%, #0c2a40 100%);
+}
+.beyond__cell--network {
+  grid-column: 2; grid-row: 2;
+  background: linear-gradient(150deg, #1a2e6e 0%, #0d1a44 100%);
+}
+.beyond__cell--world {
+  grid-column: 3; grid-row: 2;
+  background: linear-gradient(150deg, #0d4e54 0%, #062e33 100%);
+}
+
+/* Subtle grain texture overlay */
+.beyond__overlay {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* Content pinned to bottom-left */
+.beyond__content {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  padding: 28px 28px 26px;
+}
+
+.beyond__emoji {
+  font-size: 52px; line-height: 1;
+  margin-bottom: 14px;
+  display: block;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,.3));
+}
+.beyond__cell--travel .beyond__emoji { font-size: 76px; margin-bottom: 18px; }
+
+.beyond__title {
+  display: block;
+  font-family: var(--font-head); font-weight: 900;
+  font-size: 24px; color: #fff; line-height: 1.1;
+  letter-spacing: -.01em;
+}
+.beyond__cell--travel .beyond__title { font-size: 40px; }
+
+.beyond__sub {
+  display: block;
+  font-size: 14px; color: rgba(255,255,255,.6);
+  margin-top: 6px; line-height: 1.4;
+}
+.beyond__cell--travel .beyond__sub { font-size: 16px; margin-top: 8px; }
+
+/* Mobile */
+@media (max-width: 860px) {
+  .beyond__grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 240px 180px 180px;
+    padding: 0 16px;
+  }
+  .beyond__cell--travel { grid-column: 1 / 3; grid-row: 1; }
+  .beyond__cell--career  { grid-column: 1;     grid-row: 2; }
+  .beyond__cell--friends { grid-column: 2;     grid-row: 2; }
+  .beyond__cell--network { grid-column: 1;     grid-row: 3; }
+  .beyond__cell--world   { grid-column: 2;     grid-row: 3; }
+  .beyond__cell--travel .beyond__title { font-size: 30px; }
+  .beyond__cell--travel .beyond__emoji { font-size: 56px; }
+}
+@media (max-width: 520px) {
+  .beyond__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, 180px);
+  }
+  .beyond__cell--travel { grid-column: 1; grid-row: 1; }
+  .beyond__cell--career  { grid-column: 1; grid-row: 2; }
+  .beyond__cell--friends { grid-column: 1; grid-row: 3; }
+  .beyond__cell--network { grid-column: 1; grid-row: 4; }
+  .beyond__cell--world   { grid-column: 1; grid-row: 5; }
+}
+
 /* ---------- Scholarships ---------- */
 .scholar__filters, .stories__filters, .blog__cats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
 .scholar__filter { padding: 9px 17px; border-radius: 999px; font-family: var(--font-head); font-weight: 600; font-size: 14px; color: var(--muted); border: 1.5px solid var(--line); transition: all .2s; }
@@ -181,6 +316,87 @@
 .footer__legal { display: flex; gap: 20px; }
 .footer__legal a:hover { color: var(--accent-2); }
 
+/* ---------- Media Feed ---------- */
+.mediafeed__scroll-wrap {
+  overflow-x: auto;
+  padding: 6px 28px 22px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 3%, #000 97%, transparent);
+  mask-image: linear-gradient(90deg, transparent 0, #000 3%, #000 97%, transparent);
+  scrollbar-width: thin;
+}
+.mediafeed__scroll-wrap::-webkit-scrollbar { height: 8px; }
+.mediafeed__scroll-wrap::-webkit-scrollbar-thumb { background: rgba(10,61,104,.18); border-radius: 99px; }
+.mediafeed__rail { display: flex; gap: 18px; width: max-content; padding-bottom: 4px; }
+
+.vcard {
+  width: 200px; flex: 0 0 auto;
+  border-radius: var(--r-lg); overflow: hidden;
+  background: #fff; border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm); cursor: pointer;
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.vcard:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+.vcard__media { position: relative; height: 310px; background: var(--navy-deep); overflow: hidden; }
+.vcard__video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.vcard__overlay {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(6,41,74,.35); transition: background .25s;
+}
+.vcard:hover .vcard__overlay { background: rgba(6,41,74,.2); }
+.vcard--active .vcard__overlay { background: transparent; pointer-events: none; }
+.vcard__play-ic {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(255,255,255,.92); color: var(--navy);
+  display: grid; place-items: center;
+  font-size: 18px; box-shadow: 0 8px 24px rgba(0,0,0,.25);
+  transition: transform .2s;
+}
+.vcard:hover .vcard__play-ic { transform: scale(1.1); }
+.vcard__tag {
+  position: absolute; top: 12px; left: 12px;
+  background: rgba(10,61,104,.85); color: #fff;
+  font-size: 11px; font-weight: 700; letter-spacing: .04em;
+  padding: 5px 10px; border-radius: 999px; backdrop-filter: blur(4px);
+}
+.vcard__thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.vcard__info { padding: 14px 16px; }
+.vcard__name { font-family: var(--font-head); font-weight: 800; font-size: 16px; }
+.vcard__country { font-size: 13px; color: var(--muted); margin-top: 3px; }
+
+/* ---------- About ---------- */
+.about__grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center; }
+.about__media { position: relative; }
+.about__photo { height: 500px; border-radius: var(--r-xl); width: 100%; }
+.about__fc {
+  position: absolute; bottom: -24px; right: -24px;
+  padding: 20px 26px;
+  background: var(--navy); border-color: rgba(123,181,220,.3);
+  border-radius: var(--r-lg); color: #fff; min-width: 190px;
+}
+.about__fc-n { font-family: var(--font-head); font-weight: 900; font-size: 38px; }
+.about__fc-l { font-size: 13px; color: rgba(255,255,255,.7); margin-top: 4px; line-height: 1.4; }
+.about__content h2 { font-size: clamp(28px, 3.6vw, 44px); margin: 14px 0 0; }
+.about__text { font-size: 17px; color: var(--muted); margin: 18px 0 28px; line-height: 1.65; }
+.about__stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
+.about__stat { background: var(--light-bg); border-radius: var(--r-md); padding: 16px 12px; text-align: center; }
+.about__stat-n { font-family: var(--font-head); font-weight: 900; font-size: 24px; color: var(--navy); }
+.about__stat-l { font-size: 12px; color: var(--muted); margin-top: 4px; white-space: pre-line; line-height: 1.35; }
+.about__badges { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.about__badge { display: flex; align-items: center; gap: 12px; font-size: 15px; }
+.about__badge-ic {
+  width: 24px; height: 24px; border-radius: 50%; flex: 0 0 auto;
+  background: var(--accent-soft); color: var(--navy);
+  display: grid; place-items: center; font-size: 12px; font-weight: 800;
+}
+
+/* Story video background */
+.story-big__photo--video { cursor: pointer; background: #000; }
+.story-big__video-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* Country desc line */
+.country__meta--desc { font-style: italic; color: var(--muted); margin-top: 6px; }
+
 /* Responsive B */
 @media (max-width: 900px) {
   .scholar__grid, .visas__grid, .blog__grid { grid-template-columns: 1fr 1fr; }
@@ -192,6 +408,12 @@
   .team__photo { height: 280px; }
   .finalcta__grid { grid-template-columns: 1fr; }
   .footer__grid { grid-template-columns: 1fr 1fr; }
+  .about__grid { grid-template-columns: 1fr; gap: 36px; }
+  .about__photo { height: 300px; }
+  .about__fc { bottom: -16px; right: 16px; }
+  .about__stats-row { grid-template-columns: repeat(2, 1fr); }
+  .vcard { width: 170px; }
+  .vcard__media { height: 260px; }
 }
 @media (max-width: 560px) {
   .scholar__grid, .visas__grid, .blog__grid, .stories__grid { grid-template-columns: 1fr; }
