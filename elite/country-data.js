@@ -76,7 +76,7 @@ var EA_COUNTRY_DETAILS_DEFAULT = {
   },
 
   "Северный Кипр": {
-    iso: "cy", slug: "kipr", photo: "images/countries/kipr.jpg",
+    iso: "trnc", slug: "kipr", photo: "images/countries/kipr.jpg",
     tagline: "Учёба на английском у моря — без языковых тестов и лишней бюрократии",
     facts: { "Столица": "Никосия", "Язык обучения": "Английский", "Валюта": "Турецкая лира ₺", "Учёба от": "$3 000/год", "Виза": "Студенческое разрешение" },
     why: [

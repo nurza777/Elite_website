@@ -17,14 +17,18 @@ function FinalCTA() {
         <div className="finalcta__grid">
           <div className="finalcta__pitches" data-reveal>
             <div className="pitch pitch--good">
-              <div className="pitch__ic">🚀</div>
+              <div className="pitch__ic">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
               <div>
                 <h3 className="pitch__t">Начни сейчас</h3>
                 <p>И уже через год ты в кампусе зарубежного университета — со стипендией и планом.</p>
               </div>
             </div>
             <div className="pitch pitch--loss">
-              <div className="pitch__ic">⏳</div>
+              <div className="pitch__ic">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
               <div>
                 <h3 className="pitch__t">Или потеряешь ещё год</h3>
                 <p>Каждый год студенты ждут «подходящего момента» и теряют год. Следующий набор открыт сейчас.</p>
@@ -45,10 +49,10 @@ function FinalCTA() {
                   <input required placeholder="WhatsApp / Телефон" inputMode="tel" />
                   <select required defaultValue="">
                     <option value="" disabled>Куда хочешь поступить?</option>
-                    <option>🇺🇸 США</option>
-                    <option>🇮🇹 Италия</option>
-                    <option>🇬🇧 Великобритания</option>
-                    <option>🇩🇪 Германия</option>
+                    <option>США</option>
+                    <option>Италия</option>
+                    <option>Великобритания</option>
+                    <option>Германия</option>
                     <option>Пока не определился</option>
                   </select>
                   <button type="submit" className="btn btn--gold btn--block btn--lg">Отправить — это бесплатно</button>
@@ -101,10 +105,10 @@ function Footer() {
 
         <div className="footer__col footer__contacts">
           <div className="footer__h">Контакты</div>
-          <div className="footer__contact">📍 г. Бишкек, ул. Исы Ахунбаева 169, БЦ «Бинокль», 6 этаж</div>
-          <a href="tel:+996555720712" className="footer__contact">📞 +996 555 720 712</a>
-          <a href="mailto:eliteacademykg@gmail.com" className="footer__contact">✉️ eliteacademykg@gmail.com</a>
-          <div className="footer__contact">🕐 ПН–ПТ 10:00–19:00 · СБ 12:00–19:00</div>
+          <div className="footer__contact">г. Бишкек, ул. Исы Ахунбаева 169, БЦ «Бинокль», 6 этаж</div>
+          <a href="tel:+996555720712" className="footer__contact">+996 555 720 712</a>
+          <a href="mailto:eliteacademykg@gmail.com" className="footer__contact">eliteacademykg@gmail.com</a>
+          <div className="footer__contact">ПН–ПТ 10:00–19:00 · СБ 12:00–19:00</div>
           <iframe
             className="footer__map"
             title="Офис Elite Academy на карте"

@@ -1,19 +1,20 @@
 /* ============================================================
    ELITE ACADEMY KG — Design tokens & global styles
-   New palette: dark blue (#0A3D68) + white + gray
+   Brand palette (brandbook): #064066 primary · #01182d–#074C7A gradient
+   Fonts (brandbook): DM Sans (≈ Clear Sans) · Raleway (≈ Avenir Next Cyr)
    ============================================================ */
 
 :root {
-  /* ---- Brand: dark blue family ---- */
-  --navy:        #0A3D68;   /* main brand color (user-specified) */
-  --navy-2:      #0D4A7E;   /* slightly lighter for layered backgrounds */
-  --navy-3:      #155F9A;   /* hover / lighter accent */
-  --navy-deep:   #06294A;   /* deepest, for shadows + bottoms of gradients */
+  /* ---- Brand: dark blue family (brandbook exact) ---- */
+  --navy:        #064066;   /* primary brand color — brandbook #064066 */
+  --navy-2:      #074C7A;   /* gradient end — brandbook #074C7A */
+  --navy-3:      #0D6A9F;   /* hover / lighter accent */
+  --navy-deep:   #01182d;   /* gradient start / darkest — brandbook #01182d */
 
-  --blue:        #1E5C95;   /* action blue (slightly different hue) */
+  --blue:        #1A5E90;   /* action blue */
   --blue-2:      #4A8FC7;   /* lighter action */
 
-  --accent:      #7BB5DC;   /* light highlight blue (replaces gold) */
+  --accent:      #7BB5DC;   /* light highlight blue */
   --accent-2:    #B8D8EC;   /* even lighter for gradients */
   --accent-soft: #E1EEF7;   /* very light wash */
 
@@ -32,16 +33,16 @@
   --text:        #1E293B;
   --muted:       #64748B;
   --light-bg:    #F1F5F9;
-  --line:        rgba(10, 61, 104, 0.10);
+  --line:        rgba(6, 64, 102, 0.10);
 
   /* ---- Glass layer ---- */
   --glass:        rgba(255,255,255,0.08);
   --glass-strong: rgba(255,255,255,0.14);
   --glass-line:   rgba(255,255,255,0.18);
 
-  /* ---- Typography ---- */
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-head: 'Manrope', 'Inter', system-ui, sans-serif;
+  /* ---- Typography (brandbook: Clear Sans → DM Sans, Avenir Next Cyr → Raleway) ---- */
+  --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-head: 'Raleway', 'DM Sans', system-ui, sans-serif;
 
   /* ---- Radii ---- */
   --r-sm: 10px;
@@ -50,10 +51,10 @@
   --r-xl: 32px;
 
   /* ---- Shadows (all blue-tinted, no warm tones) ---- */
-  --shadow-sm:   0 2px 8px rgba(10,61,104,0.06);
-  --shadow-md:   0 14px 40px -12px rgba(10,61,104,0.18);
-  --shadow-lg:   0 30px 70px -20px rgba(10,61,104,0.32);
-  --shadow-blue: 0 14px 36px -10px rgba(30,92,149,0.5);
+  --shadow-sm:   0 2px 8px rgba(6,64,102,0.06);
+  --shadow-md:   0 14px 40px -12px rgba(6,64,102,0.18);
+  --shadow-lg:   0 30px 70px -20px rgba(6,64,102,0.32);
+  --shadow-blue: 0 14px 36px -10px rgba(26,94,144,0.5);
 
   /* ---- Layout ---- */
   --maxw: 1240px;
@@ -101,7 +102,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--blue);
 }
-.eyebrow--gold { color: var(--accent); }     /* legacy class, repointed */
+.eyebrow--gold { color: var(--accent); }
 .eyebrow--light { color: var(--accent-2); }
 
 .section-head { max-width: 760px; margin-bottom: 52px; }
@@ -140,13 +141,13 @@ ul { margin: 0; padding: 0; list-style: none; }
   transition: transform .8s var(--ease);
 }
 .btn--gold:hover::before { transform: translateX(100%); }
-.btn--gold:hover { box-shadow: 0 18px 44px -8px rgba(30,92,149,.6); }
+.btn--gold:hover { box-shadow: 0 18px 44px -8px rgba(26,94,144,.6); }
 
-.btn--blue { background: var(--blue); color: #fff; box-shadow: 0 12px 30px -10px rgba(30,92,149,.55); }
+.btn--blue { background: var(--blue); color: #fff; box-shadow: 0 12px 30px -10px rgba(26,94,144,.55); }
 .btn--blue:hover { background: var(--blue-2); }
 
 .btn--dark { background: var(--navy); color: #fff; }
-.btn--dark:hover { background: var(--navy-3); }
+.btn--dark:hover { background: var(--navy-2); }
 
 .btn--ghost-light {
   background: rgba(255,255,255,0.08); color: #fff;
@@ -163,10 +164,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 .btn--lg { padding: 18px 32px; font-size: 17px; }
 .btn--block { width: 100%; }
 
-/* pulse for primary nav CTA (now blue, not gold) */
+/* pulse for primary nav CTA */
 @keyframes pulse-blue {
-  0%,100% { box-shadow: 0 0 0 0 rgba(30,92,149,0.45); }
-  50%     { box-shadow: 0 0 0 12px rgba(30,92,149,0); }
+  0%,100% { box-shadow: 0 0 0 0 rgba(6,64,102,0.45); }
+  50%     { box-shadow: 0 0 0 12px rgba(6,64,102,0); }
 }
 .pulse { animation: pulse-blue 2.6s var(--ease) infinite; }
 
@@ -185,7 +186,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   box-shadow: var(--shadow-sm);
   transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s;
 }
-.card--lift:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: rgba(10,61,104,0.16); }
+.card--lift:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: rgba(6,64,102,0.16); }
 
 .chip {
   display: inline-flex; align-items: center; gap: 7px;
@@ -194,23 +195,22 @@ ul { margin: 0; padding: 0; list-style: none; }
   background: var(--light-bg); color: var(--navy);
   border: 1px solid var(--line);
 }
-/* Legacy color classes — repointed to the blue/gray family */
 .tag-gold  { background: var(--accent-soft); color: var(--navy);   border-color: rgba(123,181,220,.4); }
-.tag-blue  { background: rgba(30,92,149,.10); color: var(--blue);   border-color: rgba(30,92,149,.2); }
+.tag-blue  { background: rgba(26,94,144,.10); color: var(--blue);   border-color: rgba(26,94,144,.2); }
 .tag-green { background: var(--gray-100);    color: var(--navy-3); border-color: var(--line); }
 
 /* ---------- Image placeholder ---------- */
 .ph {
   position: relative; overflow: hidden;
   background:
-    repeating-linear-gradient(135deg, rgba(10,61,104,.04) 0 10px, rgba(10,61,104,.015) 10px 20px),
+    repeating-linear-gradient(135deg, rgba(6,64,102,.04) 0 10px, rgba(6,64,102,.015) 10px 20px),
     var(--light-bg);
   display: flex; align-items: center; justify-content: center;
   color: var(--muted);
 }
 .ph::after {
   content: attr(data-label);
-  font-family: 'JetBrains Mono','SF Mono',ui-monospace,monospace;
+  font-family: ui-monospace, 'Courier New', monospace;
   font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
   opacity: .75; padding: 6px 10px; text-align: center;
 }
@@ -260,7 +260,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .stagger > *:nth-child(8) { animation-delay: .46s; }
 
 /* ---------- Dark section base ---------- */
-.dark { background: var(--navy); color: #fff; }
+.dark { background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 100%); color: #fff; }
 .dark h2, .dark h3 { color: #fff; }
 .dark .section-head p { color: rgba(255,255,255,.66); }
 
@@ -274,15 +274,15 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .rail > * { scroll-snap-align: start; flex: 0 0 auto; }
 .rail::-webkit-scrollbar { height: 8px; }
-.rail::-webkit-scrollbar-thumb { background: rgba(10,61,104,.18); border-radius: 99px; }
+.rail::-webkit-scrollbar-thumb { background: rgba(6,64,102,.18); border-radius: 99px; }
 .rail::-webkit-scrollbar-track { background: transparent; }
 
 /* utility */
 .center { text-align: center; }
-.mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+.mono { font-family: ui-monospace, 'Courier New', monospace; }
 .text-blue { color: var(--blue); }
 
-/* ---------- Legacy "grad-gold" mapped to white/accent gradient ---------- */
+/* ---------- Brand gradient text ---------- */
 .grad-gold {
   background: linear-gradient(120deg, #ffffff, var(--accent-2) 60%, var(--accent));
   -webkit-background-clip: text; background-clip: text; color: transparent;

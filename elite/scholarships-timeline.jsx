@@ -10,6 +10,8 @@ const CASES = [
   { sum: "$204 000", name: "Тимур", quote: "Спортивный грант по футболу", uni: "Drake University", tag: "спортивная" },
   { sum: "$156 000", name: "Айпери", quote: "Из региона — онлайн-подготовка", uni: "Kalamazoo College", tag: "академическая" },
   { sum: "$72 000", name: "Эрлан", quote: "Перевёлся из колледжа", uni: "Roosevelt University", tag: "спортивная" },
+  { sum: "€0 / год", name: "Диана", quote: "Медицина в Италии — DSU закрыл расходы полностью", uni: "Università di Bologna", tag: "бесплатная" },
+  { sum: "€726 / год", name: "Асель", quote: "Право в Австрии — почти бесплатно для иностранцев", uni: "Universität Wien", tag: "бесплатная" },
 ];
 
 function useCountdown(target) {
@@ -39,12 +41,48 @@ function FlipDigit({ value }) {
   );
 }
 
+const FALL_DEADLINE = new Date("2026-08-31T23:59:00").getTime();
+
+function DeadlineBanner() {
+  const t = useCountdown(FALL_DEADLINE);
+  return (
+    <div className="deadline-banner" data-reveal>
+      <div className="wrap">
+        <div className="scholar__deadline glass">
+          <div className="scholar__deadline-txt">
+            <div className="scholar__deadline-ic">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <div className="scholar__deadline-h">Дедлайн подачи на осенний семестр</div>
+              <div className="scholar__deadline-sub">Набор закрывается — успей пройти оценку и забронировать место</div>
+            </div>
+          </div>
+          <div className="countdown">
+            {[["d","дней"],["h","часов"],["m","минут"],["s","секунд"]].map(([k, lab]) => {
+              const padded = String(t[k] ?? 0).padStart(2, "0");
+              return (
+                <div className="countdown__unit" key={k}>
+                  <span className="countdown__num">
+                    {padded.split("").map((d, i) => <FlipDigit key={i} value={d} />)}
+                  </span>
+                  <span className="countdown__lab">{lab}</span>
+                </div>
+              );
+            })}
+          </div>
+          <a href="admission.html#scholarships" className="btn btn--gold">Успеть подать</a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Scholarships() {
   const [filter, setFilter] = useState("Все");
-  const filters = ["Все", "академическая", "спортивная"];
+  const filters = ["Все", "академическая", "спортивная", "бесплатная"];
   const list = CASES.filter((c) => filter === "Все" || c.tag === filter);
-  const deadline = useRef(Date.now() + (43 * 86400000) + (7 * 3600000) + (22 * 60000)).current;
-  const t = useCountdown(deadline);
+  const t = useCountdown(FALL_DEADLINE);
 
   return (
     <section className="section scholar" id="scholarships">
@@ -58,7 +96,7 @@ function Scholarships() {
         <div className="scholar__filters" data-reveal>
           {filters.map((f) => (
             <button key={f} className={"scholar__filter" + (filter === f ? " is-on" : "")} onClick={() => setFilter(f)}>
-              {f === "Все" ? "Все кейсы" : f === "академическая" ? "🎓 Академические" : "🏅 Спортивные"}
+              {f === "Все" ? "Все кейсы" : f === "академическая" ? "Академические" : f === "спортивная" ? "Спортивные" : "Бесплатные"}
             </button>
           ))}
         </div>
@@ -70,7 +108,7 @@ function Scholarships() {
               <div className="case__sum-label">скидок и стипендий</div>
               <div className="case__name">{c.name}</div>
               <p className="case__quote">«{c.quote}»</p>
-              <div className="case__uni">🎓 {c.uni}</div>
+              <div className="case__uni">{c.uni}</div>
               <span className={"chip " + (c.tag === "спортивная" ? "tag-blue" : "tag-gold")} style={{ marginTop: 14 }}>{c.tag}</span>
             </article>
           ))}
@@ -78,7 +116,9 @@ function Scholarships() {
 
         <div className="scholar__deadline glass" data-reveal>
           <div className="scholar__deadline-txt">
-            <span className="scholar__deadline-ic">⏰</span>
+            <span className="scholar__deadline-ic">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </span>
             <div>
               <div className="scholar__deadline-h">Дедлайн подачи на осенний семестр</div>
               <div className="scholar__deadline-sub">Набор закрывается — успей пройти оценку и забронировать место</div>
@@ -143,5 +183,6 @@ function HowWeWork() {
   );
 }
 
+window.DeadlineBanner = DeadlineBanner;
 window.Scholarships = Scholarships;
 window.HowWeWork = HowWeWork;

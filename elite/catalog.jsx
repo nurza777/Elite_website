@@ -160,8 +160,13 @@ const UNIS_RAW = [
 /* ISO country codes for flag images (flagcdn.com) */
 const COUNTRY_ISO = {
   "Италия": "it", "США": "us", "Австрия": "at",
-  "Германия": "de", "Польша": "pl", "Северный Кипр": "cy", "Малайзия": "my",
+  "Германия": "de", "Польша": "pl", "Северный Кипр": "trnc", "Малайзия": "my",
 };
+
+/* Флага ТРСК нет на flagcdn (там "cy" — Республика Кипр),
+   поэтому для него лежат локальные PNG тех же размеров */
+const FLAG_URL = (iso, size) =>
+  iso === "trnc" ? `images/flags/trnc/${size}.png` : `https://flagcdn.com/${size}/${iso}.png`;
 
 /* Generated logo map: short → path */
 const LOGO_MAP = {
@@ -235,6 +240,18 @@ const COUNTRY_PALETTE = {
   "Малайзия":      "linear-gradient(135deg,#005830 0%,#003018 100%)",
 };
 
+/* Ключевые факультеты по профилю вуза — дефолт, переопределяется полем `faculties` в данных */
+const FIELD_FACULTIES = {
+  "IT":         ["Computer Science", "Data Science", "Кибербезопасность"],
+  "Бизнес":     ["Business Administration", "Менеджмент", "Маркетинг"],
+  "Медицина":   ["Медицина", "Фармацевтика", "Сестринское дело"],
+  "Право":      ["Право", "Международные отношения", "Политология"],
+  "Инженерия":  ["Инженерия", "Архитектура", "Робототехника"],
+  "Дизайн":     ["Дизайн", "Мода", "Медиа и искусство"],
+  "Экономика":  ["Экономика", "Финансы", "Банковское дело"],
+  "Педагогика": ["Педагогика", "Психология", "Гуманитарные науки"],
+};
+
 /* ---------- Enrich: compute derived / default fields ---------- */
 function enrich(u) {
   const italy    = u.country === "Италия";
@@ -279,6 +296,8 @@ function enrich(u) {
     "2/4"
   );
 
+  const faculties = u.faculties ?? (FIELD_FACULTIES[u.field] || [u.field]);
+
   return {
     dormitory:   true,
     exchange:    u.type === "Государственный",
@@ -292,12 +311,16 @@ function enrich(u) {
     engTests,
     exams,
     gpaMin,
+    faculties,
   };
 }
 
 /* Admin-edited content (content.js) wins over the hardcoded list */
 const UNIS_SRC = window.eaContent ? window.eaContent("unis", UNIS_RAW) : UNIS_RAW;
 const UNIS = UNIS_SRC.map(enrich);
+/* Программа = уровень обучения вуза (Бакалавр, Магистр…) — единица счёта в каталоге */
+const uniLevels = u => u.levels.split("·").map(s => s.trim());
+const TOTAL_PROGRAMS = UNIS.reduce((n, u) => n + uniLevels(u).length, 0);
 
 /* ---------- Filter constants ---------- */
 const ALL_COUNTRIES = ["Италия","США","Северный Кипр","Малайзия","Германия","Польша","Австрия"];
@@ -353,7 +376,7 @@ function Universities() {
   const [selGpa,      setGpa]     = useState("");
   const [selType,     setType]    = useState("");
   const [bools,       setBools]   = useState({});
-  const [sort,        setSort]    = useState("rating");
+  const [sort,        setSort]    = useState("pop");
   const [shown,       setShown]   = useState(9);
   const [saved,       setSaved]   = useState({});
 
@@ -416,8 +439,12 @@ function Universities() {
   list = [...list].sort((a, b) =>
     sort === "price"  ? a.price - b.price :
     sort === "rating" ? (a.qs||9999) - (b.qs||9999) :
-    (b.elite ? 1 : 0) - (a.elite ? 1 : 0)
+    ((b.elite ? 1 : 0) - (a.elite ? 1 : 0)) || ((a.qs||9999) - (b.qs||9999))
   );
+
+  /* Счёт программ в выдаче — с учётом выбранного уровня */
+  const progCount = list.reduce(
+    (n, u) => n + uniLevels(u).filter(l => !selLevel || l === selLevel).length, 0);
 
   const fmtPrice = p => "$" + p.toLocaleString("ru") + "/год";
 
@@ -427,7 +454,7 @@ function Universities() {
         <div className="section-head" data-reveal>
           <span className="eyebrow">Каталог</span>
           <h2>База университетов</h2>
-          <p>Найдено <b>{UNIS.length}</b> партнёрских университетов Elite Academy — отфильтруй под себя.</p>
+          <p>В базе <b>{TOTAL_PROGRAMS}</b> программ в <b>{UNIS.length}</b> партнёрских вузах Elite Academy — отфильтруй под себя.</p>
         </div>
 
         <div className="unis__hot" data-reveal>
@@ -446,28 +473,7 @@ function Universities() {
               </div>
             </FilterSection>
 
-            <FilterSection label={<>Стоимость в год: <b>до ${maxPrice.toLocaleString("ru")}</b></>}>
-              <input type="range" min="0" max="60000" step="500" value={maxPrice} onChange={e => setPrice(+e.target.value)} className="filter__range" />
-              <div className="filter__range-ends"><span>$0</span><span>$60k</span></div>
-            </FilterSection>
-
-            <FilterSection label="Страна">
-              <div className="filter__chips">
-                {ALL_COUNTRIES.map(c => (
-                  <button key={c} className={"filter__chip" + (selCountries.includes(c) ? " is-on" : "")} onClick={() => toggle(selCountries, setCntrs, c)}>
-                    {COUNTRY_ISO[c]
-                      ? <img src={`https://flagcdn.com/20x15/${COUNTRY_ISO[c]}.png`} alt={c} className="filter__flag" />
-                      : null
-                    }
-                    {c}
-                  </button>
-                ))}
-              </div>
-            </FilterSection>
-
-            <FilterSection label="Учебный год">
-              {chips(selIntakes, setIntakes, INTAKES)}
-            </FilterSection>
+            <div className="filter__group">Сначала — программа</div>
 
             <FilterSection label="Уровень программы">
               {chipsSingle(selLevel, setLevel, LEVELS)}
@@ -475,6 +481,10 @@ function Universities() {
 
             <FilterSection label="Направление">
               {chips(selFields, setFields, FIELDS)}
+            </FilterSection>
+
+            <FilterSection label="Учебный год">
+              {chips(selIntakes, setIntakes, INTAKES)}
             </FilterSection>
 
             <FilterSection label="Языковой тест">
@@ -485,12 +495,33 @@ function Universities() {
               {chips(selExams, setExams, INT_EXAMS)}
             </FilterSection>
 
-            <FilterSection label="Минимальный GPA">
-              {chipsSingle(selGpa, setGpa, GPA_OPTS)}
+            <div className="filter__group">Затем — университет</div>
+
+            <FilterSection label="Страна">
+              <div className="filter__chips">
+                {ALL_COUNTRIES.map(c => (
+                  <button key={c} className={"filter__chip" + (selCountries.includes(c) ? " is-on" : "")} onClick={() => toggle(selCountries, setCntrs, c)}>
+                    {COUNTRY_ISO[c]
+                      ? <img src={FLAG_URL(COUNTRY_ISO[c], "20x15")} alt={c} className="filter__flag" />
+                      : null
+                    }
+                    {c}
+                  </button>
+                ))}
+              </div>
+            </FilterSection>
+
+            <FilterSection label={<>Стоимость в год: <b>до ${maxPrice.toLocaleString("ru")}</b></>}>
+              <input type="range" min="0" max="60000" step="500" value={maxPrice} onChange={e => setPrice(+e.target.value)} className="filter__range" />
+              <div className="filter__range-ends"><span>$0</span><span>$60k</span></div>
             </FilterSection>
 
             <FilterSection label="Тип вуза">
               {chipsSingle(selType, setType, TYPES)}
+            </FilterSection>
+
+            <FilterSection label="Минимальный GPA">
+              {chipsSingle(selGpa, setGpa, GPA_OPTS)}
             </FilterSection>
 
             <div className="filter filter--checks">
@@ -511,17 +542,17 @@ function Universities() {
 
             <div className="filter__actions">
               <button className="btn btn--ghost" onClick={reset}>Сбросить</button>
-              <span className="unis__count-sm">{list.length} вузов</span>
+              <span className="unis__count-sm">{progCount} прогр. · {list.length} вузов</span>
             </div>
           </aside>
 
           {/* ====== RESULTS ====== */}
           <div className="unis__results">
             <div className="unis__toolbar">
-              <span className="unis__count">Найдено <b>{list.length}</b></span>
+              <span className="unis__count">Найдено <b>{progCount}</b> программ и <b>{list.length}</b> вузов</span>
               <div className="unis__sort">
                 <span>Сортировка:</span>
-                {[["rating","по рейтингу"],["price","по цене"],["pop","Elite выбор"]].map(([k,l]) => (
+                {[["pop","Elite выбор"],["rating","по рейтингу"],["price","по цене"]].map(([k,l]) => (
                   <button key={k} className={sort === k ? "is-on" : ""} onClick={() => setSort(k)}>{l}</button>
                 ))}
               </div>
@@ -533,14 +564,18 @@ function Universities() {
                   ? { backgroundImage: `url(${u.campus})`, backgroundSize: "cover", backgroundPosition: "center" }
                   : { background: COUNTRY_PALETTE[u.country] || "#1a2a4a" };
                 const activeStickers = STICKERS.filter(s => s.check(u));
-                const isBachelor = u.levels.includes("Бакалавр") || u.levels.includes("Колледж") || u.levels.includes("Foundation");
-                const isMaster   = u.levels.includes("Магистр");
 
                 const lp = LOGO_BG[u.country] || { bg: "#edf0f8", color: "#1a2a4a" };
                 const initials = u.name.split(" ").filter(w => /[A-Za-z]/.test(w[0])).slice(0,2).map(w => w[0]).join("").toUpperCase();
 
                 return (
-                  <article className="uni card" key={i}>
+                  <article
+                    className="uni card" key={i}
+                    onClick={e => {
+                      if (e.target.closest("a,button")) return;
+                      window.location.href = `university.html?u=${encodeURIComponent(u.short)}`;
+                    }}
+                  >
                     {/* Campus banner */}
                     <div className="uni__banner" style={bannerBg}>
                       <div className="uni__banner-overlay" />
@@ -558,8 +593,8 @@ function Universities() {
                       {COUNTRY_ISO[u.country] && (
                         <img
                           className="uni__banner-flag"
-                          src={`https://flagcdn.com/40x30/${COUNTRY_ISO[u.country]}.png`}
-                          srcSet={`https://flagcdn.com/80x60/${COUNTRY_ISO[u.country]}.png 2x`}
+                          src={FLAG_URL(COUNTRY_ISO[u.country], "40x30")}
+                          srcSet={`${FLAG_URL(COUNTRY_ISO[u.country], "80x60")} 2x`}
                           alt={u.country}
                         />
                       )}
@@ -589,12 +624,9 @@ function Universities() {
                         {u.qs && (
                           <div className="uni__row"><span>QS рейтинг</span><b>#{u.qs}</b></div>
                         )}
-                        {isBachelor && (
-                          <div className="uni__row"><span>Бакалавр</span><b>{fmtPrice(u.price)}</b></div>
-                        )}
-                        {isMaster && (
-                          <div className="uni__row"><span>Магистр</span><b>{fmtPrice(u.price)}</b></div>
-                        )}
+                        {uniLevels(u).map(lv => (
+                          <div className="uni__row" key={lv}><span>{lv}</span><b>{fmtPrice(u.price)}</b></div>
+                        ))}
                       </div>
 
                       <div className="uni__tags">
@@ -604,7 +636,12 @@ function Universities() {
                         <span className="uni__field-tag">{u.field}</span>
                       </div>
 
-                      <div className="uni__levels">{u.levels}</div>
+                      {(u.elite || u.financialAid) && (
+                        <div className="uni__badges">
+                          {u.elite && <span className="uni__badge uni__badge--guar">✓ Гарантия поступления</span>}
+                          {u.financialAid && <span className="uni__badge uni__badge--schol">$ Стипендия в программах</span>}
+                        </div>
+                      )}
                       <a href={`university.html?u=${encodeURIComponent(u.short)}`} className="btn btn--ghost btn--block uni__more">Подробнее →</a>
                     </div>
                   </article>
@@ -632,3 +669,4 @@ window.EA_UNIS = UNIS;
 window.EA_UNIS_RAW = UNIS_SRC;
 window.EA_PALETTE = COUNTRY_PALETTE;
 window.EA_COUNTRY_ISO = COUNTRY_ISO;
+window.EA_FLAG_URL = FLAG_URL;

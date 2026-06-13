@@ -6,7 +6,7 @@
     e.g. "TU Wien" → images/unis/tuwien/1.jpg).
    Until real photos exist, labeled placeholders are shown.
    ============================================================ */
-const { useState, useEffect } = React;
+const { useState, useEffect, useRef } = React;
 
 function uniSlug(short) {
   return short.toLowerCase().replace(/[^a-z0-9]+/g, "");
@@ -24,6 +24,41 @@ function GalleryTile({ src, label, big }) {
     <div className={cls}>
       <img src={src} alt={label} loading="lazy" onError={() => setErr(true)} />
       <span className="uprof__tile-tag">{label}</span>
+    </div>
+  );
+}
+
+/* Видео-тур по кампусу: ждёт файл videos/unis/<slug>/tour.mp4,
+   пока его нет — показывает заглушку в стиле остальных плейсхолдеров */
+function TourVideo({ slug }) {
+  const vref = useRef(null);
+  const [missing, setMissing] = useState(false);
+  const [playing, setPlaying] = useState(false);
+
+  if (missing) {
+    return (
+      <div className="uprof__tour ph ph--dark" data-label="видео-тур по кампусу · скоро здесь">
+        <span className="uprof__tour-play" aria-hidden="true">▶</span>
+      </div>
+    );
+  }
+
+  const toggle = () => {
+    const v = vref.current; if (!v) return;
+    if (v.paused) { v.play(); setPlaying(true); }
+    else { v.pause(); setPlaying(false); }
+  };
+
+  return (
+    <div className="uprof__tour uprof__tour--video" onClick={toggle}>
+      <video
+        ref={vref}
+        src={`videos/unis/${slug}/tour.mp4`}
+        preload="metadata"
+        playsInline
+        onError={() => setMissing(true)}
+      />
+      {!playing && <span className="uprof__tour-play" aria-hidden="true">▶</span>}
     </div>
   );
 }
@@ -93,7 +128,7 @@ function UniversityProfile() {
               <div>
                 <h1 className="uprof__name">{u.name}</h1>
                 <div className="uprof__loc">
-                  {iso && <img src={`https://flagcdn.com/20x15/${iso}.png`} alt={u.country} />}
+                  {iso && <img src={window.EA_FLAG_URL(iso, "20x15")} alt={u.country} />}
                   {u.loc} · {u.country}
                 </div>
                 <div className="uprof__chips">
@@ -186,22 +221,27 @@ function UniversityProfile() {
       <section className="section section--tight uprof-facts">
         <div className="wrap">
           <div className="uprof__facts-grid">
-            {isBachelor && <FactCard ic="🎓" label="Бакалавриат">{fmt(u.price)}/год</FactCard>}
-            {isMaster && <FactCard ic="📘" label="Магистратура">{fmt(u.price)}/год</FactCard>}
-            <FactCard ic="🗓" label="Набор">
+            {isBachelor && <FactCard ic="BA" label="Бакалавриат">{fmt(u.price)}/год</FactCard>}
+            {isMaster && <FactCard ic="MA" label="Магистратура">{fmt(u.price)}/год</FactCard>}
+            {u.faculties && u.faculties.length > 0 && (
+              <FactCard ic="Фак" label="Ключевые факультеты">
+                <div className="uprof__minichips">{u.faculties.map((x) => <span key={x}>{x}</span>)}</div>
+              </FactCard>
+            )}
+            <FactCard ic="Наб" label="Набор">
               <div className="uprof__minichips">{u.intake.map((x) => <span key={x}>{x}</span>)}</div>
             </FactCard>
-            <FactCard ic="🗣" label="Языковой тест">
+            <FactCard ic="Яз" label="Языковой тест">
               <div className="uprof__minichips">{u.engTests.map((x) => <span key={x}>{x}</span>)}</div>
             </FactCard>
             {u.exams.length > 0 && (
-              <FactCard ic="✍️" label="Вступительные экзамены">
+              <FactCard ic="Экз" label="Вступительные экзамены">
                 <div className="uprof__minichips">{u.exams.map((x) => <span key={x}>{x}</span>)}</div>
               </FactCard>
             )}
-            <FactCard ic="📊" label="Минимальный GPA">{u.gpaMin}</FactCard>
-            <FactCard ic="🛏" label="Общежитие">{u.dormitory ? "Есть" : "Нет"}</FactCard>
-            <FactCard ic="🎯" label="Программы">{u.levels}</FactCard>
+            <FactCard ic="GPA" label="Минимальный GPA">{u.gpaMin}</FactCard>
+            <FactCard ic="Общ" label="Общежитие">{u.dormitory ? "Есть" : "Нет"}</FactCard>
+            <FactCard ic="Прог" label="Программы">{u.levels}</FactCard>
           </div>
         </div>
       </section>
@@ -227,6 +267,19 @@ function UniversityProfile() {
             href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
             target="_blank" rel="noopener"
           >Открыть в Google Maps →</a>
+        </div>
+      </section>
+
+      {/* ===== Video tour — сразу после карты (правка заказчика) ===== */}
+      <section className="section section--tight uprof-tour">
+        <div className="wrap">
+          <div className="section-head" data-reveal>
+            <span className="eyebrow">Видео-тур</span>
+            <h2>Прогуляйся по кампусу, не выходя из дома</h2>
+          </div>
+          <div data-reveal>
+            <TourVideo slug={slug} />
+          </div>
         </div>
       </section>
 

@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    EXTRAS — calc, sticky CTA, exit modal, floating chat, scroll bar
    ============================================================ */
 
@@ -28,12 +28,12 @@
   border-radius: 999px;
   background: var(--navy);
   color: #fff;
-  box-shadow: 0 18px 50px -10px rgba(10,61,104,.55);
+  box-shadow: 0 18px 50px -10px rgba(6,64,102,.55);
   animation: stickyqIn .35s var(--ease);
   text-decoration: none;
   transition: transform .25s var(--ease), box-shadow .25s var(--ease);
 }
-.stickyq:hover { transform: translate(-50%, -3px); box-shadow: 0 24px 60px -10px rgba(10,61,104,.7); }
+.stickyq:hover { transform: translate(-50%, -3px); box-shadow: 0 24px 60px -10px rgba(6,64,102,.7); }
 .stickyq--cont { background: linear-gradient(135deg, var(--navy-3), var(--navy)); }
 .stickyq__pulse {
   width: 10px; height: 10px; border-radius: 50%; background: var(--accent);
@@ -49,7 +49,7 @@
 /* ---------- Exit intent ---------- */
 .exit { position: fixed; inset: 0; z-index: 130; display: flex; align-items: center; justify-content: center; animation: fadeIn .25s; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-.exit__back { position: absolute; inset: 0; background: rgba(10,61,104,.6); backdrop-filter: blur(4px); }
+.exit__back { position: absolute; inset: 0; background: rgba(6,64,102,.6); backdrop-filter: blur(4px); }
 .exit__panel { position: relative; max-width: 480px; width: calc(100% - 40px); padding: 36px; animation: exitPop .35s var(--ease); }
 @keyframes exitPop { from { opacity: 0; transform: translateY(20px) scale(.96); } to { opacity: 1; transform: none; } }
 .exit__x {
@@ -83,7 +83,7 @@
   width: 60px; height: 60px; border-radius: 50%;
   background: var(--navy); color: #fff;
   display: grid; place-items: center;
-  box-shadow: 0 14px 36px -10px rgba(10,61,104,.55);
+  box-shadow: 0 14px 36px -10px rgba(6,64,102,.55);
   transition: transform .25s var(--ease), background .25s;
   position: relative;
 }
@@ -153,7 +153,7 @@
   -webkit-appearance: none; appearance: none;
   width: 22px; height: 22px; border-radius: 50%;
   background: #fff; border: 3px solid var(--navy);
-  box-shadow: 0 4px 10px -2px rgba(10,61,104,.4);
+  box-shadow: 0 4px 10px -2px rgba(6,64,102,.4);
   cursor: pointer; transition: transform .15s;
 }
 .calc__range::-webkit-slider-thumb:hover { transform: scale(1.15); }

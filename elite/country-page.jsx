@@ -63,7 +63,7 @@ function CountryProfile() {
             <span>{name}</span>
           </nav>
           <div className="cprof-hero__flag">
-            <img src={`https://flagcdn.com/48x36/${det.iso}.png`} srcSet={`https://flagcdn.com/96x72/${det.iso}.png 2x`} alt={name} />
+            <img src={window.EA_FLAG_URL(det.iso, "48x36")} srcSet={`${window.EA_FLAG_URL(det.iso, "96x72")} 2x`} alt={name} />
           </div>
           <h1 className="cprof__name">{name}</h1>
           <p className="cprof__tagline">{det.tagline}</p>
@@ -180,7 +180,7 @@ function CountryProfile() {
                   }
                   <div className="cprof__uni-info">
                     <div className="cprof__uni-name">{u.name}</div>
-                    <div className="cprof__uni-meta">📍 {u.loc} · {fmt(u.price)}</div>
+                    <div className="cprof__uni-meta">{u.loc} · {fmt(u.price)}</div>
                   </div>
                   {u.qs && <span className="cprof__uni-qs">QS #{u.qs}</span>}
                 </a>

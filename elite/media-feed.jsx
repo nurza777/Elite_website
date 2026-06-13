@@ -3,16 +3,16 @@
    ============================================================ */
 
 const VIDEOS_DEFAULT = [
-  { name: "Элана",     country: "🇮🇹 Италия", src: "videos/elana.mp4",     poster: "thumbs/elana.jpg",     tag: "Отзыв"    },
-  { name: "Нурсултан", country: "🇮🇹 Италия", src: "videos/nursultan.mp4", poster: "thumbs/nursultan.jpg", tag: "Отзыв"    },
-  { name: "Анель",     country: "🇮🇹 Италия", src: "videos/anel.mp4",      poster: "thumbs/anel.jpg",      tag: "Отзыв"    },
-  { name: "Амирхан",   country: "🇮🇹 Италия", src: "videos/amirkhan.mp4",  poster: "thumbs/amirkhan.jpg",  tag: "Отзыв"    },
-  { name: "Асема",     country: "🇮🇹 Италия", src: "videos/asema.mp4",     poster: "thumbs/asema.jpg",     tag: "Отзыв"    },
-  { name: "Калия",     country: "🇮🇹 Италия", src: "videos/kaliya.mp4",    poster: "thumbs/kaliya.jpg",    tag: "Отзыв"    },
-  { name: "Кенжекан",  country: "🇮🇹 Италия", src: "videos/kenzhekan.mp4", poster: "thumbs/kenzhekan.jpg", tag: "Отзыв"    },
-  { name: "Нурзар",    country: "🇺🇸 США",     src: "videos/nurzar.mp4",    poster: "thumbs/nurzar.jpg",    tag: "Отзыв"    },
-  { name: "Амир",      country: "🇺🇸 США",     src: "videos/amir.mp4",      poster: "thumbs/amir.jpg",      tag: "Отзыв"    },
-  { name: "Исламбек",  country: "🇺🇸 США",     src: "videos/islambek.mp4",  poster: "thumbs/islambek.jpg",  tag: "Интервью" },
+  { name: "Элана",     country: "Италия", src: "videos/elana.mp4",     poster: "thumbs/elana.jpg",     tag: "Отзыв"    },
+  { name: "Нурсултан", country: "Италия", src: "videos/nursultan.mp4", poster: "thumbs/nursultan.jpg", tag: "Отзыв"    },
+  { name: "Анель",     country: "Италия", src: "videos/anel.mp4",      poster: "thumbs/anel.jpg",      tag: "Отзыв"    },
+  { name: "Амирхан",   country: "Италия", src: "videos/amirkhan.mp4",  poster: "thumbs/amirkhan.jpg",  tag: "Отзыв"    },
+  { name: "Асема",     country: "Италия", src: "videos/asema.mp4",     poster: "thumbs/asema.jpg",     tag: "Отзыв"    },
+  { name: "Калия",     country: "Италия", src: "videos/kaliya.mp4",    poster: "thumbs/kaliya.jpg",    tag: "Отзыв"    },
+  { name: "Кенжекан",  country: "Италия", src: "videos/kenzhekan.mp4", poster: "thumbs/kenzhekan.jpg", tag: "Отзыв"    },
+  { name: "Нурзар",    country: "США",    src: "videos/nurzar.mp4",    poster: "thumbs/nurzar.jpg",    tag: "Отзыв"    },
+  { name: "Амир",      country: "США",    src: "videos/amir.mp4",      poster: "thumbs/amir.jpg",      tag: "Отзыв"    },
+  { name: "Исламбек",  country: "США",    src: "videos/islambek.mp4",  poster: "thumbs/islambek.jpg",  tag: "Интервью" },
 ];
 
 /* Admin-edited content wins over the defaults above */

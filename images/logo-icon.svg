@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 58" fill="white">
+  <!-- Main E body: top bar + left column + middle bar -->
+  <path d="M0,0 H38 V17 H11 V21 H38 V39 H0 Z"/>
+  <!-- Paper-plane fins — 3 separate triangles; gaps between fins show dark background -->
+  <!-- Fin 1 (lowest/largest, ~45°–55° from apex) — connects to bottom bar corner -->
+  <polygon points="1,57 11,43 13,45"/>
+  <!-- Fin 2 (middle, ~59°–69°) — 4.5° gap above Fin 1 -->
+  <polygon points="1,57 7,41 10,42"/>
+  <!-- Fin 3 (top/thinnest, ~73°–84°) — 3° gap above Fin 2 -->
+  <polygon points="1,57 3,38 6,41"/>
+  <!-- Bottom bar — offset right, leaving room for airplane -->
+  <rect x="13" y="45" width="25" height="13"/>
+</svg>

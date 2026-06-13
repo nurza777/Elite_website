@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    SECTIONS A — trustbar, pain, countries, quiz, unis, programs, exams
    ============================================================ */
 
@@ -14,7 +14,7 @@
 .hs-card {
   padding: 24px 28px;
   border-radius: var(--r-xl);
-  box-shadow: 0 20px 60px -12px rgba(10,61,104,.40);
+  box-shadow: 0 20px 60px -12px rgba(6,64,102,.40);
   border: none;
 }
 .hs-label {
@@ -167,6 +167,7 @@
   display: flex; align-items: center; gap: 12px;
 }
 .country__flag-big { font-size: 34px; line-height: 1; }
+.country__flag-img { width: 38px; height: auto; border-radius: 3px; box-shadow: 0 1px 4px rgba(0,0,0,.35); vertical-align: middle; }
 .country__name-over {
   font-family: var(--font-head); font-weight: 800;
   font-size: 24px; color: #fff;
@@ -174,7 +175,7 @@
 }
 .country__hot {
   position: absolute; top: 12px; left: 12px;
-  background: rgba(10,61,104,.82); color: #fff;
+  background: rgba(6,64,102,.82); color: #fff;
   font-size: 12px; font-weight: 700;
   padding: 5px 10px; border-radius: 999px;
   backdrop-filter: blur(4px);
@@ -289,6 +290,12 @@
 .filter__chip { padding: 8px 13px; border-radius: 999px; border: 1.5px solid var(--line); font-size: 13.5px; font-weight: 600; font-family: var(--font-head); color: var(--muted); transition: all .18s; }
 .filter__chip:hover { border-color: var(--blue); color: var(--blue); }
 .filter__chip.is-on { background: var(--navy); border-color: var(--navy); color: #fff; }
+/* Заголовки групп фильтров: «Сначала — программа» / «Затем — университет» */
+.filter__group {
+  font-family: var(--font-head); font-weight: 800; font-size: 12px;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--blue);
+  border-bottom: 1px solid var(--line); padding-bottom: 8px; margin-bottom: -8px;
+}
 .filter__actions { display: flex; align-items: center; gap: 10px; }
 .filter__actions .btn { padding: 12px 18px; font-size: 14px; }
 .unis__count-sm { font-size: 13px; color: var(--muted); margin-left: auto; }
@@ -315,14 +322,14 @@
 .filter__check input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--navy); cursor: pointer; flex-shrink: 0; }
 
 /* Grid */
-.unis__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+.unis__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
 
-/* Card shell */
-.uni { padding: 0; position: relative; overflow: hidden; display: flex; flex-direction: column; border-radius: var(--r-lg); }
+/* Card shell — кликабельна целиком (переход на страницу вуза) */
+.uni { padding: 0; position: relative; overflow: hidden; display: flex; flex-direction: column; border-radius: var(--r-lg); cursor: pointer; }
 .uni:hover { transform: translateY(-4px); box-shadow: 0 18px 48px -12px rgba(10,35,90,.18); }
 
 /* Campus banner */
-.uni__banner { height: 148px; position: relative; flex-shrink: 0; }
+.uni__banner { height: 170px; position: relative; flex-shrink: 0; }
 .uni__banner-overlay {
   position: absolute; inset: 0;
   background: linear-gradient(to bottom, rgba(0,0,0,.08) 0%, rgba(0,0,0,.42) 100%);
@@ -371,13 +378,17 @@
   text-align: center; line-height: 1; letter-spacing: -.01em;
   flex-shrink: 0;
 }
-.uni__logo-img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; }
+.uni__logo-img {
+  width: 52px; height: 52px; border-radius: 50%;
+  object-fit: contain; background: #fff; padding: 3px;
+  border: 2px solid rgba(0,0,0,.08);
+}
 .uni__save { width: 34px; height: 34px; border-radius: 9px; background: var(--light-bg); color: var(--muted); font-size: 16px; transition: all .2s; }
 .uni__save:hover { color: var(--navy); }
 .uni__save.is-on { background: var(--accent-soft); color: var(--navy); }
 
-.uni__name { font-family: var(--font-head); font-weight: 800; font-size: 15px; line-height: 1.28; margin-bottom: 4px; }
-.uni__loc { font-size: 12.5px; color: var(--muted); margin-bottom: 12px; }
+.uni__name { font-family: var(--font-head); font-weight: 800; font-size: 16.5px; line-height: 1.28; margin-bottom: 4px; }
+.uni__loc { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
 
 .uni__rows { display: flex; flex-direction: column; gap: 7px; padding: 11px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .uni__row { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); }
@@ -390,7 +401,14 @@
 .uni__type-tag--priv { background: rgba(160,100,30,.1);  color: #8a5218; }
 .uni__field-tag { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 999px; background: var(--light-bg); color: var(--muted); font-family: var(--font-head); }
 
-.uni__levels { font-size: 12px; color: var(--muted); flex: 1; display: flex; align-items: flex-end; padding-bottom: 10px; }
+/* Бейджи программ: гарантия поступления / стипендия */
+.uni__badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0 12px; }
+.uni__badge {
+  font-size: 11.5px; font-weight: 700; font-family: var(--font-head);
+  padding: 4px 10px; border-radius: 999px;
+}
+.uni__badge--guar  { background: rgba(26,122,72,.1);  color: #157a44; border: 1px solid rgba(26,122,72,.35); }
+.uni__badge--schol { background: rgba(212,130,10,.1); color: #a06408; border: 1px solid rgba(212,130,10,.35); }
 .uni__more { padding: 10px; font-size: 14px; margin-top: auto; }
 
 .unis__load { display: flex; margin: 30px auto 0; }
@@ -434,13 +452,25 @@
 .programs__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .prog { padding: 26px; display: flex; flex-direction: column; }
 .prog__head { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 18px; }
-.prog__flag { font-size: 32px; }
+.prog__flag {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 40px; height: 28px; border-radius: 6px;
+  background: var(--navy); color: #fff;
+  font-family: var(--font-head); font-weight: 800; font-size: 12px;
+  letter-spacing: .04em; flex-shrink: 0; padding: 0 6px;
+}
 .prog__name { font-family: var(--font-head); font-weight: 800; font-size: 19px; }
 .prog__country { font-size: 14px; color: var(--muted); margin-top: 3px; }
 .prog__rows { display: flex; flex-direction: column; gap: 10px; padding: 18px 0; border-top: 1px solid var(--line); }
 .prog__row { display: flex; justify-content: space-between; font-size: 14.5px; color: var(--muted); }
 .prog__row b { color: var(--navy); font-family: var(--font-head); }
 .prog__schol { color: var(--blue) !important; }
+.prog__guar {
+  align-self: flex-start;
+  font-size: 12.5px; font-weight: 700; font-family: var(--font-head);
+  color: #157a44; background: rgba(26,122,72,.1); border: 1px solid rgba(26,122,72,.35);
+  padding: 5px 11px; border-radius: 999px; margin-bottom: 12px;
+}
 .prog__specs { font-size: 13.5px; color: var(--muted); padding: 14px 0; border-top: 1px solid var(--line); flex: 1; }
 .prog__link { font-family: var(--font-head); font-weight: 700; font-size: 15px; color: var(--blue); }
 
@@ -455,12 +485,15 @@
 .exams__hero-stats b { font-family: var(--font-head); font-weight: 900; font-size: 26px; color: var(--blue); }
 .exams__hero-stats span { font-size: 13px; color: var(--muted); }
 .exams__hero-vis { min-height: 280px; }
-.exams__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; }
-.exam { padding: 24px; }
-.exam__name { font-family: var(--font-head); font-weight: 900; font-size: 22px; }
-.exam__desc { font-size: 14.5px; color: var(--muted); margin: 10px 0 16px; min-height: 64px; }
+.exams__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
+.exam { padding: 26px; display: flex; flex-direction: column; }
+.exam__badge { margin-bottom: 12px; align-self: flex-start; }
+.exam__name { font-family: var(--font-head); font-weight: 900; font-size: 22px; margin-bottom: 4px; }
+.exam__desc { font-size: 14.5px; color: var(--muted); margin: 10px 0 16px; line-height: 1.6; flex: 1; }
 .exam__meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
-.exam__for { font-size: 14px; color: var(--muted); }
+.exam__for { font-size: 14px; color: var(--muted); margin-bottom: 14px; }
+.exam__cta { font-family: var(--font-head); font-weight: 700; font-size: 14px; color: var(--blue); margin-top: auto; }
+.exam__cta:hover { color: var(--navy); text-decoration: underline; }
 
 @keyframes stickyqIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
 

@@ -5,15 +5,15 @@ const { useState, useEffect } = React;
 
 const QUIZ_STEPS = [
   { q: "Куда хочешь поехать?", key: "country",
-    opts: [["🇺🇸","США"],["🇮🇹","Италия"],["🇬🇧","Великобритания"],["🇩🇪","Германия"],["🌍","Другая страна"]] },
+    opts: [["","США"],["","Италия"],["","Великобритания"],["","Германия"],["","Другая страна"]] },
   { q: "Какую программу ищешь?", key: "program",
-    opts: [["🎓","Бакалавриат"],["📘","Магистратура"],["💼","МВА"],["🗣","Языковые курсы"],["🏫","Школа"]] },
+    opts: [["","Бакалавриат"],["","Магистратура"],["","МВА"],["","Языковые курсы"],["","Школа"]] },
   { q: "Твой текущий уровень английского?", key: "english",
-    opts: [["🌱","Начинающий"],["📗","A2 – B1"],["📈","B2"],["⭐","C1 – C2 / Носитель"]] },
+    opts: [["","Начинающий"],["","A2 – B1"],["","B2"],["","C1 – C2 / Носитель"]] },
   { q: "Твой бюджет в год (USD)?", key: "budget",
-    opts: [["💵","До $5 000"],["💸","$5k – $15k"],["💰","$15k – $30k"],["🎁","Ищу гранты"]] },
+    opts: [["","До $5 000"],["","$5k – $15k"],["","$15k – $30k"],["","Ищу гранты"]] },
   { q: "Когда планируешь ехать?", key: "when",
-    opts: [["☀️","Этим летом"],["🍂","Осень 2026"],["📅","2027"],["🔍","Просто изучаю"]] },
+    opts: [["","Этим летом"],["","Осень 2026"],["","2027"],["","Просто изучаю"]] },
 ];
 
 function Quiz() {
@@ -93,7 +93,6 @@ function Quiz() {
                       className={"quiz__opt" + (ans[QUIZ_STEPS[step].key] === label ? " is-sel" : "")}
                       onClick={() => pick(QUIZ_STEPS[step].key, label)}
                     >
-                      <span className="quiz__opt-ic">{ic}</span>
                       <span className="quiz__opt-label">{label}</span>
                     </button>
                   ))}
@@ -111,9 +110,9 @@ function Quiz() {
 
 function QuizResult({ ans, done, setDone, restart }) {
   const matches = [
-    { name: "Bellevue College", loc: "🇺🇸 Сиэтл, США", fit: "97%" },
-    { name: "Roosevelt University", loc: "🇺🇸 Чикаго, США", fit: "92%" },
-    { name: "Drake University", loc: "🇺🇸 Де-Мойн, США", fit: "88%" },
+    { name: "Bellevue College", loc: "Сиэтл, США", fit: "97%" },
+    { name: "Roosevelt University", loc: "Чикаго, США", fit: "92%" },
+    { name: "Drake University", loc: "Де-Мойн, США", fit: "88%" },
   ];
   if (done) {
     return (

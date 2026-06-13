@@ -1,224 +1,103 @@
 /* ============================================================
-   HERO — animated mesh + blue particles + waves + counters
+   HERO — video background + waves + counters + student modal
    ============================================================ */
 const { useState, useEffect, useRef } = React;
 
-function UniParticles() {
-  const ref = useRef(null);
+/* Featured students — «Успех недели» card + avatar stack */
+const FEATURED_STUDENTS = [
+  {
+    n: "Нурзар", country: "США", u: "Roosevelt University, Чикаго",
+    s: "$120 000", quote: "Даже не верила, что смогу поступить в США. С Elite Academy всё оказалось реально — сейчас уже второй курс!",
+    poster: "thumbs/nurzar.jpg", video: "videos/nurzar.mp4",
+  },
+  {
+    n: "Элана", country: "Италия", u: "Università degli Studi di Milano",
+    s: "Грант €0", quote: "Я всегда мечтала учиться в Европе. Elite Academy помогли с документами, языком и нашли грант. Теперь учусь в Милане!",
+    poster: "thumbs/elana.jpg", video: "videos/elana.mp4",
+  },
+  {
+    n: "Амир", country: "США", u: "Bellevue College, Сиэтл",
+    s: "$95 000", quote: "Elite Academy сделали процесс поступления понятным. Без них я бы потратил годы на разбор всей этой системы.",
+    poster: "thumbs/amir.jpg", video: "videos/amir.mp4",
+  },
+  {
+    n: "Анель", country: "Италия", u: "Università di Roma La Sapienza",
+    s: "Грант €0", quote: "Команда Elite Academy — профессионалы. Они знают каждый шаг и помогают на каждом этапе. Без них я бы не справилась.",
+    poster: "thumbs/anel.jpg", video: "videos/anel.mp4",
+  },
+];
+
+/* ── Student profile modal ── */
+function StudentModal({ student, onClose }) {
   useEffect(() => {
-    const cv = ref.current; if (!cv) return;
-    const ctx = cv.getContext("2d");
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let W = 0, H = 0, raf;
+    if (!student) return;
+    const esc = (e) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", esc);
+    document.body.style.overflow = "hidden";
+    return () => { document.removeEventListener("keydown", esc); document.body.style.overflow = ""; };
+  }, [student]);
 
-    const UNIS = ["MIT","UCLA","NYU","LSE","TUM","ETH","NUS","KCL","UBC","RU","BU","UIC","HAR","YAL","COL","SCU","ANU"];
-    const PAL  = [
-      { s: "#4A8FC7", t: "#B8D8EC" },
-      { s: "#B8D8EC", t: "#FFFFFF" },
-      { s: "rgba(255,255,255,.6)", t: "#FFFFFF" },
-      { s: "#F4C430", t: "#F4C430" },
-    ];
+  if (!student) return null;
 
-    // PNG logos — put white-on-transparent files in images/logos/
-    // e.g. images/logos/mit.png, images/logos/ucla.png …
-    const LOGO_NAMES = ["mit","ucla","nyu","lse","tum","eth","nus","kcl","ubc","ru","bu","uic","har","yal","col","scu","anu"];
-    const LOGO_IMGS = {};
-    LOGO_NAMES.forEach(n => {
-      const img = new Image();
-      img.onload = () => { LOGO_IMGS[n] = img; };
-      img.src = `images/logos/${n}.png`;
-    });
+  return (
+    <div className="smodal-backdrop" onClick={onClose} role="dialog" aria-modal="true" aria-label={`Профиль студента ${student.n}`}>
+      <div className="smodal" onClick={(e) => e.stopPropagation()}>
+        <button className="smodal__close" onClick={onClose} aria-label="Закрыть">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+            <line x1="2" y1="2" x2="16" y2="16"/><line x1="16" y1="2" x2="2" y2="16"/>
+          </svg>
+        </button>
 
-    let pts = [], pulseT = -9999;
-    // phase: 'float' → 'form' → 'hold' → 'scatter' → 'float'
-    let phase = "float", phaseT = 0;
-    const DUR = { float: 3200, form: 1700, hold: 2800, scatter: 1300 };
+        <div className="smodal__photo-wrap">
+          <StudentPhoto student={student} className="smodal__photo" />
+          <div className="smodal__photo-overlay" aria-hidden="true"></div>
+          <div className="smodal__photo-tag">★ Успех недели</div>
+        </div>
 
-    function resize() {
-      W = cv.clientWidth || cv.offsetWidth || window.innerWidth;
-      H = cv.clientHeight || cv.offsetHeight || window.innerHeight;
-      cv.width = W * dpr; cv.height = H * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      spawn();
-    }
+        <div className="smodal__body">
+          <div className="smodal__header">
+            <div>
+              <h3 className="smodal__name">{student.n}</h3>
+              <p className="smodal__uni">{student.u}</p>
+              <p className="smodal__country">{student.country}</p>
+            </div>
+            <div className="smodal__money">
+              <div className="smodal__money-val">{student.s}</div>
+              <div className="smodal__money-lab">стипендий и грантов</div>
+            </div>
+          </div>
 
-    function spawn() {
-      const N = Math.min(88, Math.max(48, Math.floor(W / 13)));
-      pts = Array.from({ length: N }, (_, i) => {
-        const c = PAL[i % PAL.length];
-        return {
-          x: Math.random() * W, y: Math.random() * H, // full hero width
-          vx: (Math.random() - .5) * .55, vy: (Math.random() - .5) * .55,
-          rot: Math.random() * Math.PI * 2,
-          rotV: (Math.random() - .5) * .032,
-          label: UNIS[i % UNIS.length],
-          s: c.s, t: c.t,
-          r: 19 + Math.random() * 9,
-          ox: 0, oy: 0, tx: 0, ty: 0,
-        };
-      });
-    }
+          <blockquote className="smodal__quote">«{student.quote}»</blockquote>
 
-    function circleTargets(n) {
-      // Two concentric rings — outer rotates CW, inner CCW during hold
-      const zone = W < 941 ? W : W * 0.45;
-      const cx = zone * 0.5, cy = H * 0.5;
-      const outerR = Math.min(zone * 0.40, H * 0.38);
-      const innerR = outerR * 0.52;
-      const outerN = Math.ceil(n * 0.62);
-      const innerN = n - outerN;
-      const pts = [];
-      for (let i = 0; i < outerN; i++) {
-        const a = (i / outerN) * Math.PI * 2 - Math.PI / 2;
-        pts.push({ x: cx + outerR * Math.cos(a), y: cy + outerR * Math.sin(a),
-                   ring: 0, angle: a, ringR: outerR, cx, cy });
-      }
-      for (let i = 0; i < innerN; i++) {
-        const a = (i / innerN) * Math.PI * 2 - Math.PI / 2;
-        pts.push({ x: cx + innerR * Math.cos(a), y: cy + innerR * Math.sin(a),
-                   ring: 1, angle: a, ringR: innerR, cx, cy });
-      }
-      return pts;
-    }
-
-    function ease3(t) {
-      t = Math.min(Math.max(t, 0), 1);
-      return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    }
-
-    function badge(x, y, rot, p, alpha) {
-      ctx.save();
-      ctx.globalAlpha = alpha;
-      ctx.translate(x, y); ctx.rotate(rot);
-      ctx.beginPath(); ctx.arc(0, 0, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(5,20,50,.55)"; ctx.fill();
-      ctx.strokeStyle = p.s; ctx.lineWidth = 1.8; ctx.stroke();
-      ctx.beginPath(); ctx.arc(0, 0, p.r * .7, 0, Math.PI * 2);
-      ctx.globalAlpha = alpha * .28; ctx.lineWidth = .7; ctx.stroke();
-      ctx.globalAlpha = alpha;
-      const logoKey = p.label.toLowerCase();
-      if (LOGO_IMGS[logoKey]) {
-        // clip to inner circle, draw (logos are pre-processed to white)
-        ctx.save();
-        ctx.beginPath(); ctx.arc(0, 0, p.r * .68, 0, Math.PI * 2); ctx.clip();
-        const sz = p.r * 1.2;
-        ctx.drawImage(LOGO_IMGS[logoKey], -sz / 2, -sz / 2, sz, sz);
-        ctx.restore();
-      } else {
-        ctx.fillStyle = p.t;
-        ctx.font = `700 ${Math.round(p.r * .46)}px "JetBrains Mono",monospace`;
-        ctx.textAlign = "center"; ctx.textBaseline = "middle";
-        ctx.fillText(p.label, 0, 0);
-      }
-      ctx.restore();
-    }
-
-    function drawPulse(now) {
-      const age = now - pulseT;
-      if (age > 950) return;
-      const t = age / 950;
-      const a = Math.pow(1 - t, 1.6);
-      const zone = W < 941 ? W : W * 0.45;
-      const cx = zone * 0.5, cy = H * 0.5; // centre of both rings
-      const r = Math.min(zone, H) * (0.15 + t * 0.90);
-      const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-      grd.addColorStop(0,   `rgba(220,240,255,${0.7 * a})`);
-      grd.addColorStop(0.3, `rgba(123,181,220,${0.45 * a})`);
-      grd.addColorStop(0.65,`rgba(74,143,199,${0.2 * a})`);
-      grd.addColorStop(1,   `rgba(10,61,104,0)`);
-      ctx.save(); ctx.globalAlpha = 1;
-      ctx.fillStyle = grd;
-      ctx.fillRect(0, 0, W, H);
-      ctx.restore();
-    }
-
-    function tick(now) {
-      ctx.clearRect(0, 0, W, H);
-      const dt = now - phaseT;
-
-      if (phase === "float") {
-        pts.forEach(p => {
-          p.x += p.vx; p.y += p.vy; p.rot += p.rotV;
-          if (p.x < -50) p.x = W + 50; if (p.x > W + 50) p.x = -50;
-          if (p.y < -50) p.y = H + 50; if (p.y > H + 50) p.y = -50;
-          badge(p.x, p.y, p.rot, p, .62);
-        });
-        if (dt > DUR.float) {
-          const tgts = circleTargets(pts.length);
-          pts.forEach((p, i) => {
-            p.ox = p.x; p.oy = p.y;
-            p.tx     = tgts[i]?.x     ?? p.x;
-            p.ty     = tgts[i]?.y     ?? p.y;
-            p.ring   = tgts[i]?.ring  ?? 0;
-            p.angle0 = tgts[i]?.angle ?? 0;
-            p.ringR  = tgts[i]?.ringR ?? 0;
-            p.ringCx = tgts[i]?.cx    ?? 0;
-            p.ringCy = tgts[i]?.cy    ?? 0;
-          });
-          phase = "form"; phaseT = now;
-        }
-
-      } else if (phase === "form") {
-        const e = ease3(dt / DUR.form);
-        pts.forEach(p => {
-          badge(p.ox + (p.tx - p.ox) * e, p.oy + (p.ty - p.oy) * e, p.rot * (1 - e), p, .62 + e * .38);
-          p.rot += p.rotV * (1 - e);
-        });
-        if (dt >= DUR.form) {
-          pts.forEach(p => { p.x = p.tx; p.y = p.ty; p.rot = 0; });
-          pulseT = now; // fire light burst
-          phase = "hold"; phaseT = now;
-        }
-
-      } else if (phase === "hold") {
-        const rotSpd = 0.00052; // rad/ms ≈ full turn in ~12 s
-        pts.forEach(p => {
-          const dir = p.ring === 0 ? 1 : -1; // outer CW, inner CCW
-          const a = p.angle0 + dir * dt * rotSpd;
-          const bx = p.ringCx + p.ringR * Math.cos(a);
-          const by = p.ringCy + p.ringR * Math.sin(a);
-          p.tx = bx; p.ty = by; // scatter will start from final position
-          badge(bx, by, 0, p, 1);
-        });
-        drawPulse(now);
-        if (dt > DUR.hold) {
-          const zone = W < 941 ? W : W * 0.47;
-          pts.forEach(p => {
-            p.ox = p.tx; p.oy = p.ty;
-            p.tx = Math.random() * zone; p.ty = Math.random() * H;
-            p.rotV = (Math.random() - .5) * .07;
-          });
-          phase = "scatter"; phaseT = now;
-        }
-
-      } else if (phase === "scatter") {
-        const e = ease3(dt / DUR.scatter);
-        pts.forEach(p => {
-          p.rot += p.rotV;
-          badge(p.ox + (p.tx - p.ox) * e, p.oy + (p.ty - p.oy) * e, p.rot, p, 1 - e * .38);
-        });
-        if (dt >= DUR.scatter) {
-          pts.forEach(p => {
-            p.x = p.tx; p.y = p.ty;
-            p.vx = (Math.random() - .5) * .55; p.vy = (Math.random() - .5) * .55;
-            p.rot = Math.random() * Math.PI * 2;
-          });
-          phase = "float"; phaseT = now;
-        }
-      }
-      raf = requestAnimationFrame(tick);
-    }
-
-    resize();
-    window.addEventListener("resize", resize);
-    if (!reduce) { phaseT = performance.now(); raf = requestAnimationFrame(tick); }
-    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
-  }, []);
-  return <canvas ref={ref} className="hero__canvas" aria-hidden="true" />;
+          <div className="smodal__actions">
+            <a href="stories.html" className="btn btn--gold btn--block">Читать полную историю →</a>
+            <a href="#cta" className="btn btn--ghost smodal__cta-ghost" onClick={onClose}>Хочу так же — консультация</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-/* Animated SVG wave layers — three drifting paths */
+/* Photo with fallback placeholder */
+function StudentPhoto({ student, className }) {
+  const [err, setErr] = useState(false);
+  if (err || !student.poster) {
+    return <div className={"ph ph--dark " + className} data-label={"фото · " + student.n}></div>;
+  }
+  return <img src={student.poster} alt={student.n} className={className} onError={() => setErr(true)} />;
+}
+
+/* Background video */
+function HeroVideo() {
+  return (
+    <video className="hero__video" autoPlay muted loop playsInline aria-hidden="true" preload="auto">
+      <source src="videos/hero.mp4" type="video/mp4" />
+    </video>
+  );
+}
+
+/* Animated SVG waves */
 function HeroWaves() {
   const wavePath = "M 0 60 C 240 20, 480 100, 720 60 S 1200 20, 1440 60 L 1440 100 L 0 100 Z " +
                    "M 1440 60 C 1680 20, 1920 100, 2160 60 S 2640 20, 2880 60 L 2880 100 L 1440 100 Z";
@@ -273,20 +152,36 @@ function TeamPhoto() {
     return <div className="ph ph--dark hero__team-img" data-label="фото команды Elite Academy"></div>;
   }
   return (
-    <img
-      src="images/team.jpg"
-      alt="Команда Elite Academy"
-      className="hero__team-img"
-      onError={() => setErr(true)}
-    />
+    <img src="images/team.jpg" alt="Команда Elite Academy" className="hero__team-img" onError={() => setErr(true)} />
+  );
+}
+
+/* Avatar button — one student in the ava-stack */
+function AvaBtn({ student, onClick }) {
+  const [err, setErr] = useState(false);
+  return (
+    <button
+      className="ava ava--btn"
+      onClick={onClick}
+      title={student.n + " — нажми, чтобы открыть профиль"}
+      aria-label={`Профиль студента ${student.n}`}
+    >
+      {(!err && student.poster)
+        ? <img src={student.poster} alt={student.n} onError={() => setErr(true)} />
+        : <span className="ava__init">{student.n[0]}</span>
+      }
+    </button>
   );
 }
 
 function Hero() {
+  const [modalStudent, setModalStudent] = useState(null);
+  const featured = FEATURED_STUDENTS[0];
+
   return (
     <section className="hero grain" id="top">
-      <div className="hero__mesh" aria-hidden="true"></div>
-      <UniParticles />
+      <HeroVideo />
+      <div className="hero__overlay" aria-hidden="true"></div>
       <div className="wrap hero__grid">
         <div className="hero__left">
           <div className="hero__badge" data-reveal>
@@ -295,12 +190,12 @@ function Hero() {
           </div>
 
           <h1 className="hero__h1" data-reveal data-delay="1">
-            Твой путь к <span className="grad-gold">образованию за рубежом</span> начинается здесь
+            <span className="grad-gold">Одна виза —</span><br/>миллион возможностей
           </h1>
 
           <p className="hero__sub" data-reveal data-delay="2">
-            Отправляем студентов из Кыргызстана в университеты США, Европы и Азии —
-            с частичным или полным грантом. С гарантией по договору.
+            Помогаем студентам из Кыргызстана поступить в университеты США, Европы и Азии
+            с частичным или полным грантом. Действуй сегодня — улетай завтра.
           </p>
 
           <div className="hero__cta" data-reveal data-delay="3">
@@ -311,9 +206,7 @@ function Hero() {
           <div className="hero__stats" data-reveal data-delay="5">
             {HERO_STATS.map((s, i) => (
               <div className="hero__stat" key={i}>
-                <div className="hero__stat-n">
-                  <Counter to={s.to} suffix={s.suffix} />
-                </div>
+                <div className="hero__stat-n"><Counter to={s.to} suffix={s.suffix} /></div>
                 <div className="hero__stat-l">{s.label}</div>
               </div>
             ))}
@@ -324,31 +217,48 @@ function Hero() {
           <div className="hero__photo-frame" data-reveal data-delay="2">
             <TeamPhoto />
           </div>
-          <div className="success-card glass success-card--horiz" data-reveal data-delay="4">
+
+          {/* ── Кликабельная карточка «Успех недели» ── */}
+          <button
+            className="success-card glass success-card--horiz success-card--clickable"
+            data-reveal data-delay="4"
+            onClick={() => setModalStudent(featured)}
+            aria-label={`Открыть профиль студента ${featured.n}`}
+          >
             <div className="success-card__tag">★ Успех недели</div>
             <div className="success-card__horiz-row">
-              <div className="ph ph--dark success-card__avatar" data-label="фото"></div>
+              <StudentPhoto student={featured} className="success-card__avatar success-card__avatar--img" />
               <div className="success-card__horiz-info">
-                <div className="success-card__name">Нурзар поступила в <b>США</b></div>
-                <div className="success-card__uni">Roosevelt University, Чикаго</div>
-                <a href="stories.html" className="success-card__link">Читать историю →</a>
+                <div className="success-card__name">{featured.n} поступила в <b>{featured.country}</b></div>
+                <div className="success-card__uni">{featured.u}</div>
+                <span className="success-card__link">Читать историю →</span>
               </div>
               <div className="success-card__horiz-money">
                 <div className="success-card__money-label">Стипендий и грантов</div>
-                <div className="success-card__money-val">$120 000</div>
+                <div className="success-card__money-val">{featured.s}</div>
               </div>
             </div>
             <div className="success-card__foot">
-              <div className="ava-stack">
-                {[0,1,2,3].map((i) => <span key={i} className="ava" style={{ zIndex: 4 - i }}></span>)}
+              {/* ── Кликабельные аватарки студентов ── */}
+              <div className="ava-stack" onClick={(e) => e.stopPropagation()}>
+                {FEATURED_STUDENTS.map((st, i) => (
+                  <AvaBtn
+                    key={st.n}
+                    student={st}
+                    onClick={() => setModalStudent(st)}
+                  />
+                ))}
               </div>
               <span><b>+18 студентов</b> поступили в этом месяце</span>
             </div>
-          </div>
+          </button>
         </div>
       </div>
       <HeroWaves />
       <div className="hero__fade"></div>
+
+      {/* Modal */}
+      <StudentModal student={modalStudent} onClose={() => setModalStudent(null)} />
     </section>
   );
 }

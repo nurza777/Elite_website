@@ -3,7 +3,7 @@
    ============================================================ */
 
 const ABOUT_DEFAULT = {
-  text: "Elite Academy — аккредитованное образовательное агентство из Бишкека. Помогаем студентам из Кыргызстана и стран СНГ поступить в университеты США, Европы и Азии — с частичным или полным грантом. С гарантией по договору.",
+  text: "Наша миссия — сделать качественное образование за рубежом доступным каждому. Ускоряем и облегчаем процесс поступления, создаём сильное поколение через образование и культурный обмен. Будем рядом на всех этапах твоего пути.",
   fcN: "1500+",
   fcL: "студентов уже учатся за рубежом",
   stats: [
@@ -39,7 +39,7 @@ function AboutUs() {
 
           <div className="about__content" data-reveal data-delay="1">
             <span className="eyebrow">О нас</span>
-            <h2>Мы не продаём мечту.<br/><span className="text-blue">Мы строим будущее.</span></h2>
+            <h2>Будем рядом<br/><span className="text-blue">на всех этапах твоего пути.</span></h2>
             <p className="about__text">{ABOUT.text}</p>
 
             <div className="about__stats-row">
@@ -62,6 +62,33 @@ function AboutUs() {
 
             <a href="#cta" className="btn btn--dark">Получить консультацию бесплатно →</a>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   VISION & MISSION — из брендбука Elite Academy
+   ============================================================ */
+function VisionMission() {
+  return (
+    <section className="section section--tight dark grain vm" id="vision">
+      <div className="wrap">
+        <div className="vm__grid">
+          <div className="vm__block" data-reveal>
+            <span className="eyebrow eyebrow--light">Видение</span>
+            <h2 className="vm__h">Международное образование — для каждого поколения</h2>
+            <p className="vm__p">Elite Academy стремится к тому, чтобы целое поколение получило международное качественное образование: культурный обмен, передовые знания, лучшие качества развитых стран — и внесло свой вклад в развитие Кыргызстана.</p>
+          </div>
+          <div className="vm__block" data-reveal data-delay="1">
+            <span className="eyebrow eyebrow--light">Миссия</span>
+            <h2 className="vm__h">Сделать качественное образование за рубежом доступным каждому</h2>
+            <p className="vm__p">Ускоряем и облегчаем процесс поступления. Создаём сильное поколение через образование и культуру. Будем рядом на всех этапах — от первой консультации до первого дня в университете.</p>
+          </div>
+        </div>
+        <div className="vm__slogan" data-reveal data-delay="2">
+          Одна виза — миллион возможностей
         </div>
       </div>
     </section>
@@ -137,11 +164,11 @@ function OfficeBlock() {
               </div>
             </div>
             <div className="office__rows">
-              <div className="office__row"><span>📍</span><div><b>Адрес</b>{OFFICE.address}</div></div>
-              <div className="office__row"><span>🕐</span><div><b>График</b>{OFFICE.hours}</div></div>
-              <div className="office__row"><span>📞</span><div><b>Телефон / WhatsApp</b><a href={"tel:" + OFFICE.phone.replace(/[^+\d]/g, "")}>{OFFICE.phone}</a></div></div>
-              <div className="office__row"><span>✉️</span><div><b>Email</b><a href={"mailto:" + OFFICE.email}>{OFFICE.email}</a></div></div>
-              <div className="office__row"><span>📷</span><div><b>Instagram</b><a href={"https://www.instagram.com/" + OFFICE.instagram.replace("@", "") + "/"} target="_blank" rel="noopener">{OFFICE.instagram}</a></div></div>
+              <div className="office__row"><div><b>Адрес</b>{OFFICE.address}</div></div>
+              <div className="office__row"><div><b>График</b>{OFFICE.hours}</div></div>
+              <div className="office__row"><div><b>Телефон / WhatsApp</b><a href={"tel:" + OFFICE.phone.replace(/[^+\d]/g, "")}>{OFFICE.phone}</a></div></div>
+              <div className="office__row"><div><b>Email</b><a href={"mailto:" + OFFICE.email}>{OFFICE.email}</a></div></div>
+              <div className="office__row"><div><b>Instagram</b><a href={"https://www.instagram.com/" + OFFICE.instagram.replace("@", "") + "/"} target="_blank" rel="noopener">{OFFICE.instagram}</a></div></div>
             </div>
             <a href="#cta" className="btn btn--gold btn--block">Записаться на консультацию</a>
           </div>
@@ -161,5 +188,6 @@ function OfficeBlock() {
 }
 
 window.AboutUs = AboutUs;
+window.VisionMission = VisionMission;
 window.Accreditations = Accreditations;
 window.OfficeBlock = OfficeBlock;

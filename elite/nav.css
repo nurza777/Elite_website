@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    NAVBAR / MEGA MENU / DRAWER / BOTTOM BAR
    ============================================================ */
 
@@ -11,19 +11,21 @@
   background: rgba(255,255,255,0.84);
   backdrop-filter: blur(18px) saturate(160%);
   -webkit-backdrop-filter: blur(18px) saturate(160%);
-  box-shadow: 0 1px 0 rgba(10,61,104,.08), 0 8px 30px -18px rgba(10,61,104,.4);
+  box-shadow: 0 1px 0 rgba(6,64,102,.08), 0 8px 30px -18px rgba(6,64,102,.4);
 }
 .nav__inner { height: var(--nav-h); display: flex; align-items: center; gap: 26px; }
 
 /* Logo — now a clean blue mark (no gold gradient) */
 .logo { display: flex; align-items: center; gap: 11px; flex: 0 0 auto; }
 .logo__mark {
-  width: 38px; height: 38px; border-radius: 10px; flex: 0 0 auto;
+  width: 42px; height: 42px; flex: 0 0 auto;
   display: grid; place-items: center;
-  background: linear-gradient(135deg, var(--navy-3), var(--navy));
-  color: #fff; font-family: var(--font-head); font-weight: 900; font-size: 16px;
-  box-shadow: 0 6px 16px -6px rgba(10,61,104,.6);
-  letter-spacing: -0.04em;
+  color: #fff;
+}
+.nav--scrolled .logo__mark { color: var(--navy); }
+.logo__img-mark {
+  width: 100%; height: 100%;
+  display: block;
 }
 .logo__txt { font-family: var(--font-head); font-weight: 700; font-size: 18px; line-height: 1.05; display: flex; flex-direction: column; }
 .logo__txt b { font-weight: 800; }
@@ -103,7 +105,7 @@
   backdrop-filter: blur(20px) saturate(160%);
   -webkit-backdrop-filter: blur(20px) saturate(160%);
   border-top: 1px solid var(--line);
-  box-shadow: 0 30px 60px -24px rgba(10,61,104,.35);
+  box-shadow: 0 30px 60px -24px rgba(6,64,102,.35);
   animation: megaIn .26s var(--ease);
 }
 @keyframes megaIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
@@ -160,7 +162,7 @@
 /* Drawer */
 .drawer { position: fixed; inset: 0; z-index: 120; visibility: hidden; }
 .drawer.is-open { visibility: visible; }
-.drawer__backdrop { position: absolute; inset: 0; background: rgba(10,61,104,.55); opacity: 0; transition: opacity .3s; backdrop-filter: blur(2px); }
+.drawer__backdrop { position: absolute; inset: 0; background: rgba(6,64,102,.55); opacity: 0; transition: opacity .3s; backdrop-filter: blur(2px); }
 .drawer.is-open .drawer__backdrop { opacity: 1; }
 .drawer__panel {
   position: absolute; top: 0; right: 0; bottom: 0; width: min(380px, 88vw);
@@ -194,7 +196,7 @@
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 70; display: none;
   gap: 10px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
   background: rgba(255,255,255,.92); backdrop-filter: blur(14px);
-  border-top: 1px solid var(--line); box-shadow: 0 -8px 30px -16px rgba(10,61,104,.4);
+  border-top: 1px solid var(--line); box-shadow: 0 -8px 30px -16px rgba(6,64,102,.4);
 }
 .bottombar__btn { flex: 1; text-align: center; padding: 14px; border-radius: 12px; font-family: var(--font-head); font-weight: 700; font-size: 15px; }
 .bottombar__btn--ghost { background: var(--light-bg); color: var(--navy); }

@@ -48,7 +48,7 @@ const MEGA = {
   "О нас": {
     page: "about.html",
     cols: [
-      { h: "Компания", items: [["О компании", "about.html"], ["Команда", "about.html#team"], ["Аккредитации", "about.html#accreds"], ["Офис и контакты", "about.html#office"]] },
+      { h: "Компания", items: [["О компании", "about.html"], ["Состав Elite", "about.html#team"], ["Аккредитации", "about.html#accreds"], ["Офис и контакты", "about.html#office"]] },
       { h: "Студенты", items: [["Истории студентов", "stories.html"], ["Видео-отзывы", "stories.html"], ["Кейсы стипендий", "stories.html"]] },
       { h: "Блог", items: [["Все статьи", "stories.html#blog"]] },
     ],
@@ -78,7 +78,15 @@ const PAGE_TO_KEY = {
 function Logo({ light }) {
   return (
     <a href="index.html" className="logo" aria-label="Elite Academy KG">
-      <span className="logo__mark" aria-hidden="true">EA</span>
+      <span className="logo__mark" aria-hidden="true">
+        <svg className="logo__img-mark" viewBox="0 0 38 58" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+          <path d="M0,0 H38 V17 H11 V21 H38 V39 H0 Z"/>
+          <polygon points="1,57 11,43 13,45"/>
+          <polygon points="1,57 7,41 10,42"/>
+          <polygon points="1,57 3,38 6,41"/>
+          <rect x="13" y="45" width="25" height="13"/>
+        </svg>
+      </span>
       <span className="logo__txt" style={{ color: light ? "#fff" : "var(--navy)" }}>
         Elite <b>Academy</b>
         <i>образование за рубежом</i>

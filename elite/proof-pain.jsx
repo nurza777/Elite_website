@@ -77,49 +77,50 @@ function PainSolution() {
 
 const COUNTRIES_DEFAULT = [
   {
-    flag: "🇮🇹", name: "Италия", landmark: "Рим · Флоренция · Венеция",
+    flagImg: "https://flagcdn.com/40x30/it.png", name: "Италия", landmark: "Рим · Флоренция · Венеция",
     desc: "Культура · Гастрономия · Дольче Вита", price: "от €2 000/год", hot: true,
     photo: "images/countries/italy.jpg",
     bg: "linear-gradient(160deg,#9b5e2a 0%,#6b3210 55%,#2e1005 100%)",
     accent: "#d4845a",
   },
   {
-    flag: "🇺🇸", name: "США", landmark: "Нью-Йорк · Чикаго · Лос-Анджелес",
+    flagImg: "https://flagcdn.com/40x30/us.png", name: "США", landmark: "Нью-Йорк · Чикаго · Лос-Анджелес",
     desc: "Карьера · Топ-кампусы · Стипендии",    price: "от $8 000/год", hot: true,
     photo: "images/countries/usa.jpg",
     bg: "linear-gradient(160deg,#0d2b5e 0%,#091842 55%,#030a1c 100%)",
     accent: "#4a8fc7",
   },
   {
-    flag: "🇦🇹", name: "Австрия", landmark: "Вена · Зальцбург · Инсбрук",
+    flagImg: "https://flagcdn.com/40x30/at.png", name: "Австрия", landmark: "Вена · Зальцбург · Инсбрук",
     desc: "Безопасность · Европа · Высокое качество", price: "от €726/год",
     photo: "images/countries/austria.jpg",
     bg: "linear-gradient(160deg,#1a4a2e 0%,#0d2d1a 55%,#051208 100%)",
     accent: "#4caf82",
   },
   {
-    flag: "🇩🇪", name: "Германия", landmark: "Берлин · Мюнхен · Гамбург",
+    flagImg: "https://flagcdn.com/40x30/de.png", name: "Германия", landmark: "Берлин · Мюнхен · Гамбург",
     desc: "Технологии · Made in Germany · Карьера",  price: "от €0/год",
     photo: "images/countries/germany.jpg",
     bg: "linear-gradient(160deg,#2a2a3a 0%,#161622 55%,#07070d 100%)",
     accent: "#8a8ab0",
   },
   {
-    flag: "🇵🇱", name: "Польша", landmark: "Варшава · Краков · Вроцлав",
+    flagImg: "https://flagcdn.com/40x30/pl.png", name: "Польша", landmark: "Варшава · Краков · Вроцлав",
     desc: "Близко · Доступно · Востребовано",        price: "от €2 000/год",
     photo: "images/countries/poland.jpg",
     bg: "linear-gradient(160deg,#7a1a1a 0%,#4d0d0d 55%,#1a0303 100%)",
     accent: "#e06060",
   },
   {
-    flag: "🇨🇾", name: "Северный Кипр", landmark: "Фамагуста · Кирения · Никосия",
+    flagImg: "images/flags/trnc/40x30.png",
+    name: "Северный Кипр", landmark: "Фамагуста · Кирения · Никосия",
     desc: "Без языкового теста · Тёплый климат",     price: "от $3 000/год",
     photo: "images/countries/kipr.jpg",
     bg: "linear-gradient(160deg,#0d6b6b 0%,#074545 55%,#021818 100%)",
     accent: "#4fc4c4",
   },
   {
-    flag: "🇲🇾", name: "Малайзия", landmark: "Куала-Лумпур · Пинанг · Джохор",
+    flagImg: "https://flagcdn.com/40x30/my.png", name: "Малайзия", landmark: "Куала-Лумпур · Пинанг · Джохор",
     desc: "Мусульм. среда · Азия · Безопасность",    price: "от $4 000/год",
     photo: "images/countries/malasia.jpg",
     bg: "linear-gradient(160deg,#1a5c2e 0%,#0d3a1c 55%,#04130a 100%)",
@@ -150,10 +151,12 @@ function Countries() {
                    style={ c.photo
                      ? { backgroundImage: `url(${c.photo})` }
                      : { background: c.bg } }>
-                {c.hot && <span className="country__hot">🔥 Популярно</span>}
+                {c.hot && <span className="country__hot">Популярно</span>}
                 <div className="country__photo-overlay" />
                 <div className="country__photo-bottom">
-                  <span className="country__flag-big">{c.flag}</span>
+                  <span className="country__flag-big">
+                    {c.flagImg ? <img src={c.flagImg} alt={c.name} className="country__flag-img" /> : c.flag}
+                  </span>
                   <span className="country__name-over">{c.name}</span>
                 </div>
               </div>
@@ -179,36 +182,11 @@ function Countries() {
    "Зарубежное образование — это не только диплом"
    ============================================================ */
 const BEYOND = [
-  {
-    cls: "travel", emoji: "✈️",
-    title: "Путешествия",
-    sub: "Новые страны каждые каникулы",
-    hint: "// замени на images/beyond-travel.jpg"
-  },
-  {
-    cls: "career", emoji: "💼",
-    title: "Карьера",
-    sub: "Международное резюме с первого дня",
-    hint: "// замени на images/beyond-career.jpg"
-  },
-  {
-    cls: "friends", emoji: "👥",
-    title: "Друзья",
-    sub: "Со всего мира — на всю жизнь",
-    hint: "// замени на images/beyond-friends.jpg"
-  },
-  {
-    cls: "network", emoji: "🤝",
-    title: "Знакомства",
-    sub: "Alumni-сеть в 40+ странах",
-    hint: "// замени на images/beyond-network.jpg"
-  },
-  {
-    cls: "world", emoji: "🌍",
-    title: "Среда",
-    sub: "100+ национальностей рядом",
-    hint: "// замени на images/beyond-world.jpg"
-  },
+  { cls: "travel", title: "Путешествия", sub: "Новые страны каждые каникулы" },
+  { cls: "career", title: "Карьера",     sub: "Международное резюме с первого дня" },
+  { cls: "friends", title: "Друзья",     sub: "Со всего мира — на всю жизнь" },
+  { cls: "network", title: "Знакомства", sub: "Alumni-сеть в 40+ странах" },
+  { cls: "world",   title: "Среда",      sub: "100+ национальностей рядом" },
 ];
 
 function BeyondDiploma() {
@@ -221,11 +199,10 @@ function BeyondDiploma() {
         </div>
       </div>
       <div className="beyond__grid" data-reveal data-delay="1">
-        {BEYOND.map(({ cls, emoji, title, sub }) => (
+        {BEYOND.map(({ cls, title, sub }) => (
           <div key={cls} className={`beyond__cell beyond__cell--${cls}`}>
             <div className="beyond__overlay" />
             <div className="beyond__content">
-              <span className="beyond__emoji">{emoji}</span>
               <strong className="beyond__title">{title}</strong>
               <span className="beyond__sub">{sub}</span>
             </div>

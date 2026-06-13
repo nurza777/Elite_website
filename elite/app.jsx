@@ -27,6 +27,7 @@ function PageHome() {
       <TrustBar />
       <HomeSearch />
       <BeyondDiploma />
+      <DeadlineBanner />
       <Countries />
       <MediaFeed />
       <Stories />
@@ -62,6 +63,7 @@ function PageUniversities() {
         sub="Партнёрские университеты Elite Academy в США, Европе и Азии. Фильтруй по стоимости, направлению, рейтингу — и сохраняй те, что нравятся."
         variant="default"
       />
+      <DeadlineBanner />
       <Universities />
       <FinalCTA />
     </>
@@ -78,7 +80,9 @@ function PagePrograms() {
         variant="organic"
       />
       <Programs />
+      <DeadlineBanner />
       <Exams />
+      <EnglishLevelTest />
       <SavingsCalculator />
       <FinalCTA />
     </>
@@ -147,6 +151,7 @@ function PageAbout() {
         variant="minimal"
       />
       <AboutUs />
+      <VisionMission />
       <Team />
       <Accreditations />
       <OfficeBlock />
