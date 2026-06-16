@@ -63,10 +63,9 @@ function TourVideo({ slug }) {
   );
 }
 
-function FactCard({ ic, label, children }) {
+function FactCard({ label, children }) {
   return (
     <div className="uprof__fact card">
-      <span className="uprof__fact-ic" aria-hidden="true">{ic}</span>
       <div className="uprof__fact-body">
         <span className="uprof__fact-l">{label}</span>
         <div className="uprof__fact-v">{children}</div>

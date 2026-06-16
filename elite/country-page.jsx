@@ -108,7 +108,7 @@ function CountryProfile() {
           <div className="cprof__why-grid">
             {det.why.map((w, i) => (
               <div className="cprof__why card card--lift" data-reveal data-delay={i + 1} key={w.t}>
-                <span className="cprof__why-ic" aria-hidden="true">{w.ic}</span>
+                <span className="cprof__why-bar" aria-hidden="true"></span>
                 <h3 className="cprof__why-t">{w.t}</h3>
                 <p className="cprof__why-d">{w.d}</p>
               </div>
