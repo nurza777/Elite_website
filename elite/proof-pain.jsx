@@ -3,59 +3,46 @@
    ============================================================ */
 const { useState } = React;
 
-const PARTNERS = [
-  "ICEF","Shorelight","Apply Wave","Bellevue College","La Salle University",
-  "Roosevelt University","Kalamazoo College","Drake University","National Louis University","Westcliff University",
-];
-
 const UNI_LOGOS = [
-  { src: "images/logos/catalog/polimi.png",   alt: "PoliMi" },
-  { src: "images/logos/catalog/bocconi.png",  alt: "Bocconi" },
-  { src: "images/logos/catalog/sapienza.png", alt: "Sapienza" },
-  { src: "images/logos/catalog/luiss.png",    alt: "LUISS" },
-  { src: "images/logos/catalog/roosevelt.png",alt: "Roosevelt" },
-  { src: "images/logos/catalog/bellevue.png", alt: "Bellevue" },
-  { src: "images/logos/catalog/lasalle.png",  alt: "La Salle" },
-  { src: "images/logos/catalog/temple.png",   alt: "Temple" },
-  { src: "images/logos/catalog/depaul.png",   alt: "DePaul" },
-  { src: "images/logos/catalog/monash.png",   alt: "Monash" },
-  { src: "images/logos/catalog/sunway.png",   alt: "Sunway" },
-  { src: "images/logos/catalog/taylors.png",  alt: "Taylor's" },
-  { src: "images/logos/catalog/wu.png",       alt: "WU Wien" },
-  { src: "images/logos/catalog/tuwien.png",   alt: "TU Wien" },
-  { src: "images/logos/catalog/emu.png",      alt: "EMU" },
-  { src: "images/logos/catalog/vistula.png",  alt: "Vistula" },
-  { src: "images/logos/catalog/gisma.png",    alt: "GISMA" },
-  { src: "images/logos/catalog/unito.png",    alt: "UniTO" },
-  { src: "images/logos/catalog/asu.png",      alt: "ASU" },
-  { src: "images/logos/catalog/drexel.png",   alt: "Drexel" },
+  { src: "images/logos/catalog/polimi.png",    name: "Politecnico di Milano" },
+  { src: "images/logos/catalog/bocconi.png",   name: "Università Bocconi" },
+  { src: "images/logos/catalog/sapienza.png",  name: "Sapienza · Рим" },
+  { src: "images/logos/catalog/luiss.png",     name: "LUISS" },
+  { src: "images/logos/catalog/unito.png",     name: "Università di Torino" },
+  { src: "images/logos/catalog/roosevelt.png", name: "Roosevelt University" },
+  { src: "images/logos/catalog/bellevue.png",  name: "Bellevue College" },
+  { src: "images/logos/catalog/lasalle.png",   name: "La Salle University" },
+  { src: "images/logos/catalog/temple.png",    name: "Temple University" },
+  { src: "images/logos/catalog/depaul.png",    name: "DePaul University" },
+  { src: "images/logos/catalog/drexel.png",    name: "Drexel University" },
+  { src: "images/logos/catalog/asu.png",       name: "Arizona State" },
+  { src: "images/logos/catalog/wu.png",        name: "WU Wien" },
+  { src: "images/logos/catalog/tuwien.png",    name: "TU Wien" },
+  { src: "images/logos/catalog/vistula.png",   name: "Vistula University" },
+  { src: "images/logos/catalog/gisma.png",     name: "GISMA Business School" },
+  { src: "images/logos/catalog/monash.png",    name: "Monash University" },
+  { src: "images/logos/catalog/sunway.png",    name: "Sunway University" },
+  { src: "images/logos/catalog/taylors.png",   name: "Taylor's University" },
+  { src: "images/logos/catalog/emu.png",       name: "Eastern Mediterranean" },
 ];
 
 function TrustBar() {
-  const logos = [...UNI_LOGOS, ...UNI_LOGOS];
+  const items = [...UNI_LOGOS, ...UNI_LOGOS];
   return (
     <section className="trustbar">
-      {/* University logo marquee */}
+      <div className="wrap trustbar__head">
+        <span className="trustbar__label">С нами сотрудничают</span>
+      </div>
       <div className="unibar">
         <div className="unibar__track">
-          {logos.map((l, i) => (
+          {items.map((l, i) => (
             <div className="unibar__item" key={i}>
-              <img src={l.src} alt={l.alt} className="unibar__logo" />
+              <div className="unibar__logo-box">
+                <img src={l.src} alt={l.name} className="unibar__logo" loading="lazy" />
+              </div>
+              <span className="unibar__name">{l.name}</span>
             </div>
           ))}
-        </div>
-      </div>
-      {/* Partner names marquee */}
-      <div className="wrap trustbar__inner">
-        <span className="trustbar__label">Нам доверяют</span>
-        <div className="trustbar__track">
-          <div className="trustbar__row">
-            {[...PARTNERS, ...PARTNERS].map((p, i) => (
-              <span className="trustbar__logo" key={i}>
-                <span className="trustbar__dot"></span>{p}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
     </section>
@@ -217,12 +204,42 @@ function Countries() {
    "Зарубежное образование — это не только диплом"
    ============================================================ */
 const BEYOND = [
-  { cls: "travel", title: "Путешествия", sub: "Новые страны каждые каникулы" },
-  { cls: "career", title: "Карьера",     sub: "Международное резюме с первого дня" },
-  { cls: "friends", title: "Друзья",     sub: "Со всего мира — на всю жизнь" },
-  { cls: "network", title: "Знакомства", sub: "Alumni-сеть в 40+ странах" },
-  { cls: "world",   title: "Среда",      sub: "100+ национальностей рядом" },
+  { cls: "travel",  title: "Путешествия", sub: "Новые страны каждые каникулы",       video: "videos/beyond-travel.mp4",  poster: "thumbs/beyond-travel.jpg"  },
+  { cls: "career",  title: "Карьера",     sub: "Международное резюме с первого дня",  video: "videos/beyond-career.mp4",  poster: "thumbs/beyond-career.jpg"  },
+  { cls: "friends", title: "Друзья",      sub: "Со всего мира — на всю жизнь",         video: "videos/beyond-friends.mp4", poster: "thumbs/beyond-friends.jpg" },
+  { cls: "network", title: "Знакомства",  sub: "Alumni-сеть в 40+ странах",            video: "videos/beyond-network.mp4", poster: "thumbs/beyond-network.jpg" },
+  { cls: "world",   title: "Среда",       sub: "100+ национальностей рядом",           video: "videos/beyond-world.mp4",   poster: "thumbs/beyond-world.jpg"   },
 ];
+
+function BeyondCell({ item }) {
+  const ref = React.useRef(null);
+  function enter() { const v = ref.current; if (v) v.play().catch(() => {}); }
+  function leave() { const v = ref.current; if (v) { v.pause(); } }
+  return (
+    <div
+      className={`beyond__cell beyond__cell--${item.cls}`}
+      onMouseEnter={enter}
+      onMouseLeave={leave}
+    >
+      <video
+        ref={ref}
+        className="beyond__video"
+        src={item.video}
+        poster={item.poster}
+        muted loop playsInline preload="metadata"
+      />
+      <div className="beyond__scrim" />
+      <div className="beyond__overlay" />
+      <div className="beyond__content">
+        <strong className="beyond__title">{item.title}</strong>
+        <span className="beyond__sub">{item.sub}</span>
+      </div>
+      <span className="beyond__play" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M5 3.5v9l7-4.5z"/></svg>
+      </span>
+    </div>
+  );
+}
 
 function BeyondDiploma() {
   return (
@@ -234,15 +251,7 @@ function BeyondDiploma() {
         </div>
       </div>
       <div className="beyond__grid" data-reveal data-delay="1">
-        {BEYOND.map(({ cls, title, sub }) => (
-          <div key={cls} className={`beyond__cell beyond__cell--${cls}`}>
-            <div className="beyond__overlay" />
-            <div className="beyond__content">
-              <strong className="beyond__title">{title}</strong>
-              <span className="beyond__sub">{sub}</span>
-            </div>
-          </div>
-        ))}
+        {BEYOND.map((item) => <BeyondCell key={item.cls} item={item} />)}
       </div>
     </section>
   );

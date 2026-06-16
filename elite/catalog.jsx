@@ -590,14 +590,17 @@ function Universities() {
                       )}
                       {/* Blue star for Elite unis */}
                       {u.elite && <span className="uni__elite-star" title="Elite выбор">★</span>}
-                      {/* Country flag image (works on Windows/all browsers) */}
+                      {/* Country chip — flag + name in a clean frosted pill */}
                       {COUNTRY_ISO[u.country] && (
-                        <img
-                          className="uni__banner-flag"
-                          src={FLAG_URL(COUNTRY_ISO[u.country], "40x30")}
-                          srcSet={`${FLAG_URL(COUNTRY_ISO[u.country], "80x60")} 2x`}
-                          alt={u.country}
-                        />
+                        <span className="uni__country-chip">
+                          <img
+                            className="uni__country-flag"
+                            src={FLAG_URL(COUNTRY_ISO[u.country], "40x30")}
+                            srcSet={`${FLAG_URL(COUNTRY_ISO[u.country], "80x60")} 2x`}
+                            alt=""
+                          />
+                          {u.country}
+                        </span>
                       )}
                     </div>
 
@@ -628,7 +631,10 @@ function Universities() {
                       </div>
 
                       <h3 className="uni__name">{u.name}</h3>
-                      <div className="uni__loc">📍 {u.loc} · {u.country}</div>
+                      <div className="uni__loc">
+                        <svg className="uni__loc-ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        {u.loc} · {u.country}
+                      </div>
 
                       <div className="uni__rows">
                         {u.qs && (

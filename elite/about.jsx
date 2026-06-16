@@ -4,8 +4,8 @@
 
 const ABOUT_DEFAULT = {
   text: "Наша миссия — сделать качественное образование за рубежом доступным каждому. Elite Academy — официально аккредитованное агентство ICEF, одной из крупнейших международных сетей образовательных агентств. Мы рядом на каждом этапе — от выбора университета до первого дня в кампусе.",
-  fcN: "ICEF",
-  fcL: "Accredited Agency",
+  badge: "images/icef-badge.png",
+  badgeAlt: "ICEF Accredited — статус #6696",
   stats: [
     { n: "1500+", l: "студентов\nотправлено" },
     { n: "7",     l: "стран\nнаправлений" },
@@ -13,11 +13,11 @@ const ABOUT_DEFAULT = {
     { n: "5 лет", l: "на рынке\nобразования" },
   ],
   badges: [
-    { text: "ICEF Accredited — международная аккредитация", href: "https://www.icef.com/agency/0016M00002g5ZejQAE", label: "Посмотреть сертификат →" },
+    "ICEF Accredited — международная аккредитация",
     "Shorelight Partner — официальный партнёр",
     "Гарантия по договору — возврат при отказе в визе",
   ],
-  photo: "images/icef-certificate.png",
+  photo: "images/team.jpg",
 };
 
 /* Admin-edited content wins over the defaults above */
@@ -30,19 +30,8 @@ function AboutUs() {
       <div className="wrap">
         <div className="about__grid">
 
-          <div className="about__media" data-reveal>
-            <img src={ABOUT.photo || "images/team.jpg"} alt="Команда Elite Academy" className="about__photo"
-              onError={e => {
-                const d = document.createElement("div");
-                d.className = "ph about__photo";
-                d.dataset.label = "команда Elite Academy";
-                e.currentTarget.parentNode.replaceChild(d, e.currentTarget);
-              }}
-            />
-            <div className="about__fc glass">
-              <div className="about__fc-n">{ABOUT.fcN}</div>
-              <div className="about__fc-l">{ABOUT.fcL}</div>
-            </div>
+          <div className="about__media about__media--badge" data-reveal>
+            <img src={ABOUT.badge} alt={ABOUT.badgeAlt || "Аккредитация ICEF"} className="about__badge-big" />
           </div>
 
           <div className="about__content" data-reveal data-delay="1">
@@ -118,6 +107,7 @@ function VisionMission() {
    ============================================================ */
 const ACCREDS_DEFAULT = [
   { name: "ICEF", tag: "Аккредитация", desc: "Международная сеть проверенных агентств образования. Аккредитация подтверждает стандарты работы и прозрачность для вузов-партнёров." },
+  { name: "American Academy", tag: "Партнёрство", desc: "Партнёрская академия в США: подготовительные и pathway-программы, которые открывают прямой путь на бакалавриат американских университетов. Помогает студентам адаптироваться к системе обучения и поступить даже без высоких баллов." },
   { name: "Shorelight", tag: "Партнёрство", desc: "Официальный партнёр Shorelight — прямые соглашения с университетами США, быстрые офферы и стипендии для наших студентов." },
   { name: "Apply Wave", tag: "Платформа", desc: "Партнёрская платформа подачи заявок: документы уходят в приёмные комиссии напрямую, без посредников." },
   { name: "Birpofi", tag: "Переводы", desc: "Аккредитованная переводческая компания — переводы документов, которые принимают посольства и приёмные комиссии." },

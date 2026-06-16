@@ -31,6 +31,9 @@ function CountryProfile() {
   const name = params.get("c");
   const det = (window.EA_COUNTRY_DETAILS || {})[name];
   const unis = (window.EA_UNIS || []).filter((u) => u.country === name);
+  const students = (window.EA_VIDEOS || []).filter((v) => v.country === name);
+  const [activeVid, setActiveVid] = useState(null);
+  const VideoModal = window.VideoModal;
 
   useEffect(() => {
     if (det) document.title = `Обучение — ${name} — Elite Academy KG`;
@@ -192,6 +195,42 @@ function CountryProfile() {
               </a>
             </div>
           </div>
+        </section>
+      )}
+
+      {/* ===== Students who studied in this country ===== */}
+      {students.length > 0 && (
+        <section className="section section--tight cprof-students">
+          <div className="wrap">
+            <div className="section-head" data-reveal>
+              <span className="eyebrow">Наши студенты</span>
+              <h2>Они уже учатся — {name}</h2>
+              <p>Реальные видео-отзывы студентов Elite Academy, которые поступили и учатся в стране {name}.</p>
+            </div>
+            <div className="cprof__students-grid">
+              {students.map((v, i) => (
+                <button
+                  key={i}
+                  className="cprof__student"
+                  data-reveal data-delay={(i % 4) + 1}
+                  onClick={() => setActiveVid(v)}
+                  aria-label={`Видео-отзыв · ${v.name}`}
+                >
+                  <div className="cprof__student-media">
+                    <img src={v.poster} alt={v.name} loading="lazy" />
+                    <span className="cprof__student-play" aria-hidden="true">
+                      <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M5 3.5v9l7-4.5z"/></svg>
+                    </span>
+                  </div>
+                  <div className="cprof__student-info">
+                    <div className="cprof__student-name">{v.name}</div>
+                    <div className="cprof__student-uni">{v.uni}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+          {VideoModal && <VideoModal item={activeVid} onClose={() => setActiveVid(null)} />}
         </section>
       )}
     </>

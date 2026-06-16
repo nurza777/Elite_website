@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "elite-website",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", "-l", "3456", "."],
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["serve.py", "3456"],
       "port": 3456
     }
   ]

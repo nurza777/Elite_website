@@ -190,7 +190,7 @@ function Hero() {
           </div>
 
           <h1 className="hero__h1" data-reveal data-delay="1">
-            <span className="grad-gold">Одна виза —</span><br/>миллион возможностей
+            <span className="grad-gold">Твоя возможность</span><br/>за границей
           </h1>
 
           <p className="hero__sub" data-reveal data-delay="2">
@@ -219,10 +219,12 @@ function Hero() {
           </div>
 
           {/* ── Кликабельная карточка «Успех недели» ── */}
-          <button
+          <div
             className="success-card glass success-card--horiz success-card--clickable"
             data-reveal data-delay="4"
+            role="button" tabIndex={0}
             onClick={() => setModalStudent(featured)}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setModalStudent(featured); } }}
             aria-label={`Открыть профиль студента ${featured.n}`}
           >
             <div className="success-card__tag">★ Успех недели</div>
@@ -251,7 +253,7 @@ function Hero() {
               </div>
               <span><b>+18 студентов</b> поступили в этом месяце</span>
             </div>
-          </button>
+          </div>
         </div>
       </div>
       <HeroWaves />
