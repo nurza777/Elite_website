@@ -35,6 +35,14 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 self.path = path + ".html" + raw[len(path):]
         self._safe(super().do_GET)
 
+    def end_headers(self):
+        # Dev server: never cache, so edits to .jsx/.css/.html show on reload
+        # (no more "hard-refresh to see changes"). Important here because the
+        # browser otherwise runs stale Babel-compiled scripts.
+        self.send_header("Cache-Control", "no-store, must-revalidate")
+        self.send_header("Expires", "0")
+        super().end_headers()
+
     def copyfile(self, source, outputfile):
         # Wrap the big body-copy (videos!) so an aborted download doesn't crash.
         self._safe(lambda: super(Handler, self).copyfile(source, outputfile))
