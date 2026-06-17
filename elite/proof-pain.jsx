@@ -204,11 +204,11 @@ function Countries() {
    "Зарубежное образование — это не только диплом"
    ============================================================ */
 const BEYOND = [
-  { cls: "travel",  title: "Путешествия", sub: "Новые страны каждые каникулы",       video: "videos/beyond-travel.mp4",  poster: "thumbs/beyond-travel.jpg"  },
-  { cls: "career",  title: "Карьера",     sub: "Международное резюме с первого дня",  video: "videos/beyond-career.mp4",  poster: "thumbs/beyond-career.jpg"  },
-  { cls: "friends", title: "Друзья",      sub: "Со всего мира — на всю жизнь",         video: "videos/beyond-friends.mp4", poster: "thumbs/beyond-friends.jpg" },
-  { cls: "network", title: "Знакомства",  sub: "Alumni-сеть в 40+ странах",            video: "videos/beyond-network.mp4", poster: "thumbs/beyond-network.jpg" },
-  { cls: "world",   title: "Среда",       sub: "100+ национальностей рядом",           video: "videos/beyond-world.mp4",   poster: "thumbs/beyond-world.jpg"   },
+  { cls: "travel",  title: "Путешествия", sub: "Новые страны каждые каникулы",       video: "videos/beyond-travel.mp4",  poster: "images/beyond/travel.jpg"  },
+  { cls: "career",  title: "Карьера",     sub: "Международное резюме с первого дня",  video: "videos/beyond-career.mp4",  poster: "images/beyond/career.jpg"  },
+  { cls: "friends", title: "Друзья",      sub: "Со всего мира — на всю жизнь",         video: "videos/beyond-friends.mp4", poster: "images/beyond/friends.jpg" },
+  { cls: "network", title: "Знакомства",  sub: "Alumni-сеть в 40+ странах",            video: "videos/beyond-network.mp4", poster: "images/beyond/network.jpg" },
+  { cls: "world",   title: "Среда",       sub: "100+ национальностей рядом",           video: "videos/beyond-world.mp4",   poster: "images/beyond/world.jpg"   },
 ];
 
 function BeyondCell({ item }) {
