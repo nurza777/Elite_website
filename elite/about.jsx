@@ -124,8 +124,8 @@ function Accreditations() {
           <h2>Нам доверяют не только студенты</h2>
         </div>
         <ScrollRail trackClass="accreds__grid" loop={true} step={320}>
-          {[...ACCREDS, ...ACCREDS].map((a, i) => (
-            <article className="accred card card--lift" data-reveal data-delay={(i % ACCREDS.length) + 1} key={i}>
+          {ACCREDS.map((a, i) => (
+            <article className="accred card card--lift" data-reveal data-delay={i + 1} key={a.name}>
               <span className="accred__tag">{a.tag}</span>
               <h3 className="accred__name">{a.name}</h3>
               <p className="accred__desc">{a.desc}</p>

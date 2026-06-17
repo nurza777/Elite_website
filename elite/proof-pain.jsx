@@ -165,7 +165,7 @@ function Countries() {
       </div>
       <div className="wrap">
         <ScrollRail trackClass="countries__grid" loop={true} step={320}>
-          {[...COUNTRIES, ...COUNTRIES].map((c, i) => (
+          {COUNTRIES.map((c, i) => (
             <a href={`country.html?c=${encodeURIComponent(c.name)}`} className="country card--lift" key={i}
                style={{ "--c-bg": c.bg, "--c-accent": c.accent }}>
               {/* Photo area */}

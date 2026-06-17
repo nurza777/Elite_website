@@ -88,27 +88,75 @@ function SectionWave({ flip = false, color = "var(--white)" }) {
   );
 }
 
-/* Horizontal scroll rail with prev/next arrows (and optional wrap-around loop).
-   Pass trackClass to reuse an existing flex/scroll grid (e.g. "countries__grid"). */
-function ScrollRail({ children, trackClass = "", loop = false, step = 320 }) {
+/* Horizontal scroll rail with prev/next arrows and optional seamless infinite loop.
+   - Pass a SINGLE set of children; with loop=true the rail clones them `copies`
+     times and keeps the viewport recentered in the middle copy, so scrolling
+     never hits an edge and there is no visible jump (copies are pixel-identical).
+   - trackClass reuses an existing flex grid (e.g. "countries__grid"). */
+function ScrollRail({ children, trackClass = "", loop = false, step = 320, copies = 3 }) {
   const ref = React.useRef(null);
+  const base = React.Children.toArray(children);
+  const perCopy = base.length;
+  const items = loop
+    ? Array.from({ length: copies }).flatMap((_, k) =>
+        base.map((ch, j) => React.cloneElement(ch, { key: k + "-" + j })))
+    : base;
+
+  React.useEffect(() => {
+    if (!loop) return;
+    const el = ref.current;
+    if (!el) return;
+
+    const period = () => {
+      const kids = el.children;
+      return kids.length > perCopy ? kids[perCopy].offsetLeft - kids[0].offsetLeft : 0;
+    };
+    const recenter = () => {
+      const p = period();
+      if (!p) return;
+      if (el.scrollLeft < p) el.scrollLeft += p;
+      else if (el.scrollLeft >= 2 * p) el.scrollLeft -= p;
+    };
+
+    // start in the middle copy once layout is ready
+    const startId = requestAnimationFrame(() => { const p = period(); if (p) el.scrollLeft = p; });
+
+    // recenter only after scrolling settles (so smooth/momentum isn't interrupted)
+    let settle = 0;
+    const onScroll = () => { clearTimeout(settle); settle = setTimeout(recenter, 130); };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", recenter);
+    el._railPeriod = period; // expose for arrow pre-centering
+    return () => {
+      cancelAnimationFrame(startId);
+      clearTimeout(settle);
+      el.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", recenter);
+    };
+  }, [loop, perCopy, copies]);
+
   function scroll(dir) {
     const el = ref.current;
     if (!el) return;
-    const max = el.scrollWidth - el.clientWidth;
-    if (loop) {
-      if (dir > 0 && el.scrollLeft >= max - 6) { el.scrollTo({ left: 0, behavior: "smooth" }); return; }
-      if (dir < 0 && el.scrollLeft <= 6) { el.scrollTo({ left: max, behavior: "smooth" }); return; }
+    // for a looped rail, jump one copy inward BEFORE animating if the step would
+    // cross an edge — keeps the smooth animation inside the safe middle band.
+    if (loop && el._railPeriod) {
+      const p = el._railPeriod();
+      if (p) {
+        if (dir > 0 && el.scrollLeft + step >= 2 * p) el.scrollLeft -= p;
+        else if (dir < 0 && el.scrollLeft - step < p) el.scrollLeft += p;
+      }
     }
     el.scrollBy({ left: dir * step, behavior: "smooth" });
   }
+
   return (
     <div className="srail">
       <button type="button" className="srail__arrow srail__arrow--prev" onClick={() => scroll(-1)} aria-label="Назад">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
       <div className={"srail__track " + trackClass} ref={ref}>
-        {children}
+        {items}
       </div>
       <button type="button" className="srail__arrow srail__arrow--next" onClick={() => scroll(1)} aria-label="Вперёд">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
