@@ -214,16 +214,17 @@ const BEYOND = [
 function BeyondCell({ item }) {
   const ref = React.useRef(null);
   const [sound, setSound] = React.useState(false);
+  const [playing, setPlaying] = React.useState(false);
 
-  function enter() { const v = ref.current; if (v && v.muted) v.play().catch(() => {}); }
+  function enter() { const v = ref.current; if (v && v.muted) { v.play().catch(() => {}); setPlaying(true); } }
   function leave() {
     const v = ref.current;
-    if (v && v.muted) { v.pause(); v.currentTime = 0; } // keep playing if user turned sound on
+    if (v && v.muted) { v.pause(); v.currentTime = 0; setPlaying(false); } // keep playing if user turned sound on
   }
   function toggleSound(e) {
     e.stopPropagation();
     const v = ref.current; if (!v) return;
-    if (v.muted) { v.muted = false; v.play().catch(() => {}); setSound(true); }
+    if (v.muted) { v.muted = false; v.play().catch(() => {}); setSound(true); setPlaying(true); }
     else { v.muted = true; setSound(false); }
   }
 
@@ -236,11 +237,16 @@ function BeyondCell({ item }) {
       role="button"
       tabIndex={0}
     >
+      <img
+        src={item.poster}
+        alt={item.title}
+        className={"beyond__poster" + (playing ? " beyond__poster--hide" : "")}
+        loading="lazy"
+      />
       <video
         ref={ref}
         className="beyond__video"
         src={item.video}
-        poster={item.poster}
         muted loop playsInline preload="metadata"
       />
       <div className="beyond__scrim" />

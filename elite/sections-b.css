@@ -124,6 +124,17 @@
 }
 .beyond__cell:hover .beyond__video { transform: scale(1.06); }
 
+/* Poster photo preview — covers the video until it plays, returns on mouse leave */
+.beyond__poster {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 1; transition: opacity .4s ease, transform .6s ease;
+}
+.beyond__poster--hide { opacity: 0; }
+.beyond__cell:hover .beyond__poster { transform: scale(1.06); }
+
 /* Dark scrim so the text stays readable over video */
 .beyond__scrim {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
@@ -438,7 +449,8 @@
 /* thumb fades out when video starts */
 .vcard__thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: opacity .35s; z-index: 1; }
 .vcard__thumb--hide { opacity: 0; }
-.vcard__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: 2; }
+.vcard__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: 2; opacity: 0; transition: opacity .3s; }
+.vcard--hover .vcard__video { opacity: 1; }
 
 /* subtle dark overlay, lightens on hover */
 .vcard__overlay {
