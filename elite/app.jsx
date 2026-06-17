@@ -25,7 +25,6 @@ function PageHome() {
     <>
       <Hero />
       <TrustBar />
-      <HomeSearch />
       <BeyondDiploma />
       <Quiz />
       <DeadlineBanner />
@@ -83,8 +82,6 @@ function PagePrograms() {
       <Programs />
       <DeadlineBanner />
       <Exams />
-      <EnglishLevelTest />
-      <SavingsCalculator />
       <FinalCTA />
     </>
   );
@@ -95,11 +92,12 @@ function PageAdmission() {
     <>
       <PageHero
         eyebrow="Поступление"
-        title="Из Бишкека в зарубежный кампус — 6 шагов"
-        sub="Подбор вуза, подготовка к Duolingo и TOEFL, эссе, документы, студенческая виза. Финальный урок проводит основатель лично."
+        title="Поступай за рубеж вместе с Elite"
+        sub="Проверь свой английский, посчитай реальную стоимость учёбы, узнай о стипендиях и визах — а дальше приходи на консультацию и подавай заявку."
         variant="default"
       />
-      <HowWeWork />
+      <EnglishLevelTest />
+      <SavingsCalculator />
       <Scholarships />
       <Visas />
       <FinalCTA />
