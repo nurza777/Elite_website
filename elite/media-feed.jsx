@@ -3,9 +3,9 @@
    ============================================================ */
 
 const VIDEOS_DEFAULT = [
-  { name: "Элана",     country: "Италия", src: "videos/elana.mp4",     poster: "thumbs/elana.jpg",     tag: "Отзыв",    uni: "Università degli Studi di Milano", scholarship: "Грант €0", quote: "Я всегда мечтала учиться в Европе. Elite Academy помогли с документами, языком и нашли грант. Теперь учусь в Милане!" },
+  { name: "Элана",     country: "Италия", src: "videos/elana.mp4",     poster: "thumbs/elana.jpg",     tag: "Отзыв",    uni: "Università degli Studi di Milano", scholarship: "Грант €7 000", quote: "Я всегда мечтала учиться в Европе. Elite Academy помогли с документами, языком и нашли грант. Теперь учусь в Милане!" },
   { name: "Нурсултан", country: "Италия", src: "videos/nursultan.mp4", poster: "thumbs/nursultan.jpg", tag: "Отзыв",    uni: "Италия · бакалавриат", quote: "С Elite Academy весь путь от анкеты до визы прошёл спокойно и понятно." },
-  { name: "Анель",     country: "Италия", src: "videos/anel.mp4",      poster: "thumbs/anel.jpg",      tag: "Отзыв",    uni: "Università di Roma La Sapienza", scholarship: "Грант €0", quote: "Команда Elite Academy — профессионалы. Они знают каждый шаг и помогают на каждом этапе. Без них я бы не справилась." },
+  { name: "Анель",     country: "Италия", src: "videos/anel.mp4",      poster: "thumbs/anel.jpg",      tag: "Отзыв",    uni: "Università di Roma La Sapienza", scholarship: "Грант €8 000", quote: "Команда Elite Academy — профессионалы. Они знают каждый шаг и помогают на каждом этапе. Без них я бы не справилась." },
   { name: "Амирхан",   country: "Италия", src: "videos/amirkhan.mp4",  poster: "thumbs/amirkhan.jpg",  tag: "Отзыв",    uni: "Италия · бакалавриат", quote: "Поступил в итальянский вуз — то, что год назад казалось нереальным." },
   { name: "Асема",     country: "Италия", src: "videos/asema.mp4",     poster: "thumbs/asema.jpg",     tag: "Отзыв",    uni: "Италия · бакалавриат", quote: "Помогли с мотивационным письмом и подготовкой к экзамену — всё получилось." },
   { name: "Калия",     country: "Италия", src: "videos/kaliya.mp4",    poster: "thumbs/kaliya.jpg",    tag: "Отзыв",    uni: "Италия · бакалавриат", quote: "Спасибо команде за поддержку на каждом этапе поступления." },

@@ -66,6 +66,7 @@
 }
 .cprof__fact { text-align: center; padding: 6px 10px; }
 .cprof__fact + .cprof__fact { border-left: 1px solid var(--line); }
+.cprof__fact-ic { display: block; font-size: 24px; margin-bottom: 8px; line-height: 1; }
 .cprof__fact-l {
   display: block; font-size: 12px; font-weight: 700;
   letter-spacing: .07em; text-transform: uppercase;

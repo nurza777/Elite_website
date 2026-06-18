@@ -123,9 +123,7 @@ function StorySlide({ s }) {
 }
 
 function Stories() {
-  const [idx, setIdx] = useState(0);
   const [gf, setGf] = useState("Все");
-  const go = (d) => setIdx((i) => (i + d + STORY_CARDS.length) % STORY_CARDS.length);
   const grid = STORY_GRID.filter((g) => gf === "Все" || g.t === gf);
 
   return (
@@ -134,24 +132,6 @@ function Stories() {
         <div className="section-head" data-reveal>
           <span className="eyebrow">Наши студенты</span>
           <h2>Они были такими же, как ты.<br/><span className="text-blue">Теперь учатся за рубежом.</span></h2>
-        </div>
-
-        {/* Carousel */}
-        <div className="story-carousel" data-reveal>
-          <div className="story-carousel__viewport">
-            <div className="story-carousel__track" style={{ transform: `translateX(-${idx * 100}%)` }}>
-              {STORY_CARDS.map((s, i) => <StorySlide key={i} s={s} />)}
-            </div>
-          </div>
-          <div className="story-carousel__nav">
-            <button onClick={() => go(-1)} aria-label="Назад">←</button>
-            <div className="story-carousel__dots">
-              {STORY_CARDS.map((_, i) => (
-                <button key={i} className={i === idx ? "is-on" : ""} onClick={() => setIdx(i)} aria-label={"Слайд " + (i+1)}></button>
-              ))}
-            </div>
-            <button onClick={() => go(1)} aria-label="Вперёд">→</button>
-          </div>
         </div>
 
         {/* Grid */}
@@ -171,7 +151,7 @@ function Stories() {
 const VISAS = [
   { name: "Виза F-1 (США)", docs: "I-20, DS-160, SEVIS, паспорт", term: "3–6 недель", rate: "100%" },
   { name: "Студ. виза Италии", docs: "Acceptance letter, финансы, страховка", term: "4–8 недель", rate: "100%" },
-  { name: "UK Student Visa", docs: "CAS, IELTS, финансы, TB-тест", term: "3 недели", rate: "100%" },
+  { name: "Студ. виза Германии", docs: "Acceptance letter, финансы, страховка, языковой тест", term: "4–8 недель", rate: "100%" },
 ];
 
 function Visas() {

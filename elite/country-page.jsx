@@ -90,6 +90,7 @@ function CountryProfile() {
           <div className="cprof__facts-row">
             {Object.entries(det.facts).map(([k, v]) => (
               <div className="cprof__fact" key={k}>
+                <span className="cprof__fact-ic">{{"Столица":"🏛","Язык обучения":"🗣️","Валюта":"💱","Учёба от":"📚","Виза":"🛂"}[k] || "📌"}</span>
                 <span className="cprof__fact-l">{k}</span>
                 <b className="cprof__fact-v">{v}</b>
               </div>
