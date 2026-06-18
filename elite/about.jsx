@@ -106,11 +106,11 @@ function VisionMission() {
    ACCREDITATIONS — partner / accreditation cards (about page)
    ============================================================ */
 const ACCREDS_DEFAULT = [
-  { name: "ICEF", tag: "Аккредитация", desc: "Международная сеть проверенных агентств образования. Аккредитация подтверждает стандарты работы и прозрачность для вузов-партнёров." },
-  { name: "American Academy", tag: "Языковой партнёр", desc: "Лицензированный центр иностранных языков в Бишкеке — партнёр Elite Academy по языковой подготовке. Курсы английского и китайского: доводим студентов до уровня, необходимого для поступления и учёбы за рубежом." },
-  { name: "Shorelight", tag: "Партнёрство", desc: "Официальный партнёр Shorelight — прямые соглашения с университетами США, быстрые офферы и стипендии для наших студентов." },
-  { name: "Apply Wave", tag: "Платформа", desc: "Партнёрская платформа подачи заявок: документы уходят в приёмные комиссии напрямую, без посредников." },
-  { name: "Birpofi", tag: "Переводы", desc: "Аккредитованная переводческая компания — переводы документов, которые принимают посольства и приёмные комиссии." },
+  { name: "ICEF", tag: "Аккредитация", logo: "../images/logos/icef.jpg", desc: "Международная сеть проверенных агентств образования. Аккредитация подтверждает стандарты работы и прозрачность для вузов-партнёров." },
+  { name: "American Academy", tag: "Языковой партнёр", logo: "../images/logos/american_academy.jpg", desc: "Лицензированный центр иностранных языков в Бишкеке — партнёр Elite Academy по языковой подготовке. Курсы английского и китайского: доводим студентов до уровня, необходимого для поступления и учёбы за рубежом." },
+  { name: "Shorelight", tag: "Партнёрство", logo: "../images/logos/shorelight.jpg", desc: "Официальный партнёр Shorelight — прямые соглашения с университетами США, быстрые офферы и стипендии для наших студентов." },
+  { name: "Apply Wave", tag: "Платформа", logo: "../images/logos/applywave.jpg", desc: "Партнёрская платформа подачи заявок: документы уходят в приёмные комиссии напрямую, без посредников." },
+  { name: "Birpofi", tag: "Переводы", logo: "../images/logos/birpofi.png", desc: "Аккредитованная переводческая компания — переводы документов, которые принимают посольства и приёмные комиссии." },
 ];
 const ACCREDS = window.eaContent ? window.eaContent("accreds", ACCREDS_DEFAULT) : ACCREDS_DEFAULT;
 window.EA_ACCREDS = ACCREDS;
@@ -126,6 +126,7 @@ function Accreditations() {
         <div className="accreds__grid">
           {ACCREDS.map((a, i) => (
             <article className="accred card card--lift" data-reveal data-delay={i + 1} key={a.name}>
+              {a.logo && <img src={a.logo} alt={a.name} className="accred__logo" />}
               <span className="accred__tag">{a.tag}</span>
               <h3 className="accred__name">{a.name}</h3>
               <p className="accred__desc">{a.desc}</p>
@@ -153,8 +154,38 @@ const OFFICE_DEFAULT = {
 const OFFICE = window.eaContent ? window.eaContent("office", OFFICE_DEFAULT) : OFFICE_DEFAULT;
 window.EA_OFFICE = OFFICE;
 
+const DGIS_KEY      = "de8b758a-a208-4a05-9f30-25eb492f4364";
+const OFFICE_COORDS = [74.590385, 42.843700]; // центр здания 169
+
 function OfficeBlock() {
-  const mapQuery = encodeURIComponent(OFFICE.map);
+  const mapRef  = React.useRef(null);
+  const mapInst = React.useRef(null);
+
+  React.useEffect(() => {
+    if (mapInst.current || !mapRef.current) return;
+    function initMap() {
+      const map = new window.mapgl.Map(mapRef.current, {
+        center: OFFICE_COORDS,
+        zoom: 17,
+        key: DGIS_KEY,
+        lang: "ru",
+      });
+      mapInst.current = map;
+      new window.mapgl.Marker(map, {
+        coordinates: OFFICE_COORDS,
+      });
+    }
+    if (window.mapgl) {
+      initMap();
+    } else {
+      const s = document.createElement("script");
+      s.src = "https://mapgl.2gis.com/api/js/v1";
+      s.onload = initMap;
+      document.head.appendChild(s);
+    }
+    return () => { if (mapInst.current) { mapInst.current.destroy(); mapInst.current = null; } };
+  }, []);
+
   return (
     <section className="section section--tight office" id="office">
       <div className="wrap">
@@ -181,20 +212,21 @@ function OfficeBlock() {
             <a href="#cta" className="btn btn--gold btn--block">Записаться на консультацию</a>
           </div>
           <div className="office__map card" data-reveal data-delay="1">
-            <iframe
-              title="Офис Elite Academy на карте"
-              src={`https://www.google.com/maps?q=${mapQuery}&output=embed&hl=ru`}
-              loading="lazy"
-              allowFullScreen
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
-            <div className="office__map-links">
+            <div ref={mapRef} className="office__map-canvas"></div>
+            <div className="office__map-firm">
+              <div className="office__map-firm-info">
+                <span className="office__map-firm-name">Elite Academy</span>
+                <span className="office__map-firm-meta">
+                  <span className="office__map-firm-star">★ 4.9</span>
+                  <span>·</span>
+                  <span>6 этаж</span>
+                  <span>·</span>
+                  <span>БЦ Бинокль</span>
+                </span>
+              </div>
               <a href="https://go.2gis.com/0qrsd" target="_blank" rel="noopener" className="office__map-ext-link office__map-ext-link--primary">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Открыть в 2GIS
-              </a>
-              <a href={`https://www.google.com/maps/search/${mapQuery}`} target="_blank" rel="noopener" className="office__map-ext-link office__map-ext-link--muted">
-                Google Maps
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                В 2GIS
               </a>
             </div>
           </div>

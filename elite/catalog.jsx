@@ -183,6 +183,15 @@ const LOGO_MAP = {
   "Marang":"images/logos/catalog/marang.png",    "Roma3":"images/logos/catalog/roma3.png",
   "UNIVPM":"images/logos/catalog/univpm.png",    "RUFA":"images/logos/catalog/rufa.png",
   "LUM":"images/logos/catalog/lum.png",
+  "UniPI":"images/logos/catalog/unipi.svg",      "UniSI":"images/logos/catalog/unisi.png",
+  "UniPV":"images/logos/catalog/unipv.svg",      "UniTN":"images/logos/catalog/unitn.svg",
+  "UniTS":"images/logos/catalog/units.svg",      "UniBS":"images/logos/catalog/unibs.svg",
+  "UniPR":"images/logos/catalog/unipr.svg",      "UniMiB":"images/logos/catalog/unimib.png",
+  "UniGE":"images/logos/catalog/unige.svg",      "UniPA":"images/logos/catalog/unipa.png",
+  "UniME":"images/logos/catalog/unime.gif",      "UniCT":"images/logos/catalog/unict.svg",
+  "UniSA":"images/logos/catalog/unisa.png",      "UniCAS":"images/logos/catalog/unicas.svg",
+  "UniUD":"images/logos/catalog/uniud.webp",     "UniCamp":"images/logos/catalog/unicamp.png",
+  "UniBa":"images/logos/catalog/uniba.png",      "LinkCU":"images/logos/catalog/linkcu.png",
   // США
   "Roosevelt":"images/logos/catalog/roosevelt.png",   "Bellevue":"images/logos/catalog/bellevue.png",
   "LaSalle":"images/logos/catalog/lasalle.png",       "K-Zoo":"images/logos/catalog/kzoo.png",
@@ -202,6 +211,14 @@ const LOGO_MAP = {
   "FloridaTech":"images/logos/catalog/floridatech.png","NAU":"images/logos/catalog/nau.png",
   "Radford":"images/logos/catalog/radford.png",       "Concord":"images/logos/catalog/concord.png",
   "UAlbany":"images/logos/catalog/ualb.png",
+  "CWU":"images/logos/catalog/cwu.png",               "ConnColl":"images/logos/catalog/conncoll.png",
+  "SFBU":"images/logos/catalog/sfbu.png",
+  // США — Колледжи
+  "DeAnza":"images/logos/catalog/deanza.svg",   "GreenRiver":"images/logos/catalog/greenriver.png",
+  "SCC":"images/logos/catalog/scc.png",         "SMC":"images/logos/catalog/smc.svg",
+  "LACC":"images/logos/catalog/lacc.svg",       "CCC":"images/logos/catalog/ccc.png",
+  "LWIT":"images/logos/catalog/lwit.svg",       "CCSF":"images/logos/catalog/ccsf.png",
+  "CSI":"images/logos/catalog/csi.png",
   // Австрия
   "UniWien":"images/logos/catalog/uniwien.png",  "WU":"images/logos/catalog/wu.png",
   "TU Wien":"images/logos/catalog/tuwien.png",   "MedUni Wien":"images/logos/catalog/muw.png",
@@ -495,7 +512,7 @@ function Universities() {
   /* ---------- Filter logic ---------- */
   let list = UNIS.filter(u => {
     if (q && ![u.name, u.loc, u.short].some(s => s.toLowerCase().includes(q.toLowerCase()))) return false;
-    if (u.price > maxPrice) return false;
+    if (maxPrice === 0 ? !u.needBased : u.price > maxPrice) return false;
     if (selFields.length    > 0 && !selFields.includes(u.field)) return false;
     if (selCountries.length > 0 && !selCountries.includes(u.country)) return false;
     if (selLevel && !u.levels.includes(selLevel)) return false;
