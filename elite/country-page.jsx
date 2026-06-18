@@ -5,7 +5,99 @@
    Gallery photos: images/countries/<slug>/1.jpg … 4.jpg
    (tile 1 falls back to the main country photo).
    ============================================================ */
-const { useState, useEffect } = React;
+const { useState, useEffect, useRef } = React;
+
+const EA_WA = "+996555720712";
+
+function UniLeadModal({ uni, onClose }) {
+  const [name, setName]   = useState("");
+  const [phone, setPhone] = useState("");
+  const [sent, setSent]   = useState(false);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (uni) { setSent(false); setName(""); setPhone(""); setTimeout(() => inputRef.current?.focus(), 80); }
+    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [uni]);
+
+  if (!uni) return null;
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const msg = encodeURIComponent(
+      `Здравствуйте! Меня зовут ${name}. Хочу узнать больше о ${uni.name}. Мой номер: ${phone}`
+    );
+    window.open(`https://wa.me/${EA_WA.replace(/\D/g, "")}?text=${msg}`, "_blank");
+    setSent(true);
+  }
+
+  return (
+    <div className="ulm-backdrop" onClick={(e) => e.target === e.currentTarget && onClose()}>
+      <div className="ulm" role="dialog" aria-modal="true">
+        <button className="ulm__close" onClick={onClose} aria-label="Закрыть">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+
+        {sent ? (
+          <div className="ulm__sent">
+            <div className="ulm__sent-icon">✓</div>
+            <h3>Отлично!</h3>
+            <p>Мы уже открыли WhatsApp — наш менеджер ответит в ближайшее время.</p>
+            <button className="btn btn--dark btn--block" style={{marginTop:20}} onClick={onClose}>Закрыть</button>
+          </div>
+        ) : (
+          <>
+            <div className="ulm__uni">
+              {uni.logo
+                ? <img src={uni.logo} alt={uni.name} className="ulm__uni-logo" />
+                : <div className="ulm__uni-logo ulm__uni-logo--ph">{uni.short.slice(0, 2).toUpperCase()}</div>
+              }
+              <div>
+                <div className="ulm__uni-name">{uni.name}</div>
+                <div className="ulm__uni-meta">{uni.loc}{uni.qs ? ` · QS #${uni.qs}` : ""}</div>
+              </div>
+            </div>
+
+            <h3 className="ulm__title">Хочешь узнать больше?</h3>
+            <p className="ulm__sub">Запишись на бесплатную консультацию — расскажем всё о поступлении, стоимости и шансах.</p>
+
+            <form className="ulm__form" onSubmit={handleSubmit}>
+              <div className="ulm__field">
+                <label className="ulm__label">Ваше имя</label>
+                <input
+                  ref={inputRef}
+                  className="ulm__input"
+                  type="text"
+                  placeholder="Например, Айдана"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="ulm__field">
+                <label className="ulm__label">Номер телефона</label>
+                <input
+                  className="ulm__input"
+                  type="tel"
+                  placeholder="+996 ___  ___ ___"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  required
+                />
+              </div>
+              <button className="btn btn--gold btn--block ulm__submit" type="submit">
+                Записаться на консультацию →
+              </button>
+            </form>
+            <p className="ulm__legal">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных</p>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
 
 function CountryTile({ src, fallback, label, big }) {
   const [stage, setStage] = useState(0); // 0 = src, 1 = fallback, 2 = placeholder
@@ -33,6 +125,7 @@ function CountryProfile() {
   const unis = (window.EA_UNIS || []).filter((u) => u.country === name);
   const students = (window.EA_VIDEOS || []).filter((v) => v.country === name);
   const [activeVid, setActiveVid] = useState(null);
+  const [activeUni, setActiveUni] = useState(null);
   const VideoModal = window.VideoModal;
 
   useEffect(() => {
@@ -176,7 +269,7 @@ function CountryProfile() {
             </div>
             <div className="cprof__unis-grid">
               {top.map((u, i) => (
-                <a key={u.short} href={`university.html?u=${encodeURIComponent(u.short)}`}
+                <button key={u.short} onClick={() => setActiveUni(u)}
                    className="cprof__uni card card--lift" data-reveal data-delay={(i % 3) + 1}>
                   {u.logo
                     ? <img src={u.logo} className="cprof__uni-logo" alt={u.short} />
@@ -187,7 +280,7 @@ function CountryProfile() {
                     <div className="cprof__uni-meta">{u.loc} · {fmt(u.price)}</div>
                   </div>
                   {u.qs && <span className="cprof__uni-qs">QS #{u.qs}</span>}
-                </a>
+                </button>
               ))}
             </div>
             <div className="cprof__unis-all">
@@ -234,6 +327,8 @@ function CountryProfile() {
           {VideoModal && <VideoModal item={activeVid} onClose={() => setActiveVid(null)} />}
         </section>
       )}
+
+      <UniLeadModal uni={activeUni} onClose={() => setActiveUni(null)} />
     </>
   );
 }
