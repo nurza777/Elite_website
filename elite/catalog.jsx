@@ -235,7 +235,8 @@ const LOGO_MAP = {
 const CAMPUS_MAP = {
   // Италия
   "PoliMi":"images/campus/polimi.jpg",       "Bocconi":"images/campus/bocconi.jpg",
-  "Sapienza":"images/campus/sapienza.jpg",   "UniPD":"images/campus/unipd.jpg",
+  "UniBo":"images/campus/unibo.jpg",         "Sapienza":"images/campus/sapienza.jpg",
+  "UniPD":"images/campus/unipd.jpg",
   "CaFosc":"images/campus/cafoscari.jpg",    "LUISS":"images/campus/luiss.jpg",
   "PoliTO":"images/campus/polito.jpg",       "UniMi":"images/campus/unimi.jpg",
   "UniTO":"images/campus/unito.jpg",         "UniPI":"images/campus/unipi.jpg",
