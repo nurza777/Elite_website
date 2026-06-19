@@ -236,7 +236,7 @@ function Navbar() {
                 </div>
               ))}
               <div className="mega__feature">
-                <img src="images/promo-nav.jpg" alt="Elite Academy промо" style={{ width:"100%", height:96, objectFit:"cover", borderRadius:12, marginBottom:14, display:"block" }} />
+                <img src="images/promo-nav.jpg" alt="Elite Academy промо" style={{ width:"100%", height:96, objectFit:"cover", objectPosition:"top", borderRadius:12, marginBottom:14, display:"block" }} />
                 <div className="mega__feature-t">Не знаешь с чего начать?</div>
                 <p>Пройди оценку шансов за 2 минуты и получи список подходящих вузов.</p>
                 <a href={MEGA[open].ctaHref} className="mega__cta" onClick={() => setOpen(null)}>{MEGA[open].cta}</a>
