@@ -136,6 +136,7 @@ const UNIS_RAW = [
   { name: "University Kuala Lumpur (UniKL)",   short: "UniKL",    loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: 651,  price: 4400,  type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр" },
   { name: "University Tenaga Nasional (UNITEN)",short:"UNITEN",   loc: "Путраджая",   country: "Малайзия",      flag: "🇲🇾", qs: 601,  price: 4600,  type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр" },
   { name: "Tunku Abdul Rahman University College",short:"TARUC",  loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: 501,  price: 3800,  type: "Государственный", field: "IT",         levels: "Колледж · Бакалавр" },
+  { name: "UNITAR International University",      short:"UNITAR", loc: "Петалинг-Джая", country: "Малайзия",     flag: "🇲🇾", qs: null, price: 5000,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true },
 
   /* ========== ГЕРМАНИЯ ========== */
   { name: "University of Europe for Applied Sciences",short:"UE of Europe",loc:"Берлин",country:"Германия",     flag: "🇩🇪", qs: null, price: 9900,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
