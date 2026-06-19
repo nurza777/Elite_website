@@ -31,28 +31,16 @@ const STORY_CARDS_DEFAULT = [
 ];
 
 const STORY_GRID_DEFAULT = [
-  { n: "Элана",     u: "Università degli Studi di Milano", s: "Грант + €7 000",   t: "Италия", level: "Бакалавр", video: "videos/elana.mp4",      poster: "thumbs/elana.jpg"      },
-  { n: "Нурсултан", u: "Università di Bologna",            s: "Грант + €6 500",   t: "Италия", level: "Бакалавр", video: "videos/nursultan.mp4",  poster: "thumbs/nursultan.jpg"  },
-  { n: "Анель",     u: "Università di Roma La Sapienza",   s: "Грант + €8 000",   t: "Италия", level: "Магистр",  video: "videos/anel.mp4",       poster: "thumbs/anel.jpg"       },
-  { n: "Амирхан",   u: "Politecnico di Milano",            s: "Грант + €9 000",   t: "Италия", level: "Магистр",  video: "videos/amirkhan.mp4",   poster: "thumbs/amirkhan.jpg"   },
-  { n: "Асема",     u: "Università di Torino",             s: "Стипендия €5 000", t: "Италия", level: "Бакалавр", video: "videos/asema.mp4",      poster: "thumbs/asema.jpg"      },
-  { n: "Калия",     u: "Università di Napoli Federico II", s: "Стипендия €4 500", t: "Италия", level: "Бакалавр", video: "videos/kaliya.mp4",     poster: "thumbs/kaliya.jpg"     },
-  { n: "Нурзар",    u: "Roosevelt University, Чикаго",     s: "$120 000",          t: "США",    level: "Бакалавр", video: "videos/nurzar.mp4",     poster: "thumbs/nurzar.jpg"     },
-  { n: "Амир",      u: "Bellevue College",                 s: "$95 000",           t: "США",    level: "Бакалавр", video: "videos/amir.mp4",       poster: "thumbs/amir.jpg"       },
-  { n: "Исламбек",  u: "La Salle University",              s: "$88 000",           t: "США",    level: "Бакалавр", video: "videos/islambek.mp4",   poster: "thumbs/islambek.jpg"   },
-  { n: "Кенжекан",  u: "Università di Padova",             s: "Грант + €7 500",   t: "Италия", level: "Магистр",  video: "videos/kenzhekan.mp4",  poster: "thumbs/kenzhekan.jpg"  },
-  { n: "Абубакир",  u: "",                                 s: "",                  t: "США",    level: "Бакалавр", video: "videos/abubakir.mp4",   poster: "thumbs/abubakir.jpg"   },
-  { n: "Автандиль", u: "Alfred University",               s: "$30 000",           t: "США",    level: "Бакалавр", video: "videos/avtandil.mp4",   poster: "thumbs/avtandil.jpg"   },
-  { n: "Азирет",    u: "Lasell University",               s: "$20 000",           t: "США",    level: "Бакалавр", video: "videos/aziret.mp4",     poster: "thumbs/aziret.jpg"     },
-  { n: "Аида",      u: "",                                 s: "",                  t: "США",    level: "Бакалавр", video: "videos/aida.mp4",       poster: "thumbs/aida.jpg"       },
-  { n: "Айзада",    u: "University of Missouri",          s: "",                  t: "США",    level: "Бакалавр", video: "videos/aizada.mp4",     poster: "thumbs/aizada.jpg"     },
-  { n: "Алтынай",   u: "Rowan University",               s: "$19 000",           t: "США",    level: "Бакалавр", video: "videos/altynay.mp4",    poster: "thumbs/altynay.jpg"    },
-  { n: "Нурдамир",  u: "Rowan University",               s: "$30 000+",          t: "США",    level: "Бакалавр", video: "videos/nurdam.mp4",     poster: "thumbs/nurdam.jpg"     },
-  { n: "Сардор",    u: "Saint Leo University",           s: "",                  t: "США",    level: "Бакалавр", video: "videos/sardor.mp4",     poster: "thumbs/sardor.jpg"     },
-  { n: "Жаркынай",  u: "",                                s: "",                  t: "США",    level: "Бакалавр", video: "videos/zharkynai.mp4",  poster: "thumbs/zharkynai.jpg"  },
-  { n: "Аянат",     u: "",                                s: "",                  t: "США",    level: "Бакалавр", video: null,                    poster: "thumbs/ayanat.jpg"     },
-  { n: "Мадина",    u: "",                                s: "",                  t: "США",    level: "Бакалавр", video: null,                    poster: "thumbs/madina.jpg"     },
-  { n: "Кыял",      u: "",                                s: "",                  t: "США",    level: "Бакалавр", video: null,                    poster: "thumbs/kyal.jpg"       },
+  { n: "Элана",     u: "Università degli Studi di Milano", s: "Грант + €7 000",   t: "Италия", level: "Бакалавр", video: "videos/elana.mp4",     poster: "thumbs/elana.jpg"     },
+  { n: "Нурсултан", u: "Università di Bologna",            s: "Грант + €6 500",   t: "Италия", level: "Бакалавр", video: "videos/nursultan.mp4", poster: "thumbs/nursultan.jpg" },
+  { n: "Анель",     u: "Università di Roma La Sapienza",   s: "Грант + €8 000",   t: "Италия", level: "Магистр",  video: "videos/anel.mp4",      poster: "thumbs/anel.jpg"      },
+  { n: "Амирхан",   u: "Politecnico di Milano",            s: "Грант + €9 000",   t: "Италия", level: "Магистр",  video: "videos/amirkhan.mp4",  poster: "thumbs/amirkhan.jpg"  },
+  { n: "Асема",     u: "Università di Torino",             s: "Стипендия €5 000", t: "Италия", level: "Бакалавр", video: "videos/asema.mp4",     poster: "thumbs/asema.jpg"     },
+  { n: "Калия",     u: "Università di Napoli Federico II", s: "Стипендия €4 500", t: "Италия", level: "Бакалавр", video: "videos/kaliya.mp4",    poster: "thumbs/kaliya.jpg"    },
+  { n: "Нурзар",    u: "Roosevelt University, Чикаго",     s: "$120 000",          t: "США",    level: "Бакалавр", video: "videos/nurzar.mp4",    poster: "thumbs/nurzar.jpg"    },
+  { n: "Амир",      u: "Bellevue College",                 s: "$95 000",           t: "США",    level: "Бакалавр", video: "videos/amir.mp4",      poster: "thumbs/amir.jpg"      },
+  { n: "Исламбек",  u: "La Salle University",              s: "$88 000",           t: "США",    level: "Бакалавр", video: "videos/islambek.mp4",  poster: "thumbs/islambek.jpg"  },
+  { n: "Кенжекан",  u: "Università di Padova",             s: "Грант + €7 500",   t: "Италия", level: "Магистр",  video: "videos/kenzhekan.mp4", poster: "thumbs/kenzhekan.jpg" },
 ];
 
 /* Admin-edited content wins over the defaults above */
@@ -79,12 +67,12 @@ function SgridCard({ g, onClick }) {
       </div>
       <div className="sgrid__info">
         <div className="sgrid__name">{g.n}</div>
-        {g.u && g.u !== "—" && <div className="sgrid__uni">{g.u}</div>}
+        <div className="sgrid__uni">{g.u}</div>
         <div className="sgrid__meta">
           {g.t && <span className="chip">{g.t}</span>}
           {g.level && <span className="chip tag-blue">{g.level}</span>}
         </div>
-        {g.s && g.s !== "—" && <div className="sgrid__sum">{g.s}</div>}
+        <div className="sgrid__sum">{g.s}</div>
       </div>
     </div>
   );

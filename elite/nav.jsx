@@ -15,35 +15,15 @@ const MEGA = {
     cta: "Все страны →",
     ctaHref: "countries.html",
   },
-  "Университеты": {
-    page: "universities.html",
-    cols: [
-      { h: "По типу", items: ["Топ-рейтинги QS", "Бесплатные", "Бюджетные"] },
-      { h: "США", items: ["Колледжи США", "Муниципальные колледжи", "Community Colleges"] },
-      { h: "Инструмент", items: ["Поиск университетов", "Сравнить вузы", "Сохранённое"] },
-    ],
-    cta: "Поиск университетов →",
-    ctaHref: "universities.html",
-  },
-  "Программы": {
-    page: "programs.html",
-    cols: [
-      { h: "Уровни", items: ["Бакалавриат", "Магистратура", "МВА", "PhD"] },
-      { h: "Короткие", items: ["Языковые курсы", "Летние школы"] },
-      { h: "Формат", items: ["Онлайн-образование", "Двойные дипломы"] },
-    ],
-    cta: "Все программы →",
-    ctaHref: "programs.html",
-  },
   "Поступление": {
     page: "admission.html",
     cols: [
-      { h: "Шаги", items: ["Как поступить", "Документы", "Сроки и дедлайны"] },
-      { h: "Экзамены", items: ["Duolingo", "TOEFL", "IELTS", "SAT"] },
-      { h: "Дальше", items: ["Визы", "Стипендии", "Истории студентов"] },
+      { h: "Проверь себя", items: ["Тест английского", "Калькулятор стоимости"] },
+      { h: "Экзамены", items: ["Duolingo", "TOEFL", "IELTS"] },
+      { h: "Дальше", items: [["Визы", "admission.html#visas"], ["Стипендии", "admission.html#scholarships"], ["Истории студентов", "stories.html"]] },
     ],
-    cta: "Гайд по поступлению →",
-    ctaHref: "admission.html",
+    cta: "Получить консультацию →",
+    ctaHref: "index.html#cta",
   },
   "О нас": {
     page: "about.html",
@@ -68,8 +48,6 @@ function getCurrentPage() {
 }
 const PAGE_TO_KEY = {
   countries: "Страны",
-  universities: "Университеты",
-  programs: "Программы",
   admission: "Поступление",
   stories: "О нас",
   about: "О нас",
@@ -207,9 +185,6 @@ function Navbar() {
           </nav>
 
           <div className="nav__right">
-            <button className="nav__icon" aria-label="Поиск" onClick={() => setOpen(open === "__search" ? null : "__search")}>
-              <svg width="19" height="19" viewBox="0 0 20 20"><circle cx="9" cy="9" r="6.2" stroke="currentColor" strokeWidth="1.8" fill="none"/><path d="M14 14l4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
-            </button>
             <div className="lang">
               {LANGS.map((l) => (
                 <button key={l} className={l === lang ? "is-active" : ""} onClick={() => setSiteLang(l)}>{l}</button>
@@ -236,7 +211,7 @@ function Navbar() {
                 </div>
               ))}
               <div className="mega__feature">
-                <img src="images/promo-nav.jpg" alt="Elite Academy промо" style={{ width:"100%", height:96, objectFit:"cover", objectPosition:"top", borderRadius:12, marginBottom:14, display:"block" }} />
+                <div className="ph" data-label="промо-визуал" style={{ height: 96, borderRadius: 12, marginBottom: 14 }}></div>
                 <div className="mega__feature-t">Не знаешь с чего начать?</div>
                 <p>Пройди оценку шансов за 2 минуты и получи список подходящих вузов.</p>
                 <a href={MEGA[open].ctaHref} className="mega__cta" onClick={() => setOpen(null)}>{MEGA[open].cta}</a>
@@ -245,32 +220,6 @@ function Navbar() {
           </div>
         )}
 
-        {/* Global search dropdown */}
-        {open === "__search" && (
-          <div className="mega mega--search" onMouseEnter={() => enter("__search")} onMouseLeave={leave}>
-            <div className="wrap">
-              <div className="search-big">
-                <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="9" cy="9" r="6.2" stroke="currentColor" strokeWidth="1.8" fill="none"/><path d="M14 14l4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
-                <input autoFocus placeholder="Найди университет, страну, программу или статью…"
-                  onKeyDown={e => { if (e.key === "Enter" && e.target.value.trim()) window.location.href = "universities.html?search=" + encodeURIComponent(e.target.value.trim()); }}
-                />
-                <kbd>Enter</kbd>
-              </div>
-              <div className="search-sugs">
-                <span>Популярно:</span>
-                {[
-                  ["США",           "universities.html?country=%D0%A1%D0%A8%D0%90"],
-                  ["Bellevue College","university.html?u=Bellevue"],
-                  ["Duolingo тест", "programs.html#exams"],
-                  ["Стипендии",     "universities.html?bool_meritBased=1"],
-                  ["Виза F-1",      "admission.html#visas"],
-                ].map(([s, href]) => (
-                  <a key={s} href={href} className="chip">{s}</a>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
       </header>
 
       {/* Mobile drawer */}
@@ -280,12 +229,6 @@ function Navbar() {
           <div className="drawer__top">
             <Logo />
             <button className="drawer__close" aria-label="Закрыть" onClick={() => setDrawer(false)}>✕</button>
-          </div>
-          <div className="search-big search-big--sm">
-            <svg width="18" height="18" viewBox="0 0 20 20"><circle cx="9" cy="9" r="6.2" stroke="currentColor" strokeWidth="1.8" fill="none"/><path d="M14 14l4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
-            <input placeholder="Поиск…"
-              onKeyDown={e => { if (e.key === "Enter" && e.target.value.trim()) { setDrawer(false); window.location.href = "universities.html?search=" + encodeURIComponent(e.target.value.trim()); } }}
-            />
           </div>
           <nav className="drawer__nav">
             {Object.keys(MEGA).map((k) => (

@@ -133,6 +133,9 @@ function ExitIntent() {
               <img src="images/contest.jpg" alt="Конкурс Elite Academy"
                    onError={(e) => { e.target.style.display = "none"; }} />
             </div>
+            <p className="exit__p">
+              Фото конкурса появится здесь. Загрузи изображение в <b>images/contest.jpg</b>
+            </p>
             <a href="#cta" className="btn btn--gold" onClick={() => setOpen(false)}>
               Узнать подробнее →
             </a>
