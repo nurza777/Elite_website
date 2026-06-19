@@ -1,6 +1,11 @@
 # Raw marketing media (~2 GB) — keep out of the repo
 Фото приглашений - виз - студентов/
 
+# Videos exceeding GitHub 100MB limit — keep locally only
+videos/ademi.mp4
+videos/*.MOV
+videos/*.mov
+
 node_modules/
 Thumbs.db
 .DS_Store
