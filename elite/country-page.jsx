@@ -165,9 +165,10 @@ function CountryProfile() {
           <p className="cprof__tagline">{det.tagline}</p>
           <div className="cprof__hero-cta">
             <a href="#cta" className="btn btn--gold btn--lg">Хочу учиться здесь →</a>
-            <a href={`universities.html?country=${encodeURIComponent(name)}`} className="btn btn--ghost-light btn--lg">
+            <button className="btn btn--ghost-light btn--lg"
+              onClick={() => setActiveUni({ name: `вузах — ${name}`, short: name, loc: `${unis.length} вузов в каталоге`, logo: det.photo, qs: null })}>
               {unis.length} вузов в каталоге
-            </a>
+            </button>
           </div>
         </div>
         <div className="cprof-hero__wave" aria-hidden="true">
