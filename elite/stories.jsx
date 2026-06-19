@@ -41,6 +41,18 @@ const STORY_GRID_DEFAULT = [
   { n: "Амир",      u: "Bellevue College",                 s: "$95 000",           t: "США",    level: "Бакалавр", video: "videos/amir.mp4",      poster: "thumbs/amir.jpg"      },
   { n: "Исламбек",  u: "La Salle University",              s: "$88 000",           t: "США",    level: "Бакалавр", video: "videos/islambek.mp4",  poster: "thumbs/islambek.jpg"  },
   { n: "Кенжекан",  u: "Università di Padova",             s: "Грант + €7 500",   t: "Италия", level: "Магистр",  video: "videos/kenzhekan.mp4", poster: "thumbs/kenzhekan.jpg" },
+  { n: "Абубакир",  u: "",                                 s: "",                  t: "США",    level: "Бакалавр", video: "videos/abubakir.mp4",  poster: "thumbs/abubakir.jpg"  },
+  { n: "Автандиль", u: "Alfred University",               s: "$30 000",           t: "США",    level: "Бакалавр", video: "videos/avtandil.mp4",  poster: "thumbs/avtandil.jpg"  },
+  { n: "Азирет",    u: "Lasell University",               s: "$20 000",           t: "США",    level: "Бакалавр", video: "videos/aziret.mp4",    poster: "thumbs/aziret.jpg"    },
+  { n: "Аида",      u: "",                                 s: "",                  t: "США",    level: "Бакалавр", video: "videos/aida.mp4",      poster: "thumbs/aida.jpg"      },
+  { n: "Айзада",    u: "University of Missouri",          s: "",                  t: "США",    level: "Бакалавр", video: "videos/aizada.mp4",    poster: "thumbs/aizada.jpg"    },
+  { n: "Алтынай",   u: "Rowan University",               s: "$19 000",           t: "США",    level: "Бакалавр", video: "videos/altynay.mp4",   poster: "thumbs/altynay.jpg"   },
+  { n: "Нурдамир",  u: "Rowan University",               s: "$30 000+",          t: "США",    level: "Бакалавр", video: "videos/nurdam.mp4",    poster: "thumbs/nurdam.jpg"    },
+  { n: "Сардор",    u: "Saint Leo University",           s: "",                  t: "США",    level: "Бакалавр", video: "videos/sardor.mp4",    poster: "thumbs/sardor.jpg"    },
+  { n: "Жаркынай",  u: "",                                s: "",                  t: "США",    level: "Бакалавр", video: "videos/zharkynai.mp4", poster: "thumbs/zharkynai.jpg" },
+  { n: "Аянат",     u: "",                                s: "",                  t: "США",    level: "Бакалавр", video: null,                   poster: "thumbs/ayanat.jpg"    },
+  { n: "Мадина",    u: "",                                s: "",                  t: "США",    level: "Бакалавр", video: null,                   poster: "thumbs/madina.jpg"    },
+  { n: "Кыял",      u: "",                                s: "",                  t: "США",    level: "Бакалавр", video: null,                   poster: "thumbs/kyal.jpg"      },
 ];
 
 /* Admin-edited content wins over the defaults above */
