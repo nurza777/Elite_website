@@ -50,37 +50,20 @@ window.EA_STORY_CARDS = STORY_CARDS;
 window.EA_STORY_GRID = STORY_GRID;
 const STORY_FILTERS = ["Все", ...new Set(STORY_GRID.map((g) => g.t))];
 
-function SgridCard({ g }) {
-  const videoRef = useRef(null);
-
-  function handleEnter() {
-    if (videoRef.current) videoRef.current.play().catch(() => {});
-  }
-
-  function handleLeave() {
-    const v = videoRef.current;
-    if (v) { v.pause(); v.currentTime = 0; }
-  }
-
+function SgridCard({ g, onClick }) {
   return (
-    <div className="sgrid card"
-      onMouseEnter={g.video ? handleEnter : undefined}
-      onMouseLeave={g.video ? handleLeave : undefined}>
+    <div className="sgrid card" onClick={g.video ? onClick : undefined}
+      style={g.video ? { cursor: "pointer" } : undefined}>
       <div className="sgrid__thumb">
         {g.poster
           ? <img src={g.poster} alt={g.n} className="sgrid__img" loading="lazy" />
           : <div className="ph sgrid__img" data-label={"фото · " + g.n} style={{ height: "100%" }}></div>
         }
         {g.video && (
-          <video
-            ref={videoRef}
-            className="sgrid__video"
-            src={g.video}
-            poster={g.poster}
-            muted playsInline preload="none"
-          />
+          <span className="sgrid__play" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M5 3.5v9l7-4.5z"/></svg>
+          </span>
         )}
-        {g.video && <span className="sgrid__play">▶</span>}
       </div>
       <div className="sgrid__info">
         <div className="sgrid__name">{g.n}</div>
@@ -124,7 +107,9 @@ function StorySlide({ s }) {
 
 function Stories() {
   const [gf, setGf] = useState("Все");
+  const [activeVid, setActiveVid] = useState(null);
   const grid = STORY_GRID.filter((g) => gf === "Все" || g.t === gf);
+  const VideoModal = window.VideoModal;
 
   return (
     <section className="section stories" id="stories">
@@ -141,8 +126,13 @@ function Stories() {
           ))}
         </div>
         <div className="stories__grid stagger" key={gf}>
-          {grid.map((g) => <SgridCard key={g.n} g={g} />)}
+          {grid.map((g) => (
+            <SgridCard key={g.n} g={g}
+              onClick={() => setActiveVid({ src: g.video, poster: g.poster, name: g.n, uni: g.u, country: g.t, scholarship: g.s, tag: g.level || "Отзыв" })}
+            />
+          ))}
         </div>
+      {VideoModal && <VideoModal item={activeVid} onClose={() => setActiveVid(null)} />}
       </div>
     </section>
   );

@@ -21,7 +21,6 @@ function CountryTile({ src, fallback, label, big }) {
         loading="lazy"
         onError={() => setStage(stage + 1)}
       />
-      <span className="cprof__tile-tag">{label}</span>
     </div>
   );
 }
