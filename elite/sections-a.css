@@ -418,8 +418,10 @@
 .uni__loc-ic { flex: 0 0 auto; color: var(--blue); }
 
 .uni__rows { display: flex; flex-direction: column; gap: 7px; padding: 11px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.uni__row { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); }
+.uni__row { display: flex; justify-content: space-between; align-items: flex-start; font-size: 13px; color: var(--muted); }
 .uni__row b { color: var(--navy); font-family: var(--font-head); font-size: 13px; }
+.uni__price-cell { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.uni__discount { font-size: 11px; color: #2a9d5c; font-weight: 600; }
 
 /* Type & field tags */
 .uni__tags { display: flex; align-items: center; gap: 6px; margin: 10px 0 7px; flex-wrap: wrap; }

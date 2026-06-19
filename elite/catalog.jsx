@@ -57,30 +57,30 @@ const UNIS_RAW = [
   { name: "Roosevelt University",              short: "Roosevelt",loc: "Чикаго",      country: "США",           flag: "🇺🇸", qs: 390,  price: 18700, type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", elite: true,  meritBased: true, needBased: true },
   { name: "Bellevue College",                  short: "Bellevue", loc: "Сиэтл",       country: "США",           flag: "🇺🇸", qs: 480,  price: 11000, type: "Государственный", field: "IT",         levels: "Колледж · Бакалавр", elite: true,  meritBased: true },
   { name: "La Salle University",               short: "LaSalle",  loc: "Филадельфия", country: "США",           flag: "🇺🇸", qs: 510,  price: 21000, type: "Частный",         field: "Медицина",   levels: "Бакалавр · Магистр", elite: true,  meritBased: true, needBased: true },
-  { name: "Kalamazoo College",                 short: "K-Zoo",    loc: "Каламазу",    country: "США",           flag: "🇺🇸", qs: 460,  price: 19500, type: "Частный",         field: "Дизайн",     levels: "Бакалавр",           elite: true,  meritBased: true, needBased: true },
+  { name: "Kalamazoo College",                 short: "K-Zoo",    loc: "Каламазу",    country: "США",           flag: "🇺🇸", qs: 460,  , discount: 65265, type: "Частный",         field: "Дизайн",     levels: "Бакалавр",           elite: true,  meritBased: true, needBased: true },
   { name: "Westcliff University",              short: "Westcliff",loc: "Ирвайн",      country: "США",           flag: "🇺🇸", qs: 501,  price: 12000, type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", elite: true,  meritBased: true },
   { name: "SUNY at Buffalo",                   short: "UB",       loc: "Буффало",     country: "США",           flag: "🇺🇸", qs: 326,  price: 16000, type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр · PhD", meritBased: true, needBased: true },
-  { name: "University of Evansville",          short: "UE",       loc: "Эвансвилл",   country: "США",           flag: "🇺🇸", qs: 601,  price: 21500, type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "University of Evansville",          short: "UE",       loc: "Эвансвилл",   country: "США",           flag: "🇺🇸", qs: 601,  , discount: 30000, type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр", meritBased: true },
   { name: "DePaul University",                 short: "DePaul",   loc: "Чикаго",      country: "США",           flag: "🇺🇸", qs: 601,  price: 23000, type: "Частный",         field: "IT",         levels: "Бакалавр · Магистр", meritBased: true, needBased: true },
   { name: "Rowan University",                  short: "Rowan",    loc: "Глассборо",   country: "США",           flag: "🇺🇸", qs: 701,  price: 14000, type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр", meritBased: true },
-  { name: "Harrisburg University",             short: "HarrisU",  loc: "Харрисберг",  country: "США",           flag: "🇺🇸", qs: null, price: 16500, type: "Частный",         field: "IT",         levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Harrisburg University",             short: "HarrisU",  loc: "Харрисберг",  country: "США",           flag: "🇺🇸", qs: null, price: 26000, type: "Частный",         field: "IT",         levels: "Бакалавр · Магистр", meritBased: true },
   { name: "University of Saint Thomas",        short: "UST",      loc: "Хьюстон",     country: "США",           flag: "🇺🇸", qs: 801,  price: 19000, type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true, needBased: true },
   { name: "Arizona State University",          short: "ASU",      loc: "Темпе",       country: "США",           flag: "🇺🇸", qs: 290,  price: 20000, type: "Государственный", field: "IT",         levels: "Бакалавр · Магистр · PhD", meritBased: true, needBased: true },
   { name: "California State University",       short: "CalState", loc: "Калифорния",  country: "США",           flag: "🇺🇸", qs: 601,  price: 14000, type: "Государственный", field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true },
   { name: "San Jose State University",         short: "SJSU",     loc: "Сан-Хосе",    country: "США",           flag: "🇺🇸", qs: 651,  price: 13500, type: "Государственный", field: "IT",         levels: "Бакалавр · Магистр", meritBased: true },
   { name: "Golden Gate University",            short: "GGU",      loc: "Сан-Франциско",country: "США",          flag: "🇺🇸", qs: null, price: 18000, type: "Частный",         field: "Право",      levels: "Бакалавр · Магистр" },
-  { name: "Marymount University",              short: "MU",       loc: "Арлингтон",   country: "США",           flag: "🇺🇸", qs: 801,  price: 20500, type: "Частный",         field: "Дизайн",     levels: "Бакалавр · Магистр", meritBased: true, needBased: true },
+  { name: "Marymount University",              short: "MU",       loc: "Арлингтон",   country: "США",           flag: "🇺🇸", qs: 801,  , discount: 27000, type: "Частный",         field: "Дизайн",     levels: "Бакалавр · Магистр", meritBased: true, needBased: true },
   { name: "Adelphi University",                short: "Adelphi",  loc: "Гарден-Сити", country: "США",           flag: "🇺🇸", qs: 701,  price: 22000, type: "Частный",         field: "Медицина",   levels: "Бакалавр · Магистр", meritBased: true },
-  { name: "University of Cincinnati",          short: "UC",       loc: "Цинциннати",  country: "США",           flag: "🇺🇸", qs: 601,  price: 17000, type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр · PhD", meritBased: true },
+  { name: "University of Cincinnati",          short: "UC",       loc: "Цинциннати",  country: "США",           flag: "🇺🇸", qs: 601,  , discount: 15000, type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр · PhD", meritBased: true },
   { name: "Temple University",                 short: "Temple",   loc: "Филадельфия", country: "США",           flag: "🇺🇸", qs: 503,  price: 19000, type: "Государственный", field: "Право",      levels: "Бакалавр · Магистр · PhD", meritBased: true },
   { name: "Drexel University",                 short: "Drexel",   loc: "Филадельфия", country: "США",           flag: "🇺🇸", qs: 603,  price: 30000, type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр", meritBased: true, needBased: true },
   { name: "Suffolk University",                short: "Suffolk",  loc: "Бостон",      country: "США",           flag: "🇺🇸", qs: 801,  price: 25000, type: "Частный",         field: "Право",      levels: "Бакалавр · Магистр", meritBased: true },
   { name: "Pace University",                   short: "Pace",     loc: "Нью-Йорк",    country: "США",           flag: "🇺🇸", qs: 751,  price: 24000, type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true, needBased: true },
-  { name: "University of Arizona",             short: "UArizona", loc: "Тусон",       country: "США",           flag: "🇺🇸", qs: 376,  price: 18000, type: "Государственный", field: "IT",         levels: "Бакалавр · Магистр · PhD", meritBased: true },
+  { name: "University of Arizona",             short: "UArizona", loc: "Тусон",       country: "США",           flag: "🇺🇸", qs: 376,  price: 42000, type: "Государственный", field: "IT",         levels: "Бакалавр · Магистр · PhD", meritBased: true },
   { name: "Florida International University",  short: "FIU",      loc: "Майами",      country: "США",           flag: "🇺🇸", qs: 701,  price: 16000, type: "Государственный", field: "Бизнес",     levels: "Бакалавр · Магистр · PhD", meritBased: true },
   { name: "University of Connecticut",         short: "UConn",    loc: "Сторрс",      country: "США",           flag: "🇺🇸", qs: 490,  price: 18000, type: "Государственный", field: "Бизнес",     levels: "Бакалавр · Магистр · PhD", meritBased: true },
   { name: "Clarkson University",               short: "Clarkson", loc: "Потсдам",     country: "США",           flag: "🇺🇸", qs: 801,  price: 28000, type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр", meritBased: true },
-  { name: "Columbia College Chicago",          short: "ColChic",  loc: "Чикаго",      country: "США",           flag: "🇺🇸", qs: null, price: 21500, type: "Частный",         field: "Дизайн",     levels: "Бакалавр · Магистр" },
+  { name: "Columbia College Chicago",          short: "ColChic",  loc: "Чикаго",      country: "США",           flag: "🇺🇸", qs: null, , discount: 16000, type: "Частный",         field: "Дизайн",     levels: "Бакалавр · Магистр" },
   { name: "New York Film Academy",             short: "NYFA",     loc: "Нью-Йорк",    country: "США",           flag: "🇺🇸", qs: null, price: 28000, type: "Частный",         field: "Дизайн",     levels: "Бакалавр · Магистр" },
   { name: "Webster University",                short: "Webster",  loc: "Сент-Луис",   country: "США",           flag: "🇺🇸", qs: 801,  price: 18500, type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true },
   { name: "Simmons University",                short: "Simmons",  loc: "Бостон",      country: "США",           flag: "🇺🇸", qs: 851,  price: 22000, type: "Частный",         field: "Медицина",   levels: "Бакалавр · Магистр", meritBased: true },
@@ -92,7 +92,7 @@ const UNIS_RAW = [
   { name: "Central Washington University",     short: "CWU",      loc: "Элленсберг",  country: "США",           flag: "🇺🇸", qs: null, price: 13500, type: "Государственный", field: "Бизнес",     levels: "Бакалавр · Магистр" },
   { name: "Connecticut College",               short: "ConnColl", loc: "Нью-Лондон",  country: "США",           flag: "🇺🇸", qs: null, price: 26000, type: "Частный",         field: "Право",      levels: "Бакалавр", meritBased: true, needBased: true },
   { name: "San Francisco Bay University",      short: "SFBU",     loc: "Сан-Франциско",country: "США",          flag: "🇺🇸", qs: null, price: 14500, type: "Частный",         field: "IT",         levels: "Бакалавр · Магистр" },
-  { name: "Southern California State University",short:"SCSS",    loc: "Лос-Анджелес",country: "США",           flag: "🇺🇸", qs: null, price: 12000, type: "Государственный", field: "Бизнес",     levels: "Бакалавр · Магистр" },
+  { name: "Southern California State University",short:"SCSS",    loc: "Лос-Анджелес",country: "США",           flag: "🇺🇸", qs: null, price: 7500,  type: "Государственный", field: "Бизнес",     levels: "Бакалавр · Магистр" },
   { name: "Lynn University",                    short: "Lynn",     loc: "Бока-Ратон",  country: "США",           flag: "🇺🇸", qs: 1001, price: 10000, type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true, needBased: true },
   { name: "University of Tulsa",                short: "UTulsa",   loc: "Талса",       country: "США",           flag: "🇺🇸", qs: 801,  price: 52000, type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр · PhD", meritBased: true },
   { name: "University of San Francisco",        short: "USF",      loc: "Сан-Франциско",country: "США",          flag: "🇺🇸", qs: 801,  price: 63000, type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
@@ -113,7 +113,7 @@ const UNIS_RAW = [
   /* ========== СЕВЕРНЫЙ КИПР ========== */
   { name: "Eastern Mediterranean University",  short: "EMU",      loc: "Фамагуста",   country: "Северный Кипр", flag: "🇨🇾", qs: 691,  price: 4000,  type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр · PhD", meritBased: true },
   { name: "European University of Lefke",      short: "EUL",      loc: "Лефке",       country: "Северный Кипр", flag: "🇨🇾", qs: 901,  price: 1700,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
-  { name: "Cyprus International University",   short: "CIU",      loc: "Никосия",     country: "Северный Кипр", flag: "🇨🇾", qs: 525,  price: 3000,  type: "Частный",         field: "Медицина",   levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Cyprus International University",   short: "CIU",      loc: "Никосия",     country: "Северный Кипр", flag: "🇨🇾", qs: 525,  , discount: 4400,  type: "Частный",         field: "Медицина",   levels: "Бакалавр · Магистр", meritBased: true },
 
   /* ========== МАЛАЙЗИЯ ========== */
   { name: "Monash University Malaysia",        short: "Monash",   loc: "Субанг-Джая", country: "Малайзия",      flag: "🇲🇾", qs: 57,   price: 9900,  type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр · PhD", meritBased: true },
@@ -832,7 +832,13 @@ function Universities() {
                           <div className="uni__row"><span>QS рейтинг</span><b>#{u.qs}</b></div>
                         )}
                         {uniLevels(u).map(lv => (
-                          <div className="uni__row" key={lv}><span>{lv}</span><b>{fmtPrice(u.price)}</b></div>
+                          <div className="uni__row" key={lv}>
+                            <span>{lv}</span>
+                            <div className="uni__price-cell">
+                              <b>{fmtPrice(u.price)}</b>
+                              {u.discount && <span className="uni__discount">скидка ${u.discount.toLocaleString("ru")}</span>}
+                            </div>
+                          </div>
                         ))}
                       </div>
 
