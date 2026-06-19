@@ -290,6 +290,7 @@ const LOGO_MAP = {
   "CCC":"images/logos/catalog/ccc.png",
   "CCSF":"images/logos/catalog/ccsf.png",
   // Малайзия — дополнительные
+  "UNITAR":"images/logos/catalog/unitar.png",
   "UNM":"images/logos/catalog/unm.png",
   "HWU":"images/logos/catalog/hwu.png",
   "Taylor's":"images/logos/catalog/taylors.png",
@@ -313,6 +314,8 @@ const LOGO_MAP = {
   "PJATK":"images/logos/catalog/pjatk.png",
   // Германия
   "Gisma":"images/logos/catalog/gisma.png",
+  // США — колледжи/доп
+  "SCSS":"images/logos/catalog/scss.png",
 };
 
 /* ---------- Campus photos (banner background) by short code ---------- */
@@ -336,6 +339,8 @@ const CAMPUS_MAP = {
   "UniBa":"images/campus/uniba.jpg",         "UNIVPM":"images/campus/univpm.jpg",
   "LinkCU":"images/campus/linkcu.jpg",       "RUFA":"images/campus/rufa.jpg",
   "LUM":"images/campus/lum.jpg",
+  "LUMSA":"images/campus/lumsa.jpg",     "Marang":"images/campus/marang.jpg",
+  "UniBS":"images/campus/unibs.jpg",
   // США
   "Roosevelt":"images/campus/roosevelt.jpg", "Bellevue":"images/campus/bellevue.webp",
   "LaSalle":"images/campus/lasalle.avif",    "K-Zoo":"images/campus/kzoo.jpg",
@@ -356,6 +361,7 @@ const CAMPUS_MAP = {
   "Radford":"images/campus/radford.jpg",     "Concord":"images/campus/concord.jpg",
   "UAlbany":"images/campus/ualbany.jpg",     "CWU":"images/campus/cwu.jpg",
   "ConnColl":"images/campus/conncoll.jpg",   "SFBU":"images/campus/sfbu.jpg",
+  "SCSS":"images/campus/scss.jpg",
   // США — колледжи
   "DeAnza":"images/campus/deanza.webp",      "GreenRiver":"images/campus/greenriver.jpg",
   "SCC":"images/campus/scc.webp",            "SMC":"images/campus/smc.jpg",
@@ -385,8 +391,14 @@ const CAMPUS_MAP = {
   "UoRM":"images/campus/uorm.jpg",           "Swinburne":"images/campus/swinburne.jpg",
   "UOC":"images/campus/uoc.jpg",             "CordonBleu":"images/campus/cordonbleu.jpg",
   "TOA":"images/campus/toa.webp",            "UniKL":"images/campus/unikl.avif",
+  "UNITEN":"images/campus/uniten.jpg",       "TARUC":"images/campus/taruc.jpg",
+  "UOW":"images/campus/uow.jpg",             "UTAR":"images/campus/utar.jpg",
+  "UNITAR":"images/campus/unitar.jpg",
   // Северный Кипр
   "CIU":"images/campus/ciu.jpg",
+  "EMU":"images/campus/emu.jpg",             "EUL":"images/campus/eul.png",
+  // Германия
+  "UE of Europe":"images/campus/ueeurope.png",
 };
 
 /* ---------- Country visual palette for campus banner ---------- */
