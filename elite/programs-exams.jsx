@@ -178,7 +178,7 @@ function Exams() {
             </div>
             <a href="#cta" className="btn btn--gold">Подготовиться с нами</a>
           </div>
-          <div className="exams__hero-vis"><img src="images/duolingo.png" alt="Duolingo English Test" style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"var(--r-lg)"}} /></div>
+          <div className="exams__hero-vis"><img src="images/duolingo.webp" alt="Duolingo English Test" style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"var(--r-lg)"}} /></div>
         </div>
 
         <div className="exams__grid">

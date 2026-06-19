@@ -290,6 +290,7 @@ const LOGO_MAP = {
   "CCC":"images/logos/catalog/ccc.png",
   "CCSF":"images/logos/catalog/ccsf.png",
   // Малайзия — дополнительные
+  "UNITAR":"images/logos/catalog/unitar.png",
   "UNM":"images/logos/catalog/unm.png",
   "HWU":"images/logos/catalog/hwu.png",
   "Taylor's":"images/logos/catalog/taylors.png",
@@ -313,6 +314,8 @@ const LOGO_MAP = {
   "PJATK":"images/logos/catalog/pjatk.png",
   // Германия
   "Gisma":"images/logos/catalog/gisma.png",
+  // США — колледжи/доп
+  "SCSS":"images/logos/catalog/scss.png",
 };
 
 /* ---------- Campus photos (banner background) by short code ---------- */
