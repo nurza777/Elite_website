@@ -66,7 +66,11 @@
 }
 .cprof__fact { text-align: center; padding: 6px 10px; }
 .cprof__fact + .cprof__fact { border-left: 1px solid var(--line); }
-.cprof__fact-ic { display: block; font-size: 24px; margin-bottom: 8px; line-height: 1; }
+.cprof__fact-ic {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 10px;
+  margin: 0 auto 10px; line-height: 1;
+}
 .cprof__fact-l {
   display: block; font-size: 12px; font-weight: 700;
   letter-spacing: .07em; text-transform: uppercase;
@@ -190,78 +194,6 @@
 
 @media (max-width: 940px) { .cprof__students-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 680px) { .cprof__students-grid { grid-template-columns: repeat(2, 1fr); } }
-
-/* ---------- Uni lead modal ---------- */
-.ulm-backdrop {
-  position: fixed; inset: 0; z-index: 9000;
-  background: rgba(6,25,48,.55); backdrop-filter: blur(4px);
-  display: flex; align-items: center; justify-content: center;
-  padding: 20px;
-  animation: fadeIn .18s ease;
-}
-.ulm {
-  position: relative;
-  background: var(--white); border-radius: 20px;
-  padding: 36px 32px 28px;
-  width: 100%; max-width: 460px;
-  box-shadow: 0 24px 80px rgba(6,25,48,.22);
-  animation: slideUp .22s ease;
-}
-.ulm__close {
-  position: absolute; top: 16px; right: 16px;
-  width: 34px; height: 34px; border-radius: 50%;
-  border: none; background: var(--gray-100); color: var(--gray-600);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: background .2s;
-}
-.ulm__close:hover { background: var(--line); }
-.ulm__uni { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
-.ulm__uni-logo {
-  width: 52px; height: 52px; flex: 0 0 auto; object-fit: contain;
-  border-radius: 10px; background: var(--gray-50); padding: 6px;
-  border: 1px solid var(--line);
-}
-.ulm__uni-logo--ph {
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-head); font-weight: 800; font-size: 16px; color: var(--navy);
-}
-.ulm__uni-name { font-family: var(--font-head); font-weight: 700; font-size: 15px; color: var(--navy); }
-.ulm__uni-meta { font-size: 13px; color: var(--muted); margin-top: 2px; }
-.ulm__title { font-family: var(--font-head); font-size: 22px; color: var(--navy); margin-bottom: 8px; }
-.ulm__sub { font-size: 14.5px; color: var(--gray-600); line-height: 1.55; margin-bottom: 24px; }
-.ulm__form { display: flex; flex-direction: column; gap: 14px; }
-.ulm__field { display: flex; flex-direction: column; gap: 5px; }
-.ulm__label { font-size: 13px; font-weight: 600; color: var(--navy); }
-.ulm__input {
-  padding: 12px 16px; border-radius: 10px;
-  border: 1.5px solid var(--line); font-size: 15px;
-  background: var(--gray-50); color: var(--navy);
-  transition: border-color .2s, box-shadow .2s;
-  outline: none;
-}
-.ulm__input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(20,114,255,.1); background: var(--white); }
-.ulm__submit { margin-top: 6px; }
-.ulm__legal { font-size: 11.5px; color: var(--muted); margin-top: 12px; text-align: center; }
-.ulm__sent { text-align: center; padding: 12px 0; }
-.ulm__sent-icon {
-  width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 16px;
-  background: #e8f5e9; color: #2e7d32;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 26px; font-weight: 700;
-}
-.ulm__sent h3 { font-family: var(--font-head); font-size: 22px; color: var(--navy); margin-bottom: 10px; }
-.ulm__sent p { font-size: 15px; color: var(--gray-600); line-height: 1.6; }
-
-/* также .cprof__uni как button */
-button.cprof__uni { border: none; text-align: left; cursor: pointer; width: 100%; }
-
-@keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
-@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-@media (max-width: 500px) {
-  .ulm { padding: 28px 20px 22px; }
-  .ulm__title { font-size: 19px; }
-}
 
 /* ---------- Not found ---------- */
 .cprof-missing { padding-top: calc(var(--nav-h) + 120px); }

@@ -110,25 +110,25 @@ const UNIS_RAW = [
   { name: "Cyprus International University",   short: "CIU",      loc: "Никосия",     country: "Северный Кипр", flag: "🇨🇾", qs: null, price: 3200,  type: "Частный",         field: "Медицина",   levels: "Бакалавр · Магистр", meritBased: true },
 
   /* ========== МАЛАЙЗИЯ ========== */
-  { name: "Monash University Malaysia",        short: "Monash",   loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: 57,   price: 9900,  type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр · PhD", meritBased: true },
-  { name: "University of Nottingham Malaysia", short: "UNM",      loc: "Семеньих",    country: "Малайзия",      flag: "🇲🇾", qs: 103,  price: 8800,  type: "Частный",         field: "IT",         levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Monash University Malaysia",        short: "Monash",   loc: "Субанг-Джая", country: "Малайзия",      flag: "🇲🇾", qs: 57,   price: 9900,  type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр · PhD", meritBased: true },
+  { name: "University of Nottingham Malaysia", short: "UNM",      loc: "Селангор",    country: "Малайзия",      flag: "🇲🇾", qs: 103,  price: 9700,  type: "Частный",         field: "IT",         levels: "Бакалавр · Магистр", meritBased: true },
   { name: "University of Southampton Malaysia",short: "USMalaysia",loc:"Джохор",      country: "Малайзия",      flag: "🇲🇾", qs: 81,   price: 9500,  type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр", meritBased: true },
   { name: "Heriot-Watt University Malaysia",   short: "HWU",      loc: "Путраджая",   country: "Малайзия",      flag: "🇲🇾", qs: 351,  price: 8000,  type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр", meritBased: true },
-  { name: "Sunway University",                 short: "Sunway",   loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: 451,  price: 7500,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true },
-  { name: "Taylor's University",               short: "Taylor's", loc: "Субанг-Джая", country: "Малайзия",      flag: "🇲🇾", qs: 401,  price: 7200,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true },
-  { name: "Asia Pacific University (APU)",     short: "APU",      loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: 501,  price: 6600,  type: "Частный",         field: "IT",         levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Sunway University",                 short: "Sunway",   loc: "Субанг-Джая", country: "Малайзия",      flag: "🇲🇾", qs: 451,  price: 6500,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Taylor's University",               short: "Taylor's", loc: "Субанг-Джая", country: "Малайзия",      flag: "🇲🇾", qs: 401,  price: 8000,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Asia Pacific University (APU)",     short: "APU",      loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: 501,  price: 7100,  type: "Частный",         field: "IT",         levels: "Бакалавр · Магистр", meritBased: true },
   { name: "HELP University",                   short: "HELP",     loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: 601,  price: 5500,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
-  { name: "INTI International University",     short: "INTI",     loc: "Нилай",       country: "Малайзия",      flag: "🇲🇾", qs: 601,  price: 5800,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
+  { name: "INTI International University",     short: "INTI",     loc: "Путра-Нилай", country: "Малайзия",      flag: "🇲🇾", qs: 601,  price: 4200,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
   { name: "IIUM – International Islamic University Malaysia",short:"IIUM",loc:"Куала-Лумпур",country:"Малайзия",flag:"🇲🇾",qs:401,price:4400,type:"Государственный",field:"Право",levels:"Бакалавр · Магистр · PhD"},
   { name: "International Medical University (IMU)",short:"IMU",   loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: null, price: 12000, type: "Частный",         field: "Медицина",   levels: "Бакалавр · Магистр" },
   { name: "Multimedia University (MMU)",        short: "MMU",     loc: "Путраджая",   country: "Малайзия",      flag: "🇲🇾", qs: 501,  price: 5200,  type: "Государственный", field: "IT",         levels: "Бакалавр · Магистр", meritBased: true },
-  { name: "University Teknologi Petronas",      short: "UTP",     loc: "Сери-Искандар",country:"Малайзия",       flag: "🇲🇾", qs: 251,  price: 5500,  type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр · PhD" },
+  { name: "University Teknologi Petronas",      short: "UTP",     loc: "Бандар-Сери-Искандар", country:"Малайзия", flag: "🇲🇾", qs: 251, price: 5550, type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр · PhD" },
   { name: "Universiti Tunku Abdul Rahman (UTAR)",short:"UTAR",    loc: "Камpar",      country: "Малайзия",      flag: "🇲🇾", qs: 401,  price: 4800,  type: "Частный",         field: "IT",         levels: "Бакалавр · Магистр" },
   { name: "SEGi University",                   short: "SEGi",     loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: 701,  price: 4600,  type: "Частный",         field: "Медицина",   levels: "Бакалавр · Магистр" },
   { name: "Management & Science University (MSU)",short:"MSU",    loc: "Шах-Алам",    country: "Малайзия",      flag: "🇲🇾", qs: 601,  price: 5000,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
   { name: "MAHSA University",                  short: "MAHSA",    loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: null, price: 6000,  type: "Частный",         field: "Медицина",   levels: "Бакалавр · Магистр" },
   { name: "University of Reading Malaysia",    short: "UoRM",     loc: "Джохор",      country: "Малайзия",      flag: "🇲🇾", qs: 201,  price: 9000,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true },
-  { name: "Swinburne University Sarawak",      short: "Swinburne",loc: "Кучинг",      country: "Малайзия",      flag: "🇲🇾", qs: 351,  price: 7000,  type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Swinburne University Sarawak",      short: "Swinburne",loc: "Кучинг",      country: "Малайзия",      flag: "🇲🇾", qs: 351,  price: 6200,  type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр", meritBased: true },
   { name: "University of Cyberjaya (UOC)",     short: "UOC",      loc: "Cyberjaya",   country: "Малайзия",      flag: "🇲🇾", qs: null, price: 5500,  type: "Частный",         field: "Медицина",   levels: "Бакалавр · Магистр" },
   { name: "Le Cordon Bleu Malaysia",           short: "CordonBleu",loc:"Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: null, price: 11000, type: "Частный",         field: "Дизайн",     levels: "Бакалавр" },
   { name: "UOW Malaysia KDU",                  short: "UOW",      loc: "Шах-Алам",    country: "Малайзия",      flag: "🇲🇾", qs: 501,  price: 6000,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
@@ -136,6 +136,7 @@ const UNIS_RAW = [
   { name: "University Kuala Lumpur (UniKL)",   short: "UniKL",    loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: 651,  price: 4400,  type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр" },
   { name: "University Tenaga Nasional (UNITEN)",short:"UNITEN",   loc: "Путраджая",   country: "Малайзия",      flag: "🇲🇾", qs: 601,  price: 4600,  type: "Государственный", field: "Инженерия",  levels: "Бакалавр · Магистр" },
   { name: "Tunku Abdul Rahman University College",short:"TARUC",  loc: "Куала-Лумпур",country: "Малайзия",      flag: "🇲🇾", qs: 501,  price: 3800,  type: "Государственный", field: "IT",         levels: "Колледж · Бакалавр" },
+  { name: "UNITAR International University",      short:"UNITAR", loc: "Петалинг-Джая", country: "Малайзия",     flag: "🇲🇾", qs: null, price: 5000,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true },
 
   /* ========== ГЕРМАНИЯ ========== */
   { name: "University of Europe for Applied Sciences",short:"UE of Europe",loc:"Берлин",country:"Германия",     flag: "🇩🇪", qs: null, price: 9900,  type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
@@ -246,6 +247,72 @@ const LOGO_MAP = {
   // Северный Кипр
   "EMU":"images/logos/catalog/emu.png",  "EUL":"images/logos/catalog/eul.png",
   "CIU":"images/logos/catalog/ciu.png",
+  // Италия — дополнительные
+  "Bocconi":"images/logos/catalog/bocconi.svg",
+  "Sapienza":"images/logos/catalog/sapienza.png",
+  "CaFosc":"images/logos/catalog/cafoscari.svg",
+  "PoliTO":"images/logos/catalog/polito.svg",
+  "UniTO":"images/logos/catalog/unito.svg",
+  "UniFI":"images/logos/catalog/unifi.png",
+  "UniSI":"images/logos/catalog/unisi.svg",
+  "UniTN":"images/logos/catalog/unitn.svg",
+  "UniBS":"images/logos/catalog/unibs.svg",
+  "IULM":"images/logos/catalog/iulm.png",
+  "UniMiB":"images/logos/catalog/unimib.png",
+  "Roma3":"images/logos/catalog/roma3.png",
+  "UniPA":"images/logos/catalog/unipa.png",
+  "UniCT":"images/logos/catalog/unict.svg",
+  "UniCAS":"images/logos/catalog/unicas.svg",
+  "UniCamp":"images/logos/catalog/unicamp.png",
+  "LinkCU":"images/logos/catalog/linkcu.png",
+  "RUFA":"images/logos/catalog/rufa.png",
+  // США — дополнительные
+  "Bellevue":"images/logos/catalog/bellevue.png",
+  "K-Zoo":"images/logos/catalog/kzoo.svg",
+  "UB":"images/logos/catalog/ub.svg",
+  "DePaul":"images/logos/catalog/depaul.png",
+  "HarrisU":"images/logos/catalog/harrisu.png",
+  "ASU":"images/logos/catalog/asu.png",
+  "SJSU":"images/logos/catalog/sjsu.png",
+  "MU":"images/logos/catalog/mu.png",
+  "UC":"images/logos/catalog/uc.png",
+  "Drexel":"images/logos/catalog/drexel.png",
+  "Pace":"images/logos/catalog/pace.png",
+  "FIU":"images/logos/catalog/fiu.png",
+  "Clarkson":"images/logos/catalog/clarkson.png",
+  "NYFA":"images/logos/catalog/nyfa.png",
+  "Simmons":"images/logos/catalog/simmons.svg",
+  "NAU":"images/logos/catalog/nau.png",
+  "Concord":"images/logos/catalog/concord.svg",
+  "ConnColl":"images/logos/catalog/conncoll.svg",
+  "GreenRiver":"images/logos/catalog/greenriver.svg",
+  "SMC":"images/logos/catalog/smc.svg",
+  "CCC":"images/logos/catalog/ccc.png",
+  "CCSF":"images/logos/catalog/ccsf.png",
+  // Малайзия — дополнительные
+  "UNM":"images/logos/catalog/unm.png",
+  "HWU":"images/logos/catalog/hwu.png",
+  "Taylor's":"images/logos/catalog/taylors.png",
+  "HELP":"images/logos/catalog/help.png",
+  "IIUM":"images/logos/catalog/iium.png",
+  "MMU":"images/logos/catalog/mmu.png",
+  "UTAR":"images/logos/catalog/utar.png",
+  "MSU":"images/logos/catalog/msu.png",
+  "UoRM":"images/logos/catalog/uorm.png",
+  "UOC":"images/logos/catalog/uoc.png",
+  "UOW":"images/logos/catalog/uow.png",
+  "UniKL":"images/logos/catalog/unikl.png",
+  "TARUC":"images/logos/catalog/taruc.svg",
+  // Австрия
+  "WU":"images/logos/catalog/wu.svg",
+  "MedUni Innsbruck":"images/logos/catalog/meduniinnsbruck.svg",
+  "Angewandte":"images/logos/catalog/angewandte.svg",
+  "MDW":"images/logos/catalog/mdw.svg",
+  // Польша
+  "UTA":"images/logos/catalog/uta.png",
+  "PJATK":"images/logos/catalog/pjatk.png",
+  // Германия
+  "Gisma":"images/logos/catalog/gisma.png",
 };
 
 /* ---------- Campus photos (banner background) by short code ---------- */
@@ -460,6 +527,7 @@ function FilterSection({ label, children }) {
 function Universities() {
   const [q,           setQ]       = useState(_INIT_SEARCH);
   const [maxPrice,    setPrice]   = useState(60000);
+  const [sliderVal,   setSlider]  = useState(60000); // visual only during drag
   const [selCountries,setCntrs]   = useState(_INIT_COUNTRY ? [_INIT_COUNTRY] : []);
   const [selLevel,    setLevel]   = useState(_INIT_LEVEL);
   const [selFields,   setFields]  = useState(_INIT_FIELD   ? [_INIT_FIELD]   : []);
@@ -608,13 +676,17 @@ function Universities() {
               <div className="filter__price-row">
                 <span className="filter__price-pre">до $</span>
                 <input
-                  type="number" min="0" max="60000" step="500" value={maxPrice}
-                  onChange={e => setPrice(Math.max(0, Math.min(60000, +e.target.value || 0)))}
+                  type="number" min="0" max="60000" step="500" value={sliderVal}
+                  onChange={e => { const v = Math.max(0, Math.min(60000, +e.target.value || 0)); setPrice(v); setSlider(v); }}
                   className="filter__price-input" aria-label="Максимальная стоимость в год, $"
                 />
                 <span className="filter__price-yr">/год</span>
               </div>
-              <input type="range" min="0" max="60000" step="500" value={maxPrice} onChange={e => setPrice(+e.target.value)} className="filter__range" />
+              <input type="range" min="0" max="60000" step="500" value={sliderVal}
+                onChange={e => setSlider(+e.target.value)}
+                onMouseUp={e => { setPrice(+e.target.value); setSlider(+e.target.value); }}
+                onTouchEnd={e => { const v = +e.target.value; setPrice(v); setSlider(v); }}
+                className="filter__range" />
               <div className="filter__range-ends"><span>$0</span><span>$60k</span></div>
             </FilterSection>
 
