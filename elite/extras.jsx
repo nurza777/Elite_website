@@ -98,6 +98,7 @@ function ExitIntent() {
   const triggered = useRef(false);
 
   useEffect(() => {
+    window.__showExitPopup = () => { triggered.current = false; setOpen(true); };
     if (window.innerWidth < 880) return;
     try { if (sessionStorage.getItem(EXIT_KEY)) return; } catch {}
     const arm = setTimeout(() => { armed.current = true; }, 8000);
@@ -130,12 +131,8 @@ function ExitIntent() {
             <div className="exit__kicker">Объявление —</div>
             <h3 className="exit__h">Конкурс от Elite Academy</h3>
             <div className="exit__contest-img">
-              <img src="images/contest.jpg" alt="Конкурс Elite Academy"
-                   onError={(e) => { e.target.style.display = "none"; }} />
+              <img src="images/contest.jpg" alt="Конкурс Elite Academy" />
             </div>
-            <p className="exit__p">
-              Фото конкурса появится здесь. Загрузи изображение в <b>images/contest.jpg</b>
-            </p>
             <a href="#cta" className="btn btn--gold" onClick={() => setOpen(false)}>
               Узнать подробнее →
             </a>
