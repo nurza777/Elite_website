@@ -288,7 +288,7 @@ function Navbar() {
             />
           </div>
           <nav className="drawer__nav">
-            {Object.keys(MEGA).map((k) => (
+            {Object.keys(MEGA).filter(k => k !== "Программы" && k !== "Поступление").map((k) => (
               <DrawerGroup key={k} title={navT(lang, k)} cols={MEGA[k].cols} page={MEGA[k].page} isActive={activeKey === k} />
             ))}
           </nav>

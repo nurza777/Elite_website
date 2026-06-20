@@ -196,8 +196,10 @@
 
 /* Responsive */
 @media (max-width: 1080px) {
+  .nav__inner { justify-content: space-between; }
   .nav__menu, .nav__login, .nav__cta, .lang { display: none; }
   .nav__burger { display: flex; }
+  .nav__right { gap: 4px; }
 }
 @media (max-width: 720px) {
   .bottombar { display: flex; }
