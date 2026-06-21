@@ -5,7 +5,7 @@
    ============================================================ */
 
 const AUTH_KEY  = "ea_dev_auth";        // sessionStorage key
-const AUTH_HASH = "6a294517a35ec1aa2ef23690486ae63025796410033a2def8dd49c4827ff8dc6"; // sha256("Eliteacademy122321:55661234Elite")
+const AUTH_HASH = "b7563f58f45bee9fc910d274a36cb3202e1c69b3084586fb30db421e71ac6ecd"; // sha256("Elite:elite2026")
 
 async function sha256(str) {
   const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
