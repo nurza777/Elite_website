@@ -229,7 +229,7 @@ function buildInitial() {
 }
 
 /* ---------- state → publishable content object ---------- */
-const UNI_CAT_KEYS = ["name", "short", "loc", "country", "qs", "price", "type", "field", "levels", "elite", "meritBased", "needBased", "intake", "engTests", "exams", "gpaMin"];
+const UNI_CAT_KEYS = ["name", "short", "loc", "country", "qs", "price", "discount", "type", "field", "levels", "elite", "meritBased", "needBased", "intake", "engTests", "exams", "gpaMin"];
 function buildContent(s) {
   const unis = s.unis.map((u) => {
     const o = {};
@@ -348,7 +348,8 @@ function UnisEditor({ list, setList, token, branch }) {
             <Sel l="Страна" v={u.country} on={(v) => upd(sel, "country", v)} opts={COUNTRY_OPTS} />
             <TIn l="Город" v={u.loc} on={(v) => upd(sel, "loc", v)} />
             <NIn l="QS рейтинг (пусто = нет)" v={u.qs} on={(v) => upd(sel, "qs", v)} />
-            <NIn l="Цена $/год" v={u.price} on={(v) => upd(sel, "price", v)} />
+            <NIn l="Контракт $/год" v={u.price} on={(v) => upd(sel, "price", v)} />
+            <NIn l="Стипендия / скидка $ (пусто = нет)" v={u.discount} on={(v) => upd(sel, "discount", v)} />
             <Sel l="Тип" v={u.type} on={(v) => upd(sel, "type", v)} opts={TYPE_OPTS} />
             <Sel l="Направление" v={u.field} on={(v) => upd(sel, "field", v)} opts={FIELD_OPTS} />
             <TIn l="Уровни (через · )" v={u.levels} on={(v) => upd(sel, "levels", v)} ph="Бакалавр · Магистр" />
@@ -357,6 +358,12 @@ function UnisEditor({ list, setList, token, branch }) {
               <Chk l="Merit-стипендия" v={u.meritBased} on={(v) => upd(sel, "meritBased", v)} />
               <Chk l="Need-грант" v={u.needBased} on={(v) => upd(sel, "needBased", v)} />
             </div>
+            <div className="aform__divider">Условия поступления</div>
+            <TIn l="Начало обучения" v={u.intake} on={(v) => upd(sel, "intake", v)} ph="Осень / Весна" />
+            <TIn l="Языковые тесты (через · )" v={u.engTests} on={(v) => upd(sel, "engTests", v)} ph="IELTS · TOEFL · Duolingo" />
+            <TIn l="Вступит. экзамены" v={u.exams} on={(v) => upd(sel, "exams", v)} ph="без экзаменов" />
+            <TIn l="Мин. GPA (пусто = нет)" v={u.gpaMin} on={(v) => upd(sel, "gpaMin", v)} ph="2.5" />
+
             <div className="aform__divider">Страница вуза (university.html)</div>
             <Area l="Описание (2–3 предложения)" v={u.about} on={(v) => upd(sel, "about", v)} rows={4} />
             <TIn l="Год основания" v={u.founded} on={(v) => upd(sel, "founded", v)} ph="1863" />
@@ -366,24 +373,15 @@ function UnisEditor({ list, setList, token, branch }) {
           <div className="aform__divider">Медиа</div>
           {token ? (
             <div>
-              <div className="ahint" style={{ marginBottom: 12 }}>Логотип — PNG на прозрачном фоне, 300 × 300 px:</div>
+              <div className="ahint" style={{ marginBottom: 12 }}>Логотип — PNG на прозрачном фоне, 300×300 px:</div>
               <div className="mgrid" style={{ marginBottom: 20 }}>
-                <UploadSlot
-                  label="Логотип"
-                  path={logoPath}
-                  token={token} branch={branch}
-                  accept="image/png,image/webp,image/jpeg"
-                />
+                <UploadSlot label="Логотип" path={logoPath} token={token} branch={branch} accept="image/png,image/webp,image/jpeg" />
+                <UploadSlot label="Фото для каталога" path={"images/campus/" + uSlug + ".jpg"} token={token} branch={branch} hint="1400×900 px" />
               </div>
-              <div className="ahint" style={{ marginBottom: 12 }}>Галерея кампуса — 4 фото для страницы вуза, 1200 × 800 px:</div>
+              <div className="ahint" style={{ marginBottom: 12 }}>Галерея на странице вуза — 4 фото, 1200×800 px:</div>
               <div className="mgrid" style={{ marginBottom: 16 }}>
-                {[1, 2, 3, 4].map((n) => (
-                  <UploadSlot
-                    key={n}
-                    label={"Фото " + n}
-                    path={"images/unis/" + uSlug + "/" + n + ".jpg"}
-                    token={token} branch={branch}
-                  />
+                {["Кампус", "Корпуса", "Общежитие", "Студ. жизнь"].map((lbl, idx) => (
+                  <UploadSlot key={idx} label={lbl} path={"images/unis/" + uSlug + "/" + (idx + 1) + ".jpg"} token={token} branch={branch} />
                 ))}
               </div>
               <div className="ahint">
@@ -763,17 +761,28 @@ function MediaEditor({ token, branch, state, setPosts, setSection }) {
             {selUni ? (
               <div>
                 <div className="aform__divider" style={{ marginTop: 0 }}>
-                  Фото кампуса — {selUni.name}
+                  {selUni.name}
                 </div>
                 <div className="ahint" style={{ marginBottom: 12 }}>
-                  Папка: <code>images/unis/{uSlug(selUni)}/</code> · 4 фото (1.jpg … 4.jpg) · Размер: 1200 × 800 px.
+                  Главное фото в каталоге — отображается на карточке и в шапке страницы вуза.
+                </div>
+                <div className="mgrid" style={{ marginBottom: 20 }}>
+                  <UploadSlot
+                    label="Фото для каталога"
+                    path={"images/campus/" + uSlug(selUni) + ".jpg"}
+                    token={token} branch={branch}
+                    hint="images/campus/<slug>.jpg · 1400×900 px"
+                  />
+                </div>
+                <div className="ahint" style={{ marginBottom: 12 }}>
+                  Галерея на странице вуза — 4 фото, 1200×800 px:
                 </div>
                 <div className="mgrid">
-                  {[1, 2, 3, 4].map((n) => (
+                  {["Кампус", "Корпуса", "Общежитие", "Студ. жизнь"].map((lbl, idx) => (
                     <UploadSlot
-                      key={n}
-                      label={"Фото " + n}
-                      path={"images/unis/" + uSlug(selUni) + "/" + n + ".jpg"}
+                      key={idx}
+                      label={lbl}
+                      path={"images/unis/" + uSlug(selUni) + "/" + (idx + 1) + ".jpg"}
                       token={token} branch={branch}
                     />
                   ))}
