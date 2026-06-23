@@ -108,7 +108,7 @@ function TrustBar() {
   return (
     <section className="trustbar">
       <div className="wrap trustbar__head">
-        <span className="trustbar__label">С нами сотрудничают</span>
+        <span className="trustbar__label">{t("trust.label")}</span>
       </div>
       <div className="unibar">
         <div className="unibar__track">
@@ -139,14 +139,14 @@ function PainSolution() {
     <section className="section pain">
       <div className="wrap">
         <div className="section-head section-head--center" data-reveal>
-          <span className="eyebrow">Почему с нами</span>
-          <h2>Поступить самому — это лотерея.<br/><span className="text-blue">С нами — это система.</span></h2>
+          <span className="eyebrow">{t("pain.eyebrow")}</span>
+          <h2>{t("pain.h2a")}<br/><span className="text-blue">{t("pain.h2b")}</span></h2>
         </div>
 
         <div className="pain__grid">
           <div className="pain__col pain__col--bad" data-reveal>
             <div className="pain__col-h">
-              <span className="pain__col-badge pain__col-badge--bad">Без Elite Academy</span>
+              <span className="pain__col-badge pain__col-badge--bad">{t("pain.without")}</span>
             </div>
             {PAIN.map((r, i) => (
               <div className="pain__row pain__row--bad" key={i}>
@@ -158,7 +158,7 @@ function PainSolution() {
 
           <div className="pain__col pain__col--good" data-reveal data-delay="1">
             <div className="pain__col-h">
-              <span className="pain__col-badge pain__col-badge--good">С Elite Academy</span>
+              <span className="pain__col-badge pain__col-badge--good">{t("pain.with")}</span>
             </div>
             {PAIN.map((r, i) => (
               <div className="pain__row pain__row--good" key={i}>
@@ -166,7 +166,7 @@ function PainSolution() {
                 <span>{r[1]}</span>
               </div>
             ))}
-            <a href="#cta" className="btn btn--gold btn--block pain__cta">Начать с нами →</a>
+            <a href="#cta" className="btn btn--gold btn--block pain__cta">{t("pain.startWith")}</a>
           </div>
         </div>
       </div>
@@ -236,8 +236,8 @@ function Countries() {
     <section className="section countries" id="countries-section">
       <div className="wrap">
         <div className="section-head" data-reveal>
-          <span className="eyebrow">Направления</span>
-          <h2>Выбери страну<br/><span className="text-blue">своей мечты</span></h2>
+          <span className="eyebrow">{t("countries.eyebrow")}</span>
+          <h2>{t("countries.h2a")}<br/><span className="text-blue">{t("countries.h2b")}</span></h2>
         </div>
       </div>
       <div className="wrap">
@@ -250,13 +250,13 @@ function Countries() {
                    style={ c.photo
                      ? { backgroundImage: `url(${c.photo})` }
                      : { background: c.bg } }>
-                {c.hot && <span className="country__hot">Популярно</span>}
+                {c.hot && <span className="country__hot">{t("countries.hot")}</span>}
                 <div className="country__photo-overlay" />
                 <div className="country__photo-bottom">
                   <span className="country__flag-big">
                     {c.flagImg ? <img src={c.flagImg} alt={c.name} className="country__flag-img" /> : c.flag}
                   </span>
-                  <span className="country__name-over">{c.name}</span>
+                  <span className="country__name-over">{t("country." + c.name) || c.name}</span>
                 </div>
               </div>
               {/* Card body */}
@@ -265,7 +265,7 @@ function Countries() {
                 <div className="country__desc">{c.desc}</div>
                 <div className="country__footer">
                   <span className="country__price">{c.price}</span>
-                  <span className="country__link">Подробнее →</span>
+                  <span className="country__link">{t("countries.more")}</span>
                 </div>
               </div>
             </a>

@@ -82,8 +82,8 @@ function StickyQuizCTA() {
     <a href="#quiz" className={"stickyq" + (inProgress ? " stickyq--cont" : "")}>
       <span className="stickyq__pulse" aria-hidden="true"></span>
       <div className="stickyq__body">
-        <strong>{inProgress ? `Продолжить — шаг ${state.step + 1} из 5` : "Узнай свои шансы за 2 минуты"}</strong>
-        <span>{inProgress ? "Прогресс сохранён" : "Бесплатно. Без регистрации."}</span>
+        <strong>{inProgress ? (window.__EA_LANG === "en" ? `Continue — step ${state.step + 1} of 5` : `Продолжить — шаг ${state.step + 1} из 5`) : t("extras.stickyDefault")}</strong>
+        <span>{inProgress ? t("extras.stickyContSub") : t("extras.stickyDefaultSub")}</span>
       </div>
       <span className="stickyq__arr">→</span>
     </a>
@@ -98,7 +98,6 @@ function ExitIntent() {
   const triggered = useRef(false);
 
   useEffect(() => {
-    window.__showExitPopup = () => { triggered.current = false; setOpen(true); };
     if (window.innerWidth < 880) return;
     try { if (sessionStorage.getItem(EXIT_KEY)) return; } catch {}
     const arm = setTimeout(() => { armed.current = true; }, 8000);
@@ -125,24 +124,26 @@ function ExitIntent() {
     <div className="exit" role="dialog" aria-modal="true">
       <div className="exit__back" onClick={() => setOpen(false)}></div>
       <div className="exit__panel card">
-        <button className="exit__x" aria-label="Закрыть" onClick={() => setOpen(false)}>✕</button>
+        <button className="exit__x" aria-label="Close" onClick={() => setOpen(false)}>✕</button>
         {!sent ? (
           <>
-            <div className="exit__kicker">Объявление —</div>
-            <h3 className="exit__h">Конкурс от Elite Academy</h3>
+            <div className="exit__kicker">{t("extras.exitKicker")}</div>
+            <h3 className="exit__h">{t("extras.exitTitle")}</h3>
             <div className="exit__contest-img">
-              <img src="images/contest.jpg" alt="Конкурс Elite Academy" />
+              <img src="images/contest.jpg" alt="Elite Academy contest"
+                   onError={(e) => { e.target.style.display = "none"; }} />
             </div>
+            <p className="exit__p">{t("extras.exitPlaceholder")}</p>
             <a href="#cta" className="btn btn--gold" onClick={() => setOpen(false)}>
-              Узнать подробнее →
+              {t("extras.exitCta")}
             </a>
           </>
         ) : (
           <div className="exit__ok">
             <div className="exit__ok-ic">✓</div>
-            <h3>Отправили на почту</h3>
-            <p>Проверь входящие через 1–2 минуты. Если не пришло — загляни в «Промоакции».</p>
-            <button className="btn btn--ghost" onClick={() => setOpen(false)}>Хорошо</button>
+            <h3>{t("extras.sentTitle")}</h3>
+            <p>{t("extras.sentText")}</p>
+            <button className="btn btn--ghost" onClick={() => setOpen(false)}>{t("extras.sentOk")}</button>
           </div>
         )}
       </div>
@@ -176,8 +177,8 @@ function FloatingChat() {
       {open && (
         <div className="fchat__menu">
           <div className="fchat__head">
-            <div className="fchat__head-t">Напиши нам — отвечаем за 5 минут</div>
-            <div className="fchat__head-s">Сегодня на связи: Назгуль и Айбек</div>
+            <div className="fchat__head-t">{t("extras.chatHead")}</div>
+            <div className="fchat__head-s">{t("extras.chatSub")}</div>
           </div>
           <a href="https://wa.me/996555720712" target="_blank" rel="noopener" className="fchat__opt fchat__opt--wa">
             <span className="fchat__opt-ic" aria-hidden="true">
@@ -202,13 +203,13 @@ function FloatingChat() {
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             </span>
             <div className="fchat__opt-txt">
-              <strong>Позвонить</strong>
-              <span>ПН–ПТ 10:00–19:00</span>
+              <strong>{t("extras.chatCall")}</strong>
+              <span>{t("extras.chatHours")}</span>
             </div>
           </a>
         </div>
       )}
-      <button className="fchat__btn" aria-label={open ? "Закрыть чат" : "Открыть чат"} onClick={() => setOpen(!open)}>
+      <button className="fchat__btn" aria-label={open ? t("extras.closeChat") : t("extras.openChat")} onClick={() => setOpen(!open)}>
         {open ? (
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
         ) : (

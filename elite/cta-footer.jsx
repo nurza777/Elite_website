@@ -2,7 +2,6 @@
    FINAL CTA (positive vs loss) + FOOTER
    ============================================================ */
 const { useState, useEffect, useRef } = React;
-
 const LEADS_URL = "https://script.google.com/macros/s/AKfycbw4i67Vtu9cMUjZvXxVCZ0ZdeDndAG2GqY0eS7PznuBGxZeG4PkwHbe8xN-RAoa35BW/exec";
 const FOOTER_MAP_COORDS = [74.590385, 42.843700];
 const FOOTER_DGIS_KEY   = "de8b758a-a208-4a05-9f30-25eb492f4364";
@@ -63,8 +62,8 @@ function FinalCTA() {
       <div className="finalcta__mesh" aria-hidden="true"></div>
       <div className="wrap finalcta__inner">
         <div className="finalcta__head" data-reveal>
-          <span className="eyebrow eyebrow--light">Сделай первый шаг</span>
-          <h2>Через год ты можешь учиться за границей.<br/>Решение принимается сегодня.</h2>
+          <span className="eyebrow eyebrow--light">{t("cta.eyebrow")}</span>
+          <h2>{t("cta.h2").split("\n").map((line, i) => <span key={i}>{line}{i === 0 && <br/>}</span>)}</h2>
         </div>
 
         <div className="finalcta__grid">
@@ -74,8 +73,8 @@ function FinalCTA() {
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
               </div>
               <div>
-                <h3 className="pitch__t">Начни сейчас</h3>
-                <p>И уже через год ты в кампусе зарубежного университета — со стипендией и планом.</p>
+                <h3 className="pitch__t">{t("cta.pitch1Title")}</h3>
+                <p>{t("cta.pitch1Text")}</p>
               </div>
             </div>
             <div className="pitch pitch--loss">
@@ -83,22 +82,22 @@ function FinalCTA() {
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               </div>
               <div>
-                <h3 className="pitch__t">Или потеряешь ещё год</h3>
-                <p>Каждый год студенты ждут «подходящего момента» и теряют год. Следующий набор открыт сейчас.</p>
+                <h3 className="pitch__t">{t("cta.pitch2Title")}</h3>
+                <p>{t("cta.pitch2Text")}</p>
               </div>
             </div>
             <div className="finalcta__guarantee">
-              <span>✓</span> 1500+ студентов уже сделали этот выбор
+              <span>✓</span> {t("cta.guarantee")}
             </div>
           </div>
 
           <div className="finalcta__form-wrap card" data-reveal data-delay="1">
             {!sent ? (
               <>
-                <h3 className="finalcta__form-t">Бесплатная консультация</h3>
-                <p className="finalcta__form-sub">Оставь контакты — перезвоним и составим план поступления.</p>
+                <h3 className="finalcta__form-t">{t("cta.formTitle")}</h3>
+                <p className="finalcta__form-sub">{t("cta.formSub")}</p>
                 <form className="finalcta__form" onSubmit={handleSubmit}>
-                  <input required placeholder="Имя" value={name} onChange={e => setName(e.target.value)} />
+                  <input required placeholder={t("cta.namePlaceholder")} value={name} onChange={e => setName(e.target.value)} />
                   <input required placeholder="+996(___)-___-___" inputMode="tel" value={phone} onChange={e => {
                     let d = e.target.value.replace(/\D/g,'');
                     if (d.startsWith('996')) d = d.slice(3);
@@ -110,28 +109,28 @@ function FinalCTA() {
                     else f += d.slice(0,3) + ')-' + d.slice(3,6) + '-' + d.slice(6);
                     setPhone(f);
                   }} />
-                  <select required value={dest} onChange={e => setDest(e.target.value)}>
-                    <option value="" disabled>Куда хочешь поступить?</option>
-                    <option>США</option>
-                    <option>Италия</option>
-                    <option>Германия</option>
-                    <option>Австрия</option>
-                    <option>Польша</option>
-                    <option>Малайзия</option>
-                    <option>Северный Кипр</option>
-                    <option>Пока не определился</option>
+                  <select required value={dest} onChange={e => setDest(e.target.value)} defaultValue="">
+                    <option value="" disabled>{t("cta.destPlaceholder")}</option>
+                    <option>{t("cta.dest.usa")}</option>
+                    <option>{t("cta.dest.italy")}</option>
+                    <option>{t("cta.dest.germany")}</option>
+                    <option>{t("cta.dest.austria")}</option>
+                    <option>{t("cta.dest.poland")}</option>
+                    <option>{t("cta.dest.malaysia")}</option>
+                    <option>{t("cta.dest.nCyprus")}</option>
+                    <option>{t("cta.dest.undecided")}</option>
                   </select>
-                  <button type="submit" className="btn btn--gold btn--block btn--lg" disabled={busy}>{busy ? "Отправляем…" : "Отправить — это бесплатно"}</button>
+                  <button type="submit" className="btn btn--gold btn--block btn--lg" disabled={busy}>{busy ? t("cta.btnSending") : t("cta.btnSubmit")}</button>
                 </form>
                 <div className="finalcta__micro">
-                  <span>✓ Без спама</span><span>✓ Ответим в течение 1 часа</span><span>✓ Первая консультация бесплатна</span>
+                  <span>{t("cta.micro1")}</span><span>{t("cta.micro2")}</span><span>{t("cta.micro3")}</span>
                 </div>
               </>
             ) : (
               <div className="finalcta__sent">
                 <div className="finalcta__sent-ic">✓</div>
-                <h3>Спасибо! Заявка принята.</h3>
-                <p>Наш консультант свяжется с тобой в течение <b>1 часа</b>. Проверь WhatsApp.</p>
+                <h3>{t("cta.sentTitle")}</h3>
+                <p>{t("cta.sentText")}</p>
               </div>
             )}
           </div>
@@ -141,8 +140,21 @@ function FinalCTA() {
   );
 }
 
-const FOOT_DIR = ["США","Италия","Великобритания","Германия","Канада","Австралия"];
-const FOOT_SRV = ["Поиск университетов","Оценка шансов","Подготовка к Duolingo","Визовая поддержка","Стипендии и гранты"];
+const FOOT_DIR = [
+  { key: "footer.dir.usa",       href: "country.html?c=США" },
+  { key: "footer.dir.italy",     href: "country.html?c=Италия" },
+  { key: "footer.dir.uk",        href: "#" },
+  { key: "footer.dir.germany",   href: "country.html?c=Германия" },
+  { key: "footer.dir.canada",    href: "#" },
+  { key: "footer.dir.australia", href: "#" },
+];
+const FOOT_SRV = [
+  "footer.srv.search",
+  "footer.srv.assess",
+  "footer.srv.duolingo",
+  "footer.srv.visa",
+  "footer.srv.scholar",
+];
 
 function Footer() {
   return (
@@ -150,7 +162,7 @@ function Footer() {
       <div className="wrap footer__grid">
         <div className="footer__brand">
           <Logo light />
-          <p className="footer__about">Аккредитованное агентство по образованию за рубежом. Бишкек, Кыргызстан.</p>
+          <p className="footer__about">{t("footer.about")}</p>
           <div className="footer__socials">
             <a href="https://www.instagram.com/eliteacademy.kg" className="footer__social" aria-label="Instagram" target="_blank" rel="noopener">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
@@ -165,28 +177,28 @@ function Footer() {
         </div>
 
         <div className="footer__col">
-          <div className="footer__h">Направления</div>
-          {FOOT_DIR.map((d) => <a key={d} href="#">{d}</a>)}
-          <a href="#" className="footer__all">→ Все страны</a>
+          <div className="footer__h">{t("footer.directions")}</div>
+          {FOOT_DIR.map((d) => <a key={d.key} href={d.href}>{t(d.key)}</a>)}
+          <a href="countries.html" className="footer__all">{t("footer.allCountries")}</a>
         </div>
 
         <div className="footer__col">
-          <div className="footer__h">Услуги</div>
-          {FOOT_SRV.map((s) => <a key={s} href="#">{s}</a>)}
+          <div className="footer__h">{t("footer.services")}</div>
+          {FOOT_SRV.map((s) => <a key={s} href="#">{t(s)}</a>)}
         </div>
 
         <div className="footer__col footer__contacts">
-          <div className="footer__h">Контакты</div>
+          <div className="footer__h">{t("footer.contacts")}</div>
           <div className="footer__contact">г. Бишкек, ул. Исы Ахунбаева 169, БЦ «Бинокль», 6 этаж</div>
           <a href="tel:+996555720712" className="footer__contact">+996 555 720 712</a>
           <a href="mailto:eliteacademykg@gmail.com" className="footer__contact">eliteacademykg@gmail.com</a>
-          <div className="footer__contact">ПН–ПТ 10:00–19:00 · СБ 12:00–19:00</div>
+          <div className="footer__contact">{t("footer.hours")}</div>
           <FooterMap />
         </div>
       </div>
       <div className="footer__bottom wrap">
-        <span>© 2026 Elite Academy KG. Все права защищены.</span>
-        <div className="footer__legal"><a href="#">Политика конфиденциальности</a><a href="#">Условия</a></div>
+        <span>{t("footer.copyright")}</span>
+        <div className="footer__legal"><a href="#">{t("footer.privacy")}</a><a href="#">{t("footer.terms")}</a></div>
       </div>
     </footer>
   );

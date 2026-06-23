@@ -8,33 +8,39 @@ const MEGA = {
   "Страны": {
     page: "countries.html",
     cols: [
-      { h: "Англоговорящие", items: ["США", "Великобритания", "Канада", "Австралия"] },
-      { h: "Европа", items: ["Италия", "Германия", "Франция", "Испания"] },
-      { h: "Азия и Ближний Восток", items: ["ОАЭ", "Китай", "Южная Корея"] },
+      { h: "nav.mega.englishSpeaking", items: ["США", "Великобритания", "Канада", "Австралия"] },
+      { h: "nav.mega.europe",          items: ["Италия", "Германия", "Франция", "Испания"] },
+      { h: "nav.mega.asia",            items: ["ОАЭ", "Китай", "Южная Корея"] },
     ],
-    cta: "Все страны →",
+    cta: "nav.mega.allCountries",
     ctaHref: "countries.html",
   },
   "Поступление": {
     page: "admission.html",
     cols: [
-      { h: "Проверь себя", items: ["Тест английского", "Калькулятор стоимости"] },
-      { h: "Экзамены", items: ["Duolingo", "TOEFL", "IELTS"] },
-      { h: "Дальше", items: [["Визы", "admission.html#visas"], ["Стипендии", "admission.html#scholarships"], ["Истории студентов", "stories.html"]] },
+      { h: "nav.mega.testYourself", items: ["Тест английского", "Калькулятор стоимости"] },
+      { h: "nav.mega.exams",        items: ["Duolingo", "TOEFL", "IELTS"] },
+      { h: "nav.mega.next",         items: [["Визы", "admission.html#visas"], ["Стипендии", "admission.html#scholarships"], ["Истории студентов", "stories.html"]] },
     ],
-    cta: "Получить консультацию →",
+    cta: "nav.mega.getConsult",
     ctaHref: "index.html#cta",
   },
   "О нас": {
     page: "about.html",
     cols: [
-      { h: "Компания", items: [["О компании", "about.html"], ["Состав Elite", "about.html#team"], ["Аккредитации", "about.html#accreds"], ["Офис и контакты", "about.html#office"]] },
-      { h: "Студенты", items: [["Истории студентов", "stories.html"], ["Видео-отзывы", "stories.html"], ["Кейсы стипендий", "stories.html"]] },
-      { h: "Блог", items: [["Все статьи", "stories.html#blog"]] },
+      { h: "nav.mega.company",  items: [["О компании", "about.html"], ["Состав Elite", "about.html#team"], ["Аккредитации", "about.html#accreds"], ["Офис и контакты", "about.html#office"]] },
+      { h: "nav.mega.students", items: [["Истории студентов", "stories.html"], ["Видео-отзывы", "stories.html"], ["Кейсы стипендий", "stories.html"]] },
+      { h: "nav.mega.blog",     items: [["Все статьи", "stories.html#blog"]] },
     ],
-    cta: "Познакомиться с нами →",
+    cta: "nav.mega.meetUs",
     ctaHref: "about.html",
   },
+};
+
+const NAV_KEY = {
+  "Страны": "nav.countries",
+  "Поступление": "nav.admission",
+  "О нас": "nav.about",
 };
 
 /* Mega item can be "Label" (links to section page) or ["Label", "href"] */
@@ -54,65 +60,11 @@ const PAGE_TO_KEY = {
 };
 
 /* ============================================================
-   LANGUAGE SWITCH — RU / EN / KG via Google Website Translator
-   Persists across pages through the `googtrans` cookie.
+   LANGUAGE SWITCH — RU / EN via ea_lang cookie (set by i18n.js)
    ============================================================ */
 const LANGS = ["RU", "EN", "KG"];
-const LANG_CODE = { RU: "ru", EN: "en", KG: "ky" }; // KG = кыргызский (код ky)
 
-/* Manual labels for the navbar (Google Translate conflicts with React re-renders here,
-   so we translate the menu ourselves and mark it translate="no"). */
-const NAV_T = {
-  RU: { "Страны": "Страны", "Университеты": "Университеты", "Программы": "Программы", "Поступление": "Поступление", "О нас": "О нас", cta: "Бесплатная консультация", call: "Позвонить" },
-  EN: { "Страны": "Countries", "Университеты": "Universities", "Программы": "Programs", "Поступление": "Admission", "О нас": "About", cta: "Free consultation", call: "Call" },
-  KG: { "Страны": "Өлкөлөр", "Университеты": "Университеттер", "Программы": "Программалар", "Поступление": "Кабыл алуу", "О нас": "Биз жөнүндө", cta: "Акысыз консультация", call: "Чалуу" },
-};
-function navT(lang, key) { return (NAV_T[lang] && NAV_T[lang][key]) || NAV_T.RU[key] || key; }
-
-function currentLang() {
-  const m = (document.cookie.match(/googtrans=\/[^/]+\/(\w+)/) || [])[1];
-  if (m === "en") return "EN";
-  if (m === "ky") return "KG";
-  return "RU";
-}
-
-function setSiteLang(label) {
-  const code = LANG_CODE[label] || "ru";
-  const hosts = ["", "; domain=" + location.hostname, "; domain=." + location.hostname];
-  if (code === "ru") {
-    // remove translation → back to the original Russian
-    hosts.forEach((d) => { document.cookie = "googtrans=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT" + d; });
-  } else {
-    hosts.forEach((d) => { document.cookie = "googtrans=/ru/" + code + "; path=/" + d; });
-  }
-  window.location.reload();
-}
-
-function injectGoogleTranslate() {
-  if (window.__gtLoaded) return;
-  window.__gtLoaded = true;
-  const style = document.createElement("style");
-  style.textContent =
-    ".goog-te-banner-frame.skiptranslate,.goog-te-gadget-icon{display:none!important}" +
-    "body{top:0!important;position:static!important}" +
-    "#goog-gt-tt,.goog-te-balloon-frame{display:none!important}" +
-    ".goog-text-highlight{background:none!important;box-shadow:none!important}" +
-    "#google_translate_element{display:none!important}";
-  document.head.appendChild(style);
-  const host = document.createElement("div");
-  host.id = "google_translate_element";
-  document.body.appendChild(host);
-  window.googleTranslateElementInit = function () {
-    new window.google.translate.TranslateElement(
-      { pageLanguage: "ru", includedLanguages: "ru,en,ky", autoDisplay: false },
-      "google_translate_element"
-    );
-  };
-  const s = document.createElement("script");
-  s.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-  s.async = true;
-  document.body.appendChild(s);
-}
+const lang = (window.__EA_LANG || "ru").toUpperCase();
 
 function Logo({ light }) {
   const col = light ? "#fff" : "var(--navy)";
@@ -127,7 +79,7 @@ function Logo({ light }) {
       </span>
       <span className="logo__txt" style={{ color: col }}>
         Elite <b>Academy</b>
-        <i>образование за рубежом</i>
+        <i>{lang === "EN" ? "education abroad" : lang === "KG" ? "чет өлкөдө билим" : "образование за рубежом"}</i>
       </span>
     </a>
   );
@@ -135,12 +87,11 @@ function Logo({ light }) {
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(null);
-  const [drawer, setDrawer] = useState(false);
-  const [lang, setLang] = useState(currentLang());
-  const closeT = useRef(null);
-  const currentPage = getCurrentPage();
-  const activeKey = PAGE_TO_KEY[currentPage] || null;
+  const [open, setOpen]         = useState(null);
+  const [drawer, setDrawer]     = useState(false);
+  const closeT                  = useRef(null);
+  const currentPage             = getCurrentPage();
+  const activeKey               = PAGE_TO_KEY[currentPage] || null;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -153,8 +104,6 @@ function Navbar() {
     document.body.style.overflow = drawer ? "hidden" : "";
   }, [drawer]);
 
-  useEffect(() => { injectGoogleTranslate(); }, []);
-
   const enter = (k) => { clearTimeout(closeT.current); setOpen(k); };
   const leave = () => { closeT.current = setTimeout(() => setOpen(null), 140); };
 
@@ -164,21 +113,20 @@ function Navbar() {
         <div className="nav__inner wrap">
           <Logo light={!scrolled} />
 
-          <nav className="nav__menu" aria-label="Главное меню">
+          <nav className="nav__menu" aria-label="Main menu">
             {Object.keys(MEGA).map((k) => (
               <a
                 key={k}
                 href={MEGA[k].page}
-                translate="no"
                 className={
-                  "nav__item notranslate" +
+                  "nav__item" +
                   (open === k ? " is-open" : "") +
                   (activeKey === k ? " is-active" : "")
                 }
                 onMouseEnter={() => enter(k)}
                 onFocus={() => enter(k)}
               >
-                <span>{navT(lang, k)}</span>
+                <span>{t(NAV_KEY[k])}</span>
                 <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </a>
             ))}
@@ -187,11 +135,11 @@ function Navbar() {
           <div className="nav__right">
             <div className="lang">
               {LANGS.map((l) => (
-                <button key={l} className={l === lang ? "is-active" : ""} onClick={() => setSiteLang(l)}>{l}</button>
+                <button key={l} className={l === lang ? "is-active" : ""} onClick={() => window.setSiteLang(l.toLowerCase())}>{l}</button>
               ))}
             </div>
-            <a href="index.html#cta" translate="no" className="btn btn--gold pulse nav__cta notranslate">{navT(lang, "cta")}</a>
-            <button className="nav__burger" aria-label="Меню" onClick={() => setDrawer(true)}>
+            <a href="index.html#cta" className="btn btn--gold pulse nav__cta">{t("nav.cta")}</a>
+            <button className="nav__burger" aria-label="Menu" onClick={() => setDrawer(true)}>
               <span></span><span></span><span></span>
             </button>
           </div>
@@ -203,18 +151,18 @@ function Navbar() {
             <div className="wrap mega__grid">
               {MEGA[open].cols.map((c, i) => (
                 <div className="mega__col" key={i}>
-                  <div className="mega__h">{c.h}</div>
+                  <div className="mega__h">{t(c.h)}</div>
                   {c.items.map((it) => {
                     const [label, href] = megaItem(it, MEGA[open].page);
-                    return <a key={label} href={href} className="mega__link">{label}</a>;
+                    return <a key={label} href={href} className="mega__link">{t("page." + label) || label}</a>;
                   })}
                 </div>
               ))}
               <div className="mega__feature">
-                <img src="images/promo-nav.jpg" alt="Elite Academy промо" style={{ width:"100%", height:96, objectFit:"cover", objectPosition:"top", borderRadius:12, marginBottom:14, display:"block" }} />
-                <div className="mega__feature-t">Не знаешь с чего начать?</div>
-                <p>Пройди оценку шансов за 2 минуты и получи список подходящих вузов.</p>
-                <a href={MEGA[open].ctaHref} className="mega__cta" onClick={() => setOpen(null)}>{MEGA[open].cta}</a>
+                <img src="images/promo-nav.jpg" alt="Elite Academy" style={{ width:"100%", height:96, objectFit:"cover", objectPosition:"top", borderRadius:12, marginBottom:14, display:"block" }} />
+                <div className="mega__feature-t">{t("nav.mega.promoHead")}</div>
+                <p>{t("nav.mega.promoText")}</p>
+                <a href={MEGA[open].ctaHref} className="mega__cta" onClick={() => setOpen(null)}>{t(MEGA[open].cta)}</a>
               </div>
             </div>
           </div>
@@ -228,17 +176,17 @@ function Navbar() {
         <div className="drawer__panel">
           <div className="drawer__top">
             <Logo />
-            <button className="drawer__close" aria-label="Закрыть" onClick={() => setDrawer(false)}>✕</button>
+            <button className="drawer__close" aria-label="Close" onClick={() => setDrawer(false)}>✕</button>
           </div>
           <nav className="drawer__nav">
             {Object.keys(MEGA).map((k) => (
-              <DrawerGroup key={k} title={navT(lang, k)} cols={MEGA[k].cols} page={MEGA[k].page} isActive={activeKey === k} />
+              <DrawerGroup key={k} title={t(NAV_KEY[k])} cols={MEGA[k].cols} page={MEGA[k].page} isActive={activeKey === k} />
             ))}
           </nav>
-          <a href="index.html#cta" translate="no" className="btn btn--gold btn--block notranslate" onClick={() => setDrawer(false)}>{navT(lang, "cta")}</a>
+          <a href="index.html#cta" className="btn btn--gold btn--block" onClick={() => setDrawer(false)}>{t("nav.cta")}</a>
           <div className="drawer__lang">
             {LANGS.map((l) => (
-              <button key={l} className={l === lang ? "is-active" : ""} onClick={() => setSiteLang(l)}>{l}</button>
+              <button key={l} className={l === lang ? "is-active" : ""} onClick={() => window.setSiteLang(l.toLowerCase())}>{l}</button>
             ))}
           </div>
         </div>
@@ -246,7 +194,7 @@ function Navbar() {
 
       {/* Mobile sticky bottom CTA bar */}
       <div className="bottombar">
-        <a href="tel:+996555720712" translate="no" className="bottombar__btn bottombar__btn--ghost notranslate">{navT(lang, "call")}</a>
+        <a href="tel:+996555720712" className="bottombar__btn bottombar__btn--ghost">{t("nav.call")}</a>
         <a href="https://t.me/eliteacademykg" target="_blank" rel="noopener" className="bottombar__btn bottombar__btn--tg">Telegram</a>
       </div>
     </>
@@ -258,15 +206,15 @@ function DrawerGroup({ title, cols, page, isActive }) {
   const items = cols.flatMap((c) => c.items);
   return (
     <div className={"dg" + (o ? " is-open" : "")}>
-      <button translate="no" className={"dg__h notranslate" + (isActive ? " is-active" : "")} onClick={() => setO(!o)}>
+      <button className={"dg__h" + (isActive ? " is-active" : "")} onClick={() => setO(!o)}>
         {title}
         <span className="dg__plus">{o ? "–" : "+"}</span>
       </button>
       <div className="dg__body">
-        <a href={page} style={{ fontWeight: 700, color: "var(--blue)" }}>→ Открыть раздел</a>
+        <a href={page} style={{ fontWeight: 700, color: "var(--blue)" }}>{t("nav.drawer.openSection")}</a>
         {items.map((it) => {
           const [label, href] = megaItem(it, page);
-          return <a key={label} href={href}>{label}</a>;
+          return <a key={label} href={href}>{t("page." + label) || label}</a>;
         })}
       </div>
     </div>
