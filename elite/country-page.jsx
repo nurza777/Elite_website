@@ -71,7 +71,7 @@ function CountryProfile() {
           <p className="cprof__tagline">{det.tagline}</p>
           <div className="cprof__hero-cta">
             <a href="#cta" className="btn btn--gold btn--lg">Хочу учиться здесь →</a>
-            <a href={`universities.html?country=${encodeURIComponent(name)}`} className="btn btn--ghost-light btn--lg">
+            <a href="#cta" className="btn btn--ghost-light btn--lg">
               {unis.length} вузов в каталоге
             </a>
           </div>
@@ -200,7 +200,7 @@ function CountryProfile() {
               ))}
             </div>
             <div className="cprof__unis-all">
-              <a href={`universities.html?country=${encodeURIComponent(name)}`} className="btn btn--ghost">
+              <a href="#cta" className="btn btn--ghost">
                 Все вузы — {name} ({unis.length}) →
               </a>
             </div>

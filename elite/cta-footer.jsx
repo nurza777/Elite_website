@@ -103,8 +103,11 @@ function FinalCTA() {
                     <option value="" disabled>Куда хочешь поступить?</option>
                     <option>США</option>
                     <option>Италия</option>
-                    <option>Великобритания</option>
                     <option>Германия</option>
+                    <option>Австрия</option>
+                    <option>Польша</option>
+                    <option>Малайзия</option>
+                    <option>Северный Кипр</option>
                     <option>Пока не определился</option>
                   </select>
                   <button type="submit" className="btn btn--gold btn--block btn--lg" disabled={busy}>
