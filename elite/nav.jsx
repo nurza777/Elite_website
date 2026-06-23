@@ -15,26 +15,6 @@ const MEGA = {
     cta: "Все страны →",
     ctaHref: "countries.html",
   },
-  "Университеты": {
-    page: "universities.html",
-    cols: [
-      { h: "По типу", items: ["Топ-рейтинги QS", "Бесплатные", "Бюджетные"] },
-      { h: "США", items: ["Колледжи США", "Муниципальные колледжи", "Community Colleges"] },
-      { h: "Инструмент", items: ["Поиск университетов", "Сохранённое"] },
-    ],
-    cta: "Поиск университетов →",
-    ctaHref: "universities.html",
-  },
-  "Программы": {
-    page: "programs.html",
-    cols: [
-      { h: "Уровни", items: ["Бакалавриат", "Магистратура", "МВА", "PhD"] },
-      { h: "Короткие", items: ["Языковые курсы", "Летние школы"] },
-      { h: "Формат", items: ["Онлайн-образование", "Двойные дипломы"] },
-    ],
-    cta: "Все программы →",
-    ctaHref: "programs.html",
-  },
   "Поступление": {
     page: "admission.html",
     cols: [
@@ -251,7 +231,7 @@ function Navbar() {
             <button className="drawer__close" aria-label="Закрыть" onClick={() => setDrawer(false)}>✕</button>
           </div>
           <nav className="drawer__nav">
-            {Object.keys(MEGA).filter(k => k !== "Программы" && k !== "Поступление").map((k) => (
+            {Object.keys(MEGA).map((k) => (
               <DrawerGroup key={k} title={navT(lang, k)} cols={MEGA[k].cols} page={MEGA[k].page} isActive={activeKey === k} />
             ))}
           </nav>
