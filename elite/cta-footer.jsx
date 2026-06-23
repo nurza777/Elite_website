@@ -2,6 +2,7 @@
    FINAL CTA (positive vs loss) + FOOTER
    ============================================================ */
 const { useState, useEffect, useRef } = React;
+
 const LEADS_URL = "https://script.google.com/macros/s/AKfycbw4i67Vtu9cMUjZvXxVCZ0ZdeDndAG2GqY0eS7PznuBGxZeG4PkwHbe8xN-RAoa35BW/exec";
 const FOOTER_MAP_COORDS = [74.590385, 42.843700];
 const FOOTER_DGIS_KEY   = "de8b758a-a208-4a05-9f30-25eb492f4364";
@@ -52,7 +53,7 @@ function FinalCTA() {
         headers: { "Content-Type": "text/plain" },
         body: JSON.stringify(payload),
       });
-    } catch (_) { /* no-cors — игнорируем ошибку сети, форма всё равно "принята" */ }
+    } catch (_) {}
     setBusy(false);
     setSent(true);
   }
@@ -110,9 +111,7 @@ function FinalCTA() {
                     <option>Северный Кипр</option>
                     <option>Пока не определился</option>
                   </select>
-                  <button type="submit" className="btn btn--gold btn--block btn--lg" disabled={busy}>
-                    {busy ? "Отправляем…" : "Отправить — это бесплатно"}
-                  </button>
+                  <button type="submit" className="btn btn--gold btn--block btn--lg" disabled={busy}>{busy ? "Отправляем…" : "Отправить — это бесплатно"}</button>
                 </form>
                 <div className="finalcta__micro">
                   <span>✓ Без спама</span><span>✓ Ответим в течение 1 часа</span><span>✓ Первая консультация бесплатна</span>
