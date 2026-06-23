@@ -41,7 +41,7 @@ function FinalCTA() {
     if (busy) return;
     setBusy(true);
     const payload = {
-      name, phone, dest,
+      name, phone: phone.replace(/^\+/, ''), dest,
       page: location.pathname.split("/").pop() || "index.html",
       time: new Date().toLocaleString("ru"),
     };
