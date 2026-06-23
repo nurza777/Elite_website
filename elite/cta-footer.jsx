@@ -29,8 +29,37 @@ function FooterMap() {
   return <div ref={mapRef} className="footer__map"></div>;
 }
 
+/* ── Google Apps Script URL — вставь свой после деплоя ── */
+const LEADS_URL = "https://script.google.com/macros/s/ВСТАВЬ_СВОЙ_ID/exec";
+
 function FinalCTA() {
-  const [sent, setSent] = useState(false);
+  const [sent, setSent]   = useState(false);
+  const [busy, setBusy]   = useState(false);
+  const [name, setName]   = useState("");
+  const [phone, setPhone] = useState("");
+  const [dest, setDest]   = useState("");
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (busy) return;
+    setBusy(true);
+    const payload = {
+      name, phone, dest,
+      page: location.pathname.split("/").pop() || "index.html",
+      time: new Date().toLocaleString("ru"),
+    };
+    try {
+      await fetch(LEADS_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch (_) { /* no-cors — игнорируем ошибку сети, форма всё равно "принята" */ }
+    setBusy(false);
+    setSent(true);
+  }
+
   return (
     <section className="section dark grain finalcta" id="cta">
       <div className="finalcta__mesh" aria-hidden="true"></div>
@@ -70,10 +99,10 @@ function FinalCTA() {
               <>
                 <h3 className="finalcta__form-t">Бесплатная консультация</h3>
                 <p className="finalcta__form-sub">Оставь контакты — перезвоним и составим план поступления.</p>
-                <form className="finalcta__form" onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
-                  <input required placeholder="Имя" />
-                  <input required placeholder="WhatsApp / Телефон" inputMode="tel" />
-                  <select required defaultValue="">
+                <form className="finalcta__form" onSubmit={handleSubmit}>
+                  <input required placeholder="Имя" value={name} onChange={e => setName(e.target.value)} />
+                  <input required placeholder="WhatsApp / Телефон" inputMode="tel" value={phone} onChange={e => setPhone(e.target.value)} />
+                  <select required value={dest} onChange={e => setDest(e.target.value)}>
                     <option value="" disabled>Куда хочешь поступить?</option>
                     <option>США</option>
                     <option>Италия</option>
@@ -81,7 +110,9 @@ function FinalCTA() {
                     <option>Германия</option>
                     <option>Пока не определился</option>
                   </select>
-                  <button type="submit" className="btn btn--gold btn--block btn--lg">Отправить — это бесплатно</button>
+                  <button type="submit" className="btn btn--gold btn--block btn--lg" disabled={busy}>
+                    {busy ? "Отправляем…" : "Отправить — это бесплатно"}
+                  </button>
                 </form>
                 <div className="finalcta__micro">
                   <span>✓ Без спама</span><span>✓ Ответим в течение 1 часа</span><span>✓ Первая консультация бесплатна</span>
