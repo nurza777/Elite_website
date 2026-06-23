@@ -2,7 +2,7 @@
    FINAL CTA (positive vs loss) + FOOTER
    ============================================================ */
 const { useState, useEffect, useRef } = React;
-
+const LEADS_URL = "https://script.google.com/macros/s/AKfycbwGSpttr-mA0WUqjpu3ABwkKxYEY3Ey_ybcyG3vJdNca8cYMXa1b97wN6FGGXlg7z2-/exec";
 const FOOTER_MAP_COORDS = [74.590385, 42.843700];
 const FOOTER_DGIS_KEY   = "de8b758a-a208-4a05-9f30-25eb492f4364";
 
@@ -28,9 +28,6 @@ function FooterMap() {
   }, []);
   return <div ref={mapRef} className="footer__map"></div>;
 }
-
-/* ── Google Apps Script URL — вставь свой после деплоя ── */
-const LEADS_URL = "https://script.google.com/macros/s/ВСТАВЬ_СВОЙ_ID/exec";
 
 function FinalCTA() {
   const [sent, setSent]   = useState(false);
