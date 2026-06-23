@@ -267,6 +267,7 @@
   padding: 5px 11px; border-radius: 999px;
   background: var(--accent-soft); color: var(--blue);
 }
+.accred__logo { max-height: 48px; max-width: 160px; object-fit: contain; margin-bottom: 10px; display: block; }
 .accred__name { font-family: var(--font-head); font-weight: 800; font-size: 22px; margin-top: 14px; color: var(--navy); }
 .accred__desc { margin-top: 10px; font-size: 14.5px; line-height: 1.6; color: var(--gray-600); }
 
@@ -293,6 +294,7 @@
 .office__row a:hover { color: var(--navy); }
 .office__map { overflow: hidden; padding: 0; min-height: 360px; display: flex; flex-direction: column; }
 .office__map iframe { display: block; width: 100%; flex: 1; min-height: 310px; border: 0; }
+.office__map-canvas { flex: 1; min-height: 310px; width: 100%; }
 .office__map-tabs { display: flex; border-bottom: 1px solid var(--line); }
 .office__map-tab { flex: 1; padding: 10px; font-size: 13px; font-weight: 600; border: none; background: none; cursor: pointer; color: var(--muted); transition: color .2s, background .2s; }
 .office__map-tab:hover { background: var(--surface); color: var(--navy); }
@@ -305,11 +307,16 @@
 .office__2gis-link { text-align: center; font-size: 13px; color: var(--blue); text-decoration: underline; }
 .office__2gis-link:hover { color: var(--navy); }
 .office__map-links { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-top: 1px solid var(--line); }
-.office__map-ext-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; border-radius: 8px; padding: 7px 14px; transition: background .2s, color .2s; text-decoration: none; }
+.office__map-ext-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; border-radius: 8px; padding: 7px 14px; transition: background .2s, color .2s; text-decoration: none; white-space: nowrap; }
 .office__map-ext-link--primary { background: var(--navy); color: #fff; }
 .office__map-ext-link--primary:hover { background: var(--navy-3); color: #fff; }
 .office__map-ext-link--muted { color: var(--muted); }
 .office__map-ext-link--muted:hover { color: var(--navy); }
+.office__map-firm { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 16px; border-top: 1px solid var(--line); background: var(--white); }
+.office__map-firm-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.office__map-firm-name { font-family: var(--font-head); font-weight: 700; font-size: 14px; color: var(--navy); }
+.office__map-firm-meta { display: flex; align-items: center; gap: 5px; font-size: 12.5px; color: var(--muted); }
+.office__map-firm-star { color: #f5a623; font-weight: 700; }
 
 @media (max-width: 900px) {
   .office__grid { grid-template-columns: 1fr; }

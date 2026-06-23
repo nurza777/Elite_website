@@ -31,16 +31,28 @@ const STORY_CARDS_DEFAULT = [
 ];
 
 const STORY_GRID_DEFAULT = [
-  { n: "Элана",     u: "Università degli Studi di Milano", s: "Грант + €7 000",   t: "Италия", level: "Бакалавр", video: "videos/elana.mp4",     poster: "thumbs/elana.jpg"     },
-  { n: "Нурсултан", u: "Università di Bologna",            s: "Грант + €6 500",   t: "Италия", level: "Бакалавр", video: "videos/nursultan.mp4", poster: "thumbs/nursultan.jpg" },
-  { n: "Анель",     u: "Università di Roma La Sapienza",   s: "Грант + €8 000",   t: "Италия", level: "Магистр",  video: "videos/anel.mp4",      poster: "thumbs/anel.jpg"      },
-  { n: "Амирхан",   u: "Politecnico di Milano",            s: "Грант + €9 000",   t: "Италия", level: "Магистр",  video: "videos/amirkhan.mp4",  poster: "thumbs/amirkhan.jpg"  },
-  { n: "Асема",     u: "Università di Torino",             s: "Стипендия €5 000", t: "Италия", level: "Бакалавр", video: "videos/asema.mp4",     poster: "thumbs/asema.jpg"     },
-  { n: "Калия",     u: "Università di Napoli Federico II", s: "Стипендия €4 500", t: "Италия", level: "Бакалавр", video: "videos/kaliya.mp4",    poster: "thumbs/kaliya.jpg"    },
-  { n: "Нурзар",    u: "Roosevelt University, Чикаго",     s: "$120 000",          t: "США",    level: "Бакалавр", video: "videos/nurzar.mp4",    poster: "thumbs/nurzar.jpg"    },
-  { n: "Амир",      u: "Bellevue College",                 s: "$95 000",           t: "США",    level: "Бакалавр", video: "videos/amir.mp4",      poster: "thumbs/amir.jpg"      },
-  { n: "Исламбек",  u: "La Salle University",              s: "$88 000",           t: "США",    level: "Бакалавр", video: "videos/islambek.mp4",  poster: "thumbs/islambek.jpg"  },
-  { n: "Кенжекан",  u: "Università di Padova",             s: "Грант + €7 500",   t: "Италия", level: "Магистр",  video: "videos/kenzhekan.mp4", poster: "thumbs/kenzhekan.jpg" },
+  { n: "Элана",     u: "Università degli Studi di Milano", s: "Грант + €7 000",   t: "Италия", level: "Бакалавр", video: "videos/elana.mp4",      poster: "thumbs/elana.jpg"      },
+  { n: "Нурсултан", u: "Università di Bologna",            s: "Грант + €6 500",   t: "Италия", level: "Бакалавр", video: "videos/nursultan.mp4",  poster: "thumbs/nursultan.jpg"  },
+  { n: "Анель",     u: "Università di Roma La Sapienza",   s: "Грант + €8 000",   t: "Италия", level: "Магистр",  video: "videos/anel.mp4",       poster: "thumbs/anel.jpg"       },
+  { n: "Амирхан",   u: "Politecnico di Milano",            s: "Грант + €9 000",   t: "Италия", level: "Магистр",  video: "videos/amirkhan.mp4",   poster: "thumbs/amirkhan.jpg"   },
+  { n: "Асема",     u: "Università di Torino",             s: "Стипендия €5 000", t: "Италия", level: "Бакалавр", video: "videos/asema.mp4",      poster: "thumbs/asema.jpg"      },
+  { n: "Калия",     u: "Università di Napoli Federico II", s: "Стипендия €4 500", t: "Италия", level: "Бакалавр", video: "videos/kaliya.mp4",     poster: "thumbs/kaliya.jpg"     },
+  { n: "Нурзар",    u: "Roosevelt University, Чикаго",     s: "$120 000",          t: "США",    level: "Бакалавр", video: "videos/nurzar.mp4",     poster: "thumbs/nurzar.jpg"     },
+  { n: "Амир",      u: "Bellevue College",                 s: "$95 000",           t: "США",    level: "Бакалавр", video: "videos/amir.mp4",       poster: "thumbs/amir.jpg"       },
+  { n: "Исламбек",  u: "La Salle University",              s: "$88 000",           t: "США",    level: "Бакалавр", video: "videos/islambek.mp4",   poster: "thumbs/islambek.jpg"   },
+  { n: "Кенжекан",  u: "Università di Padova",             s: "Грант + €7 500",   t: "Италия", level: "Магистр",  video: "videos/kenzhekan.mp4",  poster: "thumbs/kenzhekan.jpg"  },
+  { n: "Абубакир",  u: "",                                 s: "",                  t: "США",    level: "Бакалавр", video: "videos/abubakir.mp4",   poster: "thumbs/abubakir.jpg"   },
+  { n: "Автандиль", u: "Alfred University",               s: "$30 000",           t: "США",    level: "Бакалавр", video: "videos/avtandil.mp4",   poster: "thumbs/avtandil.jpg"   },
+  { n: "Азирет",    u: "Lasell University",               s: "$20 000",           t: "США",    level: "Бакалавр", video: "videos/aziret.mp4",     poster: "thumbs/aziret.jpg"     },
+  { n: "Аида",      u: "",                                 s: "",                  t: "США",    level: "Бакалавр", video: "videos/aida.mp4",       poster: "thumbs/aida.jpg"       },
+  { n: "Айзада",    u: "University of Missouri",          s: "",                  t: "США",    level: "Бакалавр", video: "videos/aizada.mp4",     poster: "thumbs/aizada.jpg"     },
+  { n: "Алтынай",   u: "Rowan University",               s: "$19 000",           t: "США",    level: "Бакалавр", video: "videos/altynay.mp4",    poster: "thumbs/altynay.jpg"    },
+  { n: "Нурдамир",  u: "Rowan University",               s: "$30 000+",          t: "США",    level: "Бакалавр", video: "videos/nurdam.mp4",     poster: "thumbs/nurdam.jpg"     },
+  { n: "Сардор",    u: "Saint Leo University",           s: "",                  t: "США",    level: "Бакалавр", video: "videos/sardor.mp4",     poster: "thumbs/sardor.jpg"     },
+  { n: "Жаркынай",  u: "",                                s: "",                  t: "США",    level: "Бакалавр", video: "videos/zharkynai.mp4",  poster: "thumbs/zharkynai.jpg"  },
+  { n: "Аянат",     u: "",                                s: "",                  t: "США",    level: "Бакалавр", video: null,                    poster: "thumbs/ayanat.jpg"     },
+  { n: "Мадина",    u: "",                                s: "",                  t: "США",    level: "Бакалавр", video: null,                    poster: "thumbs/madina.jpg"     },
+  { n: "Кыял",      u: "",                                s: "",                  t: "США",    level: "Бакалавр", video: null,                    poster: "thumbs/kyal.jpg"       },
 ];
 
 /* Admin-edited content wins over the defaults above */
@@ -50,46 +62,29 @@ window.EA_STORY_CARDS = STORY_CARDS;
 window.EA_STORY_GRID = STORY_GRID;
 const STORY_FILTERS = ["Все", ...new Set(STORY_GRID.map((g) => g.t))];
 
-function SgridCard({ g }) {
-  const videoRef = useRef(null);
-
-  function handleEnter() {
-    if (videoRef.current) videoRef.current.play().catch(() => {});
-  }
-
-  function handleLeave() {
-    const v = videoRef.current;
-    if (v) { v.pause(); v.currentTime = 0; }
-  }
-
+function SgridCard({ g, onClick }) {
   return (
-    <div className="sgrid card"
-      onMouseEnter={g.video ? handleEnter : undefined}
-      onMouseLeave={g.video ? handleLeave : undefined}>
+    <div className="sgrid card" onClick={g.video ? onClick : undefined}
+      style={g.video ? { cursor: "pointer" } : undefined}>
       <div className="sgrid__thumb">
         {g.poster
           ? <img src={g.poster} alt={g.n} className="sgrid__img" loading="lazy" />
           : <div className="ph sgrid__img" data-label={"фото · " + g.n} style={{ height: "100%" }}></div>
         }
         {g.video && (
-          <video
-            ref={videoRef}
-            className="sgrid__video"
-            src={g.video}
-            poster={g.poster}
-            muted playsInline preload="none"
-          />
+          <span className="sgrid__play" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M5 3.5v9l7-4.5z"/></svg>
+          </span>
         )}
-        {g.video && <span className="sgrid__play">▶</span>}
       </div>
       <div className="sgrid__info">
         <div className="sgrid__name">{g.n}</div>
-        <div className="sgrid__uni">{g.u}</div>
+        {g.u && g.u !== "—" && <div className="sgrid__uni">{g.u}</div>}
         <div className="sgrid__meta">
           {g.t && <span className="chip">{g.t}</span>}
           {g.level && <span className="chip tag-blue">{g.level}</span>}
         </div>
-        <div className="sgrid__sum">{g.s}</div>
+        {g.s && g.s !== "—" && <div className="sgrid__sum">{g.s}</div>}
       </div>
     </div>
   );
@@ -123,10 +118,10 @@ function StorySlide({ s }) {
 }
 
 function Stories() {
-  const [idx, setIdx] = useState(0);
   const [gf, setGf] = useState("Все");
-  const go = (d) => setIdx((i) => (i + d + STORY_CARDS.length) % STORY_CARDS.length);
+  const [activeVid, setActiveVid] = useState(null);
   const grid = STORY_GRID.filter((g) => gf === "Все" || g.t === gf);
+  const VideoModal = window.VideoModal;
 
   return (
     <section className="section stories" id="stories">
@@ -136,24 +131,6 @@ function Stories() {
           <h2>Они были такими же, как ты.<br/><span className="text-blue">Теперь учатся за рубежом.</span></h2>
         </div>
 
-        {/* Carousel */}
-        <div className="story-carousel" data-reveal>
-          <div className="story-carousel__viewport">
-            <div className="story-carousel__track" style={{ transform: `translateX(-${idx * 100}%)` }}>
-              {STORY_CARDS.map((s, i) => <StorySlide key={i} s={s} />)}
-            </div>
-          </div>
-          <div className="story-carousel__nav">
-            <button onClick={() => go(-1)} aria-label="Назад">←</button>
-            <div className="story-carousel__dots">
-              {STORY_CARDS.map((_, i) => (
-                <button key={i} className={i === idx ? "is-on" : ""} onClick={() => setIdx(i)} aria-label={"Слайд " + (i+1)}></button>
-              ))}
-            </div>
-            <button onClick={() => go(1)} aria-label="Вперёд">→</button>
-          </div>
-        </div>
-
         {/* Grid */}
         <div className="stories__filters" data-reveal>
           {STORY_FILTERS.map((f) => (
@@ -161,8 +138,13 @@ function Stories() {
           ))}
         </div>
         <div className="stories__grid stagger" key={gf}>
-          {grid.map((g) => <SgridCard key={g.n} g={g} />)}
+          {grid.map((g) => (
+            <SgridCard key={g.n} g={g}
+              onClick={() => setActiveVid({ src: g.video, poster: g.poster, name: g.n, uni: g.u, country: g.t, scholarship: g.s, tag: g.level || "Отзыв" })}
+            />
+          ))}
         </div>
+      {VideoModal && <VideoModal item={activeVid} onClose={() => setActiveVid(null)} />}
       </div>
     </section>
   );
@@ -171,7 +153,7 @@ function Stories() {
 const VISAS = [
   { name: "Виза F-1 (США)", docs: "I-20, DS-160, SEVIS, паспорт", term: "3–6 недель", rate: "100%" },
   { name: "Студ. виза Италии", docs: "Acceptance letter, финансы, страховка", term: "4–8 недель", rate: "100%" },
-  { name: "UK Student Visa", docs: "CAS, IELTS, финансы, TB-тест", term: "3 недели", rate: "100%" },
+  { name: "Студ. виза Германии", docs: "Acceptance letter, финансы, страховка, языковой тест", term: "4–8 недель", rate: "100%" },
 ];
 
 function Visas() {

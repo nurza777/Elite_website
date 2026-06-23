@@ -6,7 +6,7 @@
    ============================================================ */
 var EA_COUNTRY_DETAILS_DEFAULT = {
   "Италия": {
-    iso: "it", slug: "italy", photo: "images/countries/italy.jpg",
+    iso: "it", slug: "italy", photo: "images/countries/italy/1.jpg",
     tagline: "Страна, где учёба соседствует с морем, Альпами и лучшей кухней мира",
     facts: { "Столица": "Рим", "Язык обучения": "Английский · Итальянский", "Валюта": "Евро €", "Учёба от": "€2 000/год", "Виза": "Национальная виза D" },
     why: [
@@ -20,7 +20,7 @@ var EA_COUNTRY_DETAILS_DEFAULT = {
   },
 
   "США": {
-    iso: "us", slug: "usa", photo: "images/countries/usa.jpg",
+    iso: "us", slug: "usa", photo: "images/countries/usa/1.jpg",
     tagline: "Кампусы-города, стипендии за успехи и карьера в стране возможностей",
     facts: { "Столица": "Вашингтон", "Язык обучения": "Английский", "Валюта": "Доллар $", "Учёба от": "$8 000/год", "Виза": "Студенческая F-1" },
     why: [
@@ -34,7 +34,7 @@ var EA_COUNTRY_DETAILS_DEFAULT = {
   },
 
   "Австрия": {
-    iso: "at", slug: "austria", photo: "images/countries/austria.jpg",
+    iso: "at", slug: "austria", photo: "images/countries/austria/1.jpg",
     tagline: "Почти бесплатное образование в самой комфортной стране Европы",
     facts: { "Столица": "Вена", "Язык обучения": "Немецкий · Английский", "Валюта": "Евро €", "Учёба от": "€726/год", "Виза": "Студенческий ВНЖ" },
     why: [
@@ -48,7 +48,7 @@ var EA_COUNTRY_DETAILS_DEFAULT = {
   },
 
   "Германия": {
-    iso: "de", slug: "germany", photo: "images/countries/germany.jpg",
+    iso: "de", slug: "germany", photo: "images/countries/germany/1.jpg",
     tagline: "Бесплатные государственные университеты и сильнейшая инженерия Европы",
     facts: { "Столица": "Берлин", "Язык обучения": "Немецкий · Английский", "Валюта": "Евро €", "Учёба от": "€0/год", "Виза": "Национальная виза D" },
     why: [
@@ -62,7 +62,7 @@ var EA_COUNTRY_DETAILS_DEFAULT = {
   },
 
   "Польша": {
-    iso: "pl", slug: "poland", photo: "images/countries/poland.jpg",
+    iso: "pl", slug: "poland", photo: "images/countries/poland/1.jpg",
     tagline: "Европейский диплом рядом с домом и по доступной цене",
     facts: { "Столица": "Варшава", "Язык обучения": "Английский · Польский", "Валюта": "Злотый zł", "Учёба от": "€2 000/год", "Виза": "Национальная виза D" },
     why: [
@@ -76,7 +76,7 @@ var EA_COUNTRY_DETAILS_DEFAULT = {
   },
 
   "Северный Кипр": {
-    iso: "trnc", slug: "kipr", photo: "images/countries/kipr.jpg",
+    iso: "trnc", slug: "kipr", photo: "images/countries/kipr/1.jpg",
     tagline: "Учёба на английском у моря — без языковых тестов и лишней бюрократии",
     facts: { "Столица": "Никосия", "Язык обучения": "Английский", "Валюта": "Турецкая лира ₺", "Учёба от": "$3 000/год", "Виза": "Студенческое разрешение" },
     why: [
@@ -90,7 +90,7 @@ var EA_COUNTRY_DETAILS_DEFAULT = {
   },
 
   "Малайзия": {
-    iso: "my", slug: "malasia", photo: "images/countries/malasia.jpg",
+    iso: "my", slug: "malasia", photo: "images/countries/malasia/1.jpg",
     tagline: "Британские и австралийские дипломы в сердце Азии — за половину цены",
     facts: { "Столица": "Куала-Лумпур", "Язык обучения": "Английский", "Валюта": "Ринггит RM", "Учёба от": "$4 000/год", "Виза": "Student Pass" },
     why: [
