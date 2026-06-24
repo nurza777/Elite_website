@@ -194,8 +194,8 @@ function Navbar() {
 
       {/* Mobile sticky bottom CTA bar */}
       <div className="bottombar">
-        <a href="https://wa.me/996555720712" target="_blank" rel="noopener" className="bottombar__btn bottombar__btn--ghost">WhatsApp</a>
-        <a href="https://t.me/eliteacademykg" target="_blank" rel="noopener" className="bottombar__btn bottombar__btn--tg">Telegram</a>
+        <a href="tel:+996555720712" className="bottombar__btn bottombar__btn--ghost">{t("nav.call")}</a>
+        <a href="https://wa.me/996555720712" target="_blank" rel="noopener" className="bottombar__btn bottombar__btn--tg">WhatsApp</a>
       </div>
     </>
   );
