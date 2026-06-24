@@ -334,7 +334,17 @@ function EnglishLevelTest() {
               <p className="elt__gate-p">Оставь контакты — отправим твой уровень и персональный список вузов, которые тебя возьмут.</p>
               <form className="elt__form" onSubmit={submitGate}>
                 <input required placeholder="Имя" value={name} onChange={(e) => setName(e.target.value)} />
-                <input required placeholder="WhatsApp / Телефон" inputMode="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                <input required placeholder="+996(___)-___-___" inputMode="tel" value={phone} onChange={e => {
+                  let d = e.target.value.replace(/\D/g,'');
+                  if (d.startsWith('996')) d = d.slice(3);
+                  d = d.slice(0,9);
+                  if (!d) { setPhone(''); return; }
+                  let f = '+996(';
+                  if (d.length <= 3) f += d;
+                  else if (d.length <= 6) f += d.slice(0,3) + ')-' + d.slice(3);
+                  else f += d.slice(0,3) + ')-' + d.slice(3,6) + '-' + d.slice(6);
+                  setPhone(f);
+                }} />
                 <button type="submit" className="btn btn--gold btn--block">Узнать мой уровень →</button>
               </form>
               <div className="elt__gate-micro">✓ Без спама · ответим за 1 час</div>

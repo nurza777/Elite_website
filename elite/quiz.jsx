@@ -188,7 +188,17 @@ function QuizLeadForm({ ans, setDone }) {
       setDone(true);
     }}>
       <input required placeholder="Твоё имя" value={qName} onChange={e => setQName(e.target.value)} />
-      <input required placeholder="Телефон / WhatsApp" inputMode="tel" value={qPhone} onChange={e => setQPhone(e.target.value)} />
+      <input required placeholder="+996(___)-___-___" inputMode="tel" value={qPhone} onChange={e => {
+        let d = e.target.value.replace(/\D/g,'');
+        if (d.startsWith('996')) d = d.slice(3);
+        d = d.slice(0,9);
+        if (!d) { setQPhone(''); return; }
+        let f = '+996(';
+        if (d.length <= 3) f += d;
+        else if (d.length <= 6) f += d.slice(0,3) + ')-' + d.slice(3);
+        else f += d.slice(0,3) + ')-' + d.slice(3,6) + '-' + d.slice(6);
+        setQPhone(f);
+      }} />
       <button type="submit" className="btn btn--gold btn--block">Получить результаты бесплатно →</button>
     </form>
   );
