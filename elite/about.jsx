@@ -224,7 +224,7 @@ function OfficeBlock() {
                   <span>БЦ Бинокль</span>
                 </span>
               </div>
-              <a href="https://go.2gis.com/0qrsd" target="_blank" rel="noopener" className="office__map-ext-link office__map-ext-link--primary">
+              <a href="https://2gis.kg/bishkek/geo/70000001083998736" target="_blank" rel="noopener" className="office__map-ext-link office__map-ext-link--primary">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 В 2GIS
               </a>

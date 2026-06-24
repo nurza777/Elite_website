@@ -82,7 +82,7 @@ function StickyQuizCTA() {
     <a href="#quiz" className={"stickyq" + (inProgress ? " stickyq--cont" : "")}>
       <span className="stickyq__pulse" aria-hidden="true"></span>
       <div className="stickyq__body">
-        <strong>{inProgress ? (window.__EA_LANG === "en" ? `Continue — step ${state.step + 1} of 5` : `Продолжить — шаг ${state.step + 1} из 5`) : t("extras.stickyDefault")}</strong>
+        <strong>{inProgress ? (window.__EA_LANG === "en" ? `Continue — step ${state.step + 1} of 5` : window.__EA_LANG === "kg" ? `Улантуу — ${state.step + 1} / 5 кадам` : `Продолжить — шаг ${state.step + 1} из 5`) : t("extras.stickyDefault")}</strong>
         <span>{inProgress ? t("extras.stickyContSub") : t("extras.stickyDefaultSub")}</span>
       </div>
       <span className="stickyq__arr">→</span>

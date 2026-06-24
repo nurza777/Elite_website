@@ -2,6 +2,7 @@
    QUIZ — «Оценка шансов» multi-step + lead capture
    ============================================================ */
 const { useState, useEffect } = React;
+const QUIZ_LEADS_URL = "https://script.google.com/macros/s/AKfycbw4i67Vtu9cMUjZvXxVCZ0ZdeDndAG2GqY0eS7PznuBGxZeG4PkwHbe8xN-RAoa35BW/exec";
 
 const QUIZ_STEPS = [
   { q: "Куда хочешь поехать?", key: "country",
@@ -167,6 +168,32 @@ function Quiz() {
   );
 }
 
+function QuizLeadForm({ ans, setDone }) {
+  const [qName, setQName] = useState("");
+  const [qPhone, setQPhone] = useState("");
+  return (
+    <form className="quiz__form" onSubmit={(e) => {
+      e.preventDefault();
+      fetch(QUIZ_LEADS_URL, {
+        method: "POST", mode: "no-cors",
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify({
+          name: qName,
+          phone: qPhone.replace(/^\+/, '').replace('(', '-').replace(')', ''),
+          dest: "Квиз — " + (ans.country || "не указано"),
+          page: location.pathname.split("/").pop() || "index.html",
+          time: new Date().toLocaleString("ru"),
+        }),
+      }).catch(() => {});
+      setDone(true);
+    }}>
+      <input required placeholder="Твоё имя" value={qName} onChange={e => setQName(e.target.value)} />
+      <input required placeholder="Телефон / WhatsApp" inputMode="tel" value={qPhone} onChange={e => setQPhone(e.target.value)} />
+      <button type="submit" className="btn btn--gold btn--block">Получить результаты бесплатно →</button>
+    </form>
+  );
+}
+
 function QuizResult({ ans, done, setDone, restart }) {
   const matches = _matchQuiz(ans);
   const totalCount = _CNT[_CTRY[ans.country]] || 23;
@@ -208,11 +235,7 @@ function QuizResult({ ans, done, setDone, restart }) {
 
       <div className="quiz__lead">
         <p className="quiz__lead-t">Введи имя и телефон, чтобы получить <b>полный список</b> и бесплатную консультацию:</p>
-        <form className="quiz__form" onSubmit={(e) => { e.preventDefault(); setDone(true); }}>
-          <input required placeholder="Твоё имя" />
-          <input required placeholder="Телефон / WhatsApp" inputMode="tel" />
-          <button type="submit" className="btn btn--gold btn--block">Получить результаты бесплатно →</button>
-        </form>
+        <QuizLeadForm ans={ans} setDone={setDone} />
         <div className="quiz__micro">✓ Без спама &nbsp; ✓ Ответим в течение 1 часа</div>
       </div>
     </div>

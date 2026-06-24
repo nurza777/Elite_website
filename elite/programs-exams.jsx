@@ -2,6 +2,7 @@
    PROGRAMS (tabs) · EXAMS (cards, Duolingo accent)
    ============================================================ */
 const { useState } = React;
+const LEADS_URL = "https://script.google.com/macros/s/AKfycbw4i67Vtu9cMUjZvXxVCZ0ZdeDndAG2GqY0eS7PznuBGxZeG4PkwHbe8xN-RAoa35BW/exec";
 
 /* Each tab maps to a catalog level (universities.html filter) where possible.
    Items with `field` link to the catalog with level+field pre-filtered. */
@@ -255,8 +256,19 @@ function EnglishLevelTest() {
     setTimeout(() => setStep(step + 1), 350);
   }
 
-  function submitGate(e) {
+  async function submitGate(e) {
     e.preventDefault();
+    const level = getLevel(answers.filter((a, i) => a === ELT_QS[i].ans).length);
+    fetch(LEADS_URL, {
+      method: "POST", mode: "no-cors",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify({
+        name, phone: phone.replace(/^\+/, '').replace('(', '-').replace(')', ''),
+        dest: "English Test – " + level.code + " " + level.label,
+        page: "admission.html",
+        time: new Date().toLocaleString("ru"),
+      }),
+    }).catch(() => {});
     setSubmitted(true);
     setStep(total + 2);
   }

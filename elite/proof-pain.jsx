@@ -126,13 +126,7 @@ function TrustBar() {
   );
 }
 
-const PAIN = [
-  ["Не знаешь, с чего вообще начать", "Пошаговый план с первого дня"],
-  ["Месяцами ищешь стипендии вслепую", "Мы знаем, где лежат $72 000 – $858 000"],
-  ["Ошибка в DS-160 = отказ в визе", "100% правильное заполнение анкеты"],
-  ["Слабое эссе = отказ приёмной комиссии", "Эссе проверяет основатель лично"],
-  ["Не знаешь, как вести себя на визовом интервью", "Финальный урок по интервью перед посольством"],
-];
+const PAIN = [1, 2, 3, 4, 5];
 
 function PainSolution() {
   return (
@@ -148,10 +142,10 @@ function PainSolution() {
             <div className="pain__col-h">
               <span className="pain__col-badge pain__col-badge--bad">{t("pain.without")}</span>
             </div>
-            {PAIN.map((r, i) => (
-              <div className="pain__row pain__row--bad" key={i}>
+            {PAIN.map((n) => (
+              <div className="pain__row pain__row--bad" key={n}>
                 <span className="pain__ic pain__ic--bad">✕</span>
-                <span>{r[0]}</span>
+                <span>{t("pain.row." + n + ".bad")}</span>
               </div>
             ))}
           </div>
@@ -160,10 +154,10 @@ function PainSolution() {
             <div className="pain__col-h">
               <span className="pain__col-badge pain__col-badge--good">{t("pain.with")}</span>
             </div>
-            {PAIN.map((r, i) => (
-              <div className="pain__row pain__row--good" key={i}>
+            {PAIN.map((n) => (
+              <div className="pain__row pain__row--good" key={n}>
                 <span className="pain__ic pain__ic--good">✓</span>
-                <span>{r[1]}</span>
+                <span>{t("pain.row." + n + ".good")}</span>
               </div>
             ))}
             <a href="#cta" className="btn btn--gold btn--block pain__cta">{t("pain.startWith")}</a>
@@ -261,8 +255,8 @@ function Countries() {
               </div>
               {/* Card body */}
               <div className="country__body">
-                <div className="country__landmark">{c.landmark}</div>
-                <div className="country__desc">{c.desc}</div>
+                <div className="country__landmark">{t("countryLm." + c.name) || c.landmark}</div>
+                <div className="country__desc">{t("countryDesc." + c.name) || c.desc}</div>
                 <div className="country__footer">
                   <span className="country__price">{c.price}</span>
                   <span className="country__link">{t("countries.more")}</span>
@@ -281,11 +275,11 @@ function Countries() {
    "Зарубежное образование — это не только диплом"
    ============================================================ */
 const BEYOND = [
-  { cls: "travel",  title: "Путешествия", sub: "Новые страны каждые каникулы",       video: "videos/beyond-travel.mp4",  poster: "images/beyond/travel.jpg"  },
-  { cls: "career",  title: "Карьера",     sub: "Международное резюме с первого дня",  video: "videos/beyond-career.mp4",  poster: "images/beyond/career.jpg"  },
-  { cls: "friends", title: "Друзья",      sub: "Со всего мира — на всю жизнь",         video: "videos/beyond-friends.mp4", poster: "images/beyond/friends.jpg" },
-  { cls: "network", title: "Знакомства",  sub: "Alumni-сеть в 40+ странах",            video: "videos/beyond-network.mp4", poster: "images/beyond/network.jpg" },
-  { cls: "world",   title: "Среда",       sub: "100+ национальностей рядом",           video: "videos/beyond-world.mp4",   poster: "images/beyond/world.jpg"   },
+  { cls: "travel",  video: "videos/beyond-travel.mp4",  poster: "images/beyond/travel.jpg"  },
+  { cls: "career",  video: "videos/beyond-career.mp4",  poster: "images/beyond/career.jpg"  },
+  { cls: "friends", video: "videos/beyond-friends.mp4", poster: "images/beyond/friends.jpg" },
+  { cls: "network", video: "videos/beyond-network.mp4", poster: "images/beyond/network.jpg" },
+  { cls: "world",   video: "videos/beyond-world.mp4",   poster: "images/beyond/world.jpg"   },
 ];
 
 function BeyondCell({ item }) {
@@ -329,8 +323,8 @@ function BeyondCell({ item }) {
       <div className="beyond__scrim" />
       <div className="beyond__overlay" />
       <div className="beyond__content">
-        <strong className="beyond__title">{item.title}</strong>
-        <span className="beyond__sub">{item.sub}</span>
+        <strong className="beyond__title">{t("beyond." + item.cls + ".title")}</strong>
+        <span className="beyond__sub">{t("beyond." + item.cls + ".sub")}</span>
       </div>
       <span className="beyond__play" aria-hidden="true">
         {sound ? (
@@ -339,7 +333,7 @@ function BeyondCell({ item }) {
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM3 3l18 18-1.4 1.4L1.6 4.4 3 3z"/></svg>
         )}
       </span>
-      <span className="beyond__sound-hint" aria-hidden="true">{sound ? "Звук включён" : "Нажми для звука"}</span>
+      <span className="beyond__sound-hint" aria-hidden="true">{sound ? t("beyond.soundOn") : t("beyond.soundHint")}</span>
     </div>
   );
 }
@@ -349,7 +343,7 @@ function BeyondDiploma() {
     <section className="beyond" id="beyond">
       <div className="wrap">
         <div className="beyond__head" data-reveal>
-          <h2 className="beyond__h2"><span className="text-blue">Образование за рубежом —</span><br/>это не только диплом</h2>
+          <h2 className="beyond__h2"><span className="text-blue">{t("beyond.h2a")}</span><br/>{t("beyond.h2b")}</h2>
         </div>
       </div>
       <div className="beyond__grid" data-reveal data-delay="1">
