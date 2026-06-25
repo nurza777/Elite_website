@@ -274,3 +274,21 @@ body { background: var(--gray-100); }
 .afield__vid-row { display: flex; gap: 6px; align-items: center; }
 .ainput--flex { flex: 1; }
 .afield__preview-vid { width: 100%; max-height: 200px; border-radius: 6px; background: #000; display: block; margin-top: 4px; }
+.afield__preview-wrap { position: relative; cursor: pointer; }
+.afield__preview-overlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.35); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600; letter-spacing: .04em;
+  opacity: 0; transition: opacity .15s;
+}
+.afield__preview-wrap:hover .afield__preview-overlay { opacity: 1; }
+.afield__preview-img--new { outline: 2px solid #4a8fc7; }
+.afield__upload-bar {
+  display: flex; gap: 8px; align-items: center;
+  padding: 6px 0;
+}
+.afield__fname { font-size: 12px; color: var(--muted); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.afield__status { font-size: 12px; font-weight: 600; padding-top: 4px; }
+.afield__ok  { color: #16a34a; }
+.afield__err { color: #c0392b; word-break: break-word; }

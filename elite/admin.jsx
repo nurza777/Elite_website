@@ -471,37 +471,109 @@ function CountriesEditor({ list, setList }) {
   );
 }
 
-/* ---------- Image path field with live preview ---------- */
-function ImgPathField({ l, v, on }) {
-  const [err, setErr] = React.useState(false);
-  React.useEffect(() => setErr(false), [v]);
+/* ---------- Image path field: preview + upload ---------- */
+function ImgPathField({ l, v, on, token, branch }) {
+  const [imgErr, setImgErr] = React.useState(false);
+  const [file, setFile] = React.useState(null);
+  const [preview, setPreview] = React.useState(null);
+  const [st, setSt] = React.useState(null);
+  const [err, setErr] = React.useState(null);
+  React.useEffect(() => { setImgErr(false); }, [v]);
+
+  function onFile(e) {
+    const f = e.target.files[0];
+    if (!f) return;
+    setFile(f); setSt(null); setErr(null);
+    const r = new FileReader();
+    r.onload = () => setPreview(r.result);
+    r.readAsDataURL(f);
+    e.target.value = "";
+  }
+
+  async function upload() {
+    if (!file || !preview || !v) return;
+    if (!token) { setErr("Нет токена — добавь в «Публикации»"); return; }
+    setSt("busy"); setErr(null);
+    try {
+      await ghUploadMedia(token, branch, v, preview.split(",")[1]);
+      setSt("ok"); setFile(null); setPreview(null); setImgErr(false);
+    } catch (e2) { setSt("err"); setErr(e2.message); }
+  }
+
+  const thumb = preview || (v && !imgErr ? v : null);
   return (
     <div className="afield">
       <label className="afield__label">{l}</label>
-      <div className="afield__preview-wrap">
-        {v && !err
-          ? <img src={v} alt="" className="afield__preview-img" onError={() => setErr(true)} />
-          : <div className="afield__preview-empty">нет превью</div>
+      <div className="afield__preview-wrap" onClick={() => !file && document.getElementById("af-img-" + l)?.click()} title="Нажми для замены">
+        {thumb
+          ? <img src={thumb} alt="" className={"afield__preview-img" + (preview ? " afield__preview-img--new" : "")} onError={() => setImgErr(true)} />
+          : <div className="afield__preview-empty">нет превью · нажми чтобы загрузить</div>
+        }
+        <input id={"af-img-" + l} type="file" accept="image/jpeg,image/png,image/webp" onChange={onFile} style={{ display: "none" }} />
+        {!preview && <div className="afield__preview-overlay">Заменить</div>}
+      </div>
+      <div className="afield__vid-row">
+        <input className="ainput ainput--flex" value={v || ""} onChange={e => { on(e.target.value); setFile(null); setPreview(null); setSt(null); }} placeholder="thumbs/имя.jpg" />
+        {preview
+          ? <button className="abtn abtn--primary" onClick={upload} disabled={st === "busy"}>{st === "busy" ? "Идёт…" : "↑ Загрузить"}</button>
+          : <label className="abtn" title="Выбрать файл для замены" style={{ cursor: "pointer" }}>
+              📁 <input type="file" accept="image/jpeg,image/png,image/webp" onChange={onFile} style={{ display: "none" }} />
+            </label>
         }
       </div>
-      <input className="ainput" value={v || ""} onChange={e => on(e.target.value)} placeholder="thumbs/имя.jpg" />
+      {st === "ok"  && <div className="afield__status afield__ok">✓ Загружено</div>}
+      {st === "err" && <div className="afield__status afield__err">{err}</div>}
     </div>
   );
 }
 
-/* ---------- Video path field with live preview ---------- */
-function VidPathField({ l, v, on }) {
+/* ---------- Video path field: preview + upload ---------- */
+function VidPathField({ l, v, on, token, branch }) {
   const [open, setOpen] = React.useState(false);
+  const [file, setFile] = React.useState(null);
+  const [st, setSt] = React.useState(null);
+  const [err, setErr] = React.useState(null);
+
+  function onFile(e) {
+    const f = e.target.files[0];
+    if (!f) return;
+    setFile(f); setSt(null); setErr(null);
+    e.target.value = "";
+  }
+
+  async function upload() {
+    if (!file || !v) return;
+    if (!token) { setErr("Нет токена — добавь в «Публикации»"); return; }
+    setSt("busy"); setErr(null);
+    const r = new FileReader();
+    r.onload = async () => {
+      try {
+        await ghUploadMedia(token, branch, v, r.result.split(",")[1]);
+        setSt("ok"); setFile(null); setOpen(false);
+      } catch (e2) { setSt("err"); setErr(e2.message); }
+    };
+    r.readAsDataURL(file);
+  }
+
   return (
     <div className="afield">
       <label className="afield__label">{l}</label>
       <div className="afield__vid-row">
-        <input className="ainput ainput--flex" value={v || ""} onChange={e => { on(e.target.value); setOpen(false); }} placeholder="videos/имя.mp4" />
+        <input className="ainput ainput--flex" value={v || ""} onChange={e => { on(e.target.value); setOpen(false); setFile(null); setSt(null); }} placeholder="videos/имя.mp4" />
         {v && <button className="abtn" type="button" onClick={() => setOpen(o => !o)}>{open ? "Скрыть" : "▶ Смотреть"}</button>}
+        <label className="abtn" title="Загрузить новый файл" style={{ cursor: "pointer" }}>
+          📁 <input type="file" accept="video/mp4,video/quicktime,video/*" onChange={onFile} style={{ display: "none" }} />
+        </label>
       </div>
-      {open && v && (
-        <video key={v} src={v} controls className="afield__preview-vid" />
+      {open && v && <video key={v} src={v} controls className="afield__preview-vid" />}
+      {file && (
+        <div className="afield__upload-bar">
+          <span className="afield__fname">{file.name.length > 30 ? file.name.slice(0, 28) + "…" : file.name}</span>
+          <button className="abtn abtn--primary" onClick={upload} disabled={st === "busy"}>{st === "busy" ? "Идёт…" : "↑ Загрузить"}</button>
+        </div>
       )}
+      {st === "ok"  && <div className="afield__status afield__ok">✓ Загружено</div>}
+      {st === "err" && <div className="afield__status afield__err">{err}</div>}
     </div>
   );
 }
@@ -509,7 +581,7 @@ function VidPathField({ l, v, on }) {
 /* ============================================================
    GENERIC LIST EDITOR (stories / videos / posts)
    ============================================================ */
-function SimpleList({ list, setList, schema, titleKey, addTemplate, addLabel }) {
+function SimpleList({ list, setList, schema, titleKey, addTemplate, addLabel, token, branch }) {
   const [sel, setSel] = useState(null);
   const upd = (i, k, v) => setList(list.map((x, j) => (j === i ? { ...x, [k]: v } : x)));
   const del = (i) => {
@@ -557,8 +629,8 @@ function SimpleList({ list, setList, schema, titleKey, addTemplate, addLabel }) 
             {schema.map(([k, l, type, opts]) =>
               type === "area"      ? <Area key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} />
               : type === "select"  ? <Sel  key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} opts={opts} />
-              : type === "imgpath" ? <ImgPathField key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} />
-              : type === "vidpath" ? <VidPathField key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} />
+              : type === "imgpath" ? <ImgPathField key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} token={token} branch={branch} />
+              : type === "vidpath" ? <VidPathField key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} token={token} branch={branch} />
               : <TIn key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} />
             )}
           </div>
@@ -1008,12 +1080,14 @@ function AdminApp() {
               <div className="amain__note">Карусель больших историй (главная и «Истории»). Ниже — сетка студентов.</div>
               <SimpleList
                 list={state.storyCards} setList={set("storyCards")} titleKey="name" addLabel="+ История"
+                token={ghToken} branch={ghBranch}
                 addTemplate={{ name: "Имя", from: "🇺🇸 США", quote: "", uni: "🎓 Университет", videoSrc: "videos/имя.mp4", poster: "thumbs/имя.jpg" }}
                 schema={[["name", "Имя"], ["from", "Страна (с флагом)"], ["quote", "Цитата", "area"], ["uni", "Подпись вуза"], ["videoSrc", "Путь к видео", "vidpath"], ["poster", "Превью (обложка)", "imgpath"]]}
               />
               <div className="amain__note" style={{ marginTop: 26 }}>Сетка студентов (фильтруется по стране):</div>
               <SimpleList
                 list={state.storyGrid} setList={set("storyGrid")} titleKey="n" addLabel="+ Студент"
+                token={ghToken} branch={ghBranch}
                 addTemplate={{ n: "Имя", u: "Университет", s: "Грант", t: "Италия", video: "", poster: "" }}
                 schema={[["n", "Имя"], ["u", "Университет"], ["s", "Сумма / грант"], ["t", "Страна (для фильтра)", "select", COUNTRY_OPTS], ["video", "Путь к видео (videos/…)", "vidpath"], ["poster", "Превью (thumbs/…)", "imgpath"]]}
               />
@@ -1022,6 +1096,7 @@ function AdminApp() {
           {section === "videos" && (
             <SimpleList
               list={state.videos} setList={set("videos")} titleKey="name" addLabel="+ Видео"
+              token={ghToken} branch={ghBranch}
               addTemplate={{ name: "Имя", country: "🇺🇸 США", src: "videos/имя.mp4", poster: "thumbs/имя.jpg", tag: "Отзыв" }}
               schema={[["name", "Имя"], ["country", "Страна (с флагом)"], ["src", "Путь к видео (videos/…)", "vidpath"], ["poster", "Превью (thumbs/…)", "imgpath"], ["tag", "Метка", "select", ["Отзыв", "Интервью"]]]}
             />
