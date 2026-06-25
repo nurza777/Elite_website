@@ -192,7 +192,7 @@ const COUNTRIES_DEFAULT = [
   },
   {
     flagImg: "https://flagcdn.com/40x30/de.png", name: "Германия", landmark: "Берлин · Мюнхен · Гамбург",
-    desc: "Технологии · Made in Germany · Карьера",  price: "от €0/год",
+    desc: "Технологии · Made in Germany · Карьера",  price: "Бесплатно",
     photo: "images/countries/germany/1.jpg",
     bg: "linear-gradient(160deg,#2a2a3a 0%,#161622 55%,#07070d 100%)",
     accent: "#8a8ab0",

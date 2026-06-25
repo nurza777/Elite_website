@@ -109,7 +109,7 @@ function HeroWaves() {
 
 function Counter({ to, suffix = "", duration = 1600 }) {
   const ref = useRef(null);
-  const [val, setVal] = useState(0);
+  const [val, setVal] = useState(to);
   useEffect(() => {
     let started = false, raf;
     const el = ref.current;

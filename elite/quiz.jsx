@@ -5,16 +5,44 @@ const { useState, useEffect } = React;
 const QUIZ_LEADS_URL = "https://script.google.com/macros/s/AKfycbw4i67Vtu9cMUjZvXxVCZ0ZdeDndAG2GqY0eS7PznuBGxZeG4PkwHbe8xN-RAoa35BW/exec";
 
 const QUIZ_STEPS = [
-  { q: "Куда хочешь поехать?", key: "country",
-    opts: [["","США"],["","Италия"],["","Польша"],["","Малайзия"],["","Германия"],["","Другая страна"]] },
-  { q: "Какую программу ищешь?", key: "program",
-    opts: [["","Бакалавриат"],["","Магистратура"],["","МВА"],["","Языковые курсы"],["","Школа"]] },
-  { q: "Твой текущий уровень английского?", key: "english",
-    opts: [["","Начинающий"],["","A2 – B1"],["","B2"],["","C1 – C2 / Носитель"]] },
-  { q: "Твой бюджет в год (USD)?", key: "budget",
-    opts: [["","До $5 000"],["","$5k – $15k"],["","$15k – $30k"],["","Ищу гранты"]] },
-  { q: "Когда планируешь ехать?", key: "when",
-    opts: [["","Этим летом"],["","Осень 2026"],["","2027"],["","Просто изучаю"]] },
+  { qKey: "quiz.q.1", key: "country",
+    opts: [
+      { val: "США",           lk: "country.США" },
+      { val: "Италия",        lk: "country.Италия" },
+      { val: "Польша",        lk: "country.Польша" },
+      { val: "Малайзия",      lk: "country.Малайзия" },
+      { val: "Германия",      lk: "country.Германия" },
+      { val: "Другая страна", lk: "quiz.opt.other" },
+    ]},
+  { qKey: "quiz.q.2", key: "program",
+    opts: [
+      { val: "Бакалавриат",    lk: "quiz.opt.bachelor" },
+      { val: "Магистратура",   lk: "quiz.opt.master" },
+      { val: "МВА",            lk: "quiz.opt.mba" },
+      { val: "Языковые курсы", lk: "quiz.opt.language" },
+      { val: "Школа",          lk: "quiz.opt.school" },
+    ]},
+  { qKey: "quiz.q.3", key: "english",
+    opts: [
+      { val: "Начинающий",         lk: "quiz.opt.beginner" },
+      { val: "A2 – B1",            lk: "quiz.opt.a2b1" },
+      { val: "B2",                 lk: "quiz.opt.b2" },
+      { val: "C1 – C2 / Носитель", lk: "quiz.opt.c1c2" },
+    ]},
+  { qKey: "quiz.q.4", key: "budget",
+    opts: [
+      { val: "До $5 000",   lk: "quiz.opt.budget1" },
+      { val: "$5k – $15k",  lk: "quiz.opt.budget2" },
+      { val: "$15k – $30k", lk: "quiz.opt.budget3" },
+      { val: "Ищу гранты",  lk: "quiz.opt.grants" },
+    ]},
+  { qKey: "quiz.q.5", key: "when",
+    opts: [
+      { val: "Этим летом",    lk: "quiz.opt.summer" },
+      { val: "Осень 2026",    lk: "quiz.opt.fall2026" },
+      { val: "2027",          lk: "quiz.opt.2027" },
+      { val: "Просто изучаю", lk: "quiz.opt.exploring" },
+    ]},
 ];
 
 /* ---------- Matching pool (used by QuizResult) ---------- */
@@ -117,9 +145,9 @@ function Quiz() {
     <section className="section quiz-sec" id="quiz">
       <div className="wrap">
         <div className="section-head section-head--center" data-reveal>
-          <span className="eyebrow eyebrow--gold">Бесплатный инструмент</span>
-          <h2>Узнай, в какой университет ты можешь поступить — за 2 минуты</h2>
-          <p>Более 1500 студентов уже прошли оценку шансов</p>
+          <span className="eyebrow eyebrow--gold">{t("quiz.eyebrow")}</span>
+          <h2>{t("quiz.h2")}</h2>
+          <p>{t("quiz.sub")}</p>
         </div>
 
         <div className="quiz card" data-reveal data-delay="1">
@@ -131,29 +159,31 @@ function Quiz() {
             <div className="quiz__resume">
               <span className="quiz__resume-ic" aria-hidden="true">↻</span>
               <div className="quiz__resume-txt">
-                <b>С возвращением!</b> Продолжаем с шага {step + 1} — прогресс сохранили.
+                <b>{t("quiz.resume.title")}</b> {t("quiz.resume.text").replace("{n}", step + 1)}
               </div>
-              <button className="quiz__resume-restart" onClick={restart}>Начать заново</button>
+              <button className="quiz__resume-restart" onClick={restart}>{t("quiz.restart")}</button>
             </div>
           )}
 
           <div className="quiz__head">
-            <span className="quiz__step-n">{isResult ? "Готово!" : `Шаг ${step + 1} из ${total}`}</span>
-            {step > 0 && !isResult && <button className="quiz__back" onClick={back}>← Назад</button>}
+            <span className="quiz__step-n">
+              {isResult ? t("quiz.done") : t("quiz.step").replace("{n}", step + 1).replace("{t}", total)}
+            </span>
+            {step > 0 && !isResult && <button className="quiz__back" onClick={back}>{t("quiz.back")}</button>}
           </div>
 
           <div className="quiz__stage">
             {!isResult ? (
               <div className={"quiz__panel " + (dir > 0 ? "slide-r" : "slide-l")} key={step}>
-                <h3 className="quiz__q">{QUIZ_STEPS[step].q}</h3>
+                <h3 className="quiz__q">{t(QUIZ_STEPS[step].qKey)}</h3>
                 <div className="quiz__opts">
-                  {QUIZ_STEPS[step].opts.map(([ic, label]) => (
+                  {QUIZ_STEPS[step].opts.map((opt) => (
                     <button
-                      key={label}
-                      className={"quiz__opt" + (ans[QUIZ_STEPS[step].key] === label ? " is-sel" : "")}
-                      onClick={() => pick(QUIZ_STEPS[step].key, label)}
+                      key={opt.val}
+                      className={"quiz__opt" + (ans[QUIZ_STEPS[step].key] === opt.val ? " is-sel" : "")}
+                      onClick={() => pick(QUIZ_STEPS[step].key, opt.val)}
                     >
-                      <span className="quiz__opt-label">{label}</span>
+                      <span className="quiz__opt-label">{t(opt.lk) || opt.val}</span>
                     </button>
                   ))}
                 </div>
@@ -187,7 +217,7 @@ function QuizLeadForm({ ans, setDone }) {
       }).catch(() => {});
       setDone(true);
     }}>
-      <input required placeholder="Твоё имя" value={qName} onChange={e => setQName(e.target.value)} />
+      <input required placeholder={t("quiz.name")} value={qName} onChange={e => setQName(e.target.value)} />
       <input required placeholder="+996(___)-___-___" inputMode="tel" value={qPhone} onChange={e => {
         let d = e.target.value.replace(/\D/g,'');
         if (d.startsWith('996')) d = d.slice(3);
@@ -199,7 +229,7 @@ function QuizLeadForm({ ans, setDone }) {
         else f += d.slice(0,3) + ')-' + d.slice(3,6) + '-' + d.slice(6);
         setQPhone(f);
       }} />
-      <button type="submit" className="btn btn--gold btn--block">Получить результаты бесплатно →</button>
+      <button type="submit" className="btn btn--gold btn--block">{t("quiz.submit")}</button>
     </form>
   );
 }
@@ -211,9 +241,9 @@ function QuizResult({ ans, done, setDone, restart }) {
     return (
       <div className="quiz__panel slide-r quiz__success">
         <div className="quiz__success-ic">✓</div>
-        <h3 className="quiz__q">Заявка принята!</h3>
-        <p className="quiz__success-p">Мы отправили полный список из <b>23 вузов</b> и свяжемся с тобой в течение <b>1 часа</b>, чтобы обсудить план поступления.</p>
-        <button className="btn btn--ghost" onClick={restart}>Пройти ещё раз</button>
+        <h3 className="quiz__q">{t("quiz.success.title")}</h3>
+        <p className="quiz__success-p">{t("quiz.success.text")}</p>
+        <button className="btn btn--ghost" onClick={restart}>{t("quiz.success.restart")}</button>
       </div>
     );
   }
@@ -222,12 +252,15 @@ function QuizResult({ ans, done, setDone, restart }) {
       <div className="quiz__result-top">
         <div className="quiz__result-emoji">🎉</div>
         <div>
-          <h3 className="quiz__q quiz__q--sm">Хорошие новости!</h3>
-          <p className="quiz__result-lead">По твоему профилю подходят <b>{totalCount} университетов</b>{ans.country && _CTRY[ans.country] ? " в направлении " + ans.country : ""}.</p>
+          <h3 className="quiz__q quiz__q--sm">{t("quiz.result.good")}</h3>
+          <p className="quiz__result-lead">
+            {t("quiz.result.lead").replace("{n}", totalCount)}
+            {ans.country && _CTRY[ans.country] ? " " + t("quiz.result.direction") + " " + (t("country." + ans.country) || ans.country) : ""}
+          </p>
         </div>
       </div>
 
-      <div className="quiz__matches-label">Топ-3 варианта для тебя:</div>
+      <div className="quiz__matches-label">{t("quiz.matches.label")}</div>
       <div className="quiz__matches">
         {matches.map((m, i) => (
           <div className="quiz__match" key={i}>
@@ -237,16 +270,16 @@ function QuizResult({ ans, done, setDone, restart }) {
               <div className="quiz__match-name">{m.name}</div>
               <div className="quiz__match-loc">{m.loc}</div>
             </div>
-            <span className="chip tag-green">Совпадение {m.fit}%</span>
+            <span className="chip tag-green">{t("quiz.matches.match")} {m.fit}%</span>
           </div>
         ))}
-        <div className="quiz__matches-blur">+ ещё 20 университетов</div>
+        <div className="quiz__matches-blur">{t("quiz.matches.more")}</div>
       </div>
 
       <div className="quiz__lead">
-        <p className="quiz__lead-t">Введи имя и телефон, чтобы получить <b>полный список</b> и бесплатную консультацию:</p>
+        <p className="quiz__lead-t">{t("quiz.lead.text")}</p>
         <QuizLeadForm ans={ans} setDone={setDone} />
-        <div className="quiz__micro">✓ Без спама &nbsp; ✓ Ответим в течение 1 часа</div>
+        <div className="quiz__micro">{t("quiz.nospam")} &nbsp; {t("quiz.reply")}</div>
       </div>
     </div>
   );

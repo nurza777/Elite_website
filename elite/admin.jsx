@@ -616,7 +616,7 @@ function PublishSettings({ token, setToken, branch, setBranch, onExport }) {
           <input type="password" value={token} placeholder="github_pat_…"
                  onChange={(e) => setToken(e.target.value)} />
         </F>
-        <Sel l="Ветка" v={branch} on={setBranch} opts={["dev", "main"]} />
+        <Sel l="Ветка" v={branch} on={setBranch} opts={["for-public", "dev", "main"]} />
         <div className="ahint" style={{ gridColumn: "1 / -1", marginTop: 0 }}>
           Ключ хранится только в этом браузере. Относись к нему как к паролю.
         </div>
@@ -860,7 +860,7 @@ function AdminApp() {
   const [savedAt, setSavedAt] = useState(null);
   const hasDraft = useMemo(() => { try { return !!localStorage.getItem(LS_KEY); } catch (e) { return false; } }, [savedAt]);
   const [ghToken, setGhTokenState] = useState(() => { try { return localStorage.getItem(GH_TOKEN_KEY) || ""; } catch (e) { return ""; } });
-  const [ghBranch, setGhBranchState] = useState(() => { try { return localStorage.getItem(GH_BRANCH_KEY) || "dev"; } catch (e) { return "dev"; } });
+  const [ghBranch, setGhBranchState] = useState(() => { try { return localStorage.getItem(GH_BRANCH_KEY) || "for-public"; } catch (e) { return "for-public"; } });
   const [pub, setPub] = useState({ busy: false, ok: null, err: null });
   const setGhToken = (v) => { setGhTokenState(v); try { localStorage.setItem(GH_TOKEN_KEY, v); } catch (e) {} };
   const setGhBranch = (v) => { setGhBranchState(v); try { localStorage.setItem(GH_BRANCH_KEY, v); } catch (e) {} };
