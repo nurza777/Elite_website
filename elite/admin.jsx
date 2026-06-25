@@ -471,6 +471,41 @@ function CountriesEditor({ list, setList }) {
   );
 }
 
+/* ---------- Image path field with live preview ---------- */
+function ImgPathField({ l, v, on }) {
+  const [err, setErr] = React.useState(false);
+  React.useEffect(() => setErr(false), [v]);
+  return (
+    <div className="afield">
+      <label className="afield__label">{l}</label>
+      <div className="afield__preview-wrap">
+        {v && !err
+          ? <img src={v} alt="" className="afield__preview-img" onError={() => setErr(true)} />
+          : <div className="afield__preview-empty">нет превью</div>
+        }
+      </div>
+      <input className="ainput" value={v || ""} onChange={e => on(e.target.value)} placeholder="thumbs/имя.jpg" />
+    </div>
+  );
+}
+
+/* ---------- Video path field with live preview ---------- */
+function VidPathField({ l, v, on }) {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div className="afield">
+      <label className="afield__label">{l}</label>
+      <div className="afield__vid-row">
+        <input className="ainput ainput--flex" value={v || ""} onChange={e => { on(e.target.value); setOpen(false); }} placeholder="videos/имя.mp4" />
+        {v && <button className="abtn" type="button" onClick={() => setOpen(o => !o)}>{open ? "Скрыть" : "▶ Смотреть"}</button>}
+      </div>
+      {open && v && (
+        <video key={v} src={v} controls className="afield__preview-vid" />
+      )}
+    </div>
+  );
+}
+
 /* ============================================================
    GENERIC LIST EDITOR (stories / videos / posts)
    ============================================================ */
@@ -520,8 +555,10 @@ function SimpleList({ list, setList, schema, titleKey, addTemplate, addLabel }) 
           </div>
           <div className="aform__grid">
             {schema.map(([k, l, type, opts]) =>
-              type === "area" ? <Area key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} />
-              : type === "select" ? <Sel key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} opts={opts} />
+              type === "area"      ? <Area key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} />
+              : type === "select"  ? <Sel  key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} opts={opts} />
+              : type === "imgpath" ? <ImgPathField key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} />
+              : type === "vidpath" ? <VidPathField key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} />
               : <TIn key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} />
             )}
           </div>
@@ -972,13 +1009,13 @@ function AdminApp() {
               <SimpleList
                 list={state.storyCards} setList={set("storyCards")} titleKey="name" addLabel="+ История"
                 addTemplate={{ name: "Имя", from: "🇺🇸 США", quote: "", uni: "🎓 Университет", videoSrc: "videos/имя.mp4", poster: "thumbs/имя.jpg" }}
-                schema={[["name", "Имя"], ["from", "Страна (с флагом)"], ["quote", "Цитата", "area"], ["uni", "Подпись вуза"], ["videoSrc", "Путь к видео"], ["poster", "Путь к превью"]]}
+                schema={[["name", "Имя"], ["from", "Страна (с флагом)"], ["quote", "Цитата", "area"], ["uni", "Подпись вуза"], ["videoSrc", "Путь к видео", "vidpath"], ["poster", "Превью (обложка)", "imgpath"]]}
               />
               <div className="amain__note" style={{ marginTop: 26 }}>Сетка студентов (фильтруется по стране):</div>
               <SimpleList
                 list={state.storyGrid} setList={set("storyGrid")} titleKey="n" addLabel="+ Студент"
                 addTemplate={{ n: "Имя", u: "Университет", s: "Грант", t: "Италия", video: "", poster: "" }}
-                schema={[["n", "Имя"], ["u", "Университет"], ["s", "Сумма / грант"], ["t", "Страна (для фильтра)", "select", COUNTRY_OPTS], ["video", "Путь к видео (videos/…)"], ["poster", "Путь к превью (thumbs/…)"]]}
+                schema={[["n", "Имя"], ["u", "Университет"], ["s", "Сумма / грант"], ["t", "Страна (для фильтра)", "select", COUNTRY_OPTS], ["video", "Путь к видео (videos/…)", "vidpath"], ["poster", "Превью (thumbs/…)", "imgpath"]]}
               />
             </>
           )}
@@ -986,7 +1023,7 @@ function AdminApp() {
             <SimpleList
               list={state.videos} setList={set("videos")} titleKey="name" addLabel="+ Видео"
               addTemplate={{ name: "Имя", country: "🇺🇸 США", src: "videos/имя.mp4", poster: "thumbs/имя.jpg", tag: "Отзыв" }}
-              schema={[["name", "Имя"], ["country", "Страна (с флагом)"], ["src", "Путь к видео (videos/…)"], ["poster", "Путь к превью (thumbs/…)"], ["tag", "Метка", "select", ["Отзыв", "Интервью"]]]}
+              schema={[["name", "Имя"], ["country", "Страна (с флагом)"], ["src", "Путь к видео (videos/…)", "vidpath"], ["poster", "Превью (thumbs/…)", "imgpath"], ["tag", "Метка", "select", ["Отзыв", "Интервью"]]]}
             />
           )}
           {section === "posts" && (

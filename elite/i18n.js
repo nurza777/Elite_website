@@ -217,6 +217,19 @@
       'countryDesc.Польша': "Близко · Доступно · Востребовано",
       'countryDesc.Северный Кипр': "Без языкового теста · Тёплый климат",
       'countryDesc.Малайзия': "Мусульм. среда · Азия · Безопасность",
+      /* PRICES */
+      'countryPrice.Италия': "от €2 000/год",
+      'countryPrice.США': "от $8 000/год",
+      'countryPrice.Австрия': "от €726/год",
+      'countryPrice.Германия': "Бесплатно",
+      'countryPrice.Польша': "от €2 000/год",
+      'countryPrice.Северный Кипр': "от $3 000/год",
+      'countryPrice.Малайзия': "от $4 000/год",
+      /* MEDIAFEED */
+      'mediafeed.eyebrow': "Живые отзывы",
+      'mediafeed.h2a': "Они уже учатся за рубежом.",
+      'mediafeed.h2b': "Смотри и убеждайся.",
+      'mediafeed.sub': "Реальные видео-отзывы наших студентов из Италии и США — без монтажа и сценариев.",
       /* QUIZ */
       'quiz.eyebrow': 'Бесплатный инструмент',
       'quiz.h2': 'Узнай, в какой университет ты можешь поступить — за 2 минуты',
@@ -471,6 +484,19 @@
       'countryDesc.Польша': "Close · Affordable · In Demand",
       'countryDesc.Северный Кипр': "No Language Test · Warm Climate",
       'countryDesc.Малайзия': "Muslim Community · Asia · Safety",
+      /* PRICES */
+      'countryPrice.Италия': "from €2,000/year",
+      'countryPrice.США': "from $8,000/year",
+      'countryPrice.Австрия': "from €726/year",
+      'countryPrice.Германия': "Free",
+      'countryPrice.Польша': "from €2,000/year",
+      'countryPrice.Северный Кипр': "from $3,000/year",
+      'countryPrice.Малайзия': "from $4,000/year",
+      /* MEDIAFEED */
+      'mediafeed.eyebrow': "Live Reviews",
+      'mediafeed.h2a': "They are already studying abroad.",
+      'mediafeed.h2b': "See for yourself.",
+      'mediafeed.sub': "Real video testimonials from our students in Italy and the USA — no editing, no scripts.",
       /* QUIZ */
       'quiz.eyebrow': 'Free Tool',
       'quiz.h2': 'Find out which university you can get into — in 2 minutes',
@@ -725,6 +751,19 @@
       'countryDesc.Польша': "Жакын · Жеткиликтүү · Суранычта",
       'countryDesc.Северный Кипр': "Тил тестисиз · Жылуу климат",
       'countryDesc.Малайзия': "Мусулман чөйрөсү · Азия · Коопсуздук",
+      /* PRICES */
+      'countryPrice.Италия': "€2 000/жылдан",
+      'countryPrice.США': "$8 000/жылдан",
+      'countryPrice.Австрия': "€726/жылдан",
+      'countryPrice.Германия': "Акысыз",
+      'countryPrice.Польша': "€2 000/жылдан",
+      'countryPrice.Северный Кипр': "$3 000/жылдан",
+      'countryPrice.Малайзия': "$4 000/жылдан",
+      /* MEDIAFEED */
+      'mediafeed.eyebrow': "Тирүү пикирлер",
+      'mediafeed.h2a': "Алар мурунтан чет өлкөдө окушат.",
+      'mediafeed.h2b': "Өзүң көр.",
+      'mediafeed.sub': "Италия жана АКШдагы студенттерибиздин чыныгы видео-пикирлери — монтажсыз жана сценарийсиз.",
       /* QUIZ */
       'quiz.eyebrow': 'Акысыз курал',
       'quiz.h2': 'Кайсы университетке кире аларыңды биле — 2 мүнөттө',

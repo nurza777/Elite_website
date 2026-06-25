@@ -258,7 +258,7 @@ function Countries() {
                 <div className="country__landmark">{t("countryLm." + c.name) || c.landmark}</div>
                 <div className="country__desc">{t("countryDesc." + c.name) || c.desc}</div>
                 <div className="country__footer">
-                  <span className="country__price">{c.price}</span>
+                  <span className="country__price">{t("countryPrice." + c.name) || c.price}</span>
                   <span className="country__link">{t("countries.more")}</span>
                 </div>
               </div>
