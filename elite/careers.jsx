@@ -32,6 +32,7 @@ const WHY_QUALITIES = [
 const DEPARTMENTS = [
   {
     id: "marketing",
+    num: "01",
     titleKey: "careers.dept.marketing.title",
     descKeys: ["careers.dept.marketing.p1","careers.dept.marketing.p2","careers.dept.marketing.p3","careers.dept.marketing.p4"],
     teamLabel: true,
@@ -43,6 +44,7 @@ const DEPARTMENTS = [
   },
   {
     id: "sales",
+    num: "02",
     titleKey: "careers.dept.sales.title",
     descKeys: ["careers.dept.sales.p1","careers.dept.sales.p2","careers.dept.sales.p3","careers.dept.sales.p4","careers.dept.sales.p5"],
     teamLabel: false,
@@ -58,6 +60,7 @@ const DEPARTMENTS = [
   },
   {
     id: "admission",
+    num: "03",
     titleKey: "careers.dept.admission.title",
     descKeys: ["careers.dept.admission.p1","careers.dept.admission.p2","careers.dept.admission.p3"],
     teamLabel: false,
@@ -148,20 +151,25 @@ function CareersPerks() {
 }
 
 /* ---- Single department block ---- */
-function DeptBlock({ dept }) {
+function DeptBlock({ dept, index }) {
   const photo = CAREERS_DATA.deptPhotos?.[dept.id] || "";
   const applyUrl = CAREERS_DATA.applyUrl || "#";
+  const isEven = index % 2 === 1;
   return (
-    <div className={"careers-dept careers-dept--" + dept.id} data-reveal>
+    <div className={"careers-dept" + (isEven ? " careers-dept--reverse" : "")} data-reveal>
+      {/* Photo side */}
       <div className="careers-dept__photo-col">
+        <span className="careers-dept__num">{dept.num}</span>
         {photo
           ? <img src={photo} alt={t(dept.titleKey)} className="careers-dept__photo" />
           : <div className="careers-dept__photo-ph">
-              <span>📷</span>
+              <span className="careers-dept__ph-icon">📷</span>
               <span>{t("careers.dept.photoSoon")}</span>
             </div>
         }
       </div>
+
+      {/* Info side */}
       <div className="careers-dept__info">
         <h3 className="careers-dept__title">{t(dept.titleKey)}</h3>
         <div className="careers-dept__desc">
@@ -171,18 +179,20 @@ function DeptBlock({ dept }) {
         {dept.teamLabel && dept.teamKeys && (
           <div className="careers-dept__team">
             <p className="careers-dept__team-label">{t("careers.dept.team")}</p>
-            <ul className="careers-dept__list">
-              {dept.teamKeys.map(k => <li key={k}>{t(k)}</li>)}
-            </ul>
+            <div className="careers-dept__tags">
+              {dept.teamKeys.map(k => <span key={k} className="careers-dept__tag">{t(k)}</span>)}
+            </div>
           </div>
         )}
 
         {dept.vacancy && (
           <div className="careers-dept__vacancy">
-            <span className="careers-dept__v-badge">{t("careers.dept.open")}</span>
-            <h4 className="careers-dept__v-title">{t(dept.vacancy.titleKey)}</h4>
+            <div className="careers-dept__v-head">
+              <span className="careers-dept__v-badge">{t("careers.dept.open")}</span>
+              <h4 className="careers-dept__v-title">{t(dept.vacancy.titleKey)}</h4>
+            </div>
             <p className="careers-dept__v-label">{t("careers.dept.duties")}</p>
-            <ul className="careers-dept__list">
+            <ul className="careers-dept__v-list">
               {dept.vacancy.dutiesKeys.map(k => <li key={k}>{t(k)}</li>)}
             </ul>
             {dept.vacancy.perksKey && (
@@ -206,7 +216,7 @@ function CareersDepts() {
           <h2>{t("careers.dept.h2")}</h2>
         </div>
         <div className="careers-depts__list">
-          {DEPARTMENTS.map(d => <DeptBlock key={d.id} dept={d} />)}
+          {DEPARTMENTS.map((d, i) => <DeptBlock key={d.id} dept={d} index={i} />)}
         </div>
       </div>
     </section>

@@ -113,53 +113,118 @@
 .careers-perk__text { font-size: .95rem; font-weight: 600; line-height: 1.4; color: var(--text); }
 
 /* ---- Departments ---- */
-.careers-depts__list { display: flex; flex-direction: column; gap: 64px; margin-top: 16px; }
+.careers-depts { background: #f7f9fc; }
+.careers-depts__list { display: flex; flex-direction: column; gap: 6px; margin-top: 16px; }
+
 .careers-dept {
-  display: grid; grid-template-columns: 1fr 1.5fr;
-  gap: 48px; align-items: start;
+  display: grid; grid-template-columns: 1fr 1.35fr;
+  gap: 0; align-items: stretch;
+  background: #fff; border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0,0,0,.06);
 }
-.careers-dept:nth-child(even) { direction: rtl; }
-.careers-dept:nth-child(even) > * { direction: ltr; }
-@media (max-width: 760px) {
-  .careers-dept, .careers-dept:nth-child(even) { grid-template-columns: 1fr; direction: ltr; }
+.careers-dept--reverse { direction: rtl; }
+.careers-dept--reverse > * { direction: ltr; }
+@media (max-width: 800px) {
+  .careers-dept, .careers-dept--reverse { grid-template-columns: 1fr; direction: ltr; }
+  .careers-dept--reverse .careers-dept__photo-col { order: -1; }
+}
+
+/* Photo column */
+.careers-dept__photo-col {
+  position: relative; min-height: 340px;
+}
+.careers-dept__num {
+  position: absolute; top: 24px; left: 28px; z-index: 2;
+  font-size: 4.5rem; font-weight: 900; line-height: 1;
+  color: rgba(255,255,255,.22);
+  font-family: 'Raleway', sans-serif;
+  pointer-events: none; user-select: none;
 }
 .careers-dept__photo {
-  width: 100%; aspect-ratio: 4/3; object-fit: cover;
-  border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,.12);
+  width: 100%; height: 100%; min-height: 340px;
+  object-fit: cover; display: block;
 }
 .careers-dept__photo-ph {
-  width: 100%; aspect-ratio: 4/3;
-  background: var(--gray-100); border: 2px dashed var(--border);
-  border-radius: 16px; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 8px;
-  color: var(--muted); font-size: .9rem;
+  width: 100%; height: 100%; min-height: 340px;
+  background: linear-gradient(135deg, var(--navy) 0%, #1a3a6e 100%);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 12px;
+  color: rgba(255,255,255,.5);
 }
-.careers-dept__photo-ph span:first-child { font-size: 2.5rem; }
+.careers-dept__ph-icon { font-size: 3rem; opacity: .4; }
+.careers-dept__photo-ph span:last-child { font-size: .9rem; font-weight: 500; }
+
+/* Info column */
+.careers-dept__info {
+  padding: 44px 48px 44px 44px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.careers-dept--reverse .careers-dept__info { padding: 44px 44px 44px 48px; }
+@media (max-width: 800px) {
+  .careers-dept__info, .careers-dept--reverse .careers-dept__info { padding: 32px 24px; }
+}
+
 .careers-dept__title {
-  font-size: clamp(1.25rem, 2.5vw, 1.6rem); font-weight: 800;
-  color: var(--navy); margin: 0 0 16px; line-height: 1.25;
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem); font-weight: 900;
+  color: var(--navy); margin: 0 0 20px; line-height: 1.2;
 }
-.careers-dept__desc { font-size: 1rem; line-height: 1.75; color: var(--text); margin-bottom: 20px; }
+.careers-dept__desc { font-size: 1.05rem; line-height: 1.8; color: var(--text); margin-bottom: 24px; }
 .careers-dept__desc p { margin: 0 0 12px; }
-.careers-dept__team-label { font-weight: 700; margin-bottom: 8px; font-size: .95rem; }
-.careers-dept__list {
-  padding-left: 18px; margin: 0 0 20px;
+.careers-dept__desc p:last-child { margin: 0; }
+
+/* Team chips */
+.careers-dept__team { margin-bottom: 24px; }
+.careers-dept__team-label {
+  font-size: .78rem; font-weight: 800; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
 }
-.careers-dept__list li { margin-bottom: 6px; font-size: .95rem; line-height: 1.5; }
+.careers-dept__tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.careers-dept__tag {
+  background: #eef3ff; color: var(--navy);
+  border: 1px solid #d0dcf5;
+  padding: 6px 16px; border-radius: 99px;
+  font-size: .9rem; font-weight: 600;
+}
+
+/* Vacancy card */
 .careers-dept__vacancy {
-  background: var(--gray-50, #f8fafd); border: 1px solid var(--border);
-  border-radius: 12px; padding: 24px; margin-top: 16px;
+  background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 100%);
+  border: 1px solid #c8d9f5;
+  border-radius: 16px; padding: 28px 28px 24px; margin-top: 8px;
+}
+.careers-dept__v-head {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 .careers-dept__v-badge {
-  display: inline-block; background: #dcfce7; color: #16a34a;
-  font-size: .75rem; font-weight: 700; letter-spacing: .08em;
-  text-transform: uppercase; padding: 4px 10px; border-radius: 99px; margin-bottom: 12px;
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #16a34a; color: #fff;
+  font-size: .72rem; font-weight: 800; letter-spacing: .1em;
+  text-transform: uppercase; padding: 5px 12px; border-radius: 99px;
+  white-space: nowrap;
 }
-.careers-dept__v-title { font-size: 1.15rem; font-weight: 800; margin: 0 0 16px; color: var(--navy); }
-.careers-dept__v-label { font-weight: 700; font-size: .9rem; margin-bottom: 8px; }
+.careers-dept__v-badge::before { content: "●"; font-size: .5rem; opacity: .8; }
+.careers-dept__v-title {
+  font-size: 1.2rem; font-weight: 800; color: var(--navy); margin: 0;
+}
+.careers-dept__v-label {
+  font-size: .8rem; font-weight: 800; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+}
+.careers-dept__v-list { list-style: none; padding: 0; margin: 0 0 20px; }
+.careers-dept__v-list li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 1rem; line-height: 1.6; padding: 5px 0;
+  color: var(--text);
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+.careers-dept__v-list li::before {
+  content: "→"; color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 1px;
+}
 .careers-dept__v-perks {
   font-size: .95rem; line-height: 1.7; color: var(--muted);
-  margin: 16px 0 20px; font-style: italic;
+  margin: 0 0 20px; font-style: italic;
 }
 .careers-dept__v-btn { margin-top: 4px; }
 
