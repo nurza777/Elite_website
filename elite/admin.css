@@ -292,3 +292,7 @@ body { background: var(--gray-100); }
 .afield__status { font-size: 12px; font-weight: 600; padding-top: 4px; }
 .afield__ok  { color: #16a34a; }
 .afield__err { color: #c0392b; word-break: break-word; }
+
+/* ---------- CareersEditor card sections ---------- */
+.acard { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; }
+.acard__title { font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--navy); padding-bottom: 8px; border-bottom: 1px solid var(--border); }

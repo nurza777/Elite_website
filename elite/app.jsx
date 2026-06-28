@@ -153,6 +153,7 @@ function PageAbout() {
       <VisionMission />
       <Team />
       <Accreditations />
+      <CareersTeaser />
       <OfficeBlock />
       <FinalCTA />
     </>
@@ -181,6 +182,10 @@ function PageHero({ eyebrow, title, sub, variant }) {
   );
 }
 
+function PageCareers() {
+  return <CareersPage />;
+}
+
 const PAGES = {
   home: PageHome,
   countries: PageCountries,
@@ -191,6 +196,7 @@ const PAGES = {
   admission: PageAdmission,
   stories: PageStories,
   about: PageAbout,
+  careers: PageCareers,
 };
 
 function App() {

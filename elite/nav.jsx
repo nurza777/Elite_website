@@ -31,6 +31,7 @@ const MEGA = {
       { h: "nav.mega.company",  items: [["О компании", "about.html"], ["Состав Elite", "about.html#team"], ["Аккредитации", "about.html#accreds"], ["Офис и контакты", "about.html#office"]] },
       { h: "nav.mega.students", items: [["Истории студентов", "stories.html"], ["Видео-отзывы", "stories.html"], ["Кейсы стипендий", "stories.html"]] },
       { h: "nav.mega.blog",     items: [["Все статьи", "stories.html#blog"]] },
+      { h: "nav.mega.careers",  items: [["Вакансии", "careers.html"], ["Наши отделы", "careers.html#departments"], ["Корпоративная жизнь", "careers.html#corp"]] },
     ],
     cta: "nav.mega.meetUs",
     ctaHref: "about.html",

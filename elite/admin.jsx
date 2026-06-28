@@ -225,6 +225,7 @@ function buildInitial() {
     team: clone(window.EA_TEAM || { text: "", badges: [] }),
     office: clone(window.EA_OFFICE || {}),
     accreds: clone(window.EA_ACCREDS || []),
+    careers: clone(window.EA_CAREERS || { heroPhoto: "", deptPhotos: { marketing: "", sales: "", admission: "" }, corpPhotos: Array(8).fill(""), applyUrl: "" }),
   };
 }
 
@@ -256,6 +257,7 @@ function buildContent(s) {
     storyCards: s.storyCards, storyGrid: s.storyGrid,
     videos: s.videos, posts: s.posts,
     about: s.about, team: s.team, office: s.office, accreds: s.accreds,
+    careers: s.careers,
   };
 }
 
@@ -643,6 +645,77 @@ function SimpleList({ list, setList, schema, titleKey, addTemplate, addLabel, to
 }
 
 /* ============================================================
+   CAREERS EDITOR
+   ============================================================ */
+const CORP_PHOTO_COUNT = 8;
+function CareersEditor({ careers, setCareers, token, branch }) {
+  const upd = (k, v) => setCareers({ ...careers, [k]: v });
+  const updDept = (dept, v) => setCareers({ ...careers, deptPhotos: { ...careers.deptPhotos, [dept]: v } });
+  const updCorp = (i, v) => {
+    const next = [...(careers.corpPhotos || Array(CORP_PHOTO_COUNT).fill(""))];
+    next[i] = v;
+    setCareers({ ...careers, corpPhotos: next });
+  };
+  const corpPhotos = careers.corpPhotos && careers.corpPhotos.length >= CORP_PHOTO_COUNT
+    ? careers.corpPhotos
+    : Array(CORP_PHOTO_COUNT).fill("").map((_, i) => (careers.corpPhotos || [])[i] || "");
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
+      <div className="amain__note">Управление фотографиями раздела «Вакансии». Текст переводится автоматически через языковые файлы.</div>
+
+      {/* Apply URL */}
+      <div className="acard">
+        <div className="acard__title">Ссылка на анкету кандидата</div>
+        <TIn l="URL анкеты (появится на кнопках «Заполнить анкету»)" v={careers.applyUrl || ""} on={v => upd("applyUrl", v)} wide />
+      </div>
+
+      {/* Hero photo */}
+      <div className="acard">
+        <div className="acard__title">Главное фото (Hero)</div>
+        <div className="amain__note">Фон первого экрана страницы вакансий. Рекомендуется: фото команды или офиса, 1920×900 px.</div>
+        <UploadSlot label="Фото Hero" path="images/careers/hero.jpg" token={token} branch={branch}
+          hint="1920×900 px · JPG/WebP" onSuccess={() => upd("heroPhoto", "images/careers/hero.jpg")} />
+        <TIn l="Или вставь ссылку на фото" v={careers.heroPhoto || ""} on={v => upd("heroPhoto", v)} />
+      </div>
+
+      {/* Department photos */}
+      <div className="acard">
+        <div className="acard__title">Фото отделов</div>
+        {[
+          ["marketing",  "Отдел маркетинга",  "images/careers/dept-marketing.jpg"],
+          ["sales",      "Отдел продаж",       "images/careers/dept-sales.jpg"],
+          ["admission",  "Отдел поступления",  "images/careers/dept-admission.jpg"],
+        ].map(([id, label, path]) => (
+          <div key={id} style={{ marginBottom: 24 }}>
+            <div className="amain__note" style={{ fontWeight: 700, marginBottom: 8 }}>{label}</div>
+            <UploadSlot label={"Фото · " + label} path={path} token={token} branch={branch}
+              hint="800×600 px · JPG/WebP" onSuccess={() => updDept(id, path)} />
+            <TIn l="Или вставь ссылку" v={careers.deptPhotos?.[id] || ""} on={v => updDept(id, v)} />
+          </div>
+        ))}
+      </div>
+
+      {/* Corporate life photos */}
+      <div className="acard">
+        <div className="acard__title">Фотогалерея «Корпоративная жизнь» ({CORP_PHOTO_COUNT} слотов)</div>
+        <div className="amain__note">Фото с корпоративов, тимбилдингов, праздников. Рекомендуется: 800×600 px.</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          {corpPhotos.map((val, i) => (
+            <div key={i} style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+              <UploadSlot label={"Фото " + (i + 1)} path={"images/careers/corp-" + (i + 1) + ".jpg"}
+                token={token} branch={branch} hint="800×600 px"
+                onSuccess={() => updCorp(i, "images/careers/corp-" + (i + 1) + ".jpg")} />
+              <TIn l="Или ссылка" v={val} on={v => updCorp(i, v)} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
    MAIN APP
    ============================================================ */
 const SECTIONS = [
@@ -652,6 +725,7 @@ const SECTIONS = [
   ["videos", "🎬 Видео-отзывы"],
   ["posts", "📰 Блог"],
   ["about", "ℹ️ О нас"],
+  ["careers", "💼 Вакансии"],
   ["media", "📸 Медиа"],
   ["publish", "⚙️ Публикация"],
 ];
@@ -1122,6 +1196,9 @@ function AdminApp() {
                 schema={[["name", "Название"], ["tag", "Метка"], ["desc", "Описание", "area"]]}
               />
             </>
+          )}
+          {section === "careers" && (
+            <CareersEditor careers={state.careers} setCareers={set("careers")} token={ghToken} branch={ghBranch} />
           )}
           {section === "media" && (
             <MediaEditor token={ghToken} branch={ghBranch} state={state} setPosts={set("posts")} setSection={setSection} />

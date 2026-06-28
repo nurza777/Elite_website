@@ -236,7 +236,28 @@ function OfficeBlock() {
   );
 }
 
+/* ============================================================
+   CAREERS TEASER — small block after Accreditations
+   ============================================================ */
+function CareersTeaser() {
+  return (
+    <section className="section careers-teaser">
+      <div className="wrap careers-teaser__inner">
+        <div className="careers-teaser__text" data-reveal>
+          <span className="eyebrow">{t("careers.teaser.eyebrow")}</span>
+          <h2 className="careers-teaser__h2">{t("careers.teaser.h2")}</h2>
+          <p className="careers-teaser__sub">{t("careers.teaser.sub")}</p>
+        </div>
+        <div className="careers-teaser__cta" data-reveal data-delay="1">
+          <a href="careers.html" className="btn btn--gold btn--lg">{t("careers.teaser.btn")}</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 window.AboutUs = AboutUs;
 window.VisionMission = VisionMission;
 window.Accreditations = Accreditations;
 window.OfficeBlock = OfficeBlock;
+window.CareersTeaser = CareersTeaser;

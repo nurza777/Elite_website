@@ -1,0 +1,153 @@
+/* ============================================================
+   CAREERS PAGE — careers.html + CareersTeaser on about page
+   ============================================================ */
+
+/* ---- Teaser (about page) ---- */
+.careers-teaser {
+  background: linear-gradient(135deg, var(--navy) 0%, #0d2b5e 100%);
+  color: #fff;
+  padding: 72px 0;
+}
+.careers-teaser__inner {
+  display: flex; align-items: center; justify-content: space-between; gap: 40px;
+  flex-wrap: wrap;
+}
+.careers-teaser__text { flex: 1; min-width: 260px; }
+.careers-teaser__text .eyebrow { color: var(--gold); }
+.careers-teaser__h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; margin: 8px 0 12px; color: #fff; }
+.careers-teaser__sub { color: rgba(255,255,255,.72); font-size: 1.05rem; max-width: 460px; }
+.careers-teaser__cta { flex-shrink: 0; }
+
+/* ---- Hero ---- */
+.careers-hero {
+  position: relative; min-height: 560px;
+  display: flex; align-items: center;
+  background: var(--navy) center/cover no-repeat;
+}
+.careers-hero__overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(5,15,40,.82) 0%, rgba(5,15,40,.6) 100%);
+}
+.careers-hero__inner {
+  position: relative; z-index: 1;
+  padding: 100px 0 80px;
+}
+.careers-hero__h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900;
+  color: #fff; margin: 12px 0 20px; max-width: 700px; line-height: 1.15;
+}
+.careers-hero__sub {
+  color: rgba(255,255,255,.8); font-size: 1.1rem; max-width: 580px;
+  line-height: 1.65; margin-bottom: 36px;
+}
+
+/* ---- Why ---- */
+.careers-why__body { max-width: 720px; }
+.careers-why__body p { font-size: 1.05rem; line-height: 1.75; margin-bottom: 16px; color: var(--text); }
+.careers-why__qualities { margin: 24px 0; }
+.careers-why__q-label { font-weight: 600; margin-bottom: 12px; color: var(--text); }
+.careers-why__list {
+  list-style: none; display: flex; flex-wrap: wrap; gap: 10px; padding: 0;
+}
+.careers-why__list li {
+  background: var(--gray-100); border: 1px solid var(--border);
+  padding: 8px 16px; border-radius: 99px; font-size: .95rem; font-weight: 500;
+}
+
+/* ---- Perks ---- */
+.careers-perks__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px; margin-top: 8px;
+}
+.careers-perk {
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: 12px; padding: 24px 20px;
+}
+.careers-perk__icon { font-size: 2rem; line-height: 1; }
+.careers-perk__text { font-size: .95rem; font-weight: 600; line-height: 1.4; color: var(--text); }
+
+/* ---- Departments ---- */
+.careers-depts__list { display: flex; flex-direction: column; gap: 64px; margin-top: 16px; }
+.careers-dept {
+  display: grid; grid-template-columns: 1fr 1.5fr;
+  gap: 48px; align-items: start;
+}
+.careers-dept:nth-child(even) { direction: rtl; }
+.careers-dept:nth-child(even) > * { direction: ltr; }
+@media (max-width: 760px) {
+  .careers-dept, .careers-dept:nth-child(even) { grid-template-columns: 1fr; direction: ltr; }
+}
+.careers-dept__photo {
+  width: 100%; aspect-ratio: 4/3; object-fit: cover;
+  border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,.12);
+}
+.careers-dept__photo-ph {
+  width: 100%; aspect-ratio: 4/3;
+  background: var(--gray-100); border: 2px dashed var(--border);
+  border-radius: 16px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 8px;
+  color: var(--muted); font-size: .9rem;
+}
+.careers-dept__photo-ph span:first-child { font-size: 2.5rem; }
+.careers-dept__title {
+  font-size: clamp(1.25rem, 2.5vw, 1.6rem); font-weight: 800;
+  color: var(--navy); margin: 0 0 16px; line-height: 1.25;
+}
+.careers-dept__desc { font-size: 1rem; line-height: 1.75; color: var(--text); margin-bottom: 20px; }
+.careers-dept__desc p { margin: 0 0 12px; }
+.careers-dept__team-label { font-weight: 700; margin-bottom: 8px; font-size: .95rem; }
+.careers-dept__list {
+  padding-left: 18px; margin: 0 0 20px;
+}
+.careers-dept__list li { margin-bottom: 6px; font-size: .95rem; line-height: 1.5; }
+.careers-dept__vacancy {
+  background: var(--gray-50, #f8fafd); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px; margin-top: 16px;
+}
+.careers-dept__v-badge {
+  display: inline-block; background: #dcfce7; color: #16a34a;
+  font-size: .75rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; padding: 4px 10px; border-radius: 99px; margin-bottom: 12px;
+}
+.careers-dept__v-title { font-size: 1.15rem; font-weight: 800; margin: 0 0 16px; color: var(--navy); }
+.careers-dept__v-label { font-weight: 700; font-size: .9rem; margin-bottom: 8px; }
+.careers-dept__v-perks {
+  font-size: .95rem; line-height: 1.7; color: var(--muted);
+  margin: 16px 0 20px; font-style: italic;
+}
+.careers-dept__v-btn { margin-top: 4px; }
+
+/* ---- Corporate life ---- */
+.careers-corp__events {
+  list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0;
+}
+.careers-corp__events li {
+  background: #fff; border: 1px solid var(--border);
+  padding: 8px 18px; border-radius: 99px; font-size: .95rem;
+}
+.careers-corp__gallery {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px; margin: 32px 0 16px;
+}
+.careers-corp__photo { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 12px; }
+.careers-corp__gallery-ph {
+  background: var(--gray-100); border: 2px dashed var(--border);
+  border-radius: 12px; padding: 48px; text-align: center;
+  color: var(--muted); font-size: .95rem; margin: 32px 0 16px;
+}
+.careers-corp__extra { font-size: .95rem; color: var(--muted); line-height: 1.7; }
+
+/* ---- Stay ---- */
+.careers-stay { background: var(--navy); color: #fff; }
+.careers-stay__inner { max-width: 700px; margin: 0 auto; text-align: center; }
+.careers-stay h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; color: #fff; margin-bottom: 20px; }
+.careers-stay p { color: rgba(255,255,255,.78); font-size: 1.05rem; line-height: 1.75; }
+.careers-stay p + p { margin-top: 12px; }
+
+/* ---- CTA ---- */
+.careers-cta { background: linear-gradient(135deg, #0d2b5e 0%, var(--navy) 100%); color: #fff; }
+.careers-cta__inner { max-width: 640px; margin: 0 auto; text-align: center; }
+.careers-cta h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 800; color: #fff; margin-bottom: 16px; }
+.careers-cta p { color: rgba(255,255,255,.78); font-size: 1rem; line-height: 1.75; margin-bottom: 32px; }
+.btn--lg { padding: 16px 40px; font-size: 1.05rem; }
