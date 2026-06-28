@@ -118,7 +118,7 @@
 
 .careers-dept {
   display: grid; grid-template-columns: 1fr 1.35fr;
-  gap: 0; align-items: stretch;
+  gap: 0; align-items: start;
   background: #fff; border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 2px 16px rgba(0,0,0,.06);
@@ -132,7 +132,7 @@
 
 /* Photo column */
 .careers-dept__photo-col {
-  position: relative; min-height: 340px; max-height: 480px; overflow: hidden;
+  position: relative;
 }
 .careers-dept__num {
   position: absolute; top: 24px; left: 28px; z-index: 2;
@@ -142,11 +142,11 @@
   pointer-events: none; user-select: none;
 }
 .careers-dept__photo {
-  width: 100%; height: 100%; min-height: 340px;
-  object-fit: cover; display: block;
+  width: 100%; aspect-ratio: 3/4; object-fit: cover;
+  object-position: center; display: block;
 }
 .careers-dept__photo-ph {
-  width: 100%; height: 100%; min-height: 340px;
+  width: 100%; aspect-ratio: 3/4;
   background: linear-gradient(135deg, var(--navy) 0%, #1a3a6e 100%);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center; gap: 12px;
