@@ -42,17 +42,62 @@
 }
 
 /* ---- Why ---- */
-.careers-why__body { max-width: 720px; }
-.careers-why__body p { font-size: 1.05rem; line-height: 1.75; margin-bottom: 16px; color: var(--text); }
-.careers-why__qualities { margin: 24px 0; }
-.careers-why__q-label { font-weight: 600; margin-bottom: 12px; color: var(--text); }
+.careers-why { background: #f7f9fc; }
+.careers-why__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 72px;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .careers-why__grid { grid-template-columns: 1fr; gap: 48px; }
+}
+
+/* Left column */
+.careers-why__h2 {
+  font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+  font-weight: 900; color: var(--navy);
+  line-height: 1.15; margin: 10px 0 28px;
+}
+.careers-why__lead {
+  font-size: 1.2rem; line-height: 1.8;
+  color: var(--text); margin-bottom: 18px; font-weight: 400;
+}
+.careers-why__body-p {
+  font-size: 1.1rem; line-height: 1.8;
+  color: var(--text); margin-bottom: 24px;
+}
+.careers-why__invest {
+  font-size: 1.05rem; line-height: 1.75;
+  color: var(--muted); border-left: 3px solid var(--gold);
+  padding-left: 18px; margin-top: 8px;
+}
+
+/* Right callout card */
+.careers-why__callout {
+  background: var(--navy);
+  border-radius: 24px;
+  padding: 44px 40px;
+  color: #fff;
+  position: sticky; top: 96px;
+}
+.careers-why__callout-label {
+  font-size: .8rem; font-weight: 800; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 24px; display: block;
+}
 .careers-why__list {
-  list-style: none; display: flex; flex-wrap: wrap; gap: 10px; padding: 0;
+  list-style: none; display: flex; flex-wrap: wrap; gap: 10px; padding: 0; margin: 0 0 36px;
 }
 .careers-why__list li {
-  background: var(--gray-100); border: 1px solid var(--border);
-  padding: 8px 16px; border-radius: 99px; font-size: .95rem; font-weight: 500;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.18);
+  padding: 9px 20px; border-radius: 99px;
+  font-size: 1rem; font-weight: 600; color: #fff;
+  transition: background .2s;
 }
+.careers-why__list li:hover { background: rgba(255,255,255,.18); }
+.careers-why__callout-footer { border-top: 1px solid rgba(255,255,255,.12); padding-top: 28px; }
 
 /* ---- Perks ---- */
 .careers-perks__grid {

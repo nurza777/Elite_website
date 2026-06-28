@@ -101,21 +101,24 @@ function CareersHero() {
 function CareersWhy() {
   return (
     <section className="section careers-why">
-      <div className="wrap">
-        <div className="section-head" data-reveal>
-          <span className="eyebrow">{t("careers.why.eyebrow")}</span>
-          <h2>{t("careers.why.h2")}</h2>
+      <div className="wrap careers-why__grid">
+        {/* Left: text */}
+        <div className="careers-why__left">
+          <span className="eyebrow" data-reveal>{t("careers.why.eyebrow")}</span>
+          <h2 className="careers-why__h2" data-reveal data-delay="1">{t("careers.why.h2")}</h2>
+          <p className="careers-why__lead" data-reveal data-delay="2">{t("careers.why.text1")}</p>
+          <p className="careers-why__body-p" data-reveal data-delay="3">{t("careers.why.text2")}</p>
+          <p className="careers-why__invest" data-reveal data-delay="4">{t("careers.why.invest")}</p>
         </div>
-        <div className="careers-why__body">
-          <p data-reveal>{t("careers.why.text1")}</p>
-          <p data-reveal>{t("careers.why.text2")}</p>
-          <div className="careers-why__qualities" data-reveal>
-            <p className="careers-why__q-label">{t("careers.why.qualities")}</p>
-            <ul className="careers-why__list">
-              {WHY_QUALITIES.map(k => <li key={k}>{t(k)}</li>)}
-            </ul>
+        {/* Right: dark callout */}
+        <div className="careers-why__callout" data-reveal data-delay="2">
+          <p className="careers-why__callout-label">{t("careers.why.qualities")}</p>
+          <ul className="careers-why__list">
+            {WHY_QUALITIES.map(k => <li key={k}>{t(k)}</li>)}
+          </ul>
+          <div className="careers-why__callout-footer">
+            <a href={CAREERS_DATA.applyUrl || "#"} className="btn btn--gold">{t("careers.cta.btn")}</a>
           </div>
-          <p data-reveal>{t("careers.why.invest")}</p>
         </div>
       </div>
     </section>
