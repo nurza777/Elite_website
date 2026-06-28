@@ -114,7 +114,7 @@
 
 /* ---- Departments ---- */
 .careers-depts { background: #f7f9fc; }
-.careers-depts__list { display: flex; flex-direction: column; gap: 6px; margin-top: 16px; }
+.careers-depts__list { display: flex; flex-direction: column; gap: 28px; margin-top: 16px; }
 
 .careers-dept {
   display: grid; grid-template-columns: 1fr 1.35fr;
@@ -132,7 +132,7 @@
 
 /* Photo column */
 .careers-dept__photo-col {
-  position: relative; min-height: 340px;
+  position: relative; min-height: 340px; max-height: 480px; overflow: hidden;
 }
 .careers-dept__num {
   position: absolute; top: 24px; left: 28px; z-index: 2;
