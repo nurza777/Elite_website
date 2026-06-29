@@ -109,7 +109,11 @@
   display: flex; flex-direction: column; align-items: flex-start;
   gap: 12px; padding: 24px 20px;
 }
-.careers-perk__icon { font-size: 2rem; line-height: 1; }
+.careers-perk__icon-wrap {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
 .careers-perk__text { font-size: .95rem; font-weight: 600; line-height: 1.4; color: var(--text); }
 
 /* ---- Departments ---- */

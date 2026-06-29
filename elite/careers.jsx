@@ -14,16 +14,16 @@ const CAREERS_DATA = window.eaContent ? window.eaContent("careers", CAREERS_DEFA
 window.EA_CAREERS = CAREERS_DATA;
 
 const PERKS = [
-  { icon: "📋", k: "careers.perks.1" },
-  { icon: "🏢", k: "careers.perks.2" },
-  { icon: "👥", k: "careers.perks.3" },
-  { icon: "💺", k: "careers.perks.4" },
-  { icon: "🌡️", k: "careers.perks.5" },
-  { icon: "☕", k: "careers.perks.6" },
-  { icon: "📚", k: "careers.perks.7" },
-  { icon: "📈", k: "careers.perks.8" },
-  { icon: "🤝", k: "careers.perks.9" },
-  { icon: "🎯", k: "careers.perks.10" },
+  { color: "#3b82f6", svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>, k: "careers.perks.1" },
+  { color: "#8b5cf6", svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>, k: "careers.perks.2" },
+  { color: "#10b981", svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, k: "careers.perks.3" },
+  { color: "#f59e0b", svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>, k: "careers.perks.4" },
+  { color: "#06b6d4", svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>, k: "careers.perks.5" },
+  { color: "#ec4899", svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>, k: "careers.perks.6" },
+  { color: "#6366f1", svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>, k: "careers.perks.7" },
+  { color: "#10b981", svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>, k: "careers.perks.8" },
+  { color: "#f59e0b", svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>, k: "careers.perks.9" },
+  { color: "#3b82f6", svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>, k: "careers.perks.10" },
 ];
 
 const WHY_QUALITIES = [
@@ -142,7 +142,9 @@ function CareersPerks() {
         <div className="careers-perks__grid">
           {PERKS.map((p, i) => (
             <div className="careers-perk card" key={i} data-reveal data-delay={i % 5 + 1}>
-              <span className="careers-perk__icon">{p.icon}</span>
+              <span className="careers-perk__icon-wrap" style={{ background: p.color + "18", color: p.color }}>
+                {p.svg}
+              </span>
               <span className="careers-perk__text">{t(p.k)}</span>
             </div>
           ))}
