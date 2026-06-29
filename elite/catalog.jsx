@@ -891,12 +891,37 @@ function UniSimpleCard({ u }) {
 }
 
 function UniversitiesSimple() {
-  const { useState: useS } = React;
+  const { useState: useS, useMemo: useM } = React;
   const PER_PAGE = 18;
   const [shown, setShown] = useS(PER_PAGE);
-  const list = [...UNIS].sort(
-    (a, b) => ((b.elite ? 1 : 0) - (a.elite ? 1 : 0)) || ((a.qs || 9999) - (b.qs || 9999))
+  const [query, setQuery] = useS("");
+  const [country, setCountry] = useS("Все");
+
+  const sorted = useM(() =>
+    [...UNIS].sort((a, b) => ((b.elite ? 1 : 0) - (a.elite ? 1 : 0)) || ((a.qs || 9999) - (b.qs || 9999))),
+    []
   );
+
+  const countries = useM(() => {
+    const seen = new Set();
+    sorted.forEach(u => seen.add(u.country));
+    return ["Все", ...Array.from(seen).sort()];
+  }, [sorted]);
+
+  const filtered = useM(() => {
+    const q = query.trim().toLowerCase();
+    return sorted.filter(u => {
+      const matchCountry = country === "Все" || u.country === country;
+      const matchQ = !q || u.name.toLowerCase().includes(q) || (u.loc || "").toLowerCase().includes(q);
+      return matchCountry && matchQ;
+    });
+  }, [sorted, query, country]);
+
+  const isFiltering = query.trim() || country !== "Все";
+
+  function handleQuery(e) { setQuery(e.target.value); setShown(PER_PAGE); }
+  function handleCountry(c) { setCountry(c); setShown(PER_PAGE); }
+
   return (
     <section className="section unis-simple" id="universities">
       <div className="wrap">
@@ -905,18 +930,54 @@ function UniversitiesSimple() {
           <h2>Университеты, куда мы помогаем поступить</h2>
           <p>Более <b>{UNIS.length}</b> партнёрских вузов в США, Европе и Азии — на все уровни и направления.</p>
         </div>
-        <p className="unis-simple__note" data-reveal>
-          Вузы, отмеченные <span className="uni__star-inline">★</span> — наиболее популярны среди студентов Elite Academy
-        </p>
-        <div className="unis-simple__grid">
-          {list.slice(0, shown).map(u => <UniSimpleCard key={u.name} u={u} />)}
-        </div>
-        {shown < list.length && (
-          <div className="unis-simple__more" data-reveal>
-            <button className="btn btn--outline" onClick={() => setShown(s => s + PER_PAGE)}>
-              Показать ещё ({list.length - shown} вузов)
-            </button>
+
+        {/* Search + country filter */}
+        <div className="unis-simple__controls" data-reveal>
+          <div className="unis-simple__search-wrap">
+            <svg className="unis-simple__search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input
+              className="unis-simple__search"
+              type="text"
+              placeholder="Поиск по названию вуза..."
+              value={query}
+              onChange={handleQuery}
+            />
+            {query && (
+              <button className="unis-simple__search-clear" onClick={() => { setQuery(""); setShown(PER_PAGE); }} aria-label="Очистить">✕</button>
+            )}
           </div>
+          <div className="unis-simple__countries">
+            {countries.map(c => (
+              <button
+                key={c}
+                className={"unis-simple__ctag" + (country === c ? " is-active" : "")}
+                onClick={() => handleCountry(c)}
+              >{c}</button>
+            ))}
+          </div>
+        </div>
+
+        {filtered.length === 0 ? (
+          <div className="unis-simple__empty" data-reveal>
+            <p>Вузы не найдены. Попробуйте другой запрос.</p>
+            <button className="btn btn--outline" onClick={() => { setQuery(""); setCountry("Все"); }}>Сбросить фильтры</button>
+          </div>
+        ) : (
+          <>
+            {isFiltering && (
+              <p className="unis-simple__count" data-reveal>Найдено: <b>{filtered.length}</b> вузов</p>
+            )}
+            <div className="unis-simple__grid">
+              {filtered.slice(0, shown).map(u => <UniSimpleCard key={u.name} u={u} />)}
+            </div>
+            {shown < filtered.length && (
+              <div className="unis-simple__more" data-reveal>
+                <button className="btn btn--outline" onClick={() => setShown(s => s + PER_PAGE)}>
+                  Показать ещё ({filtered.length - shown} вузов)
+                </button>
+              </div>
+            )}
+          </>
         )}
       </div>
     </section>

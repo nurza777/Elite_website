@@ -716,6 +716,60 @@
 .unis-simple__note {
   font-size: .95rem; color: var(--muted); margin: -8px 0 32px;
 }
+
+/* Controls: search + country filter */
+.unis-simple__controls {
+  display: flex; flex-direction: column; gap: 16px;
+  margin-bottom: 32px;
+}
+.unis-simple__search-wrap {
+  position: relative; max-width: 480px;
+}
+.unis-simple__search-icon {
+  position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+  color: var(--muted); pointer-events: none;
+}
+.unis-simple__search {
+  width: 100%; padding: 13px 44px 13px 46px;
+  border: 1.5px solid var(--border); border-radius: 12px;
+  font-size: 1rem; font-family: var(--font-body);
+  background: #fff; color: var(--text);
+  outline: none; transition: border-color .2s, box-shadow .2s;
+}
+.unis-simple__search:focus {
+  border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+}
+.unis-simple__search-clear {
+  position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; cursor: pointer;
+  color: var(--muted); font-size: .9rem; padding: 4px;
+  line-height: 1;
+}
+.unis-simple__search-clear:hover { color: var(--text); }
+.unis-simple__countries {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.unis-simple__ctag {
+  padding: 7px 16px; border-radius: 99px;
+  border: 1.5px solid var(--border);
+  background: #fff; color: var(--text);
+  font-size: .88rem; font-weight: 600; cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s;
+  font-family: var(--font-body);
+}
+.unis-simple__ctag:hover { border-color: var(--blue); color: var(--blue); }
+.unis-simple__ctag.is-active {
+  background: var(--navy); border-color: var(--navy); color: #fff;
+}
+.unis-simple__count {
+  font-size: .95rem; color: var(--muted); margin: 0 0 20px;
+}
+.unis-simple__empty {
+  text-align: center; padding: 64px 0;
+  display: flex; flex-direction: column; align-items: center; gap: 20px;
+  color: var(--muted);
+}
+
 .unis-simple__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
