@@ -865,6 +865,65 @@ function Universities() {
 }
 
 window.Universities = Universities;
+
+/* ============================================================
+   UNIVERSITIES SIMPLE — compact grid, no filters, no deep info
+   For public-facing universities.html
+   ============================================================ */
+function UniSimpleCard({ u }) {
+  const flagSrc = COUNTRY_ISO[u.country] ? FLAG_URL(COUNTRY_ISO[u.country], "32x24") : null;
+  return (
+    <div className="unisc card card--lift" data-reveal>
+      <div className="unisc__head">
+        {flagSrc && <img src={flagSrc} alt={u.country} className="unisc__flag" />}
+        <span className="unisc__country">{u.country}</span>
+        {u.elite && <span className="unisc__star" title="Топ-выбор наших студентов">★</span>}
+      </div>
+      <h3 className="unisc__name">{u.name}</h3>
+      <p className="unisc__loc">📍 {u.loc}</p>
+      <div className="unisc__tags">
+        <span className="unisc__tag unisc__tag--field">{u.field}</span>
+        <span className="unisc__tag unisc__tag--level">{u.levels.split("·")[0].trim()}</span>
+      </div>
+      <div className="unisc__price">от ${u.price.toLocaleString("ru")}<span>/год</span></div>
+    </div>
+  );
+}
+
+function UniversitiesSimple() {
+  const { useState: useS } = React;
+  const PER_PAGE = 18;
+  const [shown, setShown] = useS(PER_PAGE);
+  const list = [...UNIS].sort(
+    (a, b) => ((b.elite ? 1 : 0) - (a.elite ? 1 : 0)) || ((a.qs || 9999) - (b.qs || 9999))
+  );
+  return (
+    <section className="section unis-simple" id="universities">
+      <div className="wrap">
+        <div className="section-head" data-reveal>
+          <span className="eyebrow">Партнёрские вузы</span>
+          <h2>Университеты, куда мы помогаем поступить</h2>
+          <p>Более <b>{UNIS.length}</b> партнёрских вузов в США, Европе и Азии — на все уровни и направления.</p>
+        </div>
+        <p className="unis-simple__note" data-reveal>
+          Вузы, отмеченные <span className="uni__star-inline">★</span> — наиболее популярны среди студентов Elite Academy
+        </p>
+        <div className="unis-simple__grid">
+          {list.slice(0, shown).map(u => <UniSimpleCard key={u.name} u={u} />)}
+        </div>
+        {shown < list.length && (
+          <div className="unis-simple__more" data-reveal>
+            <button className="btn btn--outline" onClick={() => setShown(s => s + PER_PAGE)}>
+              Показать ещё ({list.length - shown} вузов)
+            </button>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+window.UniversitiesSimple = UniversitiesSimple;
+
 /* Shared with university.html profile page (uni-page.jsx) */
 window.EA_UNIS = UNIS;
 window.EA_UNIS_RAW = UNIS_SRC;
