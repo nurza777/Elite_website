@@ -94,7 +94,7 @@ function CareersHero() {
         <span className="eyebrow eyebrow--light" data-reveal>{t("careers.hero.eyebrow")}</span>
         <h1 className="careers-hero__h1" data-reveal data-delay="1">{t("careers.hero.h1")}</h1>
         <p className="careers-hero__sub" data-reveal data-delay="2">{t("careers.hero.sub")}</p>
-        <a href={d.applyUrl || "#"} className="btn btn--gold btn--lg" data-reveal data-delay="3">
+        <a href="#apply" className="btn btn--gold btn--lg" data-reveal data-delay="3">
           {t("careers.hero.btn")}
         </a>
       </div>
@@ -268,15 +268,15 @@ function CareersStay() {
   );
 }
 
-/* ---- Apply Form ---- */
-function CareersApplyForm() {
+/* ---- Final CTA + Apply Form (merged) ---- */
+function CareersCTA() {
   const { useState: useS } = React;
-  const [sent, setSent]       = useS(false);
-  const [busy, setBusy]       = useS(false);
-  const [name, setName]       = useS("");
-  const [phone, setPhone]     = useS("");
-  const [age, setAge]         = useS("");
-  const [exp, setExp]         = useS("");
+  const [sent, setSent]         = useS(false);
+  const [busy, setBusy]         = useS(false);
+  const [name, setName]         = useS("");
+  const [phone, setPhone]       = useS("");
+  const [age, setAge]           = useS("");
+  const [exp, setExp]           = useS("");
   const [position, setPosition] = useS("");
 
   function handlePhone(e) {
@@ -317,78 +317,61 @@ function CareersApplyForm() {
   }
 
   return (
-    <section className="section careers-apply" id="apply">
-      <div className="wrap">
-        <div className="careers-apply__inner">
-          <div className="careers-apply__head" data-reveal>
-            <span className="eyebrow eyebrow--light">{t("careers.apply.eyebrow")}</span>
-            <h2>{t("careers.apply.h2")}</h2>
-            <p>{t("careers.apply.sub")}</p>
-          </div>
-
-          {sent ? (
-            <div className="careers-apply__thanks" data-reveal>
-              <span className="careers-apply__thanks-icon">✅</span>
-              <h3>{t("careers.apply.thanks.h3")}</h3>
-              <p>{t("careers.apply.thanks.p")}</p>
-            </div>
-          ) : (
-            <form className="careers-apply__form" onSubmit={handleSubmit} data-reveal>
-              <div className="careers-apply__fields">
-                <div className="careers-apply__field">
-                  <label>{t("careers.apply.f.name")}</label>
-                  <input type="text" placeholder="Иванов Иван Иванович" value={name} onChange={e => setName(e.target.value)} required />
-                </div>
-                <div className="careers-apply__field">
-                  <label>{t("careers.apply.f.phone")}</label>
-                  <input type="tel" placeholder="+996(___)-___-___" value={phone} onChange={handlePhone} required />
-                </div>
-                <div className="careers-apply__field">
-                  <label>{t("careers.apply.f.age")}</label>
-                  <input type="number" placeholder="22" min="16" max="60" value={age} onChange={e => setAge(e.target.value)} />
-                </div>
-                <div className="careers-apply__field">
-                  <label>{t("careers.apply.f.exp")}</label>
-                  <select value={exp} onChange={e => setExp(e.target.value)}>
-                    <option value="">{t("careers.apply.f.exp.ph")}</option>
-                    <option value="Без опыта">{t("careers.apply.f.exp.0")}</option>
-                    <option value="До 1 года">{t("careers.apply.f.exp.1")}</option>
-                    <option value="1–3 года">{t("careers.apply.f.exp.2")}</option>
-                    <option value="3–5 лет">{t("careers.apply.f.exp.3")}</option>
-                    <option value="Более 5 лет">{t("careers.apply.f.exp.4")}</option>
-                  </select>
-                </div>
-                <div className="careers-apply__field careers-apply__field--full">
-                  <label>{t("careers.apply.f.position")}</label>
-                  <select value={position} onChange={e => setPosition(e.target.value)} required>
-                    <option value="">{t("careers.apply.f.position.ph")}</option>
-                    <option value="Маркетинг">{t("careers.apply.f.pos.marketing")}</option>
-                    <option value="Продажи">{t("careers.apply.f.pos.sales")}</option>
-                    <option value="Отдел поступления">{t("careers.apply.f.pos.admission")}</option>
-                  </select>
-                </div>
-              </div>
-              <button type="submit" className="btn btn--gold btn--lg" disabled={busy}>
-                {busy ? "..." : t("careers.apply.btn")}
-              </button>
-            </form>
-          )}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---- Final CTA ---- */
-function CareersCTA() {
-  const applyUrl = CAREERS_DATA.applyUrl || "#";
-  return (
-    <section className="section careers-cta">
+    <section className="section careers-cta" id="apply">
       <div className="wrap careers-cta__inner">
         <h2 data-reveal>{t("careers.cta.h2")}</h2>
         <p data-reveal>{t("careers.cta.text1")}</p>
         <p data-reveal>{t("careers.cta.text2")}</p>
-        <a href={applyUrl} className="btn btn--gold btn--lg" data-reveal>{t("careers.cta.btn")}</a>
+
+        <div className="careers-cta__divider" />
+
+        {sent ? (
+          <div className="careers-apply__thanks" data-reveal>
+            <span className="careers-apply__thanks-icon">✅</span>
+            <h3>{t("careers.apply.thanks.h3")}</h3>
+            <p>{t("careers.apply.thanks.p")}</p>
+          </div>
+        ) : (
+          <form className="careers-apply__form" onSubmit={handleSubmit} data-reveal>
+            <div className="careers-apply__fields">
+              <div className="careers-apply__field">
+                <label>{t("careers.apply.f.name")}</label>
+                <input type="text" placeholder="Иванов Иван Иванович" value={name} onChange={e => setName(e.target.value)} required />
+              </div>
+              <div className="careers-apply__field">
+                <label>{t("careers.apply.f.phone")}</label>
+                <input type="tel" placeholder="+996(___)-___-___" value={phone} onChange={handlePhone} required />
+              </div>
+              <div className="careers-apply__field">
+                <label>{t("careers.apply.f.age")}</label>
+                <input type="number" placeholder="22" min="16" max="60" value={age} onChange={e => setAge(e.target.value)} />
+              </div>
+              <div className="careers-apply__field">
+                <label>{t("careers.apply.f.exp")}</label>
+                <select value={exp} onChange={e => setExp(e.target.value)}>
+                  <option value="">{t("careers.apply.f.exp.ph")}</option>
+                  <option value="Без опыта">{t("careers.apply.f.exp.0")}</option>
+                  <option value="До 1 года">{t("careers.apply.f.exp.1")}</option>
+                  <option value="1–3 года">{t("careers.apply.f.exp.2")}</option>
+                  <option value="3–5 лет">{t("careers.apply.f.exp.3")}</option>
+                  <option value="Более 5 лет">{t("careers.apply.f.exp.4")}</option>
+                </select>
+              </div>
+              <div className="careers-apply__field careers-apply__field--full">
+                <label>{t("careers.apply.f.position")}</label>
+                <select value={position} onChange={e => setPosition(e.target.value)} required>
+                  <option value="">{t("careers.apply.f.position.ph")}</option>
+                  <option value="Маркетинг">{t("careers.apply.f.pos.marketing")}</option>
+                  <option value="Продажи">{t("careers.apply.f.pos.sales")}</option>
+                  <option value="Отдел поступления">{t("careers.apply.f.pos.admission")}</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" className="btn btn--gold btn--lg" disabled={busy}>
+              {busy ? "..." : t("careers.apply.btn")}
+            </button>
+          </form>
+        )}
       </div>
     </section>
   );
@@ -404,7 +387,6 @@ function CareersPage() {
       <CareersDepts />
       <CareersCorp />
       <CareersStay />
-      <CareersApplyForm />
       <CareersCTA />
     </>
   );
