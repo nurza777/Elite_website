@@ -11,6 +11,7 @@ const MEGA = {
       { h: "nav.mega.englishSpeaking", items: ["США", "Великобритания", "Канада", "Австралия"] },
       { h: "nav.mega.europe",          items: ["Италия", "Германия", "Франция", "Испания"] },
       { h: "nav.mega.asia",            items: ["ОАЭ", "Китай", "Южная Корея"] },
+      { h: "nav.mega.unis",            items: [["Все вузы", "universities.html"]] },
     ],
     cta: "nav.mega.allCountries",
     ctaHref: "countries.html",
