@@ -39,6 +39,7 @@
 .nav--scrolled .nav__item { color: var(--navy); }
 .nav__item:hover, .nav__item.is-open { background: rgba(255,255,255,.12); }
 .nav--scrolled .nav__item:hover, .nav--scrolled .nav__item.is-open { background: var(--light-bg); }
+.nav__item--plain svg { display: none; }
 
 /* Active page indicator (underline) */
 .nav__item.is-active::after {
@@ -174,6 +175,7 @@
   padding: 15px 4px; font-family: var(--font-head); font-weight: 700; font-size: 16px; color: var(--navy);
 }
 .dg__h.is-active { color: var(--blue); }
+.dg__h--plain { display: block; text-decoration: none; border-bottom: 1px solid var(--border); }
 .dg__plus { font-size: 20px; color: var(--blue); font-weight: 400; }
 .dg__body { display: none; flex-direction: column; padding: 0 4px 14px; gap: 2px; }
 .dg.is-open .dg__body { display: flex; }

@@ -11,7 +11,6 @@ const MEGA = {
       { h: "nav.mega.englishSpeaking", items: ["США", "Великобритания", "Канада", "Австралия"] },
       { h: "nav.mega.europe",          items: ["Италия", "Германия", "Франция", "Испания"] },
       { h: "nav.mega.asia",            items: ["ОАЭ", "Китай", "Южная Корея"] },
-      { h: "nav.mega.unis",            items: [["Все вузы", "universities.html"]] },
     ],
     cta: "nav.mega.allCountries",
     ctaHref: "countries.html",
@@ -45,6 +44,10 @@ const NAV_KEY = {
   "О нас": "nav.about",
 };
 
+const SIMPLE_LINKS = [
+  { key: "unis", label: "nav.unis", href: "universities.html" },
+];
+
 /* Mega item can be "Label" (links to section page) or ["Label", "href"] */
 function megaItem(it, fallbackHref) {
   return Array.isArray(it) ? it : [it, fallbackHref];
@@ -59,7 +62,7 @@ const PAGE_TO_KEY = {
   admission: "Поступление",
   stories: "О нас",
   about: "О нас",
-  universities: "О нас",
+  universities: "unis",
 };
 
 /* ============================================================
@@ -133,6 +136,11 @@ function Navbar() {
                 <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </a>
             ))}
+            {SIMPLE_LINKS.map(({ key, label, href }) => (
+              <a key={key} href={href} className={"nav__item nav__item--plain" + (activeKey === key ? " is-active" : "")}>
+                <span>{t(label)}</span>
+              </a>
+            ))}
           </nav>
 
           <div className="nav__right">
@@ -184,6 +192,9 @@ function Navbar() {
           <nav className="drawer__nav">
             {Object.keys(MEGA).map((k) => (
               <DrawerGroup key={k} title={t(NAV_KEY[k])} cols={MEGA[k].cols} page={MEGA[k].page} isActive={activeKey === k} />
+            ))}
+            {SIMPLE_LINKS.map(({ key, label, href }) => (
+              <a key={key} href={href} className={"dg__h dg__h--plain" + (activeKey === key ? " is-active" : "")}>{t(label)}</a>
             ))}
           </nav>
           <a href="index.html#cta" className="btn btn--gold btn--block" onClick={() => setDrawer(false)}>{t("nav.cta")}</a>
