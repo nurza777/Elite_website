@@ -2,6 +2,8 @@
    CAREERS PAGE — full HR landing (careers.html)
    ============================================================ */
 
+const CAREERS_LEADS_URL = "https://script.google.com/macros/s/AKfycbw4i67Vtu9cMUjZvXxVCZ0ZdeDndAG2GqY0eS7PznuBGxZeG4PkwHbe8xN-RAoa35BW/exec";
+
 const CAREERS_DEFAULT = {
   heroPhoto: "",
   deptPhotos: { marketing: "", sales: "", admission: "" },
@@ -266,6 +268,117 @@ function CareersStay() {
   );
 }
 
+/* ---- Apply Form ---- */
+function CareersApplyForm() {
+  const { useState: useS } = React;
+  const [sent, setSent]       = useS(false);
+  const [busy, setBusy]       = useS(false);
+  const [name, setName]       = useS("");
+  const [phone, setPhone]     = useS("");
+  const [age, setAge]         = useS("");
+  const [exp, setExp]         = useS("");
+  const [position, setPosition] = useS("");
+
+  function handlePhone(e) {
+    let d = e.target.value.replace(/\D/g, "");
+    if (d.startsWith("996")) d = d.slice(3);
+    d = d.slice(0, 9);
+    if (!d) { setPhone(""); return; }
+    let f = "+996(";
+    if (d.length <= 3) f += d;
+    else if (d.length <= 6) f += d.slice(0,3) + ")-" + d.slice(3);
+    else f += d.slice(0,3) + ")-" + d.slice(3,6) + "-" + d.slice(6);
+    setPhone(f);
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (busy || !name || !phone || !position) return;
+    setBusy(true);
+    const payload = {
+      sheet: "Карьера",
+      name,
+      phone: phone.replace(/^\+/, "").replace("(", "-").replace(")", ""),
+      age,
+      exp,
+      position,
+      time: new Date().toLocaleString("ru"),
+    };
+    try {
+      await fetch(CAREERS_LEADS_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify(payload),
+      });
+    } catch (_) {}
+    setBusy(false);
+    setSent(true);
+  }
+
+  return (
+    <section className="section careers-apply" id="apply">
+      <div className="wrap">
+        <div className="careers-apply__inner">
+          <div className="careers-apply__head" data-reveal>
+            <span className="eyebrow eyebrow--light">{t("careers.apply.eyebrow")}</span>
+            <h2>{t("careers.apply.h2")}</h2>
+            <p>{t("careers.apply.sub")}</p>
+          </div>
+
+          {sent ? (
+            <div className="careers-apply__thanks" data-reveal>
+              <span className="careers-apply__thanks-icon">✅</span>
+              <h3>{t("careers.apply.thanks.h3")}</h3>
+              <p>{t("careers.apply.thanks.p")}</p>
+            </div>
+          ) : (
+            <form className="careers-apply__form" onSubmit={handleSubmit} data-reveal>
+              <div className="careers-apply__fields">
+                <div className="careers-apply__field">
+                  <label>{t("careers.apply.f.name")}</label>
+                  <input type="text" placeholder="Иванов Иван Иванович" value={name} onChange={e => setName(e.target.value)} required />
+                </div>
+                <div className="careers-apply__field">
+                  <label>{t("careers.apply.f.phone")}</label>
+                  <input type="tel" placeholder="+996(___)-___-___" value={phone} onChange={handlePhone} required />
+                </div>
+                <div className="careers-apply__field">
+                  <label>{t("careers.apply.f.age")}</label>
+                  <input type="number" placeholder="22" min="16" max="60" value={age} onChange={e => setAge(e.target.value)} />
+                </div>
+                <div className="careers-apply__field">
+                  <label>{t("careers.apply.f.exp")}</label>
+                  <select value={exp} onChange={e => setExp(e.target.value)}>
+                    <option value="">{t("careers.apply.f.exp.ph")}</option>
+                    <option value="Без опыта">{t("careers.apply.f.exp.0")}</option>
+                    <option value="До 1 года">{t("careers.apply.f.exp.1")}</option>
+                    <option value="1–3 года">{t("careers.apply.f.exp.2")}</option>
+                    <option value="3–5 лет">{t("careers.apply.f.exp.3")}</option>
+                    <option value="Более 5 лет">{t("careers.apply.f.exp.4")}</option>
+                  </select>
+                </div>
+                <div className="careers-apply__field careers-apply__field--full">
+                  <label>{t("careers.apply.f.position")}</label>
+                  <select value={position} onChange={e => setPosition(e.target.value)} required>
+                    <option value="">{t("careers.apply.f.position.ph")}</option>
+                    <option value="Маркетинг">{t("careers.apply.f.pos.marketing")}</option>
+                    <option value="Продажи">{t("careers.apply.f.pos.sales")}</option>
+                    <option value="Отдел поступления">{t("careers.apply.f.pos.admission")}</option>
+                  </select>
+                </div>
+              </div>
+              <button type="submit" className="btn btn--gold btn--lg" disabled={busy}>
+                {busy ? "..." : t("careers.apply.btn")}
+              </button>
+            </form>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---- Final CTA ---- */
 function CareersCTA() {
   const applyUrl = CAREERS_DATA.applyUrl || "#";
@@ -291,6 +404,7 @@ function CareersPage() {
       <CareersDepts />
       <CareersCorp />
       <CareersStay />
+      <CareersApplyForm />
       <CareersCTA />
     </>
   );

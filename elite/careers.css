@@ -255,6 +255,65 @@
 .careers-stay p { color: rgba(255,255,255,.78); font-size: 1.05rem; line-height: 1.75; }
 .careers-stay p + p { margin-top: 12px; }
 
+/* ---- Apply Form ---- */
+.careers-apply {
+  background: linear-gradient(135deg, var(--navy) 0%, #0d2b5e 100%);
+  color: #fff;
+}
+.careers-apply__inner {
+  max-width: 720px; margin: 0 auto;
+}
+.careers-apply__head {
+  text-align: center; margin-bottom: 48px;
+}
+.careers-apply__head h2 {
+  font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 800;
+  color: #fff; margin: 10px 0 14px;
+}
+.careers-apply__head p {
+  color: rgba(255,255,255,.72); font-size: 1rem; line-height: 1.7;
+}
+.careers-apply__form { display: flex; flex-direction: column; gap: 32px; }
+.careers-apply__fields {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+@media (max-width: 600px) {
+  .careers-apply__fields { grid-template-columns: 1fr; }
+}
+.careers-apply__field { display: flex; flex-direction: column; gap: 8px; }
+.careers-apply__field--full { grid-column: 1 / -1; }
+.careers-apply__field label {
+  font-size: .85rem; font-weight: 700; letter-spacing: .04em;
+  color: rgba(255,255,255,.7); text-transform: uppercase;
+}
+.careers-apply__field input,
+.careers-apply__field select {
+  padding: 13px 16px; border-radius: 10px;
+  border: 1.5px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.08);
+  color: #fff; font-size: 1rem; font-family: var(--font-body);
+  outline: none; transition: border-color .2s, background .2s;
+  appearance: none; -webkit-appearance: none;
+}
+.careers-apply__field input::placeholder { color: rgba(255,255,255,.35); }
+.careers-apply__field select option { background: var(--navy); color: #fff; }
+.careers-apply__field input:focus,
+.careers-apply__field select:focus {
+  border-color: var(--gold); background: rgba(255,255,255,.12);
+}
+.careers-apply__form .btn {
+  align-self: center; min-width: 220px;
+}
+.careers-apply__thanks {
+  text-align: center; padding: 40px 0;
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+.careers-apply__thanks-icon { font-size: 3rem; }
+.careers-apply__thanks h3 {
+  font-size: 1.5rem; font-weight: 800; color: #fff; margin: 0;
+}
+.careers-apply__thanks p { color: rgba(255,255,255,.72); font-size: 1rem; line-height: 1.7; }
+
 /* ---- CTA ---- */
 .careers-cta { background: linear-gradient(135deg, #0d2b5e 0%, var(--navy) 100%); color: #fff; }
 .careers-cta__inner { max-width: 640px; margin: 0 auto; text-align: center; }
