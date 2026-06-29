@@ -326,7 +326,7 @@ function CareersCTA() {
         <div className="careers-cta__divider" />
 
         {sent ? (
-          <div className="careers-apply__thanks" data-reveal>
+          <div className="careers-apply__thanks">
             <span className="careers-apply__thanks-icon">✅</span>
             <h3>{t("careers.apply.thanks.h3")}</h3>
             <p>{t("careers.apply.thanks.p")}</p>
