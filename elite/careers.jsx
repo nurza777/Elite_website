@@ -163,7 +163,7 @@ function DeptBlock({ dept, index }) {
         <span className="careers-dept__num">{dept.num}</span>
         <h3 className="careers-dept__title">{t(dept.titleKey)}</h3>
         <div className="careers-dept__desc">
-          {dept.descKeys.map(k => <p key={k}>{t(k)}</p>)}
+          {dept.descKeys.map(k => t(k) ? <p key={k}>{t(k)}</p> : null)}
         </div>
 
         {dept.teamLabel && dept.teamKeys && (
