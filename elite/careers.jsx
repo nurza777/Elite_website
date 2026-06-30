@@ -7,7 +7,7 @@ const CAREERS_LEADS_URL = "https://script.google.com/macros/s/AKfycbw4i67Vtu9cMU
 const CAREERS_DEFAULT = {
   heroPhoto: "",
   deptPhotos: { marketing: "", sales: "", admission: "" },
-  corpPhotos: [],
+  corpPhotos: ["images/corp1.jpg", "images/corp2.jpg"],
   applyUrl: "#",
 };
 const CAREERS_DATA = window.eaContent ? window.eaContent("careers", CAREERS_DEFAULT) : CAREERS_DEFAULT;
@@ -37,11 +37,8 @@ const DEPARTMENTS = [
     num: "01",
     titleKey: "careers.dept.marketing.title",
     descKeys: ["careers.dept.marketing.p1","careers.dept.marketing.p2","careers.dept.marketing.p3","careers.dept.marketing.p4"],
-    teamLabel: true,
-    teamKeys: [
-      "careers.dept.marketing.t1","careers.dept.marketing.t2","careers.dept.marketing.t3",
-      "careers.dept.marketing.t4","careers.dept.marketing.t5","careers.dept.marketing.t6",
-    ],
+    teamLabel: false,
+    teamKeys: null,
     vacancy: null,
   },
   {
@@ -72,7 +69,7 @@ const DEPARTMENTS = [
       dutiesKeys: [
         "careers.dept.admission.v.d1","careers.dept.admission.v.d2","careers.dept.admission.v.d3",
         "careers.dept.admission.v.d4","careers.dept.admission.v.d5","careers.dept.admission.v.d6",
-        "careers.dept.admission.v.d7","careers.dept.admission.v.d8","careers.dept.admission.v.d9",
+        "careers.dept.admission.v.d7","careers.dept.admission.v.d9",
       ],
       perksKey: null,
     },
@@ -114,6 +111,8 @@ function CareersWhy() {
           <p className="careers-why__lead" data-reveal data-delay="2">{t("careers.why.text1")}</p>
           <p className="careers-why__body-p" data-reveal data-delay="3">{t("careers.why.text2")}</p>
           <p className="careers-why__invest" data-reveal data-delay="4">{t("careers.why.invest")}</p>
+          <p className="careers-why__invest" data-reveal data-delay="5">{t("careers.why.invest2")}</p>
+          <p className="careers-why__invest" data-reveal data-delay="6">{t("careers.why.invest3")}</p>
         </div>
         {/* Right: dark callout */}
         <div className="careers-why__callout" data-reveal data-delay="2">
@@ -156,25 +155,12 @@ function CareersPerks() {
 
 /* ---- Single department block ---- */
 function DeptBlock({ dept, index }) {
-  const photo = CAREERS_DATA.deptPhotos?.[dept.id] || "";
   const applyUrl = CAREERS_DATA.applyUrl || "#";
-  const isEven = index % 2 === 1;
   return (
-    <div className={"careers-dept" + (isEven ? " careers-dept--reverse" : "")} data-reveal>
-      {/* Photo side */}
-      <div className="careers-dept__photo-col">
-        <span className="careers-dept__num">{dept.num}</span>
-        {photo
-          ? <img src={photo} alt={t(dept.titleKey)} className="careers-dept__photo" />
-          : <div className="careers-dept__photo-ph">
-              <span className="careers-dept__ph-icon">📷</span>
-              <span>{t("careers.dept.photoSoon")}</span>
-            </div>
-        }
-      </div>
-
+    <div className="careers-dept careers-dept--full" data-reveal>
       {/* Info side */}
       <div className="careers-dept__info">
+        <span className="careers-dept__num">{dept.num}</span>
         <h3 className="careers-dept__title">{t(dept.titleKey)}</h3>
         <div className="careers-dept__desc">
           {dept.descKeys.map(k => <p key={k}>{t(k)}</p>)}

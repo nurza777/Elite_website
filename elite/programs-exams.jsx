@@ -241,132 +241,25 @@ function getLevel(score) {
 }
 
 function EnglishLevelTest() {
-  const [step, setStep] = useState(0);       // 0=intro, 1..N=question, N+1=gate, N+2=result
-  const [answers, setAnswers] = useState([]); // selected option indices
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const total = ELT_QS.length;
-  const qIdx = step - 1;
-
-  function selectAnswer(optIdx) {
-    const next = [...answers];
-    next[qIdx] = optIdx;
-    setAnswers(next);
-    setTimeout(() => setStep(step + 1), 350);
-  }
-
-  async function submitGate(e) {
-    e.preventDefault();
-    const level = getLevel(answers.filter((a, i) => a === ELT_QS[i].ans).length);
-    fetch(LEADS_URL, {
-      method: "POST", mode: "no-cors",
-      headers: { "Content-Type": "text/plain" },
-      body: JSON.stringify({
-        name, phone: phone.replace(/^\+/, '').replace('(', '-').replace(')', ''),
-        dest: "English Test – " + level.code + " " + level.label,
-        page: "admission.html",
-        time: new Date().toLocaleString("ru"),
-      }),
-    }).catch(() => {});
-    setSubmitted(true);
-    setStep(total + 2);
-  }
-
-  const score = answers.filter((a, i) => a === ELT_QS[i].ans).length;
-  const level = getLevel(score);
-
   return (
     <section className="section section--tight elt" id="english-level">
       <div className="wrap">
         <div className="section-head" data-reveal>
           <span className="eyebrow eyebrow--gold">Бесплатный тест</span>
           <h2>Проверь свой уровень английского</h2>
-          <p className="section-sub">6 вопросов · 2 минуты · результат со списком программ</p>
+          <p className="section-sub">2 минуты · результат сразу · подбор программ под твой уровень</p>
         </div>
-
         <div className="elt__card card" data-reveal>
-
-          {/* ── intro ── */}
-          {step === 0 && (
-            <div className="elt__intro">
-              <div className="elt__intro-icon" aria-hidden="true">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
-                </svg>
-              </div>
-              <h3 className="elt__intro-h">Узнай за 2 минуты, насколько ты готов к зарубежному вузу</h3>
-              <p className="elt__intro-p">Тест определяет твой уровень и подбирает программы и вузы, которые подходят именно тебе. Результат — сразу после ответа на 6 вопросов.</p>
-              <button className="btn btn--gold btn--lg" onClick={() => setStep(1)}>Начать тест →</button>
+          <div className="elt__intro">
+            <div className="elt__intro-icon" aria-hidden="true">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+              </svg>
             </div>
-          )}
-
-          {/* ── questions ── */}
-          {step >= 1 && step <= total && (
-            <div className="elt__q">
-              <div className="elt__progress">
-                <div className="elt__progress-bar" style={{ width: ((step - 1) / total * 100) + "%" }}></div>
-              </div>
-              <div className="elt__step">Вопрос {step} из {total}</div>
-              <p className="elt__question">{ELT_QS[qIdx].q}</p>
-              <div className="elt__opts">
-                {ELT_QS[qIdx].opts.map((opt, i) => (
-                  <button
-                    key={i}
-                    className={"elt__opt" + (answers[qIdx] === i ? " elt__opt--chosen" : "")}
-                    onClick={() => selectAnswer(i)}
-                    disabled={answers[qIdx] !== undefined}
-                  >{opt}</button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* ── gate: collect lead before showing result ── */}
-          {step === total + 1 && (
-            <div className="elt__gate">
-              <div className="elt__gate-lock" aria-hidden="true">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
-                </svg>
-              </div>
-              <h3 className="elt__gate-h">Тест пройден! Получи свой результат</h3>
-              <p className="elt__gate-p">Оставь контакты — отправим твой уровень и персональный список вузов, которые тебя возьмут.</p>
-              <form className="elt__form" onSubmit={submitGate}>
-                <input required placeholder="Имя" value={name} onChange={(e) => setName(e.target.value)} />
-                <input required placeholder="+996(___)-___-___" inputMode="tel" value={phone} onChange={e => {
-                  let d = e.target.value.replace(/\D/g,'');
-                  if (d.startsWith('996')) d = d.slice(3);
-                  d = d.slice(0,9);
-                  if (!d) { setPhone(''); return; }
-                  let f = '+996(';
-                  if (d.length <= 3) f += d;
-                  else if (d.length <= 6) f += d.slice(0,3) + ')-' + d.slice(3);
-                  else f += d.slice(0,3) + ')-' + d.slice(3,6) + '-' + d.slice(6);
-                  setPhone(f);
-                }} />
-                <button type="submit" className="btn btn--gold btn--block">Узнать мой уровень →</button>
-              </form>
-              <div className="elt__gate-micro">✓ Без спама · ответим за 1 час</div>
-            </div>
-          )}
-
-          {/* ── result ── */}
-          {step === total + 2 && (
-            <div className="elt__result">
-              <div className="elt__result-badge" style={{ background: level.color }}>
-                {level.code}
-              </div>
-              <h3 className="elt__result-label">{level.label}</h3>
-              <p className="elt__result-score">{score} из {total} правильно</p>
-              <p className="elt__result-tip">{level.tip}</p>
-              <div className="elt__result-actions">
-                <a href="#cta" className="btn btn--gold">Подобрать программы с консультантом →</a>
-                <button className="btn btn--ghost" onClick={() => { setStep(0); setAnswers([]); setSubmitted(false); }}>Пройти ещё раз</button>
-              </div>
-            </div>
-          )}
-
+            <h3 className="elt__intro-h">Узнай за 2 минуты, насколько ты готов к зарубежному вузу</h3>
+            <p className="elt__intro-p">Тест определяет твой уровень английского и помогает понять, какие программы и вузы подходят именно тебе.</p>
+            <a href="https://forms.gle/gaHquVakyfyUe9XU8" target="_blank" rel="noopener" className="btn btn--gold btn--lg">Начать тест →</a>
+          </div>
         </div>
       </div>
     </section>

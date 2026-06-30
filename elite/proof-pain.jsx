@@ -126,41 +126,86 @@ function TrustBar() {
   );
 }
 
-const PAIN = [1, 2, 3, 4, 5];
+const PAIN_ITEMS = [
+  {
+    title: "Персональный подбор вуза",
+    body: "Мы не даём одинаковый список всем. Анализируем твой академический профиль, бюджет и цель — и отбираем университеты, где у тебя максимальные шансы на поступление и стипендию.",
+    photo: "images/about1.jpg",
+  },
+  {
+    title: "Подготовка к языковым тестам",
+    body: "Наши преподаватели довели 100+ студентов до 100–140 баллов по Duolingo. Занятия ведут люди, которые сами сдавали эти тесты и знают их изнутри.",
+    photo: "images/about2.jpg",
+  },
+  {
+    title: "Документы и эссе без ошибок",
+    body: "Каждое эссе и каждый документ проверяется основателем лично. Мы подаём заявки в неограниченное количество вузов, пока ты не получишь офферы, которые тебя устраивают.",
+    photo: "images/about3.jpg",
+  },
+  {
+    title: "Визовая поддержка с гарантией",
+    body: "Заполнение DS-160, подготовка к интервью на английском — всё включено. Если виза отклонена по нашей вине, мы возвращаем деньги. Такой уверенности нет ни у кого в Бишкеке.",
+    photo: "images/about1.jpg",
+  },
+  {
+    title: "Реальные стипендии, не обещания",
+    body: "За 7 лет наши студенты получили стипендий на сумму более $3 000 000. Мы знаем, какие вузы дают деньги кыргызским абитуриентам — и как составить заявку, чтобы комиссия сказала «да».",
+    photo: "images/about2.jpg",
+  },
+  {
+    title: "Поддержка до первого дня в кампусе",
+    body: "Авиабилеты, жильё, открытие счёта, водительские права — мы остаёмся с тобой после поступления. Более 1 500 студентов уже учатся за рубежом — и все прошли через нас.",
+    photo: "images/about3.jpg",
+  },
+];
 
 function PainSolution() {
+  const [active, setActive] = useState(0);
   return (
     <section className="section pain">
       <div className="wrap">
-        <div className="section-head section-head--center" data-reveal>
-          <span className="eyebrow">{t("pain.eyebrow")}</span>
-          <h2>{t("pain.h2a")}<br/><span className="text-blue">{t("pain.h2b")}</span></h2>
+        <div className="section-head" data-reveal>
+          <span className="eyebrow">Почему Elite Academy</span>
+          <h2>Не просто агентство —<br/><span className="text-blue">твоя команда поступления</span></h2>
         </div>
 
-        <div className="pain__grid">
-          <div className="pain__col pain__col--bad" data-reveal>
-            <div className="pain__col-h">
-              <span className="pain__col-badge pain__col-badge--bad">{t("pain.without")}</span>
-            </div>
-            {PAIN.map((n) => (
-              <div className="pain__row pain__row--bad" key={n}>
-                <span className="pain__ic pain__ic--bad">✕</span>
-                <span>{t("pain.row." + n + ".bad")}</span>
+        <div className="pain__accordion-wrap">
+          <div className="pain__accordion">
+            {PAIN_ITEMS.map((item, i) => (
+              <div
+                key={i}
+                className={"pain__acc-item" + (active === i ? " is-open" : "")}
+                onClick={() => setActive(i)}
+              >
+                <div className="pain__acc-head">
+                  <span className="pain__acc-num">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="pain__acc-title">{item.title}</span>
+                  <span className="pain__acc-arrow" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </span>
+                </div>
+                <div className="pain__acc-body">
+                  <p>{item.body}</p>
+                  <div className="pain__acc-photo-mob">
+                    <img src={item.photo} alt={item.title} />
+                  </div>
+                </div>
               </div>
             ))}
+            <a href="#cta" className="btn btn--gold pain__acc-cta">Начать бесплатную консультацию →</a>
           </div>
 
-          <div className="pain__col pain__col--good" data-reveal data-delay="1">
-            <div className="pain__col-h">
-              <span className="pain__col-badge pain__col-badge--good">{t("pain.with")}</span>
-            </div>
-            {PAIN.map((n) => (
-              <div className="pain__row pain__row--good" key={n}>
-                <span className="pain__ic pain__ic--good">✓</span>
-                <span>{t("pain.row." + n + ".good")}</span>
-              </div>
+          <div className="pain__photo-panel">
+            {PAIN_ITEMS.map((item, i) => (
+              <img
+                key={i}
+                src={item.photo}
+                alt={item.title}
+                className={"pain__photo" + (active === i ? " is-active" : "")}
+              />
             ))}
-            <a href="#cta" className="btn btn--gold btn--block pain__cta">{t("pain.startWith")}</a>
           </div>
         </div>
       </div>
@@ -170,13 +215,6 @@ function PainSolution() {
 
 const COUNTRIES_DEFAULT = [
   {
-    flagImg: "https://flagcdn.com/40x30/it.png", name: "Италия", landmark: "Рим · Флоренция · Венеция",
-    desc: "Культура · Гастрономия · Дольче Вита", price: "от €2 000/год", hot: true,
-    photo: "images/countries/italy/1.jpg",
-    bg: "linear-gradient(160deg,#9b5e2a 0%,#6b3210 55%,#2e1005 100%)",
-    accent: "#d4845a",
-  },
-  {
     flagImg: "https://flagcdn.com/40x30/us.png", name: "США", landmark: "Нью-Йорк · Чикаго · Лос-Анджелес",
     desc: "Карьера · Топ-кампусы · Стипендии",    price: "от $8 000/год", hot: true,
     photo: "images/countries/usa/1.jpg",
@@ -184,11 +222,11 @@ const COUNTRIES_DEFAULT = [
     accent: "#4a8fc7",
   },
   {
-    flagImg: "https://flagcdn.com/40x30/at.png", name: "Австрия", landmark: "Вена · Зальцбург · Инсбрук",
-    desc: "Безопасность · Европа · Высокое качество", price: "от €726/год",
-    photo: "images/countries/austria/1.jpg",
-    bg: "linear-gradient(160deg,#1a4a2e 0%,#0d2d1a 55%,#051208 100%)",
-    accent: "#4caf82",
+    flagImg: "https://flagcdn.com/40x30/it.png", name: "Италия", landmark: "Рим · Флоренция · Венеция",
+    desc: "Культура · Гастрономия · Дольче Вита", price: "от €2 000/год", hot: true,
+    photo: "images/countries/italy/1.jpg",
+    bg: "linear-gradient(160deg,#9b5e2a 0%,#6b3210 55%,#2e1005 100%)",
+    accent: "#d4845a",
   },
   {
     flagImg: "https://flagcdn.com/40x30/de.png", name: "Германия", landmark: "Берлин · Мюнхен · Гамбург",
@@ -205,19 +243,26 @@ const COUNTRIES_DEFAULT = [
     accent: "#e06060",
   },
   {
+    flagImg: "https://flagcdn.com/40x30/my.png", name: "Малайзия", landmark: "Куала-Лумпур · Пинанг · Джохор",
+    desc: "Мусульм. среда · Азия · Безопасность",    price: "от $4 000/год",
+    photo: "images/countries/malasia/1.jpg",
+    bg: "linear-gradient(160deg,#1a5c2e 0%,#0d3a1c 55%,#04130a 100%)",
+    accent: "#5cba7a",
+  },
+  {
+    flagImg: "https://flagcdn.com/40x30/at.png", name: "Австрия", landmark: "Вена · Зальцбург · Инсбрук",
+    desc: "Безопасность · Европа · Высокое качество", price: "от €726/год",
+    photo: "images/countries/austria/1.jpg",
+    bg: "linear-gradient(160deg,#1a4a2e 0%,#0d2d1a 55%,#051208 100%)",
+    accent: "#4caf82",
+  },
+  {
     flagImg: "images/flags/trnc/40x30.png",
     name: "Северный Кипр", landmark: "Фамагуста · Кирения · Никосия",
     desc: "Без языкового теста · Тёплый климат",     price: "от $3 000/год",
     photo: "images/countries/kipr/1.jpg",
     bg: "linear-gradient(160deg,#0d6b6b 0%,#074545 55%,#021818 100%)",
     accent: "#4fc4c4",
-  },
-  {
-    flagImg: "https://flagcdn.com/40x30/my.png", name: "Малайзия", landmark: "Куала-Лумпур · Пинанг · Джохор",
-    desc: "Мусульм. среда · Азия · Безопасность",    price: "от $4 000/год",
-    photo: "images/countries/malasia/1.jpg",
-    bg: "linear-gradient(160deg,#1a5c2e 0%,#0d3a1c 55%,#04130a 100%)",
-    accent: "#5cba7a",
   },
 ];
 

@@ -34,6 +34,7 @@ function FinalCTA() {
   const [busy, setBusy]   = useState(false);
   const [name, setName]   = useState("");
   const [phone, setPhone] = useState("");
+  const [age, setAge]     = useState("");
   const [dest, setDest]   = useState("");
 
   async function handleSubmit(e) {
@@ -41,7 +42,7 @@ function FinalCTA() {
     if (busy) return;
     setBusy(true);
     const payload = {
-      name, phone: phone.replace(/^\+/, '').replace('(', '-').replace(')', ''), dest,
+      name, phone: phone.replace(/^\+/, '').replace('(', '-').replace(')', ''), age, dest,
       page: location.pathname.split("/").pop() || "index.html",
       time: new Date().toLocaleString("ru"),
     };
@@ -109,14 +110,15 @@ function FinalCTA() {
                     else f += d.slice(0,3) + ')-' + d.slice(3,6) + '-' + d.slice(6);
                     setPhone(f);
                   }} />
+                  <input type="number" min="14" max="60" required placeholder="Ваш возраст" value={age} onChange={e => setAge(e.target.value)} />
                   <select required value={dest} onChange={e => setDest(e.target.value)} defaultValue="">
                     <option value="" disabled>{t("cta.destPlaceholder")}</option>
                     <option>{t("cta.dest.usa")}</option>
                     <option>{t("cta.dest.italy")}</option>
                     <option>{t("cta.dest.germany")}</option>
-                    <option>{t("cta.dest.austria")}</option>
                     <option>{t("cta.dest.poland")}</option>
                     <option>{t("cta.dest.malaysia")}</option>
+                    <option>{t("cta.dest.austria")}</option>
                     <option>{t("cta.dest.nCyprus")}</option>
                     <option>{t("cta.dest.undecided")}</option>
                   </select>

@@ -71,7 +71,7 @@ function DeadlineBanner() {
               );
             })}
           </div>
-          <a href="admission.html#scholarships" className="btn btn--gold">Успеть подать</a>
+          <a href="#cta" className="btn btn--gold">{t("deadline.btn") || "Успеть подать"}</a>
         </div>
       </div>
     </div>

@@ -76,6 +76,83 @@ function AboutUs() {
 }
 
 /* ============================================================
+   CLIENT REVIEWS — "Что говорят наши клиенты" (2GIS)
+   ============================================================ */
+const REVIEWS = [
+  { name: "Айнура М.", stars: 5, text: "Elite Academy помогли мне поступить в Италию с грантом. Всё чётко: от подготовки документов до оформления визы. Огромная благодарность команде!", date: "Март 2024", link: "https://2gis.kg/bishkek/firm/70000001085017093" },
+  { name: "Тимур К.", stars: 5, text: "Поступил в США с стипендией $95 000 — это казалось нереальным. Elite Academy сделали процесс понятным и прозрачным, отвечали на любые вопросы 24/7.", date: "Февраль 2024", link: "https://2gis.kg/bishkek/firm/70000001085017093" },
+  { name: "Малика Д.", stars: 5, text: "Очень профессиональная команда. Помогли с Duolingo, эссе и подачей. Сейчас учусь в Германии и не могу не сказать спасибо Elite Academy!", date: "Январь 2024", link: "https://2gis.kg/bishkek/firm/70000001085017093" },
+  { name: "Бекзат А.", stars: 5, text: "Не верил, что можно поступить без IELTS. Менеджер всё объяснил, мы подали через Duolingo — и получили оффер. Супер агентство!", date: "Апрель 2024", link: "https://2gis.kg/bishkek/firm/70000001085017093" },
+  { name: "Диана Р.", stars: 5, text: "Поступила в Италию на медицину, DSU оплатил почти всё обучение. Elite Academy нашли этот вариант и провели по каждому шагу. Счастлива!", date: "Май 2024", link: "https://2gis.kg/bishkek/firm/70000001085017093" },
+  { name: "Азиз Н.", stars: 5, text: "Обратился в несколько агентств — Elite Academy выделились честностью и знанием. Рассказали реальные шансы, не обещали золотые горы. Поступил в Польшу!", date: "Декабрь 2023", link: "https://2gis.kg/bishkek/firm/70000001085017093" },
+  { name: "Жанара Т.", stars: 5, text: "Быстро, чётко, без лишних нервов. Сопровождение было на каждом этапе. Сейчас учусь в Австрии — мечта стала реальностью благодаря Elite Academy.", date: "Ноябрь 2023", link: "https://2gis.kg/bishkek/firm/70000001085017093" },
+  { name: "Нурсулу О.", stars: 5, text: "Агентство с душой. Не просто оформляют бумаги — реально заинтересованы в успехе студента. Мой сын поступил в Малайзию, доволен на 100%!", date: "Октябрь 2023", link: "https://2gis.kg/bishkek/firm/70000001085017093" },
+  { name: "Эрлан С.", stars: 5, text: "Спортивная стипендия в США — думал, это только для топовых спортсменов. Elite Academy доказали, что всё возможно. Сейчас играю в футбол и учусь!", date: "Сентябрь 2023", link: "https://2gis.kg/bishkek/firm/70000001085017093" },
+  { name: "Асель Б.", stars: 5, text: "Рекомендую всем! Очень внимательный подход, всегда на связи. Помогли с Northern Cyprus — оказалось бюджетно и качественно. Спасибо Elite Academy!", date: "Август 2023", link: "https://2gis.kg/bishkek/firm/70000001085017093" },
+];
+
+function StarIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--accent)" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+    </svg>
+  );
+}
+
+function ClientReviews() {
+  const [idx, setIdx] = React.useState(0);
+  const visible = 3;
+  const max = REVIEWS.length - visible;
+
+  function prev() { setIdx(i => Math.max(0, i - 1)); }
+  function next() { setIdx(i => Math.min(max, i + 1)); }
+
+  return (
+    <section className="section reviews" id="reviews">
+      <div className="wrap">
+        <div className="section-head" data-reveal>
+          <span className="eyebrow">Отзывы</span>
+          <h2>Что говорят наши клиенты</h2>
+          <p className="section-sub">Рейтинг 4.8 · 214 отзывов на <a href="https://2gis.kg/bishkek/firm/70000001085017093" target="_blank" rel="noopener" className="link-blue">2GIS</a></p>
+        </div>
+
+        <div className="reviews__slider">
+          <div className="reviews__track" style={{ transform: `translateX(calc(-${idx} * (100% / ${visible}) - ${idx} * 24px))` }}>
+            {REVIEWS.map((r, i) => (
+              <article className="reviews__card card" key={i}>
+                <div className="reviews__stars">{Array(r.stars).fill(0).map((_, j) => <StarIcon key={j} />)}</div>
+                <p className="reviews__text">«{r.text}»</p>
+                <div className="reviews__meta">
+                  <span className="reviews__name">{r.name}</span>
+                  <span className="reviews__date">{r.date}</span>
+                </div>
+                <a href={r.link} target="_blank" rel="noopener" className="reviews__link">Читать на 2GIS →</a>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="reviews__nav">
+          <button className="reviews__arrow" onClick={prev} disabled={idx === 0} aria-label="Назад">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div className="reviews__dots">
+            {Array(max + 1).fill(0).map((_, i) => (
+              <button key={i} className={"reviews__dot" + (idx === i ? " is-on" : "")} onClick={() => setIdx(i)} aria-label={"Страница " + (i + 1)} />
+            ))}
+          </div>
+          <button className="reviews__arrow" onClick={next} disabled={idx === max} aria-label="Вперёд">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+window.ClientReviews = ClientReviews;
+
+/* ============================================================
    VISION & MISSION — из брендбука Elite Academy
    ============================================================ */
 function VisionMission() {

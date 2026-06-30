@@ -10,13 +10,13 @@ function HomeSearch() {
 
   const HS_COUNTRIES = [
     { label: t("hs.anyCountry"), val: "" },
-    { label: t("country.Италия"),       val: "Италия" },
     { label: t("country.США"),          val: "США" },
-    { label: t("country.Австрия"),      val: "Австрия" },
+    { label: t("country.Италия"),       val: "Италия" },
     { label: t("country.Германия"),     val: "Германия" },
     { label: t("country.Польша"),       val: "Польша" },
-    { label: t("country.Северный Кипр"),val: "Северный Кипр" },
     { label: t("country.Малайзия"),     val: "Малайзия" },
+    { label: t("country.Австрия"),      val: "Австрия" },
+    { label: t("country.Северный Кипр"),val: "Северный Кипр" },
   ];
   const HS_LEVELS = [
     { label: t("hs.anyLevel"),      val: "" },

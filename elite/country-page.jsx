@@ -124,7 +124,6 @@ function CountryProfile() {
   const unis = (window.EA_UNIS || []).filter((u) => u.country === name);
   const students = (window.EA_VIDEOS || []).filter((v) => v.country === name);
   const [activeVid, setActiveVid] = useState(null);
-  const [activeUni, setActiveUni] = useState(null);
   const VideoModal = window.VideoModal;
 
   useEffect(() => {
@@ -278,7 +277,7 @@ function CountryProfile() {
             </div>
             <div className="cprof__unis-grid">
               {top.map((u, i) => (
-                <button key={u.short} onClick={() => setActiveUni(u)}
+                <button key={u.short} onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })}
                    className="cprof__uni card card--lift" data-reveal data-delay={(i % 3) + 1}>
                   {u.logo
                     ? <img src={u.logo} className="cprof__uni-logo" alt={u.short} />
@@ -337,7 +336,6 @@ function CountryProfile() {
         </section>
       )}
 
-      <UniLeadModal uni={activeUni} onClose={() => setActiveUni(null)} />
     </>
   );
 }

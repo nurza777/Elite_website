@@ -495,7 +495,7 @@ const uniLevels = u => u.levels.split("·").map(s => s.trim());
 const TOTAL_PROGRAMS = UNIS.reduce((n, u) => n + uniLevels(u).length, 0);
 
 /* ---------- Filter constants ---------- */
-const ALL_COUNTRIES = ["Италия","США","Северный Кипр","Малайзия","Германия","Польша","Австрия"];
+const ALL_COUNTRIES = ["США","Италия","Германия","Польша","Малайзия","Австрия","Северный Кипр"];
 const FIELDS   = ["IT","Бизнес","Медицина","Право","Инженерия","Дизайн","Экономика","Педагогика"];
 const LEVELS   = ["Колледж","Foundation","Бакалавр","Магистр","PhD"];
 const INTAKES  = ["Осень","Зима","Весна","Лето"];

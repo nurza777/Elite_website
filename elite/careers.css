@@ -127,6 +127,9 @@
   overflow: hidden;
   box-shadow: 0 2px 16px rgba(0,0,0,.06);
 }
+.careers-dept--full { grid-template-columns: 1fr; }
+.careers-dept--full .careers-dept__info { padding: 40px 48px; }
+.careers-dept--full .careers-dept__num { display: block; font-family: var(--font-head); font-weight: 800; font-size: 13px; color: var(--muted); margin-bottom: 10px; }
 .careers-dept--reverse { direction: rtl; }
 .careers-dept--reverse > * { direction: ltr; }
 @media (max-width: 800px) {

@@ -96,12 +96,21 @@ function _scoreUni(u, ans) {
   return Math.min(97, s);
 }
 
+function _shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 function _matchQuiz(ans) {
-  const scored = QUIZ_POOL
+  const scored = _shuffle(QUIZ_POOL)
     .map(u => ({ ...u, fit: _scoreUni(u, ans) }))
     .filter(u => u.fit > 0)
     .sort((a, b) => b.fit - a.fit);
-  return scored.length >= 3 ? scored.slice(0, 3) : QUIZ_POOL.slice(0, 3).map(u => ({ ...u, fit: 72 }));
+  return scored.length >= 3 ? scored.slice(0, 3) : _shuffle(QUIZ_POOL).slice(0, 3).map(u => ({ ...u, fit: 72 }));
 }
 
 function Quiz() {
