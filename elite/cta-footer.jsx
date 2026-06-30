@@ -36,12 +36,24 @@ function FinalCTA() {
   const [phone, setPhone] = useState("");
   const [dest, setDest]   = useState("");
 
+  function handlePhone(e) {
+    let d = e.target.value.replace(/\D/g, "");
+    if (d.startsWith("996")) d = d.slice(3);
+    d = d.slice(0, 9);
+    if (!d) { setPhone(""); return; }
+    let f = "+996(";
+    if (d.length <= 3) f += d;
+    else if (d.length <= 6) f += d.slice(0,3) + ")-" + d.slice(3);
+    else f += d.slice(0,3) + ")-" + d.slice(3,6) + "-" + d.slice(6);
+    setPhone(f);
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     if (busy) return;
     setBusy(true);
     const payload = {
-      name, phone, dest,
+      name, phone: phone.replace(/^\+/, "").replace("(", "-").replace(")", ""), dest,
       page: location.pathname.split("/").pop() || "index.html",
       time: new Date().toLocaleString("ru"),
     };
@@ -98,7 +110,7 @@ function FinalCTA() {
                 <p className="finalcta__form-sub">Оставь контакты — перезвоним и составим план поступления.</p>
                 <form className="finalcta__form" onSubmit={handleSubmit}>
                   <input required placeholder="Имя" value={name} onChange={e => setName(e.target.value)} />
-                  <input required placeholder="WhatsApp / Телефон" inputMode="tel" value={phone} onChange={e => setPhone(e.target.value)} />
+                  <input required placeholder="+996(___)-___-___" inputMode="tel" value={phone} onChange={handlePhone} />
                   <select required value={dest} onChange={e => setDest(e.target.value)}>
                     <option value="" disabled>Куда хочешь поступить?</option>
                     <option>США</option>
