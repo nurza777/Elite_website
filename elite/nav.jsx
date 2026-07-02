@@ -53,6 +53,15 @@ function megaItem(it, fallbackHref) {
   return Array.isArray(it) ? it : [it, fallbackHref];
 }
 
+/* Translate a mega/drawer label: tries page.* then country.*, falls back to the label itself */
+function tl(label) {
+  let s = t("page." + label);
+  if (s !== "page." + label) return s;
+  s = t("country." + label);
+  if (s !== "country." + label) return s;
+  return label;
+}
+
 /* Detect current page from body[data-page] */
 function getCurrentPage() {
   return (document.body && document.body.dataset.page) || "home";
@@ -165,7 +174,7 @@ function Navbar() {
                   <div className="mega__h">{t(c.h)}</div>
                   {c.items.map((it) => {
                     const [label, href] = megaItem(it, MEGA[open].page);
-                    return <a key={label} href={href} className="mega__link">{t("page." + label) || label}</a>;
+                    return <a key={label} href={href} className="mega__link">{tl(label)}</a>;
                   })}
                 </div>
               ))}
@@ -228,7 +237,7 @@ function DrawerGroup({ title, cols, page, isActive }) {
         <a href={page} style={{ fontWeight: 700, color: "var(--blue)" }}>{t("nav.drawer.openSection")}</a>
         {items.map((it) => {
           const [label, href] = megaItem(it, page);
-          return <a key={label} href={href}>{t("page." + label) || label}</a>;
+          return <a key={label} href={href}>{tl(label)}</a>;
         })}
       </div>
     </div>
