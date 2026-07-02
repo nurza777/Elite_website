@@ -93,6 +93,12 @@ const UNIS_RAW = [
   { name: "Connecticut College",               short: "ConnColl", loc: "Нью-Лондон",  country: "США",           flag: "🇺🇸", qs: null, price: 26000, type: "Частный",         field: "Право",      levels: "Бакалавр", meritBased: true, needBased: true },
   { name: "San Francisco Bay University",      short: "SFBU",     loc: "Сан-Франциско",country: "США",          flag: "🇺🇸", qs: null, price: 14500, type: "Частный",         field: "IT",         levels: "Бакалавр · Магистр" },
   { name: "Southern California State University",short:"SCSS",    loc: "Лос-Анджелес",country: "США",           flag: "🇺🇸", qs: null, price: 12000, type: "Государственный", field: "Бизнес",     levels: "Бакалавр · Магистр" },
+  { name: "Lynn University",                    short: "Lynn",     loc: "Бока-Ратон",  country: "США",           flag: "🇺🇸", qs: 1001, price: 10000, type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true, needBased: true },
+  { name: "University of Tulsa",                short: "UTulsa",   loc: "Талса",       country: "США",           flag: "🇺🇸", qs: 801,  price: 52000, type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр · PhD", meritBased: true },
+  { name: "University of San Francisco",        short: "USF",      loc: "Сан-Франциско",country: "США",          flag: "🇺🇸", qs: 801,  price: 63000, type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр" },
+  { name: "Gannon University",                  short: "Gannon",   loc: "Эри",         country: "США",           flag: "🇺🇸", qs: null, price: 45000, type: "Частный",         field: "Инженерия",  levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "Florida National University",        short: "FNU",      loc: "Майами",      country: "США",           flag: "🇺🇸", qs: null, price: 16800, type: "Частный",         field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true },
+  { name: "San Francisco State University",     short: "SFSU",     loc: "Сан-Франциско",country: "США",          flag: "🇺🇸", qs: 1001, price: 17500, type: "Государственный", field: "Бизнес",     levels: "Бакалавр · Магистр", meritBased: true },
   /* США — College */
   { name: "De Anza College",                   short: "DeAnza",   loc: "Купертино",   country: "США",           flag: "🇺🇸", qs: null, price: 9500,  type: "Государственный", field: "IT",         levels: "Колледж" },
   { name: "Green River College",               short: "GreenRiver",loc:"Оберн",        country: "США",           flag: "🇺🇸", qs: null, price: 10000, type: "Государственный", field: "Бизнес",     levels: "Колледж" },
@@ -214,6 +220,9 @@ const LOGO_MAP = {
   "UAlbany":"images/logos/catalog/ualb.png",
   "CWU":"images/logos/catalog/cwu.png",               "ConnColl":"images/logos/catalog/conncoll.png",
   "SFBU":"images/logos/catalog/sfbu.png",
+  "Lynn":"images/logos/catalog/lynn.png",            "UTulsa":"images/logos/catalog/utulsa.png",
+  "USF":"images/logos/catalog/usf.png",              "Gannon":"images/logos/catalog/gannon.png",
+  "FNU":"images/logos/catalog/fnu.jpg",              "SFSU":"images/logos/catalog/sfsu.png",
   // США — Колледжи
   "DeAnza":"images/logos/catalog/deanza.svg",   "GreenRiver":"images/logos/catalog/greenriver.png",
   "SCC":"images/logos/catalog/scc.png",         "SMC":"images/logos/catalog/smc.svg",
@@ -362,6 +371,9 @@ const CAMPUS_MAP = {
   "UAlbany":"images/campus/ualbany.jpg",     "CWU":"images/campus/cwu.jpg",
   "ConnColl":"images/campus/conncoll.jpg",   "SFBU":"images/campus/sfbu.jpg",
   "SCSS":"images/campus/scss.jpg",
+  "Lynn":"images/campus/lynn.jpg",          "UTulsa":"images/campus/utulsa.jpg",
+  "USF":"images/campus/usf.jpg",            "Gannon":"images/campus/gannon.jpg",
+  "FNU":"images/campus/fnu.jpg",            "SFSU":"images/campus/sfsu.jpg",
   // США — колледжи
   "DeAnza":"images/campus/deanza.webp",      "GreenRiver":"images/campus/greenriver.jpg",
   "SCC":"images/campus/scc.webp",            "SMC":"images/campus/smc.jpg",
@@ -538,8 +550,8 @@ function FilterSection({ label, children }) {
    ============================================================ */
 function Universities() {
   const [q,           setQ]       = useState(_INIT_SEARCH);
-  const [maxPrice,    setPrice]   = useState(60000);
-  const [sliderVal,   setSlider]  = useState(60000); // visual only during drag
+  const [maxPrice,    setPrice]   = useState(999999);
+  const [sliderVal,   setSlider]  = useState(999999);
   const [selCountries,setCntrs]   = useState(_INIT_COUNTRY ? [_INIT_COUNTRY] : []);
   const [selLevel,    setLevel]   = useState(_INIT_LEVEL);
   const [selFields,   setFields]  = useState(_INIT_FIELD   ? [_INIT_FIELD]   : []);
@@ -584,7 +596,7 @@ function Universities() {
   );
 
   const reset = () => {
-    setQ(""); setPrice(60000); setFields([]); setCntrs([]); setLevel("");
+    setQ(""); setPrice(999999); setFields([]); setCntrs([]); setLevel("");
     setIntakes([]); setEngTests([]); setExams([]); setGpa(""); setType("");
     setBools({});
   };
@@ -660,72 +672,6 @@ function Universities() {
               </div>
             </FilterSection>
 
-            <div className="filter__group">Сначала — программа</div>
-
-            <FilterSection label="Уровень программы">
-              {chipsSingle(selLevel, setLevel, LEVELS)}
-            </FilterSection>
-
-            <FilterSection label="Направление">
-              {chips(selFields, setFields, FIELDS)}
-            </FilterSection>
-
-            <FilterSection label="Учебный год">
-              {chips(selIntakes, setIntakes, INTAKES)}
-            </FilterSection>
-
-            <FilterSection label="Языковой тест">
-              {chips(selEngTests, setEngTests, ENG_TESTS)}
-            </FilterSection>
-
-            <FilterSection label="Внутренние экзамены">
-              {chips(selExams, setExams, INT_EXAMS)}
-            </FilterSection>
-
-            <div className="filter__group">Затем — университет</div>
-
-            <FilterSection label="Стоимость в год">
-              <div className="filter__price-row">
-                <span className="filter__price-pre">до $</span>
-                <input
-                  type="number" min="0" max="60000" step="500" value={sliderVal}
-                  onChange={e => { const v = Math.max(0, Math.min(60000, +e.target.value || 0)); setPrice(v); setSlider(v); }}
-                  className="filter__price-input" aria-label="Максимальная стоимость в год, $"
-                />
-                <span className="filter__price-yr">/год</span>
-              </div>
-              <input type="range" min="0" max="60000" step="500" value={sliderVal}
-                onChange={e => setSlider(+e.target.value)}
-                onMouseUp={e => { setPrice(+e.target.value); setSlider(+e.target.value); }}
-                onTouchEnd={e => { const v = +e.target.value; setPrice(v); setSlider(v); }}
-                className="filter__range" />
-              <div className="filter__range-ends"><span>$0</span><span>$60k</span></div>
-            </FilterSection>
-
-            <FilterSection label="Тип вуза">
-              {chipsSingle(selType, setType, TYPES)}
-            </FilterSection>
-
-            <FilterSection label="Минимальный GPA">
-              {chipsSingle(selGpa, setGpa, GPA_OPTS)}
-            </FilterSection>
-
-            <div className="filter filter--checks">
-              <label className="filter__label">Доп. условия</label>
-              {[
-                ["needBased",    "Need-based стипендия"],
-                ["meritBased",   "Merit-based стипендия"],
-                ["dormitory",    "Общежитие"],
-                ["financialAid", "Финансовая помощь"],
-                ["exchange",     "Программы обмена"],
-              ].map(([key, lbl]) => (
-                <label key={key} className="filter__check">
-                  <input type="checkbox" checked={!!bools[key]} onChange={e => setBools(b => ({...b, [key]: e.target.checked}))} />
-                  <span>{lbl}</span>
-                </label>
-              ))}
-            </div>
-
             <div className="filter__actions">
               <button className="btn btn--ghost" onClick={reset}>Сбросить</button>
               <span className="unis__count-sm">{progCount} прогр. · {list.length} вузов</span>
@@ -738,7 +684,7 @@ function Universities() {
               <span className="unis__count">Найдено <b>{progCount}</b> программ и <b>{list.length}</b> вузов</span>
               <div className="unis__sort">
                 <span>Сортировка:</span>
-                {[["pop","Elite выбор"],["rating","по рейтингу"],["price","по цене"]].map(([k,l]) => (
+                {[["pop","Elite выбор"],["rating","по рейтингу"]].map(([k,l]) => (
                   <button key={k} className={sort === k ? "is-on" : ""} onClick={() => setSort(k)}>{l}</button>
                 ))}
               </div>
@@ -825,9 +771,7 @@ function Universities() {
                         {u.qs && (
                           <div className="uni__row"><span>QS рейтинг</span><b>#{u.qs}</b></div>
                         )}
-                        {uniLevels(u).map(lv => (
-                          <div className="uni__row" key={lv}><span>{lv}</span><b>{fmtPrice(u.price)}</b></div>
-                        ))}
+                        <div className="uni__row"><span>{u.levels}</span></div>
                       </div>
 
                       <div className="uni__tags">
@@ -885,7 +829,7 @@ function UniSimpleCard({ u }) {
         <span className="unisc__tag unisc__tag--field">{u.field}</span>
         <span className="unisc__tag unisc__tag--level">{u.levels.split("·")[0].trim()}</span>
       </div>
-      <div className="unisc__price">от ${u.price.toLocaleString("ru")}<span>/год</span></div>
+      <a href={`university.html?u=${encodeURIComponent(u.short)}`} className="btn btn--ghost btn--block" style={{marginTop:12}}>Подробнее →</a>
     </div>
   );
 }

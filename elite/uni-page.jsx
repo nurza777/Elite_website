@@ -113,8 +113,7 @@ function UniversityProfile() {
   const aboutMain = (det && det.about)
     ? det.about
     : `${u.name} — ${typeLc} университет в городе ${u.loc} (${u.country}) и официальный вуз-партнёр Elite Academy по направлению «${u.field}». ` +
-      `Здесь доступны программы уровня ${u.levels.toLowerCase()}${u.qs ? `, а сам вуз входит в мировой рейтинг QS на позиции #${u.qs}` : ""}. ` +
-      `Стоимость обучения — от ${fmt(u.price)} в год.`;
+      `Здесь доступны программы уровня ${u.levels.toLowerCase()}${u.qs ? `, а сам вуз входит в мировой рейтинг QS на позиции #${u.qs}` : ""}.`;
   const aboutExtra = `Мы сопровождаем поступление под ключ: подбираем программу под твой профиль, готовим документы и мотивационное письмо, ` +
     `помогаем с языковым тестом и студенческой визой. ` +
     `${u.dormitory ? "У вуза есть студенческое общежитие. " : ""}` +
@@ -155,19 +154,11 @@ function UniversityProfile() {
             </div>
 
             <div className="uprof-hero__aside card">
-              <div className="uprof__price-l">Обучение в год</div>
-              <div className="uprof__price">{fmt(u.price)}</div>
               {(u.meritBased || u.needBased) && (
                 <div className="uprof__schol">
                   {u.meritBased && <span className="uprof__schol-tag">Стипендия</span>}
                   {u.needBased && <span className="uprof__schol-tag uprof__schol-tag--grant">Грант</span>}
                 </div>
-              )}
-              {u.appFee > 0 && (
-                <div className="uprof__aside-micro" style={{marginBottom:6}}>Взнос за подачу: €{u.appFee}</div>
-              )}
-              {u.appFee === 0 && (
-                <div className="uprof__aside-micro" style={{marginBottom:6}}>Взнос за подачу: бесплатно</div>
               )}
               <a href="#cta" className="btn btn--gold btn--block">Поступить с Elite →</a>
               <div className="uprof__aside-micro">Бесплатная консультация · план поступления</div>
@@ -178,40 +169,6 @@ function UniversityProfile() {
           <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
             <path d="M 0 40 C 240 10, 480 70, 720 40 S 1200 10, 1440 40 L 1440 80 L 0 80 Z" fill="var(--white)" />
           </svg>
-        </div>
-      </section>
-
-      {/* ===== Admission requirements ===== */}
-      <section className="section section--tight uprof-req">
-        <div className="wrap">
-          <div className="section-head" data-reveal>
-            <span className="eyebrow">Поступление</span>
-            <h2>Что нужно, чтобы поступить</h2>
-            <p>Главные требования {u.name} для иностранных абитуриентов. Полный список и сроки разберём на консультации.</p>
-          </div>
-          <div className="uprof__req-grid" data-reveal data-delay="1">
-            <div className="uprof__req">
-              <span className="uprof__req-l">Минимальный GPA</span>
-              <span className="uprof__req-v">{u.gpaMin}</span>
-              <span className="uprof__req-d">средний балл аттестата / диплома</span>
-            </div>
-            <div className="uprof__req">
-              <span className="uprof__req-l">Языковой тест</span>
-              <span className="uprof__req-v">{u.engTests && u.engTests.length ? u.engTests.join(" · ") : "IELTS / TOEFL"}</span>
-              <span className="uprof__req-d">подтверждение английского (IELTS / TOEFL / Duolingo)</span>
-            </div>
-            <div className="uprof__req">
-              <span className="uprof__req-l">Вступительные экзамены</span>
-              <span className="uprof__req-v">{u.exams && u.exams.length ? u.exams.join(" · ") : "Не требуются"}</span>
-              <span className="uprof__req-d">внутренние экзамены вуза</span>
-            </div>
-            <div className="uprof__req">
-              <span className="uprof__req-l">Уровни и набор</span>
-              <span className="uprof__req-v">{u.levels}</span>
-              <span className="uprof__req-d">старт: {u.intake && u.intake.length ? u.intake.join(" / ") : "уточняется"}</span>
-            </div>
-          </div>
-          <a href="#cta" className="btn btn--dark uprof__req-cta" data-reveal data-delay="2">Проверить свои шансы на поступление →</a>
         </div>
       </section>
 
@@ -241,65 +198,7 @@ function UniversityProfile() {
               <h2 className="uprof__about-h">Коротко о вузе</h2>
               <p className="uprof__about-text">{aboutMain}</p>
               <p className="uprof__about-text uprof__about-text--muted">{aboutExtra}</p>
-              <div className="uprof__about-chips">
-                <span className="uprof__about-chip">{u.type}</span>
-                <span className="uprof__about-chip">{u.field}</span>
-                <span className="uprof__about-chip">{u.loc} · {u.country}</span>
-                {u.levels.split("·").map((l) => (
-                  <span className="uprof__about-chip" key={l}>{l.trim()}</span>
-                ))}
-              </div>
-              {det && det.site && (
-                <a className="uprof__site" href={`https://${det.site}`} target="_blank" rel="noopener">
-                  Официальный сайт: {det.site} →
-                </a>
-              )}
             </div>
-            <div className="uprof__about-stats">
-              {det && det.founded && (
-                <div className="uprof__about-stat"><b>{det.founded}</b><span>год основания</span></div>
-              )}
-              {det && det.students && (
-                <div className="uprof__about-stat"><b>{det.students}</b><span>студентов</span></div>
-              )}
-              {u.qs && (
-                <div className="uprof__about-stat"><b>#{u.qs}</b><span>QS рейтинг</span></div>
-              )}
-              {u.itRank && (
-                <div className="uprof__about-stat"><b>#{u.itRank}</b><span>рейтинг в Италии</span></div>
-              )}
-              <div className="uprof__about-stat"><b>{fmt(u.price)}</b><span>стоимость в год</span></div>
-              <div className="uprof__about-stat"><b>{u.field}</b><span>ключевое направление</span></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== Key facts ===== */}
-      <section className="section section--tight uprof-facts">
-        <div className="wrap">
-          <div className="uprof__facts-grid">
-            {isBachelor && <FactCard ic="BA" label="Бакалавриат">{fmt(u.price)}/год</FactCard>}
-            {isMaster && <FactCard ic="MA" label="Магистратура">{fmt(u.price)}/год</FactCard>}
-            {u.faculties && u.faculties.length > 0 && (
-              <FactCard ic="Фак" label="Ключевые факультеты">
-                <div className="uprof__minichips">{u.faculties.map((x) => <span key={x}>{x}</span>)}</div>
-              </FactCard>
-            )}
-            <FactCard ic="Наб" label="Набор">
-              <div className="uprof__minichips">{u.intake.map((x) => <span key={x}>{x}</span>)}</div>
-            </FactCard>
-            <FactCard ic="Яз" label="Языковой тест">
-              <div className="uprof__minichips">{u.engTests.map((x) => <span key={x}>{x}</span>)}</div>
-            </FactCard>
-            {u.exams.length > 0 && (
-              <FactCard ic="Экз" label="Вступительные экзамены">
-                <div className="uprof__minichips">{u.exams.map((x) => <span key={x}>{x}</span>)}</div>
-              </FactCard>
-            )}
-            <FactCard ic="GPA" label="Минимальный GPA">{u.gpaMin}</FactCard>
-            <FactCard ic="Общ" label="Общежитие">{u.dormitory ? "Есть" : "Нет"}</FactCard>
-            <FactCard ic="Прог" label="Программы">{u.levels}</FactCard>
           </div>
         </div>
       </section>
@@ -358,7 +257,7 @@ function UniversityProfile() {
                   }
                   <div className="uprof__sim-info">
                     <div className="uprof__sim-name">{s.name}</div>
-                    <div className="uprof__sim-meta">{s.loc} · {fmt(s.price)}/год</div>
+                    <div className="uprof__sim-meta">{s.loc} · {s.country}</div>
                   </div>
                   <span className="uprof__sim-arr">→</span>
                 </a>

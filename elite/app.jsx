@@ -58,12 +58,13 @@ function PageUniversities() {
   return (
     <>
       <PageHero
-        eyebrow="Партнёрские вузы"
-        title="Университеты, куда мы помогаем поступить"
-        sub="Более 80 партнёрских вузов в США, Италии, Германии, Франции и других странах — на все уровни и направления."
+        eyebrow="Каталог"
+        title="База университетов"
+        sub="Партнёрские университеты Elite Academy в США, Европе и Азии. Фильтруй по направлению, рейтингу и уровню — и сохраняй те, что нравятся."
         variant="default"
       />
-      <UniversitiesSimple />
+      <DeadlineBanner />
+      <Universities />
       <FinalCTA />
     </>
   );

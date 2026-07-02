@@ -39,7 +39,14 @@ const DEPARTMENTS = [
     descKeys: ["careers.dept.marketing.p1","careers.dept.marketing.p2","careers.dept.marketing.p3","careers.dept.marketing.p4"],
     teamLabel: false,
     teamKeys: null,
-    vacancy: null,
+    vacancy: {
+      titleKey: "careers.dept.marketing.v.title",
+      dutiesKeys: [
+        "careers.dept.marketing.v.d1","careers.dept.marketing.v.d2","careers.dept.marketing.v.d3",
+        "careers.dept.marketing.v.d4","careers.dept.marketing.v.d5","careers.dept.marketing.v.d6",
+      ],
+      perksKey: null,
+    },
   },
   {
     id: "sales",
@@ -215,7 +222,11 @@ function CareersDepts() {
 
 /* ---- Corporate life ---- */
 function CareersCorp() {
+  const [lightbox, setLightbox] = React.useState(null);
   const photos = CAREERS_DATA.corpPhotos || [];
+
+  const closeLightbox = () => setLightbox(null);
+
   return (
     <section className="section section--gray careers-corp">
       <div className="wrap">
@@ -231,13 +242,33 @@ function CareersCorp() {
         {photos.filter(Boolean).length > 0
           ? <div className="careers-corp__gallery" data-reveal>
               {photos.filter(Boolean).map((p, i) => (
-                <img key={i} src={p} alt="" className="careers-corp__photo" />
+                <img key={i} src={p} alt="" className="careers-corp__photo"
+                     style={{cursor:"zoom-in"}} onClick={() => setLightbox(p)} />
               ))}
             </div>
           : <div className="careers-corp__gallery-ph" data-reveal>📷 {t("careers.corp.photoSoon")}</div>
         }
         <p className="careers-corp__extra" data-reveal>{t("careers.corp.extra")}</p>
       </div>
+
+      {lightbox && (
+        <div
+          onClick={closeLightbox}
+          style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.92)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:9999,cursor:"zoom-out"}}
+        >
+          <button
+            onClick={closeLightbox}
+            style={{position:"absolute",top:20,right:28,background:"none",border:"none",color:"#fff",fontSize:36,lineHeight:1,cursor:"pointer",padding:0}}
+            aria-label="Закрыть"
+          >✕</button>
+          <img
+            src={lightbox}
+            alt=""
+            onClick={e => e.stopPropagation()}
+            style={{maxWidth:"90vw",maxHeight:"90vh",objectFit:"contain",borderRadius:8,boxShadow:"0 8px 48px rgba(0,0,0,0.6)"}}
+          />
+        </div>
+      )}
     </section>
   );
 }
