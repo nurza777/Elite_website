@@ -27,7 +27,7 @@ function UniLeadModal({ uni, onClose }) {
   function handleSubmit(e) {
     e.preventDefault();
     const msg = encodeURIComponent(
-      `Здравствуйте! Меня зовут ${name}. Хочу узнать больше о ${uni.name}. Мой номер: ${phone}`
+      `${window.t("cp.waMsgA")}${name}${window.t("cp.waMsgB")}${uni.name}${window.t("cp.waMsgC")}${phone}`
     );
     window.open(`https://wa.me/${EA_WA.replace(/\D/g, "")}?text=${msg}`, "_blank");
     setSent(true);
@@ -36,16 +36,16 @@ function UniLeadModal({ uni, onClose }) {
   return (
     <div className="ulm-backdrop" onClick={(e) => e.target === e.currentTarget && onClose()}>
       <div className="ulm" role="dialog" aria-modal="true">
-        <button className="ulm__close" onClick={onClose} aria-label="Закрыть">
+        <button className="ulm__close" onClick={onClose} aria-label={window.t("cp.close")}>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
 
         {sent ? (
           <div className="ulm__sent">
             <div className="ulm__sent-icon">✓</div>
-            <h3>Отлично!</h3>
-            <p>Мы уже открыли WhatsApp — наш менеджер ответит в ближайшее время.</p>
-            <button className="btn btn--dark btn--block" style={{marginTop:20}} onClick={onClose}>Закрыть</button>
+            <h3>{window.t("cp.sentH")}</h3>
+            <p>{window.t("cp.sentP")}</p>
+            <button className="btn btn--dark btn--block" style={{marginTop:20}} onClick={onClose}>{window.t("cp.close")}</button>
           </div>
         ) : (
           <>
@@ -56,28 +56,28 @@ function UniLeadModal({ uni, onClose }) {
               }
               <div>
                 <div className="ulm__uni-name">{uni.name}</div>
-                <div className="ulm__uni-meta">{uni.loc}{uni.qs ? ` · QS #${uni.qs}` : ""}</div>
+                <div className="ulm__uni-meta">{(window.__EA_LANG === "en" && (window.EA_CITY_EN || {})[uni.loc]) || uni.loc}{uni.qs ? ` · QS #${uni.qs}` : ""}</div>
               </div>
             </div>
 
-            <h3 className="ulm__title">Хочешь узнать больше?</h3>
-            <p className="ulm__sub">Запишись на бесплатную консультацию — расскажем всё о поступлении, стоимости и шансах.</p>
+            <h3 className="ulm__title">{window.t("cp.modalTitle")}</h3>
+            <p className="ulm__sub">{window.t("cp.modalSub")}</p>
 
             <form className="ulm__form" onSubmit={handleSubmit}>
               <div className="ulm__field">
-                <label className="ulm__label">Ваше имя</label>
+                <label className="ulm__label">{window.t("cp.name")}</label>
                 <input
                   ref={inputRef}
                   className="ulm__input"
                   type="text"
-                  placeholder="Например, Айдана"
+                  placeholder={window.t("cp.namePh")}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
                 />
               </div>
               <div className="ulm__field">
-                <label className="ulm__label">Номер телефона</label>
+                <label className="ulm__label">{window.t("cp.phone")}</label>
                 <input
                   className="ulm__input"
                   type="tel"
@@ -88,10 +88,10 @@ function UniLeadModal({ uni, onClose }) {
                 />
               </div>
               <button className="btn btn--gold btn--block ulm__submit" type="submit">
-                Записаться на консультацию →
+                {window.t("cp.submit")}
               </button>
             </form>
-            <p className="ulm__legal">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных</p>
+            <p className="ulm__legal">{window.t("cp.legal")}</p>
           </>
         )}
       </div>
@@ -103,7 +103,7 @@ function CountryTile({ src, fallback, label, big }) {
   const [stage, setStage] = useState(0); // 0 = src, 1 = fallback, 2 = placeholder
   const cls = "cprof__tile" + (big ? " cprof__tile--big" : "");
   if (stage === 2 || (stage === 1 && !fallback)) {
-    return <div className={cls + " ph"} data-label={"фото · " + label.toLowerCase()}></div>;
+    return <div className={cls + " ph"} data-label={window.t("uni.photoOf") + label.toLowerCase()}></div>;
   }
   return (
     <div className={cls}>
@@ -121,6 +121,12 @@ function CountryProfile() {
   const params = new URLSearchParams(window.location.search);
   const name = params.get("c");
   const det = (window.EA_COUNTRY_DETAILS || {})[name];
+  const L = window.__EA_LANG || "ru";
+  const T = window.t || ((k) => k);
+  const cn = T("country." + name);
+  const tFact = (k) => T("fact." + k);
+  const trCity = (loc) => (L === "en" && (window.EA_CITY_EN || {})[loc]) ? window.EA_CITY_EN[loc] : loc;
+  const _detL = (L === "en" ? (window.EA_COUNTRY_DETAILS_EN || {}) : L === "kg" ? (window.EA_COUNTRY_DETAILS_KG || {}) : {})[name];
   const unis = (window.EA_UNIS || []).filter((u) => u.country === name);
   const students = (window.EA_VIDEOS || []).filter((v) => v.country === name);
   const [activeVid, setActiveVid] = useState(null);
@@ -134,14 +140,22 @@ function CountryProfile() {
     return (
       <section className="section cprof-missing">
         <div className="wrap" style={{ textAlign: "center" }}>
-          <h1>Страна не найдена</h1>
-          <p style={{ marginTop: 14, color: "var(--muted)" }}>Возможно, ссылка устарела.</p>
-          <a href="countries.html" className="btn btn--dark" style={{ marginTop: 26 }}>← Все направления</a>
+          <h1>{T("cp.notFound")}</h1>
+          <p style={{ marginTop: 14, color: "var(--muted)" }}>{T("uni.notFoundSub")}</p>
+          <a href="countries.html" className="btn btn--dark" style={{ marginTop: 26 }}>{T("cp.allDirections")}</a>
         </div>
       </section>
     );
   }
 
+  const c = {
+    tagline: (_detL && _detL.tagline) || det.tagline,
+    facts:   (_detL && _detL.facts)   || det.facts,
+    why:     (_detL && _detL.why)     || det.why,
+    edu:     (_detL && _detL.edu)     || det.edu,
+    tourism: (_detL && _detL.tourism) || det.tourism,
+    gallery: (_detL && _detL.gallery) || det.gallery,
+  };
   const top = [...unis].sort((a, b) => (a.qs || 9999) - (b.qs || 9999)).slice(0, 6);
   const fmt = (p) => "$" + p.toLocaleString("ru") + "/год";
 
@@ -151,20 +165,20 @@ function CountryProfile() {
       <section className="cprof-hero" style={{ backgroundImage: `url(${det.photo})` }}>
         <div className="cprof-hero__shade" aria-hidden="true"></div>
         <div className="wrap cprof-hero__inner">
-          <nav className="cprof__crumbs" aria-label="Хлебные крошки">
-            <a href="countries.html">Направления</a>
+          <nav className="cprof__crumbs" aria-label="breadcrumbs">
+            <a href="countries.html">{T("cp.crumbs")}</a>
             <span>/</span>
-            <span>{name}</span>
+            <span>{cn}</span>
           </nav>
           <div className="cprof-hero__flag">
             <img src={window.EA_FLAG_URL(det.iso, "48x36")} srcSet={`${window.EA_FLAG_URL(det.iso, "96x72")} 2x`} alt={name} />
           </div>
-          <h1 className="cprof__name">{name}</h1>
-          <p className="cprof__tagline">{det.tagline}</p>
+          <h1 className="cprof__name">{cn}</h1>
+          <p className="cprof__tagline">{c.tagline}</p>
           <div className="cprof__hero-cta">
-            <a href="#cta" className="btn btn--gold btn--lg">Хочу учиться здесь →</a>
+            <a href="#cta" className="btn btn--gold btn--lg">{T("cp.wantStudy")}</a>
             <a href="#cta" className="btn btn--ghost-light btn--lg">
-              {unis.length} вузов в каталоге
+              {unis.length}{T("cp.inCatalog")}
             </a>
           </div>
         </div>
@@ -179,7 +193,7 @@ function CountryProfile() {
       <section className="section--tight cprof-facts">
         <div className="wrap">
           <div className="cprof__facts-row">
-            {Object.entries(det.facts).map(([k, v]) => {
+            {Object.entries(c.facts).map(([k, v]) => {
               const FACT_IC = {
                 "Столица":       { bg:"#E6F1FB", cl:"#185FA5", ic:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="10" width="18" height="11" rx="1"/><path d="M9 21V10l3-7 3 7v11"/><rect x="9.5" y="14" width="2" height="3"/><rect x="12.5" y="14" width="2" height="3"/></svg> },
                 "Язык обучения": { bg:"#E1F5EE", cl:"#0F6E56", ic:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4 6h16M4 12h10M4 18h6"/><path d="M15 15l2 2 4-4"/></svg> },
@@ -191,7 +205,7 @@ function CountryProfile() {
               return (
                 <div className="cprof__fact" key={k}>
                   <span className="cprof__fact-ic" style={{ background: meta.bg, color: meta.cl }}>{meta.ic}</span>
-                  <span className="cprof__fact-l">{k}</span>
+                  <span className="cprof__fact-l">{tFact(k)}</span>
                   <b className="cprof__fact-v">{v}</b>
                 </div>
               );
@@ -204,11 +218,11 @@ function CountryProfile() {
       <section className="section section--tight cprof-why">
         <div className="wrap">
           <div className="section-head" data-reveal>
-            <span className="eyebrow">Почему {name}</span>
-            <h2>Что делает эту страну особенной</h2>
+            <span className="eyebrow">{T("cp.whyPre")}{cn}</span>
+            <h2>{T("cp.whyH")}</h2>
           </div>
           <div className="cprof__why-grid">
-            {det.why.map((w, i) => (
+            {c.why.map((w, i) => (
               <div className="cprof__why card card--lift" data-reveal data-delay={i + 1} key={w.t}>
                 <span className="cprof__why-bar" aria-hidden="true"></span>
                 <h3 className="cprof__why-t">{w.t}</h3>
@@ -223,12 +237,12 @@ function CountryProfile() {
       <section className="section section--tight cprof-gallery">
         <div className="wrap">
           <div className="section-head" data-reveal>
-            <span className="eyebrow">Жизнь и путешествия</span>
-            <h2>Страна, в которую влюбляешься</h2>
-            <p>{det.tourism}</p>
+            <span className="eyebrow">{T("cp.lifeEyebrow")}</span>
+            <h2>{T("cp.lifeH")}</h2>
+            <p>{c.tourism}</p>
           </div>
           <div className="cprof__gal-grid" data-reveal>
-            {det.gallery.map((label, i) => (
+            {c.gallery.map((label, i) => (
               <CountryTile
                 key={label}
                 src={`images/countries/${det.slug}/${i + 1}.jpg`}
@@ -245,23 +259,23 @@ function CountryProfile() {
       <section className="section section--tight cprof-edu">
         <div className="wrap cprof__edu-grid">
           <div data-reveal>
-            <span className="eyebrow">Об образовании</span>
-            <h2 className="cprof__edu-h">Как тут устроена учёба</h2>
-            <p className="cprof__edu-text">{det.edu}</p>
-            <a href="#cta" className="btn btn--dark" style={{ marginTop: 26 }}>Составить план поступления →</a>
+            <span className="eyebrow">{T("cp.eduEyebrow")}</span>
+            <h2 className="cprof__edu-h">{T("cp.eduH")}</h2>
+            <p className="cprof__edu-text">{c.edu}</p>
+            <a href="#cta" className="btn btn--dark" style={{ marginTop: 26 }}>{T("cp.eduCta")}</a>
           </div>
           <div className="cprof__edu-stats" data-reveal data-delay="1">
             <div className="cprof__edu-stat">
               <b>{unis.length}</b>
-              <span>вузов-партнёров в каталоге</span>
+              <span>{T("cp.statUnis")}</span>
             </div>
             <div className="cprof__edu-stat">
-              <b>{det.facts["Учёба от"]}</b>
-              <span>стоимость обучения</span>
+              <b>{c.facts["Учёба от"]}</b>
+              <span>{T("cp.statCost")}</span>
             </div>
             <div className="cprof__edu-stat">
-              <b>{det.facts["Язык обучения"]}</b>
-              <span>язык программ</span>
+              <b>{c.facts["Язык обучения"]}</b>
+              <span>{T("cp.statLang")}</span>
             </div>
           </div>
         </div>
@@ -272,8 +286,8 @@ function CountryProfile() {
         <section className="section section--tight cprof-unis">
           <div className="wrap">
             <div className="section-head" data-reveal>
-              <span className="eyebrow">Топ вузов</span>
-              <h2>Лучшие университеты — {name}</h2>
+              <span className="eyebrow">{T("cp.topEyebrow")}</span>
+              <h2>{T("cp.topH")}{cn}</h2>
             </div>
             <div className="cprof__unis-grid">
               {top.map((u, i) => (
@@ -285,7 +299,7 @@ function CountryProfile() {
                   }
                   <div className="cprof__uni-info">
                     <div className="cprof__uni-name">{u.name}</div>
-                    <div className="cprof__uni-meta">{u.loc} · {fmt(u.price)}</div>
+                    <div className="cprof__uni-meta">{trCity(u.loc)} · {fmt(u.price)}</div>
                   </div>
                   {u.qs && <span className="cprof__uni-qs">QS #{u.qs}</span>}
                 </button>
@@ -293,7 +307,7 @@ function CountryProfile() {
             </div>
             <div className="cprof__unis-all">
               <a href="#cta" className="btn btn--ghost">
-                Все вузы — {name} ({unis.length}) →
+                {T("cp.allUnisPre")}{cn} ({unis.length}) →
               </a>
             </div>
           </div>
@@ -305,9 +319,9 @@ function CountryProfile() {
         <section className="section section--tight cprof-students">
           <div className="wrap">
             <div className="section-head" data-reveal>
-              <span className="eyebrow">Наши студенты</span>
-              <h2>Они уже учатся — {name}</h2>
-              <p>Реальные видео-отзывы студентов Elite Academy, которые поступили и учатся в стране {name}.</p>
+              <span className="eyebrow">{T("cp.studEyebrow")}</span>
+              <h2>{T("cp.studH")}{cn}</h2>
+              <p>{T("cp.studPa")}{cn}{T("cp.studPb")}</p>
             </div>
             <div className="cprof__students-grid">
               {students.map((v, i) => (
@@ -316,7 +330,7 @@ function CountryProfile() {
                   className="cprof__student"
                   data-reveal data-delay={(i % 4) + 1}
                   onClick={() => setActiveVid(v)}
-                  aria-label={`Видео-отзыв · ${v.name}`}
+                  aria-label={`${window.t("cp.vidReview")}${v.name}`}
                 >
                   <div className="cprof__student-media">
                     <img src={v.poster} alt={v.name} loading="lazy" />
