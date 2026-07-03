@@ -769,6 +769,18 @@ const STICKERS = [
   { key: "needBased",  label: "Грант",     cls: "sticker--grant", check: u => u.needBased },
 ];
 
+/* ---------- i18n helpers: translate RU catalog data to current language ---------- */
+const _catL = () => (window.__EA_LANG || "ru");
+const T_ = (k, fb) => (window.t ? window.t(k) : fb);
+const trCountry = c => T_("country." + c, c);
+const trType = t => T_("type." + t, t);
+const trField = f => T_("field." + f, f);
+const trCity = loc => (_catL() === "en" && (window.EA_CITY_EN || {})[loc]) ? window.EA_CITY_EN[loc] : loc;
+const _CAT_LVL_EN = { "Бакалавр": "Bachelor’s", "Магистр": "Master’s", "Колледж": "College", "Foundation": "Foundation", "PhD": "PhD" };
+const trLevel1 = s => { s = s.trim(); return _catL() === "en" ? (_CAT_LVL_EN[s] || s) : s; };
+const trLevels = lv => lv.split("·").map(trLevel1).join(" · ");
+const trSticker = key => T_(key === "meritBased" ? "uni.scholarship" : "uni.grant", key === "meritBased" ? "Стипендия" : "Грант");
+
 /* ---------- Reusable FilterSection ---------- */
 function FilterSection({ label, children }) {
   return (
@@ -871,13 +883,13 @@ function Universities() {
     <section className="section unis" id="universities">
       <div className="wrap">
         <div className="section-head" data-reveal>
-          <span className="eyebrow">Каталог</span>
-          <h2>База университетов</h2>
-          <p>В базе <b>{TOTAL_PROGRAMS}</b> программ в <b>{UNIS.length}</b> партнёрских вузах Elite Academy — отфильтруй под себя.</p>
+          <span className="eyebrow">{window.t("cat.eyebrow")}</span>
+          <h2>{window.t("cat.h2")}</h2>
+          <p>{window.t("cat.leadA")}<b>{TOTAL_PROGRAMS}</b>{window.t("cat.leadB")}<b>{UNIS.length}</b>{window.t("cat.leadC")}</p>
         </div>
 
         <div className="unis__hot" data-reveal>
-          Вузы, куда чаще всего поступают наши студенты — отмечены <span className="uni__star-inline">★</span>
+          {window.t("cat.hot")} <span className="uni__star-inline">★</span>
         </div>
 
         <div className="unis__layout">
@@ -885,7 +897,7 @@ function Universities() {
           {/* ====== FILTER SIDEBAR ====== */}
           <aside className="unis__filters card" data-reveal>
 
-            <FilterSection label="Страна">
+            <FilterSection label={window.t("cat.fCountry")}>
               <div className="filter__chips">
                 {ALL_COUNTRIES.map(c => (
                   <button key={c} className={"filter__chip" + (selCountries.includes(c) ? " is-on" : "")} onClick={() => toggle(selCountries, setCntrs, c)}>
@@ -893,32 +905,32 @@ function Universities() {
                       ? <img src={FLAG_URL(COUNTRY_ISO[c], "20x15")} alt={c} className="filter__flag" />
                       : null
                     }
-                    {c}
+                    {trCountry(c)}
                   </button>
                 ))}
               </div>
             </FilterSection>
 
-            <FilterSection label="Поиск по названию">
+            <FilterSection label={window.t("cat.fSearch")}>
               <div className="filter__search">
                 <svg width="16" height="16" viewBox="0 0 20 20"><circle cx="9" cy="9" r="6.2" stroke="currentColor" strokeWidth="1.8" fill="none"/><path d="M14 14l4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
-                <input value={q} onChange={e => setQ(e.target.value)} placeholder="Bocconi, Малайзия, IT…" />
+                <input value={q} onChange={e => setQ(e.target.value)} placeholder={window.t("cat.searchPh")} />
               </div>
             </FilterSection>
 
             <div className="filter__actions">
-              <button className="btn btn--ghost" onClick={reset}>Сбросить</button>
-              <span className="unis__count-sm">{progCount} прогр. · {list.length} вузов</span>
+              <button className="btn btn--ghost" onClick={reset}>{window.t("cat.reset")}</button>
+              <span className="unis__count-sm">{progCount}{window.t("cat.progShort")}{list.length}{window.t("cat.unisShort")}</span>
             </div>
           </aside>
 
           {/* ====== RESULTS ====== */}
           <div className="unis__results">
             <div className="unis__toolbar">
-              <span className="unis__count">Найдено <b>{progCount}</b> программ и <b>{list.length}</b> вузов</span>
+              <span className="unis__count">{window.t("cat.foundPre")}<b>{progCount}</b>{window.t("cat.foundMid")}<b>{list.length}</b>{window.t("cat.foundUnis")}</span>
               <div className="unis__sort">
-                <span>Сортировка:</span>
-                {[["pop","Elite выбор"],["rating","по рейтингу"]].map(([k,l]) => (
+                <span>{window.t("cat.sort")}</span>
+                {[["pop",window.t("cat.sortPop")],["rating",window.t("cat.sortRating")]].map(([k,l]) => (
                   <button key={k} className={sort === k ? "is-on" : ""} onClick={() => setSort(k)}>{l}</button>
                 ))}
               </div>
@@ -949,12 +961,12 @@ function Universities() {
                       {activeStickers.length > 0 && (
                         <div className="uni__stickers">
                           {activeStickers.map(s => (
-                            <span key={s.key} className={`uni__sticker ${s.cls}`}>{s.label}</span>
+                            <span key={s.key} className={`uni__sticker ${s.cls}`}>{trSticker(s.key)}</span>
                           ))}
                         </div>
                       )}
                       {/* Blue star for Elite unis */}
-                      {u.elite && <span className="uni__elite-star" title="Elite выбор">★</span>}
+                      {u.elite && <span className="uni__elite-star" title={window.t("cat.sortPop")}>★</span>}
                       {/* Country chip — flag + name in a clean frosted pill */}
                       {COUNTRY_ISO[u.country] && (
                         <span className="uni__country-chip">
@@ -964,7 +976,7 @@ function Universities() {
                             srcSet={`${FLAG_URL(COUNTRY_ISO[u.country], "80x60")} 2x`}
                             alt=""
                           />
-                          {u.country}
+                          {trCountry(u.country)}
                         </span>
                       )}
                     </div>
@@ -990,7 +1002,7 @@ function Universities() {
                         }
                         <button
                           className={"uni__save" + (saved[u.name] ? " is-on" : "")}
-                          aria-label="Сохранить"
+                          aria-label={window.t("cat.save")}
                           onClick={() => setSaved(s => ({...s, [u.name]: !s[u.name]}))}
                         >♡</button>
                       </div>
@@ -998,30 +1010,30 @@ function Universities() {
                       <h3 className="uni__name">{u.name}</h3>
                       <div className="uni__loc">
                         <svg className="uni__loc-ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                        {u.loc} · {u.country}
+                        {trCity(u.loc)} · {trCountry(u.country)}
                       </div>
 
                       <div className="uni__rows">
                         {u.qs && (
-                          <div className="uni__row"><span>QS рейтинг</span><b>#{u.qs}</b></div>
+                          <div className="uni__row"><span>{window.t("cat.qsRank")}</span><b>#{u.qs}</b></div>
                         )}
-                        <div className="uni__row"><span>{u.levels}</span></div>
+                        <div className="uni__row"><span>{trLevels(u.levels)}</span></div>
                       </div>
 
                       <div className="uni__tags">
                         <span className={"uni__type-tag uni__type-tag--" + (u.type === "Государственный" ? "gov" : "priv")}>
-                          {u.type}
+                          {trType(u.type)}
                         </span>
-                        <span className="uni__field-tag">{u.field}</span>
+                        <span className="uni__field-tag">{trField(u.field)}</span>
                       </div>
 
                       {(u.elite || u.financialAid) && (
                         <div className="uni__badges">
-                          {u.elite && <span className="uni__badge uni__badge--guar">✓ Гарантия поступления</span>}
-                          {u.financialAid && <span className="uni__badge uni__badge--schol">$ Стипендия в программах</span>}
+                          {u.elite && <span className="uni__badge uni__badge--guar">{window.t("cat.guar")}</span>}
+                          {u.financialAid && <span className="uni__badge uni__badge--schol">{window.t("cat.scholProg")}</span>}
                         </div>
                       )}
-                      <a href={`university.html?u=${encodeURIComponent(u.short)}`} className="btn btn--ghost btn--block uni__more">Подробнее →</a>
+                      <a href={`university.html?u=${encodeURIComponent(u.short)}`} className="btn btn--ghost btn--block uni__more">{window.t("cat.more")}</a>
                     </div>
                   </article>
                 );
@@ -1030,10 +1042,10 @@ function Universities() {
 
             {shown < list.length ? (
               <button className="btn btn--dark unis__load" onClick={() => setShown(s => s + 6)}>
-                Загрузить ещё ({list.length - shown} вузов)
+                {window.t("cat.loadMoreA")}{list.length - shown}{window.t("cat.loadMoreB")}
               </button>
             ) : list.length === 0 ? (
-              <div className="unis__empty">Ничего не нашлось — попробуй смягчить фильтры.</div>
+              <div className="unis__empty">{window.t("cat.empty")}</div>
             ) : null}
           </div>
         </div>
@@ -1054,16 +1066,16 @@ function UniSimpleCard({ u }) {
     <div className="unisc card card--lift" data-reveal>
       <div className="unisc__head">
         {flagSrc && <img src={flagSrc} alt={u.country} className="unisc__flag" />}
-        <span className="unisc__country">{u.country}</span>
-        {u.elite && <span className="unisc__star" title="Топ-выбор наших студентов">★</span>}
+        <span className="unisc__country">{trCountry(u.country)}</span>
+        {u.elite && <span className="unisc__star" title={window.t("cat.topPick")}>★</span>}
       </div>
       <h3 className="unisc__name">{u.name}</h3>
-      <p className="unisc__loc">📍 {u.loc}</p>
+      <p className="unisc__loc">📍 {trCity(u.loc)}</p>
       <div className="unisc__tags">
-        <span className="unisc__tag unisc__tag--field">{u.field}</span>
-        <span className="unisc__tag unisc__tag--level">{u.levels.split("·")[0].trim()}</span>
+        <span className="unisc__tag unisc__tag--field">{trField(u.field)}</span>
+        <span className="unisc__tag unisc__tag--level">{trLevel1(u.levels.split("·")[0])}</span>
       </div>
-      <a href={`university.html?u=${encodeURIComponent(u.short)}`} className="btn btn--ghost btn--block" style={{marginTop:12}}>Подробнее →</a>
+      <a href={`university.html?u=${encodeURIComponent(u.short)}`} className="btn btn--ghost btn--block" style={{marginTop:12}}>{window.t("cat.more")}</a>
     </div>
   );
 }
@@ -1104,9 +1116,9 @@ function UniversitiesSimple() {
     <section className="section unis-simple" id="universities">
       <div className="wrap">
         <div className="section-head" data-reveal>
-          <span className="eyebrow">Партнёрские вузы</span>
-          <h2>Университеты, куда мы помогаем поступить</h2>
-          <p>Более <b>{UNIS.length}</b> партнёрских вузов в США, Европе и Азии — на все уровни и направления.</p>
+          <span className="eyebrow">{window.t("cat.s.eyebrow")}</span>
+          <h2>{window.t("cat.s.h2")}</h2>
+          <p>{window.t("cat.s.leadA")}<b>{UNIS.length}</b>{window.t("cat.s.leadB")}</p>
         </div>
 
         {/* Search + country filter */}
@@ -1116,12 +1128,12 @@ function UniversitiesSimple() {
             <input
               className="unis-simple__search"
               type="text"
-              placeholder="Поиск по названию вуза..."
+              placeholder={window.t("cat.s.searchPh")}
               value={query}
               onChange={handleQuery}
             />
             {query && (
-              <button className="unis-simple__search-clear" onClick={() => { setQuery(""); setShown(PER_PAGE); }} aria-label="Очистить">✕</button>
+              <button className="unis-simple__search-clear" onClick={() => { setQuery(""); setShown(PER_PAGE); }} aria-label={window.t("cat.clear")}>✕</button>
             )}
           </div>
           <div className="unis-simple__countries">
@@ -1130,20 +1142,20 @@ function UniversitiesSimple() {
                 key={c}
                 className={"unis-simple__ctag" + (country === c ? " is-active" : "")}
                 onClick={() => handleCountry(c)}
-              >{c}</button>
+              >{c === "Все" ? window.t("cat.all") : trCountry(c)}</button>
             ))}
           </div>
         </div>
 
         {filtered.length === 0 ? (
           <div className="unis-simple__empty" data-reveal>
-            <p>Вузы не найдены. Попробуйте другой запрос.</p>
-            <button className="btn btn--outline" onClick={() => { setQuery(""); setCountry("Все"); }}>Сбросить фильтры</button>
+            <p>{window.t("cat.s.notFound")}</p>
+            <button className="btn btn--outline" onClick={() => { setQuery(""); setCountry("Все"); }}>{window.t("cat.resetFilters")}</button>
           </div>
         ) : (
           <>
             {isFiltering && (
-              <p className="unis-simple__count" data-reveal>Найдено: <b>{filtered.length}</b> вузов</p>
+              <p className="unis-simple__count" data-reveal>{window.t("cat.s.foundPre")}<b>{filtered.length}</b>{window.t("cat.s.foundUnis")}</p>
             )}
             <div className="unis-simple__grid">
               {filtered.slice(0, shown).map(u => <UniSimpleCard key={u.name} u={u} />)}
@@ -1151,7 +1163,7 @@ function UniversitiesSimple() {
             {shown < filtered.length && (
               <div className="unis-simple__more" data-reveal>
                 <button className="btn btn--outline" onClick={() => setShown(s => s + PER_PAGE)}>
-                  Показать ещё ({filtered.length - shown} вузов)
+                  {window.t("cat.s.showMoreA")}{filtered.length - shown}{window.t("cat.s.showMoreB")}
                 </button>
               </div>
             )}
