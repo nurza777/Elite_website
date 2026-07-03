@@ -259,7 +259,7 @@ function CareersCorp() {
           <button
             onClick={closeLightbox}
             style={{position:"absolute",top:20,right:28,background:"none",border:"none",color:"#fff",fontSize:36,lineHeight:1,cursor:"pointer",padding:0}}
-            aria-label="Закрыть"
+            aria-label={window.__EA_LANG === "en" ? "Close" : window.__EA_LANG === "kg" ? "Жабуу" : "Закрыть"}
           >✕</button>
           <img
             src={lightbox}
@@ -355,7 +355,7 @@ function CareersCTA() {
             <div className="careers-apply__fields">
               <div className="careers-apply__field">
                 <label>{t("careers.apply.f.name")}</label>
-                <input type="text" placeholder="Иванов Иван Иванович" value={name} onChange={e => setName(e.target.value)} required />
+                <input type="text" placeholder={window.__EA_LANG === "en" ? "Full name" : window.__EA_LANG === "kg" ? "Толук аты-жөнүңүз" : "Иванов Иван Иванович"} value={name} onChange={e => setName(e.target.value)} required />
               </div>
               <div className="careers-apply__field">
                 <label>{t("careers.apply.f.phone")}</label>

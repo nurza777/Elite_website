@@ -274,7 +274,7 @@ function QuizResult({ ans, done, setDone, restart }) {
         {matches.map((m, i) => (
           <div className="quiz__match" key={i}>
             <div className="quiz__match-lock" aria-hidden="true">🔒</div>
-            <div className="ph quiz__match-logo" data-label="лого"></div>
+            <div className="ph quiz__match-logo" data-label={window.__EA_LANG === "en" ? "logo" : window.__EA_LANG === "kg" ? "логотип" : "лого"}></div>
             <div className="quiz__match-info">
               <div className="quiz__match-name">{m.name}</div>
               <div className="quiz__match-loc">{m.loc}</div>

@@ -2,6 +2,8 @@
    TRUST BAR (marquee) · PAIN→SOLUTION · COUNTRIES
    ============================================================ */
 const { useState } = React;
+const _PPL = (window.__EA_LANG || "ru");
+const _ppp = (ru, en, kg) => _PPL === "en" ? en : _PPL === "kg" ? kg : ru;
 
 const UNI_LOGOS = [
   /* Italy */
@@ -128,33 +130,33 @@ function TrustBar() {
 
 const PAIN_ITEMS = [
   {
-    title: "Мы рядом на каждом этапе",
-    body: "За каждым студентом закрепляется персональный ментор, который сопровождает его на каждом этапе: помогает принимать важные решения, отвечает на вопросы, напоминает о дедлайнах и всегда остается на связи. Вы никогда не останетесь один на пути к университету своей мечты.",
+    title: _ppp("Мы рядом на каждом этапе", "We’re with you at every step", "Ар бир этапта жаныңдабыз"),
+    body: _ppp("За каждым студентом закрепляется персональный ментор, который сопровождает его на каждом этапе: помогает принимать важные решения, отвечает на вопросы, напоминает о дедлайнах и всегда остается на связи. Вы никогда не останетесь один на пути к университету своей мечты.", "Each student is assigned a personal mentor who accompanies them at every stage: helps make important decisions, answers questions, reminds about deadlines and always stays in touch. You’ll never be alone on the way to your dream university.", "Ар бир студентке жеке ментор бекитилет, ал ар бир этапта коштойт: маанилүү чечимдерди кабыл алууга жардам берет, суроолорго жооп берет, дедлайндарды эскертет жана дайыма байланышта болот. Кыялыңдагы университетке жолдо эч качан жалгыз калбайсың."),
     photo: "images/about1.jpg",
   },
   {
-    title: "Работаем с лучшими университетами мира",
-    body: "Мы сотрудничаем с ведущими государственными и частными университетами. Высокие требования и сложный конкурс для нас — не препятствие, а возможность открыть для вас двери в университет мечты.",
+    title: _ppp("Работаем с лучшими университетами мира", "We work with the world’s best universities", "Дүйнөнүн мыкты университеттери менен иштейбиз"),
+    body: _ppp("Мы сотрудничаем с ведущими государственными и частными университетами. Высокие требования и сложный конкурс для нас — не препятствие, а возможность открыть для вас двери в университет мечты.", "We partner with leading public and private universities. High requirements and tough competition aren’t an obstacle for us but an opportunity to open the doors of your dream university.", "Биз алдыңкы мамлекеттик жана жеке университеттер менен кызматташабыз. Жогорку талаптар жана татаал конкурс биз үчүн тоскоолдук эмес, кыялыңдагы университеттин эшигин ачуу мүмкүнчүлүгү."),
     photo: "images/about2.jpg",
   },
   {
-    title: "Максимально повышаем ваши шансы на поступление",
-    body: "Мы не оставляем успех на волю случая. Наши эксперты подбирают сразу несколько университетов и программ, учитывая ваши оценки, цели и бюджет. Благодаря этому практически каждый наш студент получает приглашение на обучение.",
+    title: _ppp("Максимально повышаем ваши шансы на поступление", "We maximise your chances of admission", "Тапшыруу мүмкүнчүлүгүңдү максималдуу жогорулатабыз"),
+    body: _ppp("Мы не оставляем успех на волю случая. Наши эксперты подбирают сразу несколько университетов и программ, учитывая ваши оценки, цели и бюджет. Благодаря этому практически каждый наш студент получает приглашение на обучение.", "We don’t leave success to chance. Our experts select several universities and programs at once, taking into account your grades, goals and budget. Thanks to this, almost every one of our students receives an admission offer.", "Биз ийгиликти кокустукка калтырбайбыз. Биздин эксперттер бааларыңды, максаттарыңды жана бюджетиңди эске алып, бир нече университетти жана программаны тандашат. Ушунун аркасында биздин ар бир студент дээрлик окууга чакыруу алат."),
     photo: "images/about3.jpg",
   },
   {
-    title: "Более 5 лет успешного опыта",
-    body: "За годы работы мы помогли более 1500 студентам поступить за границу и накопили огромный практический опыт. Мы знаем весь процесс изнутри: требования университетов, нюансы подачи документов, особенности получения визы и умеем находить решение даже в самых непростых ситуациях.",
+    title: _ppp("Более 5 лет успешного опыта", "Over 5 years of successful experience", "5 жылдан ашык ийгиликтүү тажрыйба"),
+    body: _ppp("За годы работы мы помогли более 1500 студентам поступить за границу и накопили огромный практический опыт. Мы знаем весь процесс изнутри: требования университетов, нюансы подачи документов, особенности получения визы и умеем находить решение даже в самых непростых ситуациях.", "Over the years we’ve helped more than 1500 students enrol abroad and gathered huge practical experience. We know the whole process from the inside: university requirements, the nuances of filing documents, the specifics of getting a visa — and we can find a solution even in the trickiest situations.", "Жылдар бою биз 1500дөн ашык студентке чет өлкөгө тапшырууга жардам бердик жана эбегейсиз практикалык тажрыйба топтодук. Биз бүт процессти ичинен билебиз: университеттердин талаптары, документ тапшыруунун нюанстары, виза алуунун өзгөчөлүктөрү — жана эң татаал кырдаалдарда да чечим таба алабыз."),
     photo: "images/about1.jpg",
   },
   {
-    title: "Дополнительные привилегии для наших студентов",
-    body: "При полном сопровождении мы подаем документы не только на поступление, но и на внутренние стипендии университетов и максимально возможные скидки. Это позволяет нашим студентам значительно сократить расходы на обучение.",
+    title: _ppp("Дополнительные привилегии для наших студентов", "Extra perks for our students", "Биздин студенттер үчүн кошумча артыкчылыктар"),
+    body: _ppp("При полном сопровождении мы подаем документы не только на поступление, но и на внутренние стипендии университетов и максимально возможные скидки. Это позволяет нашим студентам значительно сократить расходы на обучение.", "With full support we submit documents not only for admission but also for universities’ internal scholarships and the maximum possible discounts. This lets our students significantly cut their tuition costs.", "Толук коштоо менен биз документтерди тапшырууга гана эмес, университеттердин ички стипендияларына жана мүмкүн болгон эң жогорку арзандатууларга да беребиз. Бул биздин студенттерге окуу чыгымдарын бир топ кыскартууга мүмкүнчүлүк берет."),
     photo: "images/about2.jpg",
   },
   {
-    title: "Экономим ваше время, деньги и нервы",
-    body: "Услуги агентства — это инвестиция. В ваше спокойствие и уверенность. Мы изучаем все требования, дедлайны и даем вам четкую стратегию, по которой будем идти вместе с вами.",
+    title: _ppp("Экономим ваше время, деньги и нервы", "We save your time, money and nerves", "Убактыңды, акчаңды жана нервиңди үнөмдөйбүз"),
+    body: _ppp("Услуги агентства — это инвестиция. В ваше спокойствие и уверенность. Мы изучаем все требования, дедлайны и даем вам четкую стратегию, по которой будем идти вместе с вами.", "An agency’s services are an investment — in your peace of mind and confidence. We study all the requirements and deadlines and give you a clear strategy that we’ll follow together with you.", "Агенттиктин кызматтары — инвестиция. Сенин тынчтыгыңа жана ишенимиңе. Биз бардык талаптарды жана дедлайндарды изилдеп, сага так стратегия беребиз, аны сени менен чогуу ээрчийбиз."),
     photo: "images/about3.jpg",
   },
 ];
@@ -165,8 +167,8 @@ function PainSolution() {
     <section className="section pain">
       <div className="wrap">
         <div className="section-head" data-reveal>
-          <span className="eyebrow">Почему Elite Academy</span>
-          <h2>Не просто агентство —<br/><span className="text-blue">твоя команда поступления</span></h2>
+          <span className="eyebrow">{_ppp("Почему Elite Academy", "Why Elite Academy", "Эмне үчүн Elite Academy")}</span>
+          <h2>{_ppp("Не просто агентство —", "Not just an agency —", "Жөн гана агенттик эмес —")}<br/><span className="text-blue">{_ppp("твоя команда поступления", "your admission team", "сенин тапшыруу командаң")}</span></h2>
         </div>
 
         <div className="pain__accordion-wrap">
@@ -194,7 +196,7 @@ function PainSolution() {
                 </div>
               </div>
             ))}
-            <a href="#cta" className="btn btn--gold pain__acc-cta">Начать бесплатную консультацию →</a>
+            <a href="#cta" className="btn btn--gold pain__acc-cta">{_ppp("Начать бесплатную консультацию →", "Start a free consultation →", "Акысыз консультацияны баштоо →")}</a>
           </div>
 
           <div className="pain__photo-panel">
