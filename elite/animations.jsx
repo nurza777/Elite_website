@@ -152,13 +152,13 @@ function ScrollRail({ children, trackClass = "", loop = false, step = 320, copie
 
   return (
     <div className="srail">
-      <button type="button" className="srail__arrow srail__arrow--prev" onClick={() => scroll(-1)} aria-label="Назад">
+      <button type="button" className="srail__arrow srail__arrow--prev" onClick={() => scroll(-1)} aria-label={window.__EA_LANG === "en" ? "Back" : window.__EA_LANG === "kg" ? "Артка" : "Назад"}>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
       <div className={"srail__track " + trackClass} ref={ref}>
         {items}
       </div>
-      <button type="button" className="srail__arrow srail__arrow--next" onClick={() => scroll(1)} aria-label="Вперёд">
+      <button type="button" className="srail__arrow srail__arrow--next" onClick={() => scroll(1)} aria-label={window.__EA_LANG === "en" ? "Next" : window.__EA_LANG === "kg" ? "Алдыга" : "Вперёд"}>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
     </div>
