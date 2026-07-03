@@ -12,13 +12,13 @@ function uniSlug(short) {
   return short.toLowerCase().replace(/[^a-z0-9]+/g, "");
 }
 
-const GALLERY_LABELS = ["Кампус", "Учебные корпуса", "Общежитие", "Студенческая жизнь"];
+const GALLERY_LABELS = [window.t("uni.gal.campus"), window.t("uni.gal.buildings"), window.t("uni.gal.dorm"), window.t("uni.gal.life")];
 
 function GalleryTile({ src, fallback, label, big }) {
   const [stage, setStage] = useState(0); // 0 = src, 1 = fallback, 2 = placeholder
   const cls = "uprof__tile" + (big ? " uprof__tile--big" : "");
   if (stage === 2 || (stage === 1 && !fallback)) {
-    return <div className={cls + " ph"} data-label={"фото · " + label.toLowerCase()}></div>;
+    return <div className={cls + " ph"} data-label={window.t("uni.photoOf") + label.toLowerCase()}></div>;
   }
   return (
     <div className={cls}>
@@ -36,7 +36,7 @@ function TourVideo({ slug }) {
 
   if (missing) {
     return (
-      <div className="uprof__tour ph ph--dark" data-label="видео-тур по кампусу · скоро здесь">
+      <div className="uprof__tour ph ph--dark" data-label={window.t("uni.tourSoon")}>
         <span className="uprof__tour-play" aria-hidden="true">▶</span>
       </div>
     );
@@ -87,9 +87,9 @@ function UniversityProfile() {
     return (
       <section className="section uprof-missing">
         <div className="wrap" style={{ textAlign: "center" }}>
-          <h1>Университет не найден</h1>
-          <p style={{ marginTop: 14, color: "var(--muted)" }}>Возможно, ссылка устарела.</p>
-          <a href="universities.html" className="btn btn--dark" style={{ marginTop: 26 }}>← Вернуться в каталог</a>
+          <h1>{window.t("uni.notFound")}</h1>
+          <p style={{ marginTop: 14, color: "var(--muted)" }}>{window.t("uni.notFoundSub")}</p>
+          <a href="universities.html" className="btn btn--dark" style={{ marginTop: 26 }}>{window.t("uni.back")}</a>
         </div>
       </section>
     );
@@ -108,16 +108,34 @@ function UniversityProfile() {
   const similar = UNIS.filter((x) => x.country === u.country && x.short !== u.short).slice(0, 3);
   const det = (window.EA_UNI_DETAILS || {})[u.short];
 
-  /* Rich "about" text — uses curated details when available, otherwise built from the uni's data */
-  const typeLc = u.type === "Государственный" ? "государственный" : "частный";
-  const aboutMain = (det && det.about)
-    ? det.about
-    : `${u.name} — ${typeLc} университет в городе ${u.loc} (${u.country}) и официальный вуз-партнёр Elite Academy по направлению «${u.field}». ` +
-      `Здесь доступны программы уровня ${u.levels.toLowerCase()}${u.qs ? `, а сам вуз входит в мировой рейтинг QS на позиции #${u.qs}` : ""}.`;
-  const aboutExtra = `Мы сопровождаем поступление под ключ: подбираем программу под твой профиль, готовим документы и мотивационное письмо, ` +
-    `помогаем с языковым тестом и студенческой визой. ` +
-    `${u.dormitory ? "У вуза есть студенческое общежитие. " : ""}` +
-    `${(u.meritBased || u.needBased) ? "Для иностранных студентов доступны стипендии и гранты." : "Расскажем о доступных стипендиях и скидках для иностранных студентов."}`;
+  /* Rich "about" text — curated per-language when available, otherwise a localized template */
+  const L = window.__EA_LANG || "ru";
+  const detTr = L === "en" ? (window.EA_UNI_DETAILS_EN || {})[u.short]
+              : L === "kg" ? (window.EA_UNI_DETAILS_KG || {})[u.short]
+              : null;
+  const countryTr = window.t("country." + u.country);
+  const typeLc = u.type === "Государственный"
+    ? (L === "en" ? "public" : L === "kg" ? "мамлекеттик" : "государственный")
+    : (L === "en" ? "private" : L === "kg" ? "жеке" : "частный");
+  const fieldEn = { "IT": "IT", "Бизнес": "Business", "Дизайн": "Design", "Инженерия": "Engineering", "Медицина": "Medicine", "Педагогика": "Education", "Право": "Law", "Экономика": "Economics" };
+  const levelEn = { "Бакалавр": "Bachelor’s", "Магистр": "Master’s", "Колледж": "College", "Foundation": "Foundation", "PhD": "PhD" };
+  const fieldTr = fieldEn[u.field] || u.field;
+  const levelsEn = u.levels.split("·").map(function (s) { s = s.trim(); return levelEn[s] || s; }).join(" · ");
+  const genAbout =
+    L === "en"
+      ? `${u.name} is a ${typeLc} university in ${u.loc} (${countryTr}) and an official partner university of Elite Academy in ${fieldTr}. Programs available: ${levelsEn}${u.qs ? `. It ranks #${u.qs} in the QS World University Rankings` : ""}.`
+      : L === "kg"
+      ? `${u.name} — ${u.loc} шаарындагы (${countryTr}) ${typeLc} университет жана Elite Academy'нин расмий өнөктөш вузу. Бул жерде ${u.levels.toLowerCase()} деңгээлиндеги программалар бар${u.qs ? `, ал эми вуз QS дүйнөлүк рейтингинде #${u.qs} ордунда турат` : ""}.`
+      : `${u.name} — ${typeLc} университет в городе ${u.loc} (${countryTr}) и официальный вуз-партнёр Elite Academy по направлению «${u.field}». Здесь доступны программы уровня ${u.levels.toLowerCase()}${u.qs ? `, а сам вуз входит в мировой рейтинг QS на позиции #${u.qs}` : ""}.`;
+  const aboutMain = (detTr && detTr.about) ? detTr.about
+    : (L === "ru" && det && det.about) ? det.about
+    : genAbout;
+  const aboutExtra =
+    L === "en"
+      ? `We guide your admission end-to-end: we match a program to your profile, prepare documents and a motivation letter, and help with the language test and student visa. ${u.dormitory ? "The university has a student dormitory. " : ""}${(u.meritBased || u.needBased) ? "Scholarships and grants are available for international students." : "We’ll tell you about available scholarships and discounts for international students."}`
+      : L === "kg"
+      ? `Биз тапшырууну башынан аягына чейин коштойбуз: программаны профилиңе ылайыктайбыз, документтерди жана мотивациялык катты даярдайбыз, тил тести жана студенттик виза менен жардам беребиз. ${u.dormitory ? "Вуздун студенттик жатаканасы бар. " : ""}${(u.meritBased || u.needBased) ? "Чет элдик студенттер үчүн стипендиялар жана гранттар бар." : "Чет элдик студенттер үчүн стипендиялар жана арзандатуулар жөнүндө айтып беребиз."}`
+      : `Мы сопровождаем поступление под ключ: подбираем программу под твой профиль, готовим документы и мотивационное письмо, помогаем с языковым тестом и студенческой визой. ${u.dormitory ? "У вуза есть студенческое общежитие. " : ""}${(u.meritBased || u.needBased) ? "Для иностранных студентов доступны стипендии и гранты." : "Расскажем о доступных стипендиях и скидках для иностранных студентов."}`;
 
   return (
     <>
@@ -125,8 +143,8 @@ function UniversityProfile() {
       <section className="uprof-hero grain" style={{ "--uprof-bg": palette }}>
         <div className="uprof-hero__mesh" aria-hidden="true"></div>
         <div className="wrap">
-          <nav className="uprof__crumbs" aria-label="Хлебные крошки">
-            <a href="universities.html">Каталог</a>
+          <nav className="uprof__crumbs" aria-label="breadcrumbs">
+            <a href="universities.html">{window.t("uni.catalog")}</a>
             <span>/</span>
             <a href={`universities.html?country=${encodeURIComponent(u.country)}`}>{u.country}</a>
           </nav>
@@ -148,7 +166,7 @@ function UniversityProfile() {
                   {u.itRank && <span className="uprof__chip uprof__chip--qs">IT #{u.itRank}</span>}
                   <span className="uprof__chip">{u.type}</span>
                   <span className="uprof__chip">{u.field}</span>
-                  {u.elite && <span className="uprof__chip uprof__chip--elite">★ Elite выбор</span>}
+                  {u.elite && <span className="uprof__chip uprof__chip--elite">{window.t("uni.eliteChoice")}</span>}
                 </div>
               </div>
             </div>
@@ -156,12 +174,12 @@ function UniversityProfile() {
             <div className="uprof-hero__aside card">
               {(u.meritBased || u.needBased) && (
                 <div className="uprof__schol">
-                  {u.meritBased && <span className="uprof__schol-tag">Стипендия</span>}
-                  {u.needBased && <span className="uprof__schol-tag uprof__schol-tag--grant">Грант</span>}
+                  {u.meritBased && <span className="uprof__schol-tag">{window.t("uni.scholarship")}</span>}
+                  {u.needBased && <span className="uprof__schol-tag uprof__schol-tag--grant">{window.t("uni.grant")}</span>}
                 </div>
               )}
-              <a href="#cta" className="btn btn--gold btn--block">Поступить с Elite →</a>
-              <div className="uprof__aside-micro">Бесплатная консультация · план поступления</div>
+              <a href="#cta" className="btn btn--gold btn--block">{window.t("uni.applyCta")}</a>
+              <div className="uprof__aside-micro">{window.t("uni.applyMicro")}</div>
             </div>
           </div>
         </div>
@@ -194,8 +212,8 @@ function UniversityProfile() {
         <div className="wrap">
           <div className="uprof__about-grid">
             <div className="uprof__about-main">
-              <span className="eyebrow">Об университете</span>
-              <h2 className="uprof__about-h">Коротко о вузе</h2>
+              <span className="eyebrow">{window.t("uni.aboutEyebrow")}</span>
+              <h2 className="uprof__about-h">{window.t("uni.aboutH")}</h2>
               <p className="uprof__about-text">{aboutMain}</p>
               <p className="uprof__about-text uprof__about-text--muted">{aboutExtra}</p>
             </div>
@@ -207,12 +225,12 @@ function UniversityProfile() {
       <section className="section section--tight uprof-map" id="map">
         <div className="wrap">
           <div className="section-head" data-reveal>
-            <span className="eyebrow">Расположение</span>
-            <h2>Посмотри, где будешь учиться</h2>
+            <span className="eyebrow">{window.t("uni.locEyebrow")}</span>
+            <h2>{window.t("uni.locH")}</h2>
           </div>
           <div className="uprof__map card" data-reveal>
             <iframe
-              title={`${u.name} на карте`}
+              title={`${u.name} — ${window.t("uni.onMap")}`}
               src={`https://www.google.com/maps?q=${mapQuery}&output=embed&hl=ru`}
               loading="lazy"
               allowFullScreen
@@ -223,7 +241,7 @@ function UniversityProfile() {
             className="uprof__map-link"
             href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
             target="_blank" rel="noopener"
-          >Открыть в Google Maps →</a>
+          >{window.t("uni.openMaps")}</a>
         </div>
       </section>
 
@@ -231,8 +249,8 @@ function UniversityProfile() {
       <section className="section section--tight uprof-tour">
         <div className="wrap">
           <div className="section-head" data-reveal>
-            <span className="eyebrow">Видео-тур</span>
-            <h2>Прогуляйся по кампусу, не выходя из дома</h2>
+            <span className="eyebrow">{window.t("uni.tourEyebrow")}</span>
+            <h2>{window.t("uni.tourH")}</h2>
           </div>
           <div data-reveal>
             <TourVideo slug={slug} />
@@ -245,8 +263,8 @@ function UniversityProfile() {
         <section className="section section--tight uprof-similar">
           <div className="wrap">
             <div className="section-head" data-reveal>
-              <span className="eyebrow">Похожие</span>
-              <h2>Ещё университеты — {u.country}</h2>
+              <span className="eyebrow">{window.t("uni.similarEyebrow")}</span>
+              <h2>{window.t("uni.similarH")}{window.t("country." + u.country)}</h2>
             </div>
             <div className="uprof__sim-grid">
               {similar.map((s) => (
