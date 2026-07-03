@@ -8,7 +8,7 @@ const CAREERS_DEFAULT = {
   heroPhoto: "",
   deptPhotos: { marketing: "", sales: "", admission: "" },
   corpPhotos: ["images/corp1.jpg", "images/corp2.jpg"],
-  applyUrl: "#",
+  applyUrl: "#apply",
 };
 const CAREERS_DATA = window.eaContent ? window.eaContent("careers", CAREERS_DEFAULT) : CAREERS_DEFAULT;
 window.EA_CAREERS = CAREERS_DATA;

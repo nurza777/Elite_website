@@ -244,8 +244,8 @@
   padding: 8px 18px; border-radius: 99px; font-size: .95rem;
 }
 .careers-corp__gallery {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 12px; margin: 32px 0 16px;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 16px; margin: 32px 0 16px;
 }
 .careers-corp__photo { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 12px; }
 .careers-corp__gallery-ph {
