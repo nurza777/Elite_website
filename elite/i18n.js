@@ -438,6 +438,17 @@
       'uni.gal.dorm': 'Общежитие',
       'uni.gal.life': 'Студенческая жизнь',
       'uni.photoOf': 'фото · ',
+      /* type + field (chips) */
+      'type.Государственный': 'Государственный',
+      'type.Частный': 'Частный',
+      'field.IT': 'IT',
+      'field.Бизнес': 'Бизнес',
+      'field.Дизайн': 'Дизайн',
+      'field.Инженерия': 'Инженерия',
+      'field.Медицина': 'Медицина',
+      'field.Педагогика': 'Педагогика',
+      'field.Право': 'Право',
+      'field.Экономика': 'Экономика',
     },
     en: {
       /* NAV */
@@ -866,6 +877,17 @@
       'uni.gal.dorm': 'Dormitory',
       'uni.gal.life': 'Student life',
       'uni.photoOf': 'photo · ',
+      /* type + field (chips) */
+      'type.Государственный': 'Public',
+      'type.Частный': 'Private',
+      'field.IT': 'IT',
+      'field.Бизнес': 'Business',
+      'field.Дизайн': 'Design',
+      'field.Инженерия': 'Engineering',
+      'field.Медицина': 'Medicine',
+      'field.Педагогика': 'Education',
+      'field.Право': 'Law',
+      'field.Экономика': 'Economics',
     },
     kg: {
       /* NAV */
@@ -1294,6 +1316,17 @@
       'uni.gal.dorm': 'Жатакана',
       'uni.gal.life': 'Студенттик жашоо',
       'uni.photoOf': 'сүрөт · ',
+      /* type + field (chips) */
+      'type.Государственный': 'Мамлекеттик',
+      'type.Частный': 'Жеке',
+      'field.IT': 'IT',
+      'field.Бизнес': 'Бизнес',
+      'field.Дизайн': 'Дизайн',
+      'field.Инженерия': 'Инженерия',
+      'field.Медицина': 'Медицина',
+      'field.Педагогика': 'Педагогика',
+      'field.Право': 'Укук',
+      'field.Экономика': 'Экономика',
     }
   };
 

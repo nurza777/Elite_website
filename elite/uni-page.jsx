@@ -110,6 +110,7 @@ function UniversityProfile() {
 
   /* Rich "about" text — curated per-language when available, otherwise a localized template */
   const L = window.__EA_LANG || "ru";
+  const cityTr = (loc) => (L === "en" && (window.EA_CITY_EN || {})[loc]) ? window.EA_CITY_EN[loc] : loc;
   const detTr = L === "en" ? (window.EA_UNI_DETAILS_EN || {})[u.short]
               : L === "kg" ? (window.EA_UNI_DETAILS_KG || {})[u.short]
               : null;
@@ -159,13 +160,13 @@ function UniversityProfile() {
                 <h1 className="uprof__name">{u.name}</h1>
                 <div className="uprof__loc">
                   {iso && <img src={window.EA_FLAG_URL(iso, "20x15")} alt={u.country} />}
-                  {u.loc} · {u.country}
+                  {cityTr(u.loc)} · {window.t("country." + u.country)}
                 </div>
                 <div className="uprof__chips">
                   {u.qs && <span className="uprof__chip uprof__chip--qs">QS #{u.qs}</span>}
                   {u.itRank && <span className="uprof__chip uprof__chip--qs">IT #{u.itRank}</span>}
-                  <span className="uprof__chip">{u.type}</span>
-                  <span className="uprof__chip">{u.field}</span>
+                  <span className="uprof__chip">{window.t("type." + u.type)}</span>
+                  <span className="uprof__chip">{window.t("field." + u.field)}</span>
                   {u.elite && <span className="uprof__chip uprof__chip--elite">{window.t("uni.eliteChoice")}</span>}
                 </div>
               </div>
@@ -275,7 +276,7 @@ function UniversityProfile() {
                   }
                   <div className="uprof__sim-info">
                     <div className="uprof__sim-name">{s.name}</div>
-                    <div className="uprof__sim-meta">{s.loc} · {s.country}</div>
+                    <div className="uprof__sim-meta">{cityTr(s.loc)} · {window.t("country." + s.country)}</div>
                   </div>
                   <span className="uprof__sim-arr">→</span>
                 </a>
