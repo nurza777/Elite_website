@@ -183,4 +183,59 @@ var EA_UNI_DETAILS_EN = {
   "CentralMeth": { about: "A Methodist university in Fayette, Missouri. One of the most affordable private schools in the US; strong in education, business and business communication; athletic scholarships." },
   "AuburnMont": { about: "An Auburn University campus in Alabama’s capital, Montgomery. Public-university prices with the Auburn brand degree; strong in business, law and education." },
   "Brescia":   { about: "A small Catholic university in Owensboro, Kentucky. One of the cheapest private schools in the US; strong in psychology, social work and education." },
+
+  /* ========== NORTH CYPRUS ========== */
+  "EMU": { about: "The oldest and largest university in North Cyprus — the only one from the region in the world rankings. Students from 100+ countries, taught in English." },
+  "EUL": { about: "A university in the green town of Lefke with a cozy campus and low cost of living. Engineering, business and health sciences in English." },
+  "CIU": { about: "A modern campus university near Nicosia. Medicine, pharmacy and engineering; its own clinic and generous tuition discounts for international students." },
+
+  /* ========== MALAYSIA ========== */
+  "Monash":    { about: "The Malaysian campus of Australia’s Monash — a world top-50 university. The degree is identical to the Australian one at a fraction of the cost; strong in engineering and medicine." },
+  "UNM":       { about: "The first overseas campus of a British university in Malaysia. A Nottingham degree (world top-100) at significantly lower cost; a green campus near Kuala Lumpur." },
+  "USMalaysia": { about: "The Malaysian campus of the University of Southampton (world top-100), specialising in engineering. A 2+2 format: half the study in Malaysia, half in the UK." },
+  "HWU":       { about: "The Putrajaya campus of Scotland’s Heriot-Watt, with a green lakeside campus. A British degree in engineering, business and actuarial science." },
+  "Sunway":    { about: "One of Malaysia’s leading private universities within the Sunway City education town. A partnership with Lancaster University — a dual British degree." },
+  "Taylor's":  { about: "The #1 private university in Southeast Asia (QS, among non-subsidised schools). A world-famous school of hospitality and culinary arts, and strong business." },
+  "APU":       { about: "A technology university in Kuala Lumpur with students from 130+ countries. Strong in IT, cybersecurity and game design; a futuristic campus in Technology Park." },
+  "HELP":      { about: "A university in Kuala Lumpur known for psychology and business. Dual-degree programs with universities in the UK and Australia." },
+  "INTI":      { about: "A network of campuses across Malaysia with American and British transfer programs. Partnerships with hundreds of employers; practice built into study." },
+  "IIUM":      { about: "The International Islamic University Malaysia — a public school taught in English. Strong in law, economics and engineering; students from across the Muslim world." },
+  "IMU":       { about: "Malaysia’s first private medical university. Medicine, dentistry, pharmacy; the option to transfer to partner medical schools in the UK and Australia." },
+  "MMU":       { about: "The country’s first private university, created to train the ‘Malaysian Silicon Valley’. Strong in IT, engineering and creative media." },
+  "UTP":       { about: "The university of oil-and-gas giant PETRONAS — one of Southeast Asia’s strongest engineering schools. A modern campus; graduates are snapped up by energy companies." },
+  "UTAR":      { about: "A non-profit university with some of the lowest prices among Malaysia’s private schools. Strong in IT, engineering and Chinese studies; two large campuses." },
+  "SEGi":      { about: "One of Malaysia’s largest private-university networks. Medicine, dentistry and business; programs with British partner universities." },
+  "MSU":       { about: "A university in Shah Alam focused on employability — consistently high graduate employment. Medicine, business, hospitality." },
+  "MAHSA":     { about: "A specialised medical university near Kuala Lumpur: medicine, dentistry, nursing and pharmacy at prices affordable for the region." },
+  "UoRM":      { about: "The Malaysian campus of Britain’s University of Reading in EduCity Iskandar. A British degree in business, finance and psychology at lower cost." },
+  "Swinburne": { about: "The Borneo campus of Australia’s Swinburne University of Technology. An Australian degree in engineering and IT; Kuching is a calm, inexpensive city." },
+  "UOC":       { about: "A university in the ‘smart city’ of Cyberjaya specialising in health sciences: medicine, pharmacy, psychology; a modern digital campus." },
+  "CordonBleu": { about: "The Malaysian campus of the legendary Parisian culinary school Le Cordon Bleu (a brand since 1895). Haute cuisine, pastry arts and culinary management." },
+  "UOW":       { about: "One of Malaysia’s oldest private colleges (KDU), now part of Australia’s University of Wollongong. Business, hospitality, creative media." },
+  "TOA":       { about: "Malaysia’s leading design school: animation, illustration, digital media. Graduates work at Disney, Marvel and major game studios." },
+  "UniKL":     { about: "Malaysia’s leading public engineering and technical university with 12 specialised institutes. Over 130 programs: aviation, marine engineering, medical technology, IT, healthcare; 94,000+ alumni." },
+  "UNITEN":    { about: "The university of the national energy company TNB. Strong in power engineering; a green campus with lakes near Putrajaya." },
+  "TARUC":     { about: "One of Malaysia’s most affordable universities, with half a century of history. IT, business and accounting; a huge alumni network in local business." },
+
+  /* ========== GERMANY ========== */
+  "UE of Europe": { about: "A private university of applied sciences with campuses in Berlin, Hamburg and Potsdam. Taught in English: business, sports management, design and tech programs." },
+  "Gisma":     { about: "A German business school with campuses in Potsdam and Berlin, AMBA-accredited. Management, data science and engineering in English." },
+  "CU":        { about: "A private English-language university in Bremen — #1 among Germany’s private schools. All 18 programs are in English; a campus with 4 residential colleges and students from 120+ countries. Scholarships up to 70% of tuition." },
+
+  /* ========== POLAND ========== */
+  "Vistula":   { about: "One of Poland’s most international private universities — students from 100+ countries. Business, IT and tourism in English; a campus in Warsaw." },
+  "UTA":       { about: "A Warsaw university of technology and the arts: design, graphics and IT programs. Small groups and affordable-for-Europe tuition." },
+  "VIZJA":     { about: "A private university of economics and the humanities in central Warsaw. Psychology, finance, IT and management in English." },
+  "PJATK":     { about: "The Polish-Japanese Academy of Information Technology — one of Poland’s strongest private IT schools. Computer science, graphic design and Japanese studies." },
+
+  /* ========== AUSTRIA ========== */
+  "UniWien":   { about: "The oldest university in the German-speaking world and one of Europe’s largest. 15 Nobel laureates; an almost nominal tuition fee for all students." },
+  "WU":        { about: "Europe’s largest university of economics and business, with a futuristic campus by Vienna’s Prater. A ‘triple crown’ of accreditations — the mark of the world’s top business schools." },
+  "TU Wien":   { about: "Austria’s main technical university, with two centuries of history. Strong in computer science, architecture and electrical engineering; central Vienna, a minimal tuition fee." },
+  "MedUni Wien": { about: "The largest medical school in the German-speaking countries, grown from the medical faculty of the University of Vienna. Its clinical base is the vast AKH Wien hospital." },
+  "MedUni Graz": { about: "The Medical University of Graz, with roots in the 19th century. A modern campus at the university clinic; strong research in cardiology and oncology." },
+  "MedUni Innsbruck": { about: "A medical university in the Tyrolean capital, dating back to 1669. Strong surgery and sports medicine — the Alps and winter-sports centres are right nearby." },
+  "JKU Linz":  { about: "Johannes Kepler University in Linz, with a lakeside park campus. Strong in computer science, artificial intelligence and mechatronics; Europe’s first AI bachelor’s program." },
+  "Angewandte": { about: "The University of Applied Arts Vienna — one of Europe’s leading art schools. Masters of Viennese Art Nouveau once taught here; design, architecture, media art." },
+  "MDW":       { about: "The University of Music and Performing Arts Vienna — consistently #1 in world rankings of music schools. Music, conducting, film and acting." },
 };
