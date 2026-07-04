@@ -133,7 +133,7 @@ function CountryProfile() {
   const VideoModal = window.VideoModal;
 
   useEffect(() => {
-    if (det) document.title = `Обучение — ${name} — Elite Academy KG`;
+    if (det) document.title = (L === "en" ? `Studying in ${cn}` : L === "kg" ? `${cn}да окуу` : `Обучение — ${name}`) + " — Elite Academy KG";
   }, []);
 
   if (!det) {
