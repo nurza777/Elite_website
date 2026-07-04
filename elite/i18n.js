@@ -10,6 +10,26 @@
   if (lang === 'en') document.documentElement.lang = 'en';
   if (lang === 'kg') document.documentElement.lang = 'ky';
 
+  /* Localize <title> per data-page for non-RU (RU keeps the HTML default) */
+  var PAGE_TITLES = {
+    home:        { en: 'Elite Academy KG — Admission to universities abroad',      kg: 'Elite Academy KG — Чет өлкөлүк университеттерге тапшыруу' },
+    university:  { en: 'University — Elite Academy KG',                             kg: 'Университет — Elite Academy KG' },
+    country:     { en: 'Country — Elite Academy KG',                               kg: 'Өлкө — Elite Academy KG' },
+    universities:{ en: 'Partner universities — Elite Academy KG',                  kg: 'Өнөктөш университеттер — Elite Academy KG' },
+    about:       { en: 'About us — Elite Academy KG',                              kg: 'Биз жөнүндө — Elite Academy KG' },
+    admission:   { en: 'Admission & visa — Elite Academy KG',                      kg: 'Тапшыруу жана виза — Elite Academy KG' },
+    careers:     { en: 'Careers at Elite Academy — Vacancies',                     kg: 'Elite Academyде иш — Вакансиялар' },
+    countries:   { en: 'Study destinations — Elite Academy KG',                    kg: 'Окуу өлкөлөрү — Elite Academy KG' },
+    stories:     { en: 'Student stories — Elite Academy KG',                       kg: 'Студенттердин окуялары — Elite Academy KG' },
+  };
+  if (lang !== 'ru') {
+    document.addEventListener('DOMContentLoaded', function () {
+      var pg = document.body && document.body.getAttribute('data-page');
+      var m = pg && PAGE_TITLES[pg];
+      if (m && m[lang]) document.title = m[lang];
+    });
+  }
+
   var T = {
     ru: {
       /* NAV */
