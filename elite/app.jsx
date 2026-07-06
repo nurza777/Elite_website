@@ -31,8 +31,8 @@ function PageHome() {
       <Countries />
       <MediaFeed />
       <Stories />
-      <ClientReviews />
       <PainSolution />
+      <ClientReviews />
       <FinalCTA />
     </>
   );
