@@ -2,7 +2,7 @@
    CAREERS PAGE — full HR landing (careers.html)
    ============================================================ */
 
-const CAREERS_LEADS_URL = "https://script.google.com/macros/s/AKfycbw4i67Vtu9cMUjZvXxVCZ0ZdeDndAG2GqY0eS7PznuBGxZeG4PkwHbe8xN-RAoa35BW/exec";
+const CAREERS_LEADS_URL = "https://script.google.com/macros/s/AKfycbx9Wcv42tDTBegobWxoVsdQpQPWf0xL9aO0RKJyjjFIEuWaIbD_S2pae6d4-puUhtRs8g/exec";
 
 const CAREERS_DEFAULT = {
   heroPhoto: "",
