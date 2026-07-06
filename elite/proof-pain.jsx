@@ -1,7 +1,7 @@
 /* ============================================================
    TRUST BAR (marquee) · PAIN→SOLUTION · COUNTRIES
    ============================================================ */
-const { useState } = React;
+const { useState, useRef } = React;
 const _PPL = (window.__EA_LANG || "ru");
 const _ppp = (ru, en, kg) => _PPL === "en" ? en : _PPL === "kg" ? kg : ru;
 
@@ -162,53 +162,47 @@ const PAIN_ITEMS = [
 ];
 
 function PainSolution() {
-  const [active, setActive] = useState(0);
+  const railRef = useRef(null);
+  const nav = (dir) => {
+    const rail = railRef.current;
+    if (!rail) return;
+    const card = rail.querySelector(".pcard");
+    const step = card ? card.getBoundingClientRect().width + 22 : 340;
+    rail.scrollBy({ left: dir * step, behavior: "smooth" });
+  };
   return (
     <section className="section pain">
       <div className="wrap">
-        <div className="section-head" data-reveal>
-          <span className="eyebrow">{_ppp("Почему Elite Academy", "Why Elite Academy", "Эмне үчүн Elite Academy")}</span>
-          <h2>{_ppp("Не просто агентство —", "Not just an agency —", "Жөн гана агенттик эмес —")}<br/><span className="text-blue">{_ppp("твоя команда поступления", "your admission team", "сенин тапшыруу командаң")}</span></h2>
+        <div className="pain__top" data-reveal>
+          <div className="section-head section-head--left">
+            <span className="eyebrow">{_ppp("Почему Elite Academy", "Why Elite Academy", "Эмне үчүн Elite Academy")}</span>
+            <h2>{_ppp("Не просто агентство —", "Not just an agency —", "Жөн гана агенттик эмес —")}<br/><span className="text-blue">{_ppp("твоя команда поступления", "your admission team", "сенин тапшыруу командаң")}</span></h2>
+          </div>
+          <a href="#cta" className="btn btn--gold pain__top-cta">{_ppp("Начать бесплатную консультацию →", "Start a free consultation →", "Акысыз консультацияны баштоо →")}</a>
         </div>
 
-        <div className="pain__accordion-wrap">
-          <div className="pain__accordion">
-            {PAIN_ITEMS.map((item, i) => (
-              <div
-                key={i}
-                className={"pain__acc-item" + (active === i ? " is-open" : "")}
-                onClick={() => setActive(i)}
-              >
-                <div className="pain__acc-head">
-                  <span className="pain__acc-num">{String(i + 1).padStart(2, "0")}</span>
-                  <span className="pain__acc-title">{item.title}</span>
-                  <span className="pain__acc-arrow" aria-hidden="true">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="6 9 12 15 18 9"/>
-                    </svg>
-                  </span>
-                </div>
-                <div className="pain__acc-body">
-                  <p>{item.body}</p>
-                  <div className="pain__acc-photo-mob">
-                    <img src={item.photo} alt={item.title} />
-                  </div>
-                </div>
+        <div className="pain__rail" ref={railRef} data-reveal>
+          {PAIN_ITEMS.map((item, i) => (
+            <article className="pcard" key={i}>
+              <div className="pcard__media">
+                <img src={item.photo} alt={item.title} loading="lazy" />
+                <span className="pcard__num">{String(i + 1).padStart(2, "0")}</span>
               </div>
-            ))}
-            <a href="#cta" className="btn btn--gold pain__acc-cta">{_ppp("Начать бесплатную консультацию →", "Start a free consultation →", "Акысыз консультацияны баштоо →")}</a>
-          </div>
+              <div className="pcard__body">
+                <h3 className="pcard__title">{item.title}</h3>
+                <p className="pcard__text">{item.body}</p>
+              </div>
+            </article>
+          ))}
+        </div>
 
-          <div className="pain__photo-panel">
-            {PAIN_ITEMS.map((item, i) => (
-              <img
-                key={i}
-                src={item.photo}
-                alt={item.title}
-                className={"pain__photo" + (active === i ? " is-active" : "")}
-              />
-            ))}
-          </div>
+        <div className="pain__nav">
+          <button className="pain__arrow" onClick={() => nav(-1)} aria-label={_ppp("Назад", "Back", "Артка")}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button className="pain__arrow" onClick={() => nav(1)} aria-label={_ppp("Вперёд", "Next", "Алдыга")}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
         </div>
       </div>
     </section>
