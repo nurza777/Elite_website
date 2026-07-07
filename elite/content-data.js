@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   06.07.2026, 19:17:59
+   07.07.2026, 12:07:58
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4629,8 +4629,8 @@ window.EA_CONTENT_PUBLISHED = {
   "videos": [
     {
       "name": "Айхан",
-      "country": "Италия 🇮🇹",
-      "src": "Отзыв нашей студентки Айхан ",
+      "country": "Италия ",
+      "src": "videos/имя.mp4",
       "poster": "thumbs/имя.jpg",
       "tag": "Отзыв"
     },
