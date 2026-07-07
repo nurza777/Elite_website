@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   08.07.2026, 02:31:18
+   08.07.2026, 02:34:43
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4628,6 +4628,13 @@ window.EA_CONTENT_PUBLISHED = {
   ],
   "videos": [
     {
+      "name": "Исламбек",
+      "country": "🇺🇸 США",
+      "src": "videos/islambek.mp4",
+      "poster": "thumbs/islambek.jpg",
+      "tag": "Отзыв"
+    },
+    {
       "name": "Элана",
       "country": "Италия",
       "src": "videos/elana.mp4",
@@ -4720,15 +4727,6 @@ window.EA_CONTENT_PUBLISHED = {
       "uni": "Bellevue College, Сиэтл",
       "scholarship": "$95 000",
       "quote": "Elite Academy сделали процесс поступления понятным. Без них я бы потратил годы на разбор всей этой системы."
-    },
-    {
-      "name": "Исламбек",
-      "country": "США",
-      "src": "videos/islambek.mp4",
-      "poster": "thumbs/islambek.jpg",
-      "tag": "Интервью",
-      "uni": "США · бакалавриат",
-      "quote": "Рассказываю, как поступил в США и что дало обучение за рубежом."
     }
   ],
   "posts": [
