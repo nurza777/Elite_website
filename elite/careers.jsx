@@ -322,6 +322,7 @@ function CareersCTA() {
       exp,
       position,
       time: new Date().toLocaleString("ru"),
+      ...(window.getUTM ? window.getUTM() : {}),
     };
     try {
       await fetch(CAREERS_LEADS_URL, {

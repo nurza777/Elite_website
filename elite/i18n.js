@@ -1,4 +1,40 @@
 ﻿/* ============================================================
+   UTM CAPTURE — first-touch attribution, site-wide.
+   Reads utm_source/utm_medium/utm_campaign/utm_content/utm_term
+   (+ gclid/fbclid) from the URL on landing and stores them in
+   localStorage so they survive across pages and later form
+   submissions. Existing stored values are kept if a later page
+   view has no utm_* params (so browsing the site doesn't erase
+   the original campaign attribution).
+   window.getUTM() → { utm_source, utm_medium, utm_campaign, utm_content, utm_term, gclid, fbclid }
+   ============================================================ */
+(function () {
+  var KEY = 'ea_utm';
+  var FIELDS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid'];
+  try {
+    var qs = new URLSearchParams(window.location.search);
+    var hasAny = FIELDS.some(function (f) { return qs.get(f); });
+    if (hasAny) {
+      var data = {};
+      FIELDS.forEach(function (f) { data[f] = qs.get(f) || ''; });
+      data._landing = window.location.pathname + window.location.search;
+      data._capturedAt = new Date().toISOString();
+      localStorage.setItem(KEY, JSON.stringify(data));
+    }
+  } catch (e) {}
+
+  window.getUTM = function () {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    var empty = {};
+    FIELDS.forEach(function (f) { empty[f] = ''; });
+    return empty;
+  };
+})();
+
+/* ============================================================
    i18n — RU / EN / KG translations
    window.t(key)          → translated string
    window.setSiteLang(lc) → set cookie + reload
