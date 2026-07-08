@@ -717,7 +717,9 @@
 .elt__q { width: 100%; text-align: left; }
 .elt__progress { height: 5px; background: var(--gray-100); border-radius: 99px; margin-bottom: 20px; overflow: hidden; }
 .elt__progress-bar { height: 100%; background: var(--blue); border-radius: 99px; transition: width .4s var(--ease); }
-.elt__step { font-family: var(--font-head); font-weight: 700; font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; }
+.elt__step { display: flex; align-items: center; justify-content: space-between; font-family: var(--font-head); font-weight: 700; font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; }
+.elt__back { font-family: var(--font-body); font-weight: 600; font-size: 13px; text-transform: none; letter-spacing: normal; color: var(--blue); background: none; border: none; cursor: pointer; padding: 0; }
+.elt__back:hover { text-decoration: underline; }
 .elt__question { font-family: var(--font-head); font-weight: 700; font-size: 18px; color: var(--navy); margin-bottom: 24px; line-height: 1.4; }
 .elt__opts { display: flex; flex-direction: column; gap: 10px; }
 .elt__opt {
@@ -728,8 +730,16 @@
 .elt__opt:hover:not(:disabled) { border-color: var(--blue); color: var(--blue); background: rgba(30,92,149,.05); }
 .elt__opt--chosen { border-color: var(--navy) !important; background: var(--navy) !important; color: #fff !important; }
 .elt__opt:disabled { cursor: default; }
+.elt__textarea {
+  width: 100%; box-sizing: border-box; padding: 14px 16px; border: 1.5px solid var(--line);
+  border-radius: var(--r-md); font-size: 15px; font-family: var(--font-body); outline: none;
+  resize: vertical; margin-bottom: 18px;
+}
+.elt__textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(30,92,149,.12); }
+.elt__next { width: 100%; }
 
 /* Gate */
+.elt__gate { display: flex; flex-direction: column; align-items: center; }
 .elt__gate-lock { margin-bottom: 18px; }
 .elt__gate-h { font-family: var(--font-head); font-weight: 800; font-size: 22px; color: var(--navy); margin-bottom: 10px; }
 .elt__gate-p { color: var(--muted); font-size: 15px; line-height: 1.6; margin-bottom: 22px; max-width: 420px; }
@@ -739,6 +749,7 @@
 .elt__gate-micro { font-size: 12.5px; color: var(--muted); margin-top: 12px; }
 
 /* Result */
+.elt__result { display: flex; flex-direction: column; align-items: center; }
 .elt__result-badge {
   display: inline-flex; align-items: center; justify-content: center;
   font-family: var(--font-head); font-weight: 900; font-size: 28px; color: #fff;

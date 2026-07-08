@@ -270,7 +270,7 @@
 .quiz__result-lead b { color: var(--navy); }
 .quiz__matches-label { font-family: var(--font-head); font-weight: 700; font-size: 14px; color: var(--muted); margin-bottom: 12px; }
 .quiz__matches { position: relative; display: flex; flex-direction: column; gap: 10px; margin-bottom: 26px; }
-.quiz__match { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: var(--r-md); border: 1px solid var(--line); background: #fff; filter: blur(3px); opacity: .8; position: relative; }
+.quiz__match { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: var(--r-md); border: 1px solid var(--line); background: #fff; filter: blur(7px); opacity: .8; position: relative; }
 .quiz__match-lock { position: absolute; right: 16px; font-size: 16px; filter: none; }
 .quiz__match-logo { width: 40px; height: 40px; border-radius: 9px; flex: 0 0 auto; }
 .quiz__match-name { font-family: var(--font-head); font-weight: 700; font-size: 15px; }

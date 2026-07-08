@@ -105,8 +105,20 @@ const UNI_LOGOS = [
   { src: "images/logos/catalog/eul.png",        name: "European Univ. of Lefke" },
 ];
 
+/* Fisher–Yates shuffle, run once at module load so the marquee order is
+   randomized per page load but stays stable while the page is open. */
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+const UNI_LOGOS_SHUFFLED = shuffle(UNI_LOGOS);
+
 function TrustBar() {
-  const items = [...UNI_LOGOS, ...UNI_LOGOS];
+  const items = [...UNI_LOGOS_SHUFFLED, ...UNI_LOGOS_SHUFFLED];
   return (
     <section className="trustbar">
       <div className="wrap trustbar__head">

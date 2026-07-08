@@ -210,6 +210,8 @@ function Quiz() {
 function QuizLeadForm({ ans, setDone }) {
   const [qName, setQName] = useState("");
   const [qPhone, setQPhone] = useState("");
+  const [qAge, setQAge] = useState("");
+  const [qCity, setQCity] = useState("");
   return (
     <form className="quiz__form" onSubmit={(e) => {
       e.preventDefault();
@@ -219,6 +221,8 @@ function QuizLeadForm({ ans, setDone }) {
         body: JSON.stringify({
           name: qName,
           phone: qPhone.replace(/^\+/, '').replace('(', '-').replace(')', ''),
+          age: qAge,
+          city: qCity,
           dest: "Квиз — " + (ans.country || "не указано"),
           page: location.pathname.split("/").pop() || "index.html",
           time: new Date().toLocaleString("ru"),
@@ -239,6 +243,8 @@ function QuizLeadForm({ ans, setDone }) {
         else f += d.slice(0,3) + ')-' + d.slice(3,6) + '-' + d.slice(6);
         setQPhone(f);
       }} />
+      <input type="number" min="14" max="60" required placeholder={t("quiz.age")} value={qAge} onChange={e => setQAge(e.target.value)} />
+      <input required placeholder={t("quiz.city")} value={qCity} onChange={e => setQCity(e.target.value)} />
       <button type="submit" className="btn btn--gold btn--block">{t("quiz.submit")}</button>
     </form>
   );

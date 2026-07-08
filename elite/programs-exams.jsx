@@ -217,9 +217,77 @@ function Exams() {
 }
 
 /* ============================================================
-   ENGLISH LEVEL TEST — result gated behind consultation form
+   ENGLISH LEVEL TEST — in-site multi-step quiz + lead capture
+   13 grammar questions (auto-scored) + 2 open questions, then a
+   lead form gated behind the CEFR-band result. Never leaves the site.
    ============================================================ */
+const ELT_MC = [
+  { q: "Choose the correct option: She ___ to university every day.",
+    opts: ["go", "goes", "is go", "going"], correct: 1 },
+  { q: "Choose the correct sentence:",
+    opts: ["He don't like coffee", "He doesn't likes coffee", "He doesn't like coffee", "He not like coffee"], correct: 2 },
+  { q: "Choose the correct option: I ___ never been to Italy.",
+    opts: ["have", "has", "am", "was"], correct: 0 },
+  { q: "Choose the correct option: There ___ many students in the class yesterday.",
+    opts: ["is", "are", "was", "were"], correct: 3 },
+  { q: "Choose the correct option: This is ___ interesting movie I've ever seen.",
+    opts: ["more", "the most", "most", "very"], correct: 1 },
+  { q: "Choose the correct option: If I ___ more time, I would travel more.",
+    opts: ["have", "had", "will have", "would have"], correct: 1 },
+  { q: "Choose the correct option: She has been working here ___ 2021.",
+    opts: ["since", "for", "during", "from"], correct: 0 },
+  { q: "Choose the correct option: He speaks English ___ than his brother.",
+    opts: ["more fluently", "most fluently", "fluent", "fluently"], correct: 0 },
+  { q: "Choose the correct option: The meeting was postponed ___ the manager was sick.",
+    opts: ["although", "because", "however", "despite"], correct: 1 },
+  { q: "Choose the correct option: I didn't understand what he meant at first, but it finally ___.",
+    opts: ["made sense", "made meaning", "took sense", "got logic"], correct: 0 },
+  { q: "Choose the correct option: Had I known about the problem earlier, I ___ differently.",
+    opts: ["would act", "would have acted", "acted", "will act"], correct: 1 },
+  { q: "Choose the correct option: The report, along with several recommendations, ___ approved.",
+    opts: ["are", "were", "was", "have been"], correct: 2 },
+  { q: "Choose the correct option: His explanation was so unclear that it only added ___ the confusion.",
+    opts: ["to", "for", "with", "in"], correct: 0 },
+];
+const ELT_OPEN = [
+  "Why do you want to study abroad?",
+  "Rewrite the sentence using reported speech: \"I am preparing for my English exam,\" she said.",
+];
+const ELT_TOTAL = ELT_MC.length + ELT_OPEN.length; // 15 questions, then result
+
+function eltBand(correct) {
+  if (correct >= 10) return { key: "C1", label: "C1 Продвинутый",
+    ru: "Продвинутый (C1)", en: "Advanced (C1)", kg: "Жогорку деңгээл (C1)" };
+  if (correct >= 5) return { key: "B1-B2", label: "B1-B2 Средний",
+    ru: "Средний (B1–B2)", en: "Intermediate (B1–B2)", kg: "Орточо деңгээл (B1–B2)" };
+  return { key: "A1-A2", label: "A1-A2 Начинающий",
+    ru: "Начинающий (A1–A2)", en: "Beginner (A1–A2)", kg: "Баштапкы деңгээл (A1–A2)" };
+}
+
 function EnglishLevelTest() {
+  const [step, setStep] = useState(-1); // -1 intro, 0..12 MC, 13-14 open, 15 gate, 16 result
+  const [mcAns, setMcAns] = useState([]);
+  const [openAns, setOpenAns] = useState(["", ""]);
+  const [done, setDone] = useState(false);
+
+  const isMc = step >= 0 && step < ELT_MC.length;
+  const isOpen = step >= ELT_MC.length && step < ELT_TOTAL;
+  const isGate = step === ELT_TOTAL && !done;
+  const isResult = step === ELT_TOTAL && done;
+  const progress = step < 0 ? 0 : Math.round((Math.min(step, ELT_TOTAL) / ELT_TOTAL) * 100);
+
+  const pickMc = (idx) => {
+    setMcAns((a) => { const n = [...a]; n[step] = idx; return n; });
+    setTimeout(() => setStep((s) => s + 1), 180);
+  };
+  const setOpen = (i, val) => setOpenAns((a) => { const n = [...a]; n[i] = val; return n; });
+  const nextOpen = () => setStep((s) => s + 1);
+  const back = () => setStep((s) => Math.max(0, s - 1));
+  const restart = () => { setStep(-1); setMcAns([]); setOpenAns(["", ""]); setDone(false); };
+
+  const correctCount = mcAns.reduce((n, v, i) => n + (v === ELT_MC[i].correct ? 1 : 0), 0);
+  const band = eltBand(correctCount);
+
   return (
     <section className="section section--tight elt" id="english-level">
       <div className="wrap">
@@ -228,20 +296,143 @@ function EnglishLevelTest() {
           <h2>{_pp("Проверь свой уровень английского","Check your English level","Англис деңгээлиңди текшер")}</h2>
           <p className="section-sub">{_pp("2 минуты · результат сразу · подбор программ под твой уровень","2 minutes · instant result · programs matched to your level","2 мүнөт · жыйынтык дароо · деңгээлиңе программаларды тандоо")}</p>
         </div>
+
         <div className="elt__card card" data-reveal>
-          <div className="elt__intro">
-            <div className="elt__intro-icon" aria-hidden="true">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
-              </svg>
+          {step === -1 && (
+            <div className="elt__intro">
+              <div className="elt__intro-icon" aria-hidden="true">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                </svg>
+              </div>
+              <h3 className="elt__intro-h">{_pp("Узнай за 2 минуты, насколько ты готов к зарубежному вузу","Find out in 2 minutes how ready you are for a university abroad","Чет өлкөлүк вузга канчалык даяр экениңди 2 мүнөттө бил")}</h3>
+              <p className="elt__intro-p">{_pp("Тест определяет твой уровень английского и помогает понять, какие программы и вузы подходят именно тебе.","The test determines your English level and helps you see which programs and universities suit you.","Тест англис деңгээлиңди аныктап, кайсы программалар жана вуздар сага туура келерин түшүнүүгө жардам берет.")}</p>
+              <button className="btn btn--gold btn--lg" onClick={() => setStep(0)}>{_pp("Начать тест →","Start the test →","Тестти баштоо →")}</button>
             </div>
-            <h3 className="elt__intro-h">{_pp("Узнай за 2 минуты, насколько ты готов к зарубежному вузу","Find out in 2 minutes how ready you are for a university abroad","Чет өлкөлүк вузга канчалык даяр экениңди 2 мүнөттө бил")}</h3>
-            <p className="elt__intro-p">{_pp("Тест определяет твой уровень английского и помогает понять, какие программы и вузы подходят именно тебе.","The test determines your English level and helps you see which programs and universities suit you.","Тест англис деңгээлиңди аныктап, кайсы программалар жана вуздар сага туура келерин түшүнүүгө жардам берет.")}</p>
-            <a href="https://forms.gle/gaHquVakyfyUe9XU8" target="_blank" rel="noopener" className="btn btn--gold btn--lg">{_pp("Начать тест →","Start the test →","Тестти баштоо →")}</a>
-          </div>
+          )}
+
+          {(isMc || isOpen) && (
+            <div className="elt__q">
+              <div className="elt__progress"><div className="elt__progress-bar" style={{ width: progress + "%" }}></div></div>
+              <div className="elt__step">
+                {_pp("Вопрос ","Question ","Суроо ") + (step + 1) + _pp(" из ", " of ", " / ") + ELT_TOTAL}
+                {step > 0 && <button className="elt__back" onClick={back}>{_pp("← Назад","← Back","← Артка")}</button>}
+              </div>
+              {isMc && (
+                <>
+                  <div className="elt__question">{ELT_MC[step].q}</div>
+                  <div className="elt__opts">
+                    {ELT_MC[step].opts.map((opt, i) => (
+                      <button key={i}
+                        className={"elt__opt" + (mcAns[step] === i ? " elt__opt--chosen" : "")}
+                        onClick={() => pickMc(i)}>
+                        {opt}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+              {isOpen && (
+                <>
+                  <div className="elt__question">{ELT_OPEN[step - ELT_MC.length]}</div>
+                  <textarea
+                    className="elt__textarea"
+                    rows={4}
+                    value={openAns[step - ELT_MC.length]}
+                    onChange={(e) => setOpen(step - ELT_MC.length, e.target.value)}
+                    placeholder={_pp("Напиши ответ здесь…","Write your answer here…","Жообуңду бул жерге жаз…")}
+                  />
+                  <button className="btn btn--gold btn--lg elt__next" onClick={nextOpen}>
+                    {step === ELT_TOTAL - 1 ? _pp("Показать результат →","Show result →","Жыйынтыкты көрсөтүү →") : _pp("Далее →","Next →","Кийинки →")}
+                  </button>
+                </>
+              )}
+            </div>
+          )}
+
+          {isGate && <ElTestGate correctCount={correctCount} band={band} openAns={openAns} setDone={setDone} />}
+          {isResult && <ElTestResultView band={band} correctCount={correctCount} restart={restart} />}
         </div>
       </div>
     </section>
+  );
+}
+
+function ElTestGate({ correctCount, band, openAns, setDone }) {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [age, setAge] = useState("");
+  const [city, setCity] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (busy) return;
+    setBusy(true);
+    const payload = {
+      name, phone: phone.replace(/^\+/, '').replace('(', '-').replace(')', ''),
+      age, city,
+      dest: "English Test – " + band.label,
+      score: correctCount + "/" + ELT_MC.length,
+      q14: openAns[0], q15: openAns[1],
+      page: location.pathname.split("/").pop() || "admission.html",
+      time: new Date().toLocaleString("ru"),
+      ...(window.getUTM ? window.getUTM() : {}),
+    };
+    try {
+      await fetch(LEADS_URL, {
+        method: "POST", mode: "no-cors",
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify(payload),
+      });
+    } catch (_) {}
+    setBusy(false);
+    setDone(true);
+  }
+
+  return (
+    <div className="elt__gate">
+      <div className="elt__gate-lock" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+        </svg>
+      </div>
+      <h3 className="elt__gate-h">{_pp("Тест пройден! Узнай свой результат","Test complete! See your result","Тест бүттү! Жыйынтыгыңды бил")}</h3>
+      <p className="elt__gate-p">{_pp("Оставь контакты — покажем твой уровень и подберём программы под него.","Leave your contacts — we'll reveal your level and match programs to it.","Байланышыңды калтыр — деңгээлиңди көрсөтүп, ага ылайык программаларды тандайбыз.")}</p>
+      <form className="elt__form" onSubmit={handleSubmit}>
+        <input required placeholder={_pp("Твоё имя","Your name","Атың")} value={name} onChange={e => setName(e.target.value)} />
+        <input required placeholder="+996(___)-___-___" inputMode="tel" value={phone} onChange={e => {
+          let d = e.target.value.replace(/\D/g,'');
+          if (d.startsWith('996')) d = d.slice(3);
+          d = d.slice(0,9);
+          if (!d) { setPhone(''); return; }
+          let f = '+996(';
+          if (d.length <= 3) f += d;
+          else if (d.length <= 6) f += d.slice(0,3) + ')-' + d.slice(3);
+          else f += d.slice(0,3) + ')-' + d.slice(3,6) + '-' + d.slice(6);
+          setPhone(f);
+        }} />
+        <input type="number" min="14" max="60" required placeholder={_pp("Твой возраст","Your age","Жашың")} value={age} onChange={e => setAge(e.target.value)} />
+        <input required placeholder={_pp("Твой город","Your city","Шааруң")} value={city} onChange={e => setCity(e.target.value)} />
+        <button type="submit" className="btn btn--gold btn--lg" disabled={busy}>{busy ? _pp("Отправляем…","Sending…","Жөнөтүлүүдө…") : _pp("Показать результат →","Show my result →","Жыйынтыгымды көрсөтүү →")}</button>
+      </form>
+      <div className="elt__gate-micro">{_pp("Без спама · ответим в течение дня","No spam · we reply within a day","Спамсыз · бир күндүн ичинде жооп беребиз")}</div>
+    </div>
+  );
+}
+
+function ElTestResultView({ band, correctCount, restart }) {
+  return (
+    <div className="elt__result">
+      <div className="elt__result-badge" style={{ background: "var(--navy)" }}>{band.key}</div>
+      <div className="elt__result-label">{_pp(band.ru, band.en, band.kg)}</div>
+      <div className="elt__result-score">{_pp("Правильных ответов: ","Correct answers: ","Туура жооптор: ") + correctCount + " / " + ELT_MC.length}</div>
+      <p className="elt__result-tip">{_pp("Мы получили твои контакты и скоро свяжемся, чтобы разобрать результат и подобрать программы под твой уровень.","We've got your contacts and will reach out soon to go through your result and match programs to your level.","Байланышыңды алдык, жакында жыйынтыкты талкуулап, деңгээлиңе ылайык программаларды тандоо үчүн байланышабыз.")}</p>
+      <div className="elt__result-actions">
+        <a href="#cta" className="btn btn--gold btn--lg">{_pp("Проверить свои шансы на поступление →","Check my admission chances →","Кирүү мүмкүнчүлүгүмдү текшерүү →")}</a>
+        <button className="btn btn--ghost" onClick={restart}>{_pp("Пройти ещё раз","Take it again","Дагы бир жолу өтүү")}</button>
+      </div>
+    </div>
   );
 }
 

@@ -35,6 +35,7 @@ function FinalCTA() {
   const [name, setName]   = useState("");
   const [phone, setPhone] = useState("");
   const [age, setAge]     = useState("");
+  const [city, setCity]   = useState("");
   const [dest, setDest]   = useState("");
 
   async function handleSubmit(e) {
@@ -42,7 +43,7 @@ function FinalCTA() {
     if (busy) return;
     setBusy(true);
     const payload = {
-      name, phone: phone.replace(/^\+/, '').replace('(', '-').replace(')', ''), age, dest,
+      name, phone: phone.replace(/^\+/, '').replace('(', '-').replace(')', ''), age, city, dest,
       page: location.pathname.split("/").pop() || "index.html",
       time: new Date().toLocaleString("ru"),
       ...(window.getUTM ? window.getUTM() : {}),
@@ -112,6 +113,7 @@ function FinalCTA() {
                     setPhone(f);
                   }} />
                   <input type="number" min="14" max="60" required placeholder={window.__EA_LANG === "en" ? "Your age" : window.__EA_LANG === "kg" ? "Жашыңыз" : "Ваш возраст"} value={age} onChange={e => setAge(e.target.value)} />
+                  <input required placeholder={t("cta.cityPlaceholder")} value={city} onChange={e => setCity(e.target.value)} />
                   <select required value={dest} onChange={e => setDest(e.target.value)} defaultValue="">
                     <option value="" disabled>{t("cta.destPlaceholder")}</option>
                     <option>{t("cta.dest.usa")}</option>
