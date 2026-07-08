@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   08.07.2026, 18:13:08
+   09.07.2026, 01:28:42
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4628,6 +4628,13 @@ window.EA_CONTENT_PUBLISHED = {
   ],
   "videos": [
     {
+      "name": "Айхан",
+      "country": "Италия ",
+      "src": "videos/aihan.mp4",
+      "poster": "thumbs/имя.jpg",
+      "tag": "Отзыв"
+    },
+    {
       "name": "Элана",
       "country": "Италия",
       "src": "videos/elana.mp4",
@@ -4723,17 +4730,12 @@ window.EA_CONTENT_PUBLISHED = {
     },
     {
       "name": "Исламбек",
-      "country": "🇺🇸 США",
+      "country": "США",
       "src": "videos/islambek.mp4",
       "poster": "thumbs/islambek.jpg",
-      "tag": "Отзыв"
-    },
-    {
-      "name": "Нурзаман",
-      "country": "🇺🇸 США",
-      "src": "videos/имя.mp4",
-      "poster": "thumbs/имя.jpg",
-      "tag": "Отзыв"
+      "tag": "Интервью",
+      "uni": "США · бакалавриат",
+      "quote": "Рассказываю, как поступил в США и что дало обучение за рубежом."
     }
   ],
   "posts": [
