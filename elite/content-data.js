@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   08.07.2026, 18:12:41
+   08.07.2026, 18:13:08
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4726,6 +4726,13 @@ window.EA_CONTENT_PUBLISHED = {
       "country": "🇺🇸 США",
       "src": "videos/islambek.mp4",
       "poster": "thumbs/islambek.jpg",
+      "tag": "Отзыв"
+    },
+    {
+      "name": "Нурзаман",
+      "country": "🇺🇸 США",
+      "src": "videos/имя.mp4",
+      "poster": "thumbs/имя.jpg",
       "tag": "Отзыв"
     }
   ],
