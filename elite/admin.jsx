@@ -26,7 +26,7 @@ const PASS_DJB2 = "3b742bc2"; // fallback when crypto.subtle is unavailable (pla
 
 const FLAGS = { "Италия": "🇮🇹", "США": "🇺🇸", "Северный Кипр": "🇨🇾", "Малайзия": "🇲🇾", "Германия": "🇩🇪", "Польша": "🇵🇱", "Австрия": "🇦🇹" };
 const COUNTRY_OPTS = Object.keys(FLAGS);
-const FIELD_OPTS = ["IT", "Бизнес", "Медицина", "Право", "Инженерия", "Дизайн", "Экономика", "Педагогика"];
+const FIELD_OPTS = ["IT", "Business", "Medicine", "Law", "Engineering", "Design", "Economics", "Education"];
 const TYPE_OPTS = ["Государственный", "Частный"];
 
 const clone = (x) => JSON.parse(JSON.stringify(x));
@@ -207,7 +207,7 @@ function buildInitial() {
   const det = window.EA_UNI_DETAILS || {};
   const unis = (window.EA_UNIS_RAW || []).map((u) => {
     const d = det[u.short] || {};
-    return { ...clone(u), about: d.about || "", founded: d.founded || "", students: d.students || "", site: d.site || "", reqTable: d.reqTable ? clone(d.reqTable) : null };
+    return { ...clone(u), about: d.about || "", founded: d.founded || "", students: d.students || "", site: d.site || "", reqTable: d.reqTable ? clone(d.reqTable) : null, programs: d.programs ? clone(d.programs) : [] };
   });
   const cdet = window.EA_COUNTRY_DETAILS || {};
   const countries = (window.EA_COUNTRY_CARDS || []).map((c) => ({
@@ -247,6 +247,7 @@ function buildContent(s) {
     if (u.students) d.students = u.students;
     if (u.site) d.site = u.site;
     if (u.reqTable) d.reqTable = u.reqTable;
+    if (u.programs && u.programs.length) d.programs = u.programs;
     if (Object.keys(d).length) uniDetails[u.short] = d;
   });
   const countryCards = s.countries.map((c) => c.card);
@@ -307,7 +308,7 @@ function UnisEditor({ list, setList, token, branch }) {
     setSel(null);
   };
   const add = () => {
-    const nu = { name: "Новый университет", short: "NEW" + (list.length + 1), loc: "", country: "США", qs: null, price: 10000, type: "Частный", field: "Бизнес", levels: "Бакалавр · Магистр", about: "", founded: "", students: "", site: "" };
+    const nu = { name: "Новый университет", short: "NEW" + (list.length + 1), loc: "", country: "США", qs: null, price: 10000, type: "Частный", field: "Business", levels: "Бакалавр · Магистр", about: "", founded: "", students: "", site: "" };
     setList([nu, ...list]);
     setSel(0); setQ("");
   };
@@ -371,9 +372,9 @@ function UnisEditor({ list, setList, token, branch }) {
             <TIn l="Студентов" v={u.students} on={(v) => upd(sel, "students", v)} ph="≈47 000" />
             <TIn l="Официальный сайт" v={u.site} on={(v) => upd(sel, "site", v)} ph="polimi.it" />
 
-            <div className="aform__divider">Таблица требований (страница вуза)</div>
+            <div className="aform__divider">Программы поступления — карточки (страница вуза)</div>
             <div style={{ gridColumn: "1 / -1" }}>
-              <ReqTableEditor u={u} onChange={(rt) => upd(sel, "reqTable", rt)} />
+              <ProgramsEditor programs={u.programs || []} onChange={(pr) => upd(sel, "programs", pr)} />
             </div>
           </div>
           <div className="aform__divider">Медиа</div>
@@ -664,6 +665,137 @@ function ReqTableEditor({ u, onChange }) {
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   PROGRAM CARDS EDITOR — horizontal cards (bachelor / master)
+   ============================================================ */
+const PROG_LEVELS = [
+  { key: "bachelor", label: "Бакалавр (белая карточка)" },
+  { key: "master",   label: "Магистр (синяя карточка)" },
+];
+
+function newProgram() {
+  return {
+    level: "bachelor", title: "Новая программа", location: "", institution: "", established: "",
+    tags: [], tuition: "", funding: "", paidEducation: "", language: "English",
+    studyPlan: "", about: "", entrance: "", requirements: [], deadlines: [],
+  };
+}
+
+function ProgramsEditor({ programs, onChange }) {
+  const list = programs || [];
+  const [openIdx, setOpenIdx] = React.useState(null);
+  const [filter, setFilter] = React.useState("all");
+  const [q, setQ] = React.useState("");
+
+  const upd = (i, k, v) => onChange(list.map((p, j) => (j === i ? { ...p, [k]: v } : p)));
+  const add = () => { onChange([...list, newProgram()]); setOpenIdx(list.length); setFilter("all"); setQ(""); };
+  const del = (i) => { if (window.confirm("Удалить программу-карточку?")) { onChange(list.filter((_, j) => j !== i)); setOpenIdx(null); } };
+  const move = (i, d) => {
+    const j = i + d;
+    if (j < 0 || j >= list.length) return;
+    const next = [...list];
+    [next[i], next[j]] = [next[j], next[i]];
+    onChange(next);
+    setOpenIdx((cur) => (cur === i ? j : cur === j ? i : cur));
+  };
+  /* array<->textarea helpers */
+  const toText = (v) => Array.isArray(v) ? v.join("\n") : (v || "");
+  const toArr = (s) => s.split("\n").map((x) => x.replace(/\s+$/, "")).filter((x) => x.trim() !== "");
+  const tagsText = (v) => Array.isArray(v) ? v.join(", ") : (v || "");
+  const tagsArr = (s) => s.split(",").map((x) => x.trim()).filter(Boolean);
+
+  const isBach = (p) => (p.level || "bachelor") !== "master";
+  const counts = {
+    all: list.length,
+    bachelor: list.filter(isBach).length,
+    master: list.filter((p) => !isBach(p)).length,
+  };
+  const rows = list
+    .map((p, i) => ({ p, i }))
+    .filter(({ p }) => {
+      if (filter === "bachelor" && !isBach(p)) return false;
+      if (filter === "master" && isBach(p)) return false;
+      if (q && !((p.title || "") + " " + (p.location || "")).toLowerCase().includes(q.toLowerCase())) return false;
+      return true;
+    });
+
+  const FILTERS = [["all", "Все"], ["bachelor", "Бакалавр"], ["master", "Магистр"]];
+
+  return (
+    <div>
+      <div className="ahint" style={{ marginBottom: 12 }}>
+        Каждая карточка — отдельная программа (направление). <b>Бакалавр</b> = белая, <b>Магистр</b> = синяя.
+        Кликни по строке, чтобы раскрыть и редактировать. В «Требованиях» и «Дедлайнах» каждая строка — отдельный
+        пункт; строку, начинающуюся с<code> # </code>, покажем как жирный подзаголовок (например «# First intake»).
+      </div>
+
+      <div className="progtool">
+        <input className="alist__search" placeholder="Поиск по названию или городу…" value={q} onChange={(e) => setQ(e.target.value)} />
+        <div className="progtool__filters">
+          {FILTERS.map(([k, l]) => (
+            <button key={k} className={"progchip" + (filter === k ? " is-on" : "")} onClick={() => setFilter(k)}>
+              {l} <span>{counts[k]}</span>
+            </button>
+          ))}
+        </div>
+        <button className="abtn abtn--primary" onClick={add}>+ Программа</button>
+      </div>
+
+      {list.length === 0 && (
+        <div className="ahint" style={{ marginBottom: 10 }}>Пока нет программ. Если ничего не добавить — на странице покажутся авто-карточки, собранные из данных вуза (уровни, GPA, языковые тесты, набор). Добавь программу, чтобы задать точный текст.</div>
+      )}
+
+      {rows.map(({ p, i }) => {
+        const bach = isBach(p);
+        const open = openIdx === i;
+        return (
+          <div className={"progrow" + (open ? " is-open" : "")} key={i}>
+            <div className="progrow__head" onClick={() => setOpenIdx(open ? null : i)}>
+              <span className={"progrow__dot progrow__dot--" + (bach ? "bachelor" : "master")}></span>
+              <span className="progrow__title">{p.title || "Без названия"}</span>
+              {p.location && <span className="progrow__loc">📍 {p.location}</span>}
+              <span className="progrow__lvl">{bach ? "Бакалавр" : "Магистр"}</span>
+              <span className="progrow__ctl" onClick={(e) => e.stopPropagation()}>
+                <button className="abtn" onClick={() => move(i, -1)} title="Выше">↑</button>
+                <button className="abtn" onClick={() => move(i, 1)} title="Ниже">↓</button>
+                <button className="abtn abtn--danger" onClick={() => del(i)} title="Удалить">✕</button>
+              </span>
+              <span className="progrow__chev">{open ? "▲" : "▼"}</span>
+            </div>
+            {open && (
+              <div className="progrow__body">
+                <div className="aform__grid aform__grid--inner">
+                  <Sel l="Уровень (цвет карточки)" v={p.level} on={(v) => upd(i, "level", v)} opts={PROG_LEVELS.map((x) => x.key)} />
+                  <TIn l="Название программы (англ.)" v={p.title} on={(v) => upd(i, "title", v)} ph="Business & Economics" />
+                  <TIn l="Кампус / город" v={p.location} on={(v) => upd(i, "location", v)} ph="Bologna" />
+                  <TIn l="Институт (пусто = имя вуза)" v={p.institution} on={(v) => upd(i, "institution", v)} ph="University of Bologna" />
+                  <TIn l="Год основания (пусто = у вуза)" v={p.established} on={(v) => upd(i, "established", v)} ph="1088" />
+                  <TIn l="Теги (через запятую)" v={tagsText(p.tags)} on={(v) => upd(i, "tags", tagsArr(v))} ph="Economics, Business" wide />
+                  <TIn l="Стоимость / год (пусто = цена вуза)" v={p.tuition} on={(v) => upd(i, "tuition", v)} ph="3 000 € / year" />
+                  <TIn l="Финансирование" v={p.funding} on={(v) => upd(i, "funding", v)} ph="Merit scholarship" />
+                  <TIn l="Если платно (IF PAID EDUCATION)" v={p.paidEducation} on={(v) => upd(i, "paidEducation", v)} ph="906 €" />
+                  <TIn l="Язык обучения" v={p.language} on={(v) => upd(i, "language", v)} ph="English" />
+                  <TIn l="Ссылка «Study plan»" v={p.studyPlan} on={(v) => upd(i, "studyPlan", v)} ph="https://…" wide />
+                  <Area l="Об программе (About program)" v={p.about} on={(v) => upd(i, "about", v)} rows={3} />
+                  <TIn l="Вступление (ENTRANCE)" v={p.entrance} on={(v) => upd(i, "entrance", v)} ph="Digital SAT · English B2" wide />
+                  <Area l="Требования (Requirements) — по строке на пункт" v={toText(p.requirements)} on={(v) => upd(i, "requirements", toArr(v))} rows={6} />
+                  <Area l="Дедлайны (Submission deadlines) — по строке на пункт" v={toText(p.deadlines)} on={(v) => upd(i, "deadlines", toArr(v))} rows={8} />
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      })}
+
+      {rows.length === 0 && list.length > 0 && (
+        <div className="ahint" style={{ marginBottom: 10 }}>Ничего не найдено по этому фильтру.</div>
+      )}
+
+      <button className="abtn abtn--primary" onClick={add} style={{ marginTop: 10 }}>+ Добавить программу</button>
     </div>
   );
 }

@@ -27,9 +27,15 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         raw = self.path
         path = raw.split("?", 1)[0].split("#", 1)[0]
+        # Directory request (e.g. "/" or "/foo/") -> serve that dir's
+        # index.html directly instead of falling back to a file listing.
+        if path.endswith("/"):
+            candidate = os.path.join(ROOT, path.lstrip("/"), "index.html")
+            if os.path.exists(candidate):
+                self.path = path + "index.html" + raw[len(path):]
         # Extensionless path with no trailing slash -> try the .html file,
         # keeping any ?query / #hash intact.
-        if "." not in os.path.basename(path) and not path.endswith("/"):
+        elif "." not in os.path.basename(path):
             candidate = os.path.join(ROOT, path.lstrip("/") + ".html")
             if os.path.exists(candidate):
                 self.path = path + ".html" + raw[len(path):]

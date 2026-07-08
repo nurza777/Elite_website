@@ -325,3 +325,39 @@ body { background: var(--gray-100); }
   .req-editor__item { flex-wrap: wrap; }
   .req-editor__item-lbl, .req-editor__item-val { flex: 1 1 100%; }
 }
+
+/* ---------- Programs editor — collapsible accordion ---------- */
+.progtool { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
+.progtool .alist__search { flex: 1 1 220px; }
+.progtool__filters { display: flex; gap: 6px; }
+.progchip {
+  padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--white); color: var(--navy); font-weight: 600; font-size: 13px;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+}
+.progchip span { font-size: 11px; color: var(--muted); }
+.progchip:hover { border-color: var(--navy); }
+.progchip.is-on { background: var(--navy); color: #fff; border-color: var(--navy); }
+.progchip.is-on span { color: #fff; }
+
+.progrow { border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px; background: var(--white); overflow: hidden; }
+.progrow.is-open { box-shadow: var(--shadow-sm); border-color: var(--navy); }
+.progrow__head { display: flex; align-items: center; gap: 10px; padding: 10px 12px; cursor: pointer; }
+.progrow__head:hover { background: var(--gray-50); }
+.progrow__dot { width: 11px; height: 11px; border-radius: 50%; flex: none; }
+.progrow__dot--bachelor { background: #fff; border: 2px solid var(--navy); }
+.progrow__dot--master { background: var(--navy); border: 2px solid var(--navy); }
+.progrow__title {
+  font-weight: 700; font-size: 14px; color: var(--navy);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px;
+}
+.progrow__loc { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+.progrow__lvl { margin-left: auto; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.progrow__ctl { display: flex; gap: 4px; }
+.progrow__ctl .abtn { padding: 4px 9px; font-size: 13px; }
+.progrow__chev { color: var(--muted); font-size: 10px; width: 14px; text-align: center; }
+.progrow__body { padding: 8px 14px 16px; border-top: 1px solid var(--line); }
+@media (max-width: 560px) {
+  .progrow__loc, .progrow__lvl { display: none; }
+  .progrow__title { max-width: 150px; }
+}

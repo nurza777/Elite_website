@@ -108,102 +108,237 @@ function FactCard({ label, children, sub }) {
   );
 }
 
-/* ── Foundation tooltip ── */
-function FoundationTip() {
-  const [open, setOpen] = useState(false);
+/* ── Auto program cards — built from a uni's catalog data when no cards
+      were authored in the admin panel. Content is in English to match the
+      program-card design. ── */
+const PROG_FIELD_EN = {
+  "IT": "Information Technology",
+};
+const PROG_SEASON_EN = { "Осень": "Fall", "Весна": "Spring", "Зима": "Winter", "Лето": "Summer" };
+
+function autoProgram(u, level) {
+  const fieldEn = PROG_FIELD_EN[u.field] || u.field || "Degree";
+  const tests = (u.engTests && u.engTests.length) ? u.engTests : ["IELTS", "TOEFL"];
+  const langTest = tests.join(" / ");
+  const exams = (u.exams && u.exams.length) ? u.exams.join(", ") : "Not required";
+  const isB = level === "bachelor";
+  const seasons = (u.intake || []).map((s) => PROG_SEASON_EN[s] || s);
+  const funding = u.needBased ? "Need-based grant" : (u.meritBased ? "Merit scholarship" : "");
+  return {
+    level,
+    title: fieldEn + (isB ? " — Bachelor" : " — Master"),
+    tags: [fieldEn, isB ? "Bachelor's" : "Master's"],
+    tuition: u.price ? "$" + u.price.toLocaleString("en-US") + " / year" : "",
+    funding,
+    language: "English",
+    entrance: langTest,
+    requirements: [
+      "Minimum GPA: " + (u.gpaMin || "—"),
+      "English test: " + langTest,
+      "Prior education: " + (isB ? "High-school diploma (11 years)" : "Bachelor's degree"),
+      "Entrance exams: " + exams,
+    ],
+    deadlines: seasons.length ? ["Intakes: " + seasons.join(" · ")] : [],
+  };
+}
+
+function autoPrograms(u) {
+  const lv = u.levels || "";
+  const out = [];
+  if (lv.includes("Бакалавр") || lv.includes("Колледж") || lv.includes("Foundation")) out.push(autoProgram(u, "bachelor"));
+  if (lv.includes("Магистр")) out.push(autoProgram(u, "master"));
+  if (!out.length) out.push(autoProgram(u, "bachelor"));
+  return out;
+}
+
+/* ── Program Cards (horizontal · white = bachelor, navy = master) ── */
+function programLevelLabel(level) {
+  if (level === "master") return "MASTER'S";
+  if (level === "phd") return "PHD";
+  if (level === "foundation") return "FOUNDATION";
+  return "BACHELOR'S";
+}
+
+/* Render an array of lines; a line starting with "# " becomes a bold sub-heading */
+function ProgramLines({ lines, bullet }) {
   return (
-    <span className="ftip" style={{ position: "relative", display: "inline-flex", alignItems: "center", marginLeft: 6 }}>
-      <button
-        className="ftip__btn"
-        onClick={() => setOpen(o => !o)}
-        aria-label="Что такое Foundation?"
-        title="Что такое Foundation?"
-      >?</button>
-      {open && (
-        <div className="ftip__popup" role="tooltip">
-          <strong>Foundation (подготовительный год)</strong> — это вводная программа, которая подготавливает студентов к поступлению на бакалавриат. Обычно длится 1 год и не требует GPA. Позволяет поступить без IELTS/TOEFL на некоторых программах.
-          <button className="ftip__close" onClick={() => setOpen(false)} aria-label="Закрыть">✕</button>
-        </div>
-      )}
-    </span>
+    <ul className={"pcard__lines" + (bullet ? " pcard__lines--bullet" : "")}>
+      {lines.map((raw, i) => {
+        const isHead = /^#\s+/.test(raw);
+        const text = raw.replace(/^#\s+/, "");
+        return isHead
+          ? <li className="pcard__line-head" key={i}>{text}</li>
+          : <li className="pcard__line" key={i}>{text}</li>;
+      })}
+    </ul>
   );
 }
 
-/* ── Requirements Table ── */
-const REQ_COL_ICONS = { bachelor: "🎓", master: "📚", foundation: "🌱" };
+const toLines = (v) => Array.isArray(v) ? v.filter(x => String(x).trim() !== "")
+  : (v ? String(v).split("\n").map(s => s.trim()).filter(Boolean) : []);
+const toTags = (v) => Array.isArray(v) ? v
+  : (v ? String(v).split(/[·,]/).map(s => s.trim()).filter(Boolean) : []);
 
-function reqDefaultItems(u, levelKey) {
-  if (levelKey === "bachelor") {
-    return [
-      { label: "Мин. GPA", value: u.gpaMin || "—" },
-      { label: "Языковой тест", value: u.engTests && u.engTests.length ? u.engTests.join(" / ") : "IELTS / TOEFL" },
-      { label: "Образование", value: "11 лет" },
-      { label: "Экзамены вуза", value: u.exams && u.exams.length ? u.exams.join(", ") : "Не требуются" },
-    ];
-  }
-  if (levelKey === "master") {
-    return [
-      { label: "Мин. GPA", value: u.gpaMin || "—" },
-      { label: "Языковой тест", value: u.engTests && u.engTests.length ? u.engTests.join(" / ") : "IELTS / TOEFL" },
-      { label: "Образование", value: "Бакалавриат" },
-      { label: "Экзамены вуза", value: "Не требуются" },
-    ];
-  }
-  if (levelKey === "foundation") {
-    return [
-      { label: "Мин. GPA", value: "Не требуется" },
-      { label: "Языковой тест", value: "Не требуется" },
-      { label: "Образование", value: "9–11 лет" },
-      { label: "Экзамены вуза", value: "Не требуются" },
-    ];
-  }
-  return [];
-}
-
-function ReqTable({ u, det }) {
-  const rt = (det && det.reqTable) ? det.reqTable : null;
-  const enabled = (rt && rt.enabled) || {};
-
-  /* Admin toggle wins; otherwise derive from uni levels */
-  const hasBachelor   = enabled.bachelor   !== undefined ? enabled.bachelor   : (u.levels.includes("Бакалавр") || u.levels.includes("Колледж"));
-  const hasMaster     = enabled.master     !== undefined ? enabled.master     : u.levels.includes("Магистр");
-  const hasFoundation = enabled.foundation !== undefined ? enabled.foundation : u.levels.includes("Foundation");
-
-  const itemsFor = (levelKey) => {
-    if (rt && rt[levelKey] && Array.isArray(rt[levelKey].items) && rt[levelKey].items.length) {
-      return rt[levelKey].items;
-    }
-    return reqDefaultItems(u, levelKey);
-  };
-
-  const cols = [
-    hasBachelor   && { key: "bachelor",   label: "Бакалавр" },
-    hasMaster     && { key: "master",     label: "Магистратура" },
-    hasFoundation && { key: "foundation", label: "Foundation", tip: true },
-  ].filter(Boolean);
-
-  if (!cols.length) return null;
+/* Full card — used inside the "More" modal (no data-reveal so it shows instantly) */
+function ProgramCard({ p, u, det, fmt }) {
+  const level = p.level === "master" ? "master" : "bachelor";
+  const institution = (p.institution || u.name || "").toUpperCase();
+  const est = p.established || (det && det.founded) || "";
+  const tuition = p.tuition || (u.price ? fmt(u.price) + " / year" : "");
+  const tags = toTags(p.tags);
+  const reqs = toLines(p.requirements);
+  const dls = toLines(p.deadlines);
 
   return (
-    <div className="uprof__req-wrap" data-reveal>
-      <div className="uprof__req-cards" style={{ "--req-cols": cols.length }}>
-        {cols.map((c) => (
-          <div className={"uprof__req-col" + (c.key === "bachelor" ? " uprof__req-col--main" : "")} key={c.key}>
-            <div className="uprof__req-col-head">
-              <span className="uprof__req-col-ic">{REQ_COL_ICONS[c.key]}</span>
-              {c.label}
-              {c.tip && <FoundationTip />}
-            </div>
-            {itemsFor(c.key).map((item, i) => (
-              <div className="uprof__req-cell" key={i}>
-                <span className="uprof__req-cell-lbl">{item.label}</span>
-                <span className="uprof__req-cell-val">{item.value}</span>
+    <article className={"pcard pcard--" + level}>
+      <header className="pcard__head">
+        <div className="pcard__id">
+          {u.logo
+            ? <img src={u.logo} className="pcard__logo" alt="" />
+            : <div className="pcard__logo pcard__logo--ph">{(u.short || "").slice(0, 2).toUpperCase()}</div>}
+          <div className="pcard__id-txt">
+            <div className="pcard__inst">{institution}{est ? " · EST. " + est : ""}</div>
+            <h3 className="pcard__title">{p.title}</h3>
+            {p.location && <div className="pcard__loc">📍 {p.location}</div>}
+            {tags.length > 0 && (
+              <div className="pcard__tags">
+                {tags.map((t, i) => <span className="pcard__tag" key={i}>{t}</span>)}
               </div>
-            ))}
+            )}
           </div>
-        ))}
+        </div>
+        <div className="pcard__meta">
+          <span className="pcard__badge">{p.levelLabel || programLevelLabel(level)}</span>
+          {tuition && (<><span className="pcard__meta-l">Annual tuition</span><span className="pcard__meta-v">{tuition}</span></>)}
+          {p.funding && (<><span className="pcard__meta-l">Funding</span><span className="pcard__meta-v">{p.funding}</span></>)}
+        </div>
+      </header>
+
+      <div className="pcard__body">
+        <div className="pcard__col">
+          <div className="pcard__col-h">About program</div>
+          {p.paidEducation && (<div className="pcard__kv"><span className="pcard__kv-l">If paid education</span><span className="pcard__kv-v">{p.paidEducation}</span></div>)}
+          {p.language && (<div className="pcard__kv"><span className="pcard__kv-l">Language of study</span><span className="pcard__kv-v">{p.language}</span></div>)}
+          {p.studyPlan && (<a className="pcard__link" href={p.studyPlan} target="_blank" rel="noopener">Study plan ↗</a>)}
+          {p.about && <p className="pcard__about">{p.about}</p>}
+        </div>
+
+        <div className="pcard__col">
+          <div className="pcard__col-h">Requirements</div>
+          {p.entrance && (
+            <div className="pcard__entrance"><span className="pcard__entrance-l">Entrance</span>{p.entrance}</div>
+          )}
+          {reqs.length > 0 && <ProgramLines lines={reqs} bullet={reqs.length > 1} />}
+        </div>
+
+        <div className="pcard__col">
+          <div className="pcard__col-h">Submission deadlines</div>
+          {dls.length > 0
+            ? <ProgramLines lines={dls} bullet />
+            : <p className="pcard__about">To be announced</p>}
+        </div>
       </div>
-      <a href="#cta" className="btn btn--dark uprof__req-cta" data-reveal>Проверить свои шансы на поступление →</a>
+    </article>
+  );
+}
+
+/* Compact card — shown in the carousel; opens the full card in a modal */
+function ProgramCardCompact({ p, u, det, fmt, onMore }) {
+  const level = p.level === "master" ? "master" : "bachelor";
+  const institution = (p.institution || u.name || "").toUpperCase();
+  const est = p.established || (det && det.founded) || "";
+  const tuition = p.tuition || (u.price ? fmt(u.price) + " / year" : "");
+  const tags = toTags(p.tags);
+  return (
+    <article className={"pcard-c pcard--" + level}>
+      <div className="pcard-c__top">
+        {u.logo
+          ? <img src={u.logo} className="pcard__logo" alt="" />
+          : <div className="pcard__logo pcard__logo--ph">{(u.short || "").slice(0, 2).toUpperCase()}</div>}
+        <span className="pcard__badge">{p.levelLabel || programLevelLabel(level)}</span>
+      </div>
+      <div className="pcard-c__inst">{institution}{est ? " · EST. " + est : ""}</div>
+      <h3 className="pcard-c__title">{p.title}</h3>
+      {p.location && <div className="pcard-c__loc">📍 {p.location}</div>}
+      {tags.length > 0 && (
+        <div className="pcard__tags">{tags.slice(0, 3).map((t, i) => <span className="pcard__tag" key={i}>{t}</span>)}</div>
+      )}
+      <div className="pcard-c__meta">
+        <span className="pcard__meta-l">Annual tuition</span>
+        <span className="pcard-c__meta-v">{tuition || "—"}</span>
+      </div>
+      {p.entrance && (
+        <div className="pcard__entrance"><span className="pcard__entrance-l">Entrance</span>{p.entrance}</div>
+      )}
+      <button className="pcard-c__more" onClick={onMore}>Подробнее →</button>
+    </article>
+  );
+}
+
+/* "More" modal — full program details */
+function ProgramModal({ p, u, det, fmt, onClose }) {
+  useEffect(() => {
+    const h = (e) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", h);
+    document.body.style.overflow = "hidden";
+    return () => { window.removeEventListener("keydown", h); document.body.style.overflow = ""; };
+  }, []);
+  return (
+    <div className="pmodal" onClick={onClose} role="dialog" aria-modal="true">
+      <div className="pmodal__inner" onClick={(e) => e.stopPropagation()}>
+        <button className="pmodal__close" onClick={onClose} aria-label="Закрыть">✕</button>
+        <ProgramCard p={p} u={u} det={det} fmt={fmt} />
+      </div>
+    </div>
+  );
+}
+
+function ProgramCards({ u, det, fmt }) {
+  const authored = (det && Array.isArray(det.programs)) ? det.programs.filter(Boolean) : [];
+  const all = authored.length ? authored : autoPrograms(u);
+  const bachelors = all.filter((p) => (p.level || "bachelor") !== "master");
+  const masters = all.filter((p) => p.level === "master");
+  const hasBoth = bachelors.length > 0 && masters.length > 0;
+  const [level, setLevel] = useState(bachelors.length ? "bachelor" : "master");
+  const [open, setOpen] = useState(null);
+  const trackRef = useRef(null);
+  const shown = level === "master" ? masters : bachelors;
+
+  const slide = (dir) => {
+    const el = trackRef.current; if (!el) return;
+    const card = el.querySelector(".pcard-c");
+    const dx = card ? card.offsetWidth + 18 : 340;
+    el.scrollBy({ left: dir * dx, behavior: "smooth" });
+  };
+
+  if (!all.length) return null;
+  return (
+    <div className="pcards">
+      {hasBoth && (
+        <div className="pcards__tabs" role="tablist">
+          <button className={"pcards__tab" + (level === "bachelor" ? " is-on" : "")} onClick={() => setLevel("bachelor")}>
+            Бакалавриат <span>{bachelors.length}</span>
+          </button>
+          <button className={"pcards__tab" + (level === "master" ? " is-on" : "")} onClick={() => setLevel("master")}>
+            Магистратура <span>{masters.length}</span>
+          </button>
+        </div>
+      )}
+      <div className="pcards__carousel">
+        {shown.length > 1 && (
+          <button className="pcards__arr pcards__arr--prev" onClick={() => slide(-1)} aria-label="Назад">‹</button>
+        )}
+        <div className="pcards__track" ref={trackRef}>
+          {shown.map((p, i) => (
+            <ProgramCardCompact key={i} p={p} u={u} det={det} fmt={fmt} onMore={() => setOpen(p)} />
+          ))}
+        </div>
+        {shown.length > 1 && (
+          <button className="pcards__arr pcards__arr--next" onClick={() => slide(1)} aria-label="Вперёд">›</button>
+        )}
+      </div>
+      <a href="#cta" className="btn btn--dark pcards__cta">Проверить свои шансы на поступление →</a>
+      {open && <ProgramModal p={open} u={u} det={det} fmt={fmt} onClose={() => setOpen(null)} />}
     </div>
   );
 }
@@ -448,7 +583,7 @@ function UniversityProfile() {
             <h2>Что нужно, чтобы поступить</h2>
             <p>Основные требования {u.name} для иностранных абитуриентов.</p>
           </div>
-          <ReqTable u={u} det={det} />
+          <ProgramCards u={u} det={det} fmt={fmt} />
         </div>
       </section>
 

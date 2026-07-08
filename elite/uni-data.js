@@ -11,7 +11,288 @@ var EA_UNI_DETAILS_DEFAULT = {
   "Bocconi":  { founded: 1902, students: "≈15 000", site: "unibocconi.it",
     about: "Частный миланский университет, одна из сильнейших бизнес-школ Европы. Экономика, финансы, менеджмент и право; сильная сеть выпускников в международных корпорациях." },
   "UniBo":    { founded: 1088, students: "≈90 000", site: "unibo.it",
-    about: "Старейший университет западного мира — работает непрерывно с 1088 года. Сильные программы по экономике, праву и гуманитарным наукам, кампусы в пяти городах региона." },
+    about: "Старейший университет западного мира — работает непрерывно с 1088 года. Сильные программы по экономике, праву и гуманитарным наукам, кампусы в пяти городах региона.",
+    programs: [
+      {
+        level: "bachelor",
+        title: "Business & Economics",
+        location: "Bologna",
+        institution: "University of Bologna",
+        established: "1088",
+        tags: ["Economics", "Business", "Management"],
+        tuition: "",
+        funding: "Merit & need-based scholarships",
+        paidEducation: "",
+        language: "English",
+        studyPlan: "https://corsi.unibo.it/1cycle/BusinessEconomics",
+        about: "Fully English-taught bachelor combining economics, quantitative methods and management. Prepares graduates for careers in international companies, consulting and further study across Europe.",
+        entrance: "Digital SAT (no Essay) · English B2",
+        requirements: [
+          "A 5-year high-school diploma, or a 4-year diploma from a pilot school.",
+          "Holders of a 4-year diploma (without a supplementary year) must complete an additional learning activity at the University of Bologna by 31/03/2027, or repeat the 1st year.",
+          "Digital SAT test (without the Essay), valid if taken from 01/02/2023 onwards.",
+          "The SAT score must reach the university by the deadline (see Submission deadlines).",
+          "Good English proficiency (B2 minimum). Taking the SAT satisfies the language requirement, since it is held in English.",
+          "Vacant places in the 1st intake: 85 (EU & equivalent) and 32 (non-EU residing abroad)."
+        ],
+        deadlines: [
+          "# First intake",
+          "Application — SAT General Test score received by UniBo by 29/04/2025: 03/02/2025 – 29/04/2025, 13:00 (local time).",
+          "Ranking published: 23/05/2025.",
+          "Enrolment for admitted candidates: 29/05/2025 – 05/06/2025.",
+          "1st reallocation — declaration of interest: 29/05/2025 15:00 – 05/06/2025.",
+          "1st reallocation — admitted list: 09/06/2025 · enrolment: 09/06/2025 – 16/06/2025.",
+          "2nd reallocation — declaration of interest: 09/06/2025 15:00 – 16/06/2025.",
+          "2nd reallocation — admitted list: 18/06/2025 · enrolment: 18/06/2025 – 25/06/2025.",
+          "# Second intake",
+          "Application — SAT General Test score received by UniBo by 07/07/2025: 30/04/2025 – 07/07/2025, 13:00 (local time).",
+          "Ranking published: 21/07/2025.",
+          "Enrolment for admitted candidates: 24/07/2025 – 30/07/2025.",
+          "1st reallocation — declaration of interest: 24/07/2025 15:00 – 30/07/2025.",
+          "1st reallocation — admitted list: 01/08/2025 · enrolment: 01/08/2025 – 08/08/2025.",
+          "2nd reallocation — declaration of interest: 01/08/2025 15:00 – 08/08/2025.",
+          "2nd reallocation — admitted list: 25/08/2025 · enrolment: 25/08/2025 – 01/09/2025."
+        ]
+      },
+      {
+        level: "bachelor",
+        title: "Building Construction Engineering",
+        location: "Ravenna",
+        institution: "University of Bologna",
+        established: "1088",
+        tags: ["Engineering", "Construction"],
+        language: "English",
+        entrance: "English TOLC-I 20+ · IELTS 5.5 / TOEFL 80",
+        requirements: [
+          "English Language Certificate: IELTS 5.5 or TOEFL iBT 80+.",
+          "English TOLC-I with a score of 20+ (Math minimum 12).",
+          "TOLC held: EU — TOLC@UNI in person; Non-EU — TOLC@HOME online."
+        ],
+        deadlines: [
+          "# Intake 1 — EU, EU-equivalent & non-EU residing abroad",
+          "Application: 10/03/2025 – 06/05/2025, 13:00 (local time).",
+          "English TOLC-I taken between 01/01/2024 and 05/05/2025.",
+          "# Intake 2 — EU, EU-equivalent & non-EU residing abroad",
+          "Application: 30/05/2025 – 14/07/2025, 13:00 (local time).",
+          "English TOLC-I taken between 01/01/2024 and 11/07/2025.",
+          "# Intake 3 — EU & EU-equivalent only (if places remain)",
+          "Application: 09/09/2025 – 18/09/2025, 13:00 (local time).",
+          "SAT score received by 17/09/2025."
+        ]
+      },
+      {
+        level: "bachelor",
+        title: "Business Economics — Financial & Business Management",
+        location: "Rimini",
+        institution: "University of Bologna",
+        established: "1088",
+        tags: ["Economics", "Finance", "Management"],
+        language: "English",
+        entrance: "TOLC-E or SAT · IELTS 5.5 · Interview",
+        requirements: [
+          "Interview.",
+          "TOLC-E or SAT test results.",
+          "English language certificate: IELTS 5.5."
+        ],
+        deadlines: [
+          "# First selection",
+          "Application: 02/2025 – 29/04/2025.",
+          "Interviews: 13/05/2025 – 16/05/2025.",
+          "Ranking: 22/05/2025.",
+          "# Second selection (if activated)",
+          "Application: 12/06/2025 – 19/08/2025.",
+          "Interviews: 27/08/2025 – 29/08/2025.",
+          "Ranking: 04/09/2025."
+        ]
+      },
+      {
+        level: "bachelor",
+        title: "Economics & Finance",
+        location: "Bologna",
+        institution: "University of Bologna",
+        established: "1088",
+        tags: ["Economics", "Finance"],
+        language: "English",
+        entrance: "Digital SAT · IELTS 5.5 / TOEFL 80",
+        requirements: [
+          "SAT General Test (taken from 01/02/2023); no minimum score required.",
+          "English level certificate: IELTS 5.5 or TOEFL 80."
+        ],
+        deadlines: [
+          "# First intake",
+          "Application: 03/02/2025 – 29/04/2025.",
+          "SAT score received by UniBo by 29/04/2025.",
+          "Ranking: 23/05/2025.",
+          "# Second intake — EU & EU-equivalent only",
+          "Application: 30/04/2025 – 07/07/2025.",
+          "SAT score received by UniBo by 07/07/2025.",
+          "Ranking: 21/07/2025.",
+          "# Extra intake",
+          "Application: 03/09/2025 – 10/09/2025.",
+          "SAT score received by UniBo by 10/09/2025.",
+          "Ranking: 19/09/2025."
+        ]
+      },
+      {
+        level: "bachelor",
+        title: "Economics, Politics & Social Sciences",
+        location: "Bologna",
+        institution: "University of Bologna",
+        established: "1088",
+        tags: ["Economics", "Political Science"],
+        language: "English",
+        entrance: "Digital SAT (min 1100) · IELTS 5.5 / TOEFL 80",
+        requirements: [
+          "SAT General Test, minimum score 1100.",
+          "English level certificate: IELTS 5.5 or TOEFL 80.",
+          "A high-school diploma.",
+          "Vacant places — 1st intake: 55 (EU & equivalent), 35 (non-EU abroad); 2nd intake: 35 (EU & equivalent), 5 (non-EU abroad); possible 3rd intake: EU & equivalent only."
+        ],
+        deadlines: [
+          "# Intake 1",
+          "Application: 03/02/2025 – 29/04/2025, 13:00 · SAT received by UniBo by 29/04/2025.",
+          "Ranking: 23/05/2025 · Enrolment: 29/05/2025 – 05/06/2025.",
+          "1st reallocation: interest 29/05/2025 15:00 – 05/06/2025; admitted 09/06/2025; enrolment 09/06/2025 – 16/06/2025.",
+          "2nd reallocation: interest 09/06/2025 15:00 – 16/06/2025; admitted 18/06/2025; enrolment 18/06/2025 – 25/06/2025.",
+          "# Intake 2",
+          "Application: 30/04/2025 – 07/07/2025, 13:00 · SAT received by UniBo by 07/07/2025.",
+          "Ranking: 21/07/2025 · Enrolment: 24/07/2025 – 30/07/2025.",
+          "1st reallocation: interest 24/07/2025 15:00 – 30/07/2025; admitted 01/08/2025; enrolment 01/08/2025 – 08/08/2025.",
+          "2nd reallocation: interest 01/08/2025 15:00 – 08/08/2025; admitted 25/08/2025; enrolment 25/08/2025 – 01/09/2025.",
+          "# Intake 3 (only if places remain)",
+          "Application: 03/09/2025 – 10/09/2025, 13:00 · SAT received by UniBo by 10/09/2025.",
+          "Ranking: 19/09/2025 · Enrolment: 23/09/2025 – 30/09/2025.",
+          "High-school diploma obtained by 31/12/2025."
+        ]
+      },
+      {
+        level: "master",
+        title: "Artificial Intelligence",
+        location: "Bologna",
+        institution: "University of Bologna",
+        established: "1088",
+        tags: ["Computer Science", "AI"],
+        language: "English",
+        entrance: "IELTS 5.5 / TOEFL 80",
+        requirements: [
+          "English Level Certificate: IELTS 5.5 or TOEFL 80.",
+          "Bachelor's in Computer Science, Computer/Applied Informatics, Mathematics, Physics, Statistics, Automation, Electronics, Telecommunications or Biomedical Engineering (or equivalent).",
+          "Personal Admission Index (API) must be at least 25.50/30."
+        ],
+        deadlines: [
+          "# Intake 1 — non-EU applicants only",
+          "Application: 28/11/2024 – 15/01/2025 · Results: 12/02/2025.",
+          "# Intake 2",
+          "Application: 16/01/2025 – 26/02/2025 · Results: 26/03/2025.",
+          "# Intake 3",
+          "Application: 27/02/2025 – 16/04/2025 · Results: 14/05/2025.",
+          "# Intake 4",
+          "Application: 17/04/2025 – 04/06/2025 · Results: 02/07/2025.",
+          "# Intake 5",
+          "Application: 05/06/2025 – 02/07/2025 · Results: 22/07/2025."
+        ]
+      },
+      {
+        level: "master",
+        title: "Automation Engineering",
+        location: "Bologna",
+        institution: "University of Bologna",
+        established: "1088",
+        tags: ["Engineering", "Automation"],
+        language: "English",
+        entrance: "IELTS 5.5 / TOEFL 80",
+        requirements: [
+          "English Level Certificate: IELTS 5.5 or TOEFL 80.",
+          "Bachelor's in Civil & Environmental, Information, Industrial Engineering, Physical Sciences, Computer Sciences or Mathematical Sciences.",
+          "GPA no lower than 94/110."
+        ],
+        deadlines: [
+          "# Intake 1 — non-EU applicants only",
+          "Application: 28/11/2024 – 15/01/2025 · Results: 12/02/2025.",
+          "# Intake 2",
+          "Application: 16/01/2025 – 26/02/2025 · Results: 26/03/2025.",
+          "# Intake 3",
+          "Application: 27/02/2025 – 16/04/2025 · Results: 14/05/2025.",
+          "# Intake 4",
+          "Application: 17/04/2025 – 04/06/2025 · Results: 02/07/2025.",
+          "# Intake 5",
+          "Application: 05/06/2025 – 02/07/2025 · Results: 22/07/2025."
+        ]
+      },
+      {
+        level: "master",
+        title: "Aerospace Engineering",
+        location: "Forlì",
+        institution: "University of Bologna",
+        established: "1088",
+        tags: ["Engineering", "Aerospace"],
+        language: "English",
+        entrance: "IELTS 5.5 / TOEFL 80 · Interview possible",
+        requirements: [
+          "English Level Certificate: IELTS 5.5 or TOEFL 80 (OOPT test possible).",
+          "Possible interview.",
+          "Degree in mechanical, aerospace, industrial, IT, civil/environmental engineering, mathematics, physics or IT technologies."
+        ],
+        deadlines: [
+          "# Intake 1",
+          "Application: 05/12/2024 – 03/02/2025 · Results: 13/02/2025.",
+          "Interview (if called): 19/02/2025 – 21/02/2025 · Outcome: 05/03/2025.",
+          "# Intake 2",
+          "Application: 26/03/2025 – 30/05/2025 · Results: 09/06/2025.",
+          "Interview (if called): 11/06/2025 – 12/06/2025 · Outcome: 16/06/2025.",
+          "# Intake 3",
+          "Application: 11/07/2025 – 29/08/2025 · Results: 05/09/2025.",
+          "Interview (if called): 09/09/2025 · Outcome: 12/09/2025."
+        ]
+      },
+      {
+        level: "master",
+        title: "Quantitative Finance",
+        location: "Bologna",
+        institution: "University of Bologna",
+        established: "1088",
+        tags: ["Finance", "Mathematics"],
+        language: "English",
+        entrance: "IELTS 5.5 / TOEFL 80 · UniBo Test",
+        requirements: [
+          "English level certificate: IELTS 5.5, TOEFL 80 or UniBo Test.",
+          "Bachelor's in Mathematics, Physics, Economics & Business, Statistical Sciences, Computer Science or Engineering (or similar)."
+        ],
+        deadlines: [
+          "# Intake 1",
+          "Application: 04/03/2025 – 01/04/2025 · Results: from 09/05/2025.",
+          "# Intake 2",
+          "Application: 02/04/2025 – 02/05/2025 · Results: from 04/06/2025.",
+          "# Intake 3 — EU & EU-equivalent only",
+          "Application: 05/05/2025 – 01/07/2025 · Results: from 29/07/2025."
+        ]
+      },
+      {
+        level: "master",
+        title: "Physics",
+        location: "Bologna",
+        institution: "University of Bologna",
+        established: "1088",
+        tags: ["Physics", "Science"],
+        language: "English",
+        entrance: "IELTS 5.5 / TOEFL 80 · Interview possible",
+        requirements: [
+          "English Language Certificate: IELTS 5.5 or TOEFL 80.",
+          "Possible interview.",
+          "Degree in Physics, Astronomy or similar field."
+        ],
+        deadlines: [
+          "# Intake 1 — EU/non-EU applicants",
+          "Application: 05/02/2025 – 31/03/2025 · Results: by 07/04/2025.",
+          "# Intake 2 — EU applicants only",
+          "Application: 01/04/2025 – 02/06/2025 · Results: by 09/06/2025.",
+          "# Intake 3 — EU applicants only",
+          "Application: 03/06/2025 – 28/07/2025 · Results: by 04/08/2025.",
+          "# Intake 4 — EU applicants only",
+          "Application: 29/07/2025 – 30/09/2025 · Results: by 06/10/2025."
+        ]
+      }
+    ] },
   "Sapienza": { founded: 1303, students: "≈110 000", site: "uniroma1.it",
     about: "Один из крупнейших университетов Европы, главный государственный вуз Рима. Лидер мировых рейтингов по классическим наукам и археологии, широкий выбор англоязычных программ." },
   "UniPD":    { founded: 1222, students: "≈65 000", site: "unipd.it",
@@ -457,7 +738,22 @@ var EA_UNI_DETAILS_DEFAULT = {
     about: "Венский университет музыки и исполнительских искусств — стабильно №1 в мировых рейтингах музыкальных вузов. Музыка, дирижирование, кино и актёрское мастерство." },
 };
 
-/* Admin-edited content wins over the defaults above */
-window.EA_UNI_DETAILS = window.eaContent
-  ? window.eaContent("uniDetails", EA_UNI_DETAILS_DEFAULT)
-  : EA_UNI_DETAILS_DEFAULT;
+/* Admin-edited content wins over the defaults above.
+   But backfill code-authored `programs` for unis whose saved details were
+   created before the program-cards feature existed — so new default cards
+   still appear. Admin edits (a non-empty `programs`) are never overwritten. */
+(function () {
+  var eff = window.eaContent
+    ? window.eaContent("uniDetails", EA_UNI_DETAILS_DEFAULT)
+    : EA_UNI_DETAILS_DEFAULT;
+  if (eff !== EA_UNI_DETAILS_DEFAULT) {
+    for (var k in EA_UNI_DETAILS_DEFAULT) {
+      var def = EA_UNI_DETAILS_DEFAULT[k];
+      if (def && def.programs && def.programs.length) {
+        if (!eff[k]) eff[k] = {};
+        if (!eff[k].programs || !eff[k].programs.length) eff[k].programs = def.programs;
+      }
+    }
+  }
+  window.EA_UNI_DETAILS = eff;
+})();

@@ -6,7 +6,7 @@ const { useState } = React;
 // Values must exactly match catalog.jsx filter keys
 const HS_COUNTRIES = ["Любая страна", "Италия", "США", "Австрия", "Германия", "Польша", "Северный Кипр", "Малайзия"];
 const HS_LEVELS   = ["Любой уровень", "Колледж", "Foundation", "Бакалавр", "Магистр", "PhD"];
-const HS_FIELDS   = ["Любое направление", "IT", "Бизнес", "Медицина", "Право", "Инженерия", "Экономика", "Дизайн", "Педагогика"];
+const HS_FIELDS   = ["Любое направление", "IT", "Business", "Medicine", "Law", "Engineering", "Economics", "Design", "Education"];
 
 function HomeSearch() {
   const [country, setCountry] = useState("");
