@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   09.07.2026, 18:26:46
+   09.07.2026, 18:33:47
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -972,1215 +972,6 @@ window.EA_CONTENT_PUBLISHED = {
       "flag": "🇺🇸"
     },
     {
-      "name": "Lynn University",
-      "short": "Lynn",
-      "loc": "Бока-Ратон",
-      "country": "США",
-      "qs": 1001,
-      "price": 10000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "needBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of Tulsa",
-      "short": "UTulsa",
-      "loc": "Талса",
-      "country": "США",
-      "qs": 801,
-      "price": 52000,
-      "type": "Частный",
-      "field": "Инженерия",
-      "levels": "Бакалавр · Магистр · PhD",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of San Francisco",
-      "short": "USF",
-      "loc": "Сан-Франциско",
-      "country": "США",
-      "qs": 801,
-      "price": 63000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Gannon University",
-      "short": "Gannon",
-      "loc": "Эри",
-      "country": "США",
-      "price": 45000,
-      "type": "Частный",
-      "field": "Инженерия",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Florida National University",
-      "short": "FNU",
-      "loc": "Майами",
-      "country": "США",
-      "price": 16800,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "San Francisco State University",
-      "short": "SFSU",
-      "loc": "Сан-Франциско",
-      "country": "США",
-      "qs": 1001,
-      "price": 17500,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Rutgers University",
-      "short": "Rutgers",
-      "loc": "Нью-Брансуик",
-      "country": "США",
-      "qs": 401,
-      "price": 34000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр · PhD",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Stony Brook University",
-      "short": "SBU",
-      "loc": "Стоуни-Брук",
-      "country": "США",
-      "qs": 351,
-      "price": 29000,
-      "type": "Государственный",
-      "field": "IT",
-      "levels": "Бакалавр · Магистр · PhD",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Tulane University",
-      "short": "Tulane",
-      "loc": "Новый Орлеан",
-      "country": "США",
-      "qs": 501,
-      "price": 60000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "needBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Villanova University",
-      "short": "Villanova",
-      "loc": "Виллануэва",
-      "country": "США",
-      "qs": 451,
-      "price": 54000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of Illinois Chicago",
-      "short": "UIC",
-      "loc": "Чикаго",
-      "country": "США",
-      "qs": 401,
-      "price": 29000,
-      "type": "Государственный",
-      "field": "IT",
-      "levels": "Бакалавр · Магистр · PhD",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Auburn University",
-      "short": "Auburn",
-      "loc": "Оберн",
-      "country": "США",
-      "qs": 601,
-      "price": 31000,
-      "type": "Государственный",
-      "field": "Инженерия",
-      "levels": "Бакалавр · Магистр · PhD",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Gonzaga University",
-      "short": "Gonzaga",
-      "loc": "Спокан",
-      "country": "США",
-      "qs": 801,
-      "price": 50000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of Central Florida",
-      "short": "UCF",
-      "loc": "Орландо",
-      "country": "США",
-      "qs": 601,
-      "price": 22000,
-      "type": "Государственный",
-      "field": "IT",
-      "levels": "Бакалавр · Магистр · PhD",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of South Carolina",
-      "short": "UofSC",
-      "loc": "Колумбия",
-      "country": "США",
-      "qs": 701,
-      "price": 33000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр · PhD",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Louisiana State University",
-      "short": "LSU",
-      "loc": "Батон-Руж",
-      "country": "США",
-      "qs": 701,
-      "price": 26000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр · PhD",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of Kansas",
-      "short": "KU",
-      "loc": "Лоуренс",
-      "country": "США",
-      "qs": 651,
-      "price": 27000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр · PhD",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Seattle University",
-      "short": "SeattleU",
-      "loc": "Сиэтл",
-      "country": "США",
-      "qs": 1001,
-      "price": 49000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Montana State University",
-      "short": "MontanaSt",
-      "loc": "Бозман",
-      "country": "США",
-      "price": 23000,
-      "type": "Государственный",
-      "field": "Инженерия",
-      "levels": "Бакалавр · Магистр · PhD",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "The New School",
-      "short": "NewSchool",
-      "loc": "Нью-Йорк",
-      "country": "США",
-      "price": 55000,
-      "type": "Частный",
-      "field": "Дизайн",
-      "levels": "Бакалавр · Магистр",
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of New Haven",
-      "short": "NewHaven",
-      "loc": "Нью-Хейвен",
-      "country": "США",
-      "price": 41000,
-      "type": "Частный",
-      "field": "IT",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "American University",
-      "short": "AU",
-      "loc": "Вашингтон",
-      "country": "США",
-      "qs": 801,
-      "price": 57000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Johns Hopkins University",
-      "short": "JHU",
-      "loc": "Балтимор",
-      "country": "США",
-      "qs": 16,
-      "price": 61000,
-      "type": "Частный",
-      "field": "IT",
-      "levels": "Магистр · PhD",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of Virginia",
-      "short": "UVA",
-      "loc": "Шарлотсвилл",
-      "country": "США",
-      "qs": 201,
-      "price": 54000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Магистр",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Pepperdine University",
-      "short": "Pepperdine",
-      "loc": "Малибу",
-      "country": "США",
-      "qs": 501,
-      "price": 59000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of Utah",
-      "short": "UUtah",
-      "loc": "Солт-Лейк-Сити",
-      "country": "США",
-      "qs": 651,
-      "price": 30000,
-      "type": "Государственный",
-      "field": "IT",
-      "levels": "Бакалавр · Магистр · PhD",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Univ. of Texas San Antonio",
-      "short": "UTSA",
-      "loc": "Сан-Антонио",
-      "country": "США",
-      "qs": 801,
-      "price": 22000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр · PhD",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of Dayton",
-      "short": "UDayton",
-      "loc": "Дейтон",
-      "country": "США",
-      "price": 47000,
-      "type": "Частный",
-      "field": "Инженерия",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of the Pacific",
-      "short": "Pacific",
-      "loc": "Стоктон",
-      "country": "США",
-      "price": 54000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of Nevada Reno",
-      "short": "UNR",
-      "loc": "Рино",
-      "country": "США",
-      "qs": 1001,
-      "price": 25000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр · PhD",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "UMass Boston",
-      "short": "UMassB",
-      "loc": "Бостон",
-      "country": "США",
-      "qs": 801,
-      "price": 31000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр · PhD",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Missouri S&T",
-      "short": "MissouriST",
-      "loc": "Ролла",
-      "country": "США",
-      "qs": 1001,
-      "price": 30000,
-      "type": "Государственный",
-      "field": "Инженерия",
-      "levels": "Бакалавр · Магистр · PhD",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Cleveland State University",
-      "short": "ClevSt",
-      "loc": "Кливленд",
-      "country": "США",
-      "price": 23000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр · PhD",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Robert Morris University",
-      "short": "RMU",
-      "loc": "Питтсбург",
-      "country": "США",
-      "price": 39000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Belmont University",
-      "short": "Belmont",
-      "loc": "Нэшвилл",
-      "country": "США",
-      "price": 40000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Oklahoma City University",
-      "short": "OCU",
-      "loc": "Оклахома-Сити",
-      "country": "США",
-      "price": 40000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of Wyoming",
-      "short": "UWyo",
-      "loc": "Ларами",
-      "country": "США",
-      "qs": 1001,
-      "price": 23000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр · PhD",
-      "meritBased": true,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of Portland",
-      "short": "UPortland",
-      "loc": "Портленд",
-      "country": "США",
-      "price": 50000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Rutgers University Camden",
-      "short": "RuCamden",
-      "loc": "Камден",
-      "country": "США",
-      "price": 28000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Utah Tech University",
-      "short": "UtahTech",
-      "loc": "Сент-Джордж",
-      "country": "США",
-      "price": 18000,
-      "type": "Государственный",
-      "field": "IT",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "UW–Eau Claire",
-      "short": "UWEC",
-      "loc": "Ого-Клер",
-      "country": "США",
-      "price": 19000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "UW–Green Bay",
-      "short": "UWGB",
-      "loc": "Грин-Бей",
-      "country": "США",
-      "price": 18000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "UW–Whitewater",
-      "short": "UWWW",
-      "loc": "Уайтуотер",
-      "country": "США",
-      "price": 16000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "UW–River Falls",
-      "short": "UWRF",
-      "loc": "Ривер-Фолс",
-      "country": "США",
-      "price": 16000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "UW–Superior",
-      "short": "UWSup",
-      "loc": "Супириор",
-      "country": "США",
-      "price": 14000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "UW–Stevens Point",
-      "short": "UWSP",
-      "loc": "Стивенс-Пойнт",
-      "country": "США",
-      "price": 17000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Univ. of Illinois Springfield",
-      "short": "UISG",
-      "loc": "Спрингфилд",
-      "country": "США",
-      "price": 19000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Univ. of Alaska Fairbanks",
-      "short": "UAF",
-      "loc": "Фэрбанкс",
-      "country": "США",
-      "price": 24000,
-      "type": "Государственный",
-      "field": "Инженерия",
-      "levels": "Бакалавр · Магистр · PhD",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Bellarmine University",
-      "short": "Bellarmine",
-      "loc": "Луисвилл",
-      "country": "США",
-      "price": 43000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Carroll University",
-      "short": "CarrollU",
-      "loc": "Уокеша",
-      "country": "США",
-      "price": 37000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Dean College",
-      "short": "DeanC",
-      "loc": "Франклин",
-      "country": "США",
-      "price": 48000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Eureka College",
-      "short": "Eureka",
-      "loc": "Юрика",
-      "country": "США",
-      "price": 28000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Felician University",
-      "short": "Felician",
-      "loc": "Лоди",
-      "country": "США",
-      "price": 38000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Hanover College",
-      "short": "Hanover",
-      "loc": "Хановер",
-      "country": "США",
-      "price": 45000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Hartwick College",
-      "short": "Hartwick",
-      "loc": "Уонта",
-      "country": "США",
-      "price": 49000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Hiram College",
-      "short": "Hiram",
-      "loc": "Хайрам",
-      "country": "США",
-      "price": 47000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Holy Cross College",
-      "short": "HolyCross",
-      "loc": "Нотр-Дам",
-      "country": "США",
-      "price": 37000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Illinois Wesleyan University",
-      "short": "IllinoisWes",
-      "loc": "Блумингтон",
-      "country": "США",
-      "price": 55000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Lakeland University",
-      "short": "Lakeland",
-      "loc": "Шебойган",
-      "country": "США",
-      "price": 34000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Lewis University",
-      "short": "LewisU",
-      "loc": "Ромеовилл",
-      "country": "США",
-      "price": 38000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "McMurry University",
-      "short": "McMurry",
-      "loc": "Абилин",
-      "country": "США",
-      "price": 29000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "MGH Institute of Health",
-      "short": "MGHIHP",
-      "loc": "Бостон",
-      "country": "США",
-      "price": 37000,
-      "type": "Частный",
-      "field": "Медицина",
-      "levels": "Магистр · PhD",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Moravian University",
-      "short": "Moravian",
-      "loc": "Вифлеем",
-      "country": "США",
-      "price": 48000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Mount St. Mary's University",
-      "short": "MtStMary",
-      "loc": "Эммитсбург",
-      "country": "США",
-      "price": 46000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Ohio Wesleyan University",
-      "short": "OhioWes",
-      "loc": "Делавер",
-      "country": "США",
-      "price": 53000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Palm Beach Atlantic University",
-      "short": "PalmBeach",
-      "loc": "Уэст-Палм-Бич",
-      "country": "США",
-      "price": 36000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Randolph College",
-      "short": "RandolphC",
-      "loc": "Линчберг",
-      "country": "США",
-      "price": 45000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Saint Mary's Univ. of MN",
-      "short": "SaintMaryMN",
-      "loc": "Уинона",
-      "country": "США",
-      "price": 42000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Salve Regina University",
-      "short": "SalveRegina",
-      "loc": "Ньюпорт",
-      "country": "США",
-      "price": 45000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Schreiner University",
-      "short": "Schreiner",
-      "loc": "Кервилл",
-      "country": "США",
-      "price": 33000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "St. Bonaventure University",
-      "short": "StBon",
-      "loc": "Сент-Бонавентур",
-      "country": "США",
-      "price": 43000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "St. Catherine University",
-      "short": "StCatherine",
-      "loc": "Сент-Пол",
-      "country": "США",
-      "price": 43000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "St. Mary's College of CA",
-      "short": "StMaryCA",
-      "loc": "Морага",
-      "country": "США",
-      "price": 52000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "St. Thomas Aquinas College",
-      "short": "StThomasAQ",
-      "loc": "Спаркилл",
-      "country": "США",
-      "price": 38000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Trinity Christian College",
-      "short": "TrinityCC",
-      "loc": "Пэлос-Хайтс",
-      "country": "США",
-      "price": 36000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of Charleston",
-      "short": "UCharleston",
-      "loc": "Чарлстон",
-      "country": "США",
-      "price": 32000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of Dubuque",
-      "short": "UDubuque",
-      "loc": "Дубьюк",
-      "country": "США",
-      "price": 36000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of Mount Union",
-      "short": "UMountUnion",
-      "loc": "Альянс",
-      "country": "США",
-      "price": 37000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of New England",
-      "short": "UNE",
-      "loc": "Бидефорд",
-      "country": "США",
-      "price": 43000,
-      "type": "Частный",
-      "field": "Медицина",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of Redlands",
-      "short": "URedlands",
-      "loc": "Редлендс",
-      "country": "США",
-      "price": 55000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "University of Saint Mary KS",
-      "short": "USaintMary",
-      "loc": "Ливенуорт",
-      "country": "США",
-      "price": 33000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Virginia Wesleyan University",
-      "short": "VirginiaWes",
-      "loc": "Норфолк",
-      "country": "США",
-      "price": 39000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Washington & Jefferson College",
-      "short": "WashJeff",
-      "loc": "Вашингтон",
-      "country": "США",
-      "price": 51000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Western Oregon University",
-      "short": "WesternOR",
-      "loc": "Монмут",
-      "country": "США",
-      "price": 26000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Whittier College",
-      "short": "Whittier",
-      "loc": "Уиттиер",
-      "country": "США",
-      "price": 53000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Widener University",
-      "short": "Widener",
-      "loc": "Честер",
-      "country": "США",
-      "price": 54000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Wilson College",
-      "short": "Wilson",
-      "loc": "Чемберсбург",
-      "country": "США",
-      "price": 32000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Colby Sawyer College",
-      "short": "ColbySawyer",
-      "loc": "Нью-Лондон",
-      "country": "США",
-      "price": 47000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Bridgewater College",
-      "short": "BridgewaterC",
-      "loc": "Бриджуотер",
-      "country": "США",
-      "price": 41000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Dakota Wesleyan University",
-      "short": "DakotaWes",
-      "loc": "Митчелл",
-      "country": "США",
-      "price": 33000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Central Methodist University",
-      "short": "CentralMeth",
-      "loc": "Фэйет",
-      "country": "США",
-      "price": 28000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Auburn Univ. at Montgomery",
-      "short": "AuburnMont",
-      "loc": "Монтгомери",
-      "country": "США",
-      "price": 23000,
-      "type": "Государственный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
-      "name": "Brescia University",
-      "short": "Brescia",
-      "loc": "Оуэнсборо",
-      "country": "США",
-      "price": 27000,
-      "type": "Частный",
-      "field": "Бизнес",
-      "levels": "Бакалавр · Магистр",
-      "meritBased": true,
-      "qs": null,
-      "flag": "🇺🇸"
-    },
-    {
       "name": "De Anza College",
       "short": "DeAnza",
       "loc": "Купертино",
@@ -2682,19 +1473,6 @@ window.EA_CONTENT_PUBLISHED = {
       "type": "Частный",
       "field": "Бизнес",
       "levels": "Бакалавр · Магистр",
-      "qs": null,
-      "flag": "🇩🇪"
-    },
-    {
-      "name": "Constructor University",
-      "short": "CU",
-      "loc": "Бремен",
-      "country": "Германия",
-      "price": 20000,
-      "type": "Частный",
-      "field": "IT",
-      "levels": "Foundation · Бакалавр · Магистр · PhD",
-      "meritBased": true,
       "qs": null,
       "flag": "🇩🇪"
     },
@@ -3257,528 +2035,6 @@ window.EA_CONTENT_PUBLISHED = {
     "SCSS": {
       "about": "Университет в Лос-Анджелесе с программами бакалавриата и магистратуры по бизнесу. Подробности о поступлении — на консультации Elite Academy."
     },
-    "Rutgers": {
-      "about": "Флагманский университет Нью-Джерси в топ-50 США (US News) — в 30 минутах от Нью-Йорка. Входит в элитную AAU; сильны бизнес, фармацевтика и медицина.",
-      "founded": 1766,
-      "students": "≈71 000",
-      "site": "rutgers.edu"
-    },
-    "SBU": {
-      "about": "Флагманский исследовательский университет SUNY на Лонг-Айленде (#59 US News). Входит в AAU; нобелевские лауреаты среди преподавателей; сильны IT, физика и медицина.",
-      "founded": 1957,
-      "students": "≈26 000",
-      "site": "stonybrook.edu"
-    },
-    "Tulane": {
-      "about": "Престижный исследовательский университет в Новом Орлеане (#69 US News). Один из ведущих вузов Юга США; сильны бизнес, медицина и международные отношения.",
-      "founded": 1834,
-      "students": "≈14 000",
-      "site": "tulane.edu"
-    },
-    "Villanova": {
-      "about": "Элитный католический университет под Филадельфией (#57 US News). Villanova School of Business входит в топ-20 США; сильны инженерия и право; высокий процент трудоустройства.",
-      "founded": 1842,
-      "students": "≈11 000",
-      "site": "villanova.edu"
-    },
-    "UIC": {
-      "about": "Крупнейший государственный университет Чикаго (#84 US News). Мощный медицинский и инженерный кампус в сердце третьего мегаполиса США; доступные цены для своего масштаба.",
-      "founded": 1982,
-      "students": "≈33 000",
-      "site": "uic.edu"
-    },
-    "Auburn": {
-      "about": "Флагманский технический университет Алабамы (#102 US News). Один из крупнейших инженерных факультетов Юга; сильны аэрокосмическая инженерия и ветеринария.",
-      "founded": 1856,
-      "students": "≈30 000",
-      "site": "auburn.edu"
-    },
-    "Gonzaga": {
-      "about": "Иезуитский университет в Спокане (#102 US News). Стабильно в топ-5 MBA Западного побережья; сильны право и бизнес; известен сильной баскетбольной командой.",
-      "founded": 1887,
-      "students": "≈9 500",
-      "site": "gonzaga.edu"
-    },
-    "UCF": {
-      "about": "Один из крупнейших университетов США в солнечном Орландо (#117 US News). Ключевые работодатели — NASA, Disney, Universal; лидер в моделировании, аэрокосмосе и гостеприимстве.",
-      "founded": 1963,
-      "students": "≈71 000",
-      "site": "ucf.edu"
-    },
-    "UofSC": {
-      "about": "Флагман Южной Каролины (#127 US News) с одним из старейших международных бизнес-факультетов в США. Honors College и щедрые Merit-стипендии для иностранных студентов.",
-      "founded": 1801,
-      "students": "≈35 000",
-      "site": "sc.edu"
-    },
-    "LSU": {
-      "about": "Флагманский государственный университет Луизианы (#169 US News). Ведущий исследовательский центр нефтегазовой отрасли США; сильны химическая инженерия и агрономия.",
-      "founded": 1860,
-      "students": "≈37 000",
-      "site": "lsu.edu"
-    },
-    "KU": {
-      "about": "Флагманский университет Канзаса, член AAU и Big 12. Лучшая фармацевтическая школа региона (PharmD); сильны бизнес и юриспруденция; кампус признан одним из красивейших в США.",
-      "founded": 1865,
-      "students": "≈28 000",
-      "site": "ku.edu"
-    },
-    "SeattleU": {
-      "about": "Иезуитский университет в центре Сиэтла (#151 US News). Партнёрства с Amazon, Boeing и Microsoft; сильны сестринское дело, бизнес и право; небольшие группы, персональный подход.",
-      "founded": 1891,
-      "students": "≈7 500",
-      "site": "seattleu.edu"
-    },
-    "MontanaSt": {
-      "about": "Главный исследовательский и технический университет Монтаны в окружении Скалистых гор. Сильны инженерия и науки об окружающей среде; один из живописнейших кампусов США.",
-      "founded": 1893,
-      "students": "≈17 000",
-      "site": "montana.edu"
-    },
-    "NewSchool": {
-      "about": "Прогрессивный университет в Гринвич-Виллидж, Нью-Йорк. Parsons School of Design — один из трёх лучших дизайн-колледжей мира; сильны медиа, архитектура и социальные науки.",
-      "founded": 1919,
-      "students": "≈10 000",
-      "site": "newschool.edu"
-    },
-    "NewHaven": {
-      "about": "Частный университет в Нью-Хейвене, штат Коннектикут (30 мин от Нью-Йорка). №1 в США по криминалистике и судебным наукам; сильны кибербезопасность и уголовное правосудие.",
-      "founded": 1920,
-      "students": "≈8 500",
-      "site": "newhaven.edu"
-    },
-    "AU": {
-      "about": "Престижный частный университет в сердце Вашингтона. Сильны международные отношения, политические науки и бизнес; прямой доступ к госструктурам, НКО и посольствам.",
-      "founded": 1893,
-      "students": "≈13 000",
-      "site": "american.edu"
-    },
-    "JHU": {
-      "about": "Первый исследовательский университет Америки (#7 US News, QS #16). Мировой лидер в медицине, инженерии и общественном здравоохранении; через Shorelight доступны программы магистратуры.",
-      "founded": 1876,
-      "students": "≈25 000",
-      "site": "jhu.edu"
-    },
-    "UVA": {
-      "about": "Один из лучших государственных университетов США (#26 US News, QS #201), основан Томасом Джефферсоном. Через Shorelight доступны программы магистратуры по бизнесу, праву и инженерии.",
-      "founded": 1819,
-      "students": "≈24 000",
-      "site": "virginia.edu"
-    },
-    "Pepperdine": {
-      "about": "Элитный частный университет на берегу Тихого океана в Малибу (#84 US News). Входит в топ-50 MBA программ; сильны бизнес, право и международные связи; потрясающий кампус.",
-      "founded": 1937,
-      "students": "≈8 000",
-      "site": "pepperdine.edu"
-    },
-    "UUtah": {
-      "about": "Флагманский университет Юты, родина Adobe и WordPerfect (#151 US News). Центр Силиконых склонов — второй по концентрации IT-компаний в США после Кремниевой долины.",
-      "founded": 1850,
-      "students": "≈35 000",
-      "site": "utah.edu"
-    },
-    "UTSA": {
-      "about": "Крупный государственный университет в Сан-Антонио — один из наиболее быстро растущих вузов США. Центр кибербезопасности Министерства обороны США; сильны бизнес и IT.",
-      "founded": 1969,
-      "students": "≈34 000",
-      "site": "utsa.edu"
-    },
-    "UDayton": {
-      "about": "Католический исследовательский университет в Дейтоне (#143 US News). Мощная инженерная школа и партнёрства с NASA и ВВС США; исследовательский парк прямо на кампусе.",
-      "founded": 1850,
-      "students": "≈11 000",
-      "site": "udayton.edu"
-    },
-    "Pacific": {
-      "about": "Старейший чартерный университет Калифорнии (#139 US News). Сильны стоматология, фармацевтика и бизнес; небольшие группы и индивидуальный подход в большом штате.",
-      "founded": 1851,
-      "students": "≈6 500",
-      "site": "pacific.edu"
-    },
-    "UNR": {
-      "about": "Флагманский университет Невады в городе казино и стартапов Рино (#192 US News). Развивающийся IT-кластер; доступная стоимость жизни и обучения; без штата подоходного налога.",
-      "founded": 1874,
-      "students": "≈22 000",
-      "site": "unr.edu"
-    },
-    "UMassB": {
-      "about": "Государственный университет прямо в Бостоне, у океана (#213 US News). Доступный вход в бостонскую экосистему с Amazon, Microsoft и сотнями biotech-компаний вокруг.",
-      "founded": 1964,
-      "students": "≈17 000",
-      "site": "umb.edu"
-    },
-    "MissouriST": {
-      "about": "Ведущий технический университет Миссури, специализирующийся на STEM. Входит в топ-10 инженерных вузов США по ROI; сильны горная инженерия, ядерная физика и IT.",
-      "founded": 1870,
-      "students": "≈7 000",
-      "site": "mst.edu"
-    },
-    "ClevSt": {
-      "about": "Городской государственный университет в деловом центре Кливленда. Партнёрства с клиникой Кливленда (топ-2 в США по кардиологии); сильны бизнес и право.",
-      "founded": 1964,
-      "students": "≈16 000",
-      "site": "csuohio.edu"
-    },
-    "RMU": {
-      "about": "Частный бизнес-ориентированный университет у Питтсбурга. Специализируется на деловом образовании и IT; высокий процент трудоустройства благодаря связям с корпоративным Питтсбургом.",
-      "founded": 1921,
-      "students": "≈5 000",
-      "site": "rmu.edu"
-    },
-    "Belmont": {
-      "about": "Частный университет в музыкальной столице США — Нэшвилле. Лучшая в стране программа для музыкального бизнеса; сильны также предпринимательство, здравоохранение и кино.",
-      "founded": 1890,
-      "students": "≈9 000",
-      "site": "belmont.edu"
-    },
-    "OCU": {
-      "about": "Частный университет в Оклахома-Сити с сильными традициями в исполнительских искусствах, праве и бизнесе. Атмосферный кампус в историческом районе, персональный подход.",
-      "founded": 1904,
-      "students": "≈3 000",
-      "site": "okcu.edu"
-    },
-    "UWyo": {
-      "about": "Флагманский университет Вайоминга в Скалистых горах (#222 US News). Один из самых доступных для иностранцев государственных вузов; сильны горная инженерия и агробизнес.",
-      "founded": 1886,
-      "students": "≈12 000",
-      "site": "uwyo.edu"
-    },
-    "UPortland": {
-      "about": "Иезуитский университет на холме над Портлендом с видом на Маунт-Худ. Атмосферный зелёный кампус; сильны сестринское дело, инженерия и бизнес; партнёрства с Nike и Intel.",
-      "founded": 1901,
-      "students": "≈4 000",
-      "site": "up.edu"
-    },
-    "RuCamden": {
-      "about": "Кампус Ратгерса (топ-50 США) в Кам дене напротив Филадельфии. Полные дипломы Ратгерса по более доступным ценам; сильны бизнес, криминальное правосудие и право.",
-      "founded": 1950,
-      "students": "≈7 000",
-      "site": "camden.rutgers.edu"
-    },
-    "UtahTech": {
-      "about": "Государственный университет на юге Юты в живописном каньонном ландшафте Сент-Джорджа. Одни из самых низких цен на обучение в США; практические IT и бизнес-программы.",
-      "founded": 1911,
-      "students": "≈14 000",
-      "site": "utahtech.edu"
-    },
-    "UWEC": {
-      "about": "Государственный университет системы UW в Ого-Клере с живописным кампусом. Один из самых дружелюбных к иностранным студентам вузов Среднего Запада; сильны бизнес и журналистика.",
-      "founded": 1916,
-      "students": "≈12 000",
-      "site": "uwec.edu"
-    },
-    "UWGB": {
-      "about": "Государственный университет Висконсина в Грин-Бее — доступный старт в американское образование. Сильны экология, бизнес и межкультурные коммуникации; небольшие группы.",
-      "founded": 1965,
-      "students": "≈9 000",
-      "site": "uwgb.edu"
-    },
-    "UWWW": {
-      "about": "Один из крупнейших кампусов системы UW с сильным бизнес-факультетом. Выгодное соотношение цена/качество; 80+ программ, включая ранние форматы MBA.",
-      "founded": 1868,
-      "students": "≈12 000",
-      "site": "uww.edu"
-    },
-    "UWRF": {
-      "about": "Государственный кампус системы UW в живописном Ривер-Фолс. Одни из самых низких цен в США; сильны агробизнес, коммуникации и педагогика.",
-      "founded": 1874,
-      "students": "≈6 000",
-      "site": "uwrf.edu"
-    },
-    "UWSup": {
-      "about": "Самый доступный кампус системы UW у берегов озера Верхнее. Небольшие группы, персональный подход; сильны транспортная логистика и морские технологии.",
-      "founded": 1893,
-      "students": "≈2 600",
-      "site": "uwsuper.edu"
-    },
-    "UWSP": {
-      "about": "Кампус системы UW в Стивенс-Пойнте — лидер по экологическим программам. Один из «зелёных» университетов США; сильны управление природными ресурсами и бизнес.",
-      "founded": 1894,
-      "students": "≈8 000",
-      "site": "uwsp.edu"
-    },
-    "UISG": {
-      "about": "Государственный университет Иллинойса в столице штата Спрингфилде. Онлайн и очное обучение; сильны государственное управление, бизнес и образовательные технологии.",
-      "founded": 1969,
-      "students": "≈5 500",
-      "site": "uis.edu"
-    },
-    "UAF": {
-      "about": "Флагманский исследовательский университет Аляски в арктическом Фэрбанксе. Мировой центр изучения Арктики и северного сияния; сильны инженерия, геофизика и коренные народы.",
-      "founded": 1917,
-      "students": "≈9 000",
-      "site": "uaf.edu"
-    },
-    "Bellarmine": {
-      "about": "Католический университет в Луисвилле, штат Кентукки. Персональный подход; сильны бизнес, медсёстры и психология; стипендии от 50% для иностранных студентов.",
-      "founded": 1950,
-      "students": "≈3 000",
-      "site": "bellarmine.edu"
-    },
-    "CarrollU": {
-      "about": "Частный университет у Милуоки (Уокеша, Висконсин). Сильны психология, спортивные науки и бизнес; один из ведущих вузов Висконсина по трудоустройству выпускников.",
-      "founded": 1846,
-      "students": "≈3 400",
-      "site": "carrollu.edu"
-    },
-    "DeanC": {
-      "about": "Уютный частный колледж в часе от Бостона. Идеален для адаптации к американской системе; даёт двухлетнее foundation и возможность перевода в крупные университеты.",
-      "founded": 1865,
-      "students": "≈1 500",
-      "site": "dean.edu"
-    },
-    "Eureka": {
-      "about": "Один из старейших либеральных колледжей Иллинойса, alma mater Рональда Рейгана. Бесплатное обучение на летних программах; персональный подход и активная студенческая жизнь.",
-      "founded": 1855,
-      "students": "≈ 600",
-      "site": "eureka.edu"
-    },
-    "Felician": {
-      "about": "Католический университет в Нью-Джерси в 20 минутах от Нью-Йорка. Сильны сестринское дело, образование и бизнес; отличное соотношение цены и качества для региона.",
-      "founded": 1942,
-      "students": "≈2 000",
-      "site": "felician.edu"
-    },
-    "Hanover": {
-      "about": "Один из старейших частных колледжей Индианы на берегу реки Огайо. Очень маленькие группы (12–15 чел.), живописный кампус; Merit-стипендии до $24 000 в год.",
-      "founded": 1827,
-      "students": "≈1 000",
-      "site": "hanover.edu"
-    },
-    "Hartwick": {
-      "about": "Старинный либеральный колледж в горах Катскилл, штат Нью-Йорк. Уникальный однолетний январский J-Term; сильны естественные науки, управление и антропология.",
-      "founded": 1797,
-      "students": "≈1 100",
-      "site": "hartwick.edu"
-    },
-    "Hiram": {
-      "about": "Либеральный колледж в сельской Огайо с инновационным учебным планом. Уникальный формат: 12 недель основных занятий + 3 интенсивных недели проекта; стипендии до 100%.",
-      "founded": 1850,
-      "students": "≈1 000",
-      "site": "hiram.edu"
-    },
-    "HolyCross": {
-      "about": "Небольшой католический колледж у Notre Dame (Индиана). Пользуется ресурсами соседнего Notre Dame; сильны теология и гуманитарные науки; уютный студенческий кампус.",
-      "founded": 1966,
-      "students": "≈1 500",
-      "site": "hcc-nd.edu"
-    },
-    "IllinoisWes": {
-      "about": "Элитный либеральный колледж в Блумингтоне, Иллинойс. Один из самых высоких показателей трудоустройства среди малых колледжей; сильны бизнес, исполнительские искусства и науки.",
-      "founded": 1850,
-      "students": "≈1 700",
-      "site": "iwu.edu"
-    },
-    "Lakeland": {
-      "about": "Частный университет у Висконсинского озера Мичиган. Доступные цены и гибкие онлайн-программы; один из первых в США начал предлагать полностью онлайн-степени.",
-      "founded": 1862,
-      "students": "≈3 500",
-      "site": "lakeland.edu"
-    },
-    "LewisU": {
-      "about": "Католический университет братьев де ла Саль у Чикаго (Ромеовилл). Лидер по авиационным программам в регионе; сильны кибербезопасность, сестринское дело и бизнес.",
-      "founded": 1932,
-      "students": "≈6 000",
-      "site": "lewisu.edu"
-    },
-    "McMurry": {
-      "about": "Методистский университет в техасском Абилине. Небольшой кампус с персональным подходом; сильны бизнес, образование и исполнительские искусства; стипендии до $18 000.",
-      "founded": 1923,
-      "students": "≈1 200",
-      "site": "mcm.edu"
-    },
-    "MGHIHP": {
-      "about": "Специализированный медицинский институт системы массачусетской больницы MGH (Harvard-affiliated). Программы физиотерапии, речевой патологии и медсестёр уровня PhD/магистр.",
-      "founded": 1977,
-      "students": "≈1 400",
-      "site": "mghihp.edu"
-    },
-    "Moravian": {
-      "about": "Один из старейших университетов США (1742) в Вифлееме, Пенсильвания. Соединяет либеральное образование и профессиональную подготовку; сильны бизнес, психология и музыка.",
-      "founded": 1742,
-      "students": "≈2 000",
-      "site": "moravian.edu"
-    },
-    "MtStMary": {
-      "about": "Второй старейший католический университет США в горах Мэриленда. Сильны бизнес, сестринское дело и либеральные искусства; семинария на кампусе придаёт уникальный характер.",
-      "founded": 1808,
-      "students": "≈2 500",
-      "site": "msmary.edu"
-    },
-    "OhioWes": {
-      "about": "Престижный либеральный колледж Огайо с программой OWU-Connection — обязательный практический проект за рубежом или в бизнесе. Сильны естественные науки и политика.",
-      "founded": 1842,
-      "students": "≈1 500",
-      "site": "owu.edu"
-    },
-    "PalmBeach": {
-      "about": "Христианский университет на Атлантическом побережье Флориды в Уэст-Палм-Бич. Солнечный кампус; сильны бизнес, музыка и уголовное правосудие; Merit-стипендии до $20 000.",
-      "founded": 1968,
-      "students": "≈3 500",
-      "site": "pba.edu"
-    },
-    "RandolphC": {
-      "about": "Небольшой либеральный колледж в Линчберге, Вирджиния. Один из немногих оставшихся истинных liberal arts colleges; персональный подход и 100% финансовая прозрачность.",
-      "founded": 1891,
-      "students": "≈ 600",
-      "site": "randolphcollege.edu"
-    },
-    "SaintMaryMN": {
-      "about": "Католический университет в живописной Уиноне на реке Миссисипи, Миннесота. Сильны бизнес, образование и искусства; кампусы в Уиноне и Миннеаполисе-Сент-Поле.",
-      "founded": 1912,
-      "students": "≈5 000",
-      "site": "smumn.edu"
-    },
-    "SalveRegina": {
-      "about": "Католический университет в историческом Ньюпорте, Род-Айленд у океана. Сильны криминальное правосудие, бизнес и международные отношения; уникальные «позолоченные особняки» как корпуса.",
-      "founded": 1934,
-      "students": "≈2 700",
-      "site": "salve.edu"
-    },
-    "Schreiner": {
-      "about": "Небольшой частный университет в Hill Country Техаса. Один из немногих вузов США со специальной программой для студентов с дислексией и СДВГ; стипендии до $16 000.",
-      "founded": 1923,
-      "students": "≈1 300",
-      "site": "schreiner.edu"
-    },
-    "StBon": {
-      "about": "Францисканский университет у государственного леса на западе Нью-Йорка. Сильны журналистика (alumni CNN, NBC), бизнес и образование; уютный кампус с часовней-базиликой.",
-      "founded": 1858,
-      "students": "≈2 000",
-      "site": "sbu.edu"
-    },
-    "StCatherine": {
-      "about": "Одно из крупнейших католических университетов для женщин в США (Сент-Пол, Миннесота). Сильны медицина, образование и бизнес; совместные программы с окружающими университетами.",
-      "founded": 1905,
-      "students": "≈4 000",
-      "site": "stkate.edu"
-    },
-    "StMaryCA": {
-      "about": "Католический либеральный колледж в предгорьях Сан-Франциско. Программа Jan Term — месяц погружения в один предмет или международная экспедиция; сильны бизнес и педагогика.",
-      "founded": 1863,
-      "students": "≈4 500",
-      "site": "stmarys-ca.edu"
-    },
-    "StThomasAQ": {
-      "about": "Католический университет в пригороде Нью-Йорка (Спаркилл, 17 миль до Манхэттена). Прямой доступ к стажировкам в Нью-Йорке; сильны бизнес и образование.",
-      "founded": 1952,
-      "students": "≈2 000",
-      "site": "stac.edu"
-    },
-    "TrinityCC": {
-      "about": "Реформатский христианский колледж у Чикаго (Пэлос-Хайтс, Иллинойс). Сильны образование, бизнес и исполнительские искусства; прямой доступ к чикагской экономике.",
-      "founded": 1959,
-      "students": "≈1 300",
-      "site": "trnty.edu"
-    },
-    "UCharleston": {
-      "about": "Частный университет в Чарлстоне, столице Западной Вирджинии. Практические программы в авиации, фармации и бизнесе; щедрые стипендии для международных студентов.",
-      "founded": 1888,
-      "students": "≈1 500",
-      "site": "ucwv.edu"
-    },
-    "UDubuque": {
-      "about": "Частный университет в Дубьюке, Айова, у реки Миссисипи. Авиационные программы (собственный парк самолётов), теология и бизнес; доступные цены для Среднего Запада.",
-      "founded": 1852,
-      "students": "≈2 200",
-      "site": "dbq.edu"
-    },
-    "UMountUnion": {
-      "about": "Небольшой частный университет в Альянсе, Огайо. Активная студенческая жизнь и более 100 клубов; сильны образование, спорт и предпринимательство; Merit-стипендии до $22 000.",
-      "founded": 1846,
-      "students": "≈2 200",
-      "site": "mountunion.edu"
-    },
-    "UNE": {
-      "about": "Частный университет на атлантическом побережье Мэна с двумя кампусами. Лучшая остеопатическая медицинская школа в Новой Англии; сильны физиотерапия и морская биология.",
-      "founded": 1831,
-      "students": "≈8 000",
-      "site": "une.edu"
-    },
-    "URedlands": {
-      "about": "Частный либеральный университет у подножия гор Сан-Бернардино, Калифорния. Уникальный Johnston Center — студент сам составляет свою программу; сильны география и ГИС.",
-      "founded": 1907,
-      "students": "≈3 000",
-      "site": "redlands.edu"
-    },
-    "USaintMary": {
-      "about": "Небольшой католический университет в Ливенуорте, Канзас. Один из самых доступных частных вузов США; сильны бизнес, образование и уход за больными; Merit-стипендии до $16 000.",
-      "founded": 1923,
-      "students": "≈1 000",
-      "site": "stmary.edu"
-    },
-    "VirginiaWes": {
-      "about": "Методистский либеральный колледж в Норфолке у Атлантического побережья. Сильны бизнес, криминальное правосудие и образование; уютный кампус в десяти минутах от пляжа.",
-      "founded": 1961,
-      "students": "≈1 500",
-      "site": "vwu.edu"
-    },
-    "WashJeff": {
-      "about": "Один из старейших университетов США (1781) у Питтсбурга. Alumni: президенты и CEO; сильны предпринимательство, биохимия и международный бизнес; Merit-стипендии до $30 000.",
-      "founded": 1781,
-      "students": "≈1 600",
-      "site": "washjeff.edu"
-    },
-    "WesternOR": {
-      "about": "Государственный университет в Монмуте, Орегон — один из самых доступных для иностранцев. Сильны образование, IT и социальная работа; небольшие классы, персональный подход.",
-      "founded": 1856,
-      "students": "≈5 000",
-      "site": "wou.edu"
-    },
-    "Whittier": {
-      "about": "Либеральный колледж у Лос-Анджелеса, alma mater Ричарда Никсона. Уникальная программа Liberal Education and America's Promise (LEAP); сильны бизнес, кино и право.",
-      "founded": 1887,
-      "students": "≈1 500",
-      "site": "whittier.edu"
-    },
-    "Widener": {
-      "about": "Частный университет в Честере (Пенсильвания), в 15 минутах от Филадельфии и Делавэра. Аккредитованная юридическая школа; сильны инженерия, сестринское дело и бизнес.",
-      "founded": 1821,
-      "students": "≈5 000",
-      "site": "widener.edu"
-    },
-    "Wilson": {
-      "about": "Один из старейших женских либеральных колледжей США в Чемберсбурге, Пенсильвания. Среди первых принявший нетрадиционных студентов; сильны ветеринарные технологии и бизнес.",
-      "founded": 1869,
-      "students": "≈1 000",
-      "site": "wilson.edu"
-    },
-    "ColbySawyer": {
-      "about": "Либеральный колледж в живописном Нью-Лондоне, Нью-Гэмпшир. Кампус со студенческой фермой; сильны дизайн, уход за больными и бизнес; активная outdoor-культура.",
-      "founded": 1837,
-      "students": "≈1 200",
-      "site": "colby-sawyer.edu"
-    },
-    "BridgewaterC": {
-      "about": "Братский либеральный колледж в долине Шенандоа, Вирджиния. Программа Outdoor Recreation and Tourism Management; сильны образование, бизнес и межкультурный диалог.",
-      "founded": 1880,
-      "students": "≈1 900",
-      "site": "bridgewater.edu"
-    },
-    "DakotaWes": {
-      "about": "Методистский университет в Митчелле, Южная Дакота. Небольшой и уютный; сильны спортивные науки, бизнес и сестринское дело; одни из самых низких цен на Среднем Западе.",
-      "founded": 1885,
-      "students": "≈ 800",
-      "site": "dwu.edu"
-    },
-    "CentralMeth": {
-      "about": "Методистский университет в Фэйете, Миссури. Один из самых доступных частных вузов США; сильны образование, бизнес и деловые коммуникации; атлетические стипендии.",
-      "founded": 1854,
-      "students": "≈1 200",
-      "site": "centralmethodist.edu"
-    },
-    "AuburnMont": {
-      "about": "Кампус Auburn University в столице Алабамы — Монтгомери. Доступные цены государственного вуза при дипломе бренда Auburn; сильны бизнес, юриспруденция и образование.",
-      "founded": 1967,
-      "students": "≈5 000",
-      "site": "aum.edu"
-    },
-    "Brescia": {
-      "about": "Маленький католический университет в Оуэнсборо, Кентукки. Один из самых дешёвых частных вузов США; сильны психология, социальная работа и образование.",
-      "founded": 1950,
-      "students": "≈1 500",
-      "site": "brescia.edu"
-    },
     "DeAnza": {
       "about": "Один из лучших community colleges США — в Купертино, родном городе Apple. Лидер Калифорнии по числу переводов в университеты UC, включая Беркли и UCLA.",
       "founded": 1967,
@@ -3960,9 +2216,9 @@ window.EA_CONTENT_PUBLISHED = {
       "site": "toa.edu.my"
     },
     "UniKL": {
-      "about": "Ведущий государственный инженерно-технический университет Малайзии с 12 специализированными институтами. Более 130 программ: авиация, морская инженерия, медтехнологии, IT, здравоохранение; 94 000+ выпускников.",
+      "about": "Технический университет с сетью специализированных институтов по всей стране: авиация, морская инженерия, медицинские технологии. Практико-ориентированное обучение.",
       "founded": 2002,
-      "students": "≈33 000",
+      "students": "≈25 000",
       "site": "unikl.edu.my"
     },
     "UNITEN": {
@@ -3984,12 +2240,6 @@ window.EA_CONTENT_PUBLISHED = {
       "about": "Немецкая бизнес-школа с кампусами в Потсдаме и Берлине, аккредитация AMBA. Менеджмент, data science и инженерия на английском языке.",
       "founded": 1999,
       "site": "gisma.com"
-    },
-    "CU": {
-      "about": "Частный англоязычный университет в Бремене — №1 среди частных вузов Германии. Все 18 программ ведутся на английском; кампус с 4 жилыми колледжами и студентами из 120+ стран. Стипендии до 70% стоимости обучения.",
-      "founded": 2001,
-      "students": "≈2 000",
-      "site": "constructor.university"
     },
     "Vistula": {
       "about": "Один из самых интернациональных частных университетов Польши — студенты из 100+ стран. Бизнес, IT и туризм на английском; кампус в Варшаве.",
@@ -4060,17 +2310,6 @@ window.EA_CONTENT_PUBLISHED = {
   },
   "countryCards": [
     {
-      "flagImg": "https://flagcdn.com/40x30/us.png",
-      "name": "США",
-      "landmark": "Нью-Йорк · Чикаго · Лос-Анджелес",
-      "desc": "Карьера · Топ-кампусы · Стипендии",
-      "price": "от $8 000/год",
-      "hot": true,
-      "photo": "images/countries/usa/1.jpg",
-      "bg": "linear-gradient(160deg,#0d2b5e 0%,#091842 55%,#030a1c 100%)",
-      "accent": "#4a8fc7"
-    },
-    {
       "flagImg": "https://flagcdn.com/40x30/it.png",
       "name": "Италия",
       "landmark": "Рим · Флоренция · Венеция",
@@ -4082,11 +2321,32 @@ window.EA_CONTENT_PUBLISHED = {
       "accent": "#d4845a"
     },
     {
+      "flagImg": "https://flagcdn.com/40x30/us.png",
+      "name": "США",
+      "landmark": "Нью-Йорк · Чикаго · Лос-Анджелес",
+      "desc": "Карьера · Топ-кампусы · Стипендии",
+      "price": "от $8 000/год",
+      "hot": true,
+      "photo": "images/countries/usa/1.jpg",
+      "bg": "linear-gradient(160deg,#0d2b5e 0%,#091842 55%,#030a1c 100%)",
+      "accent": "#4a8fc7"
+    },
+    {
+      "flagImg": "https://flagcdn.com/40x30/at.png",
+      "name": "Австрия",
+      "landmark": "Вена · Зальцбург · Инсбрук",
+      "desc": "Безопасность · Европа · Высокое качество",
+      "price": "от €726/год",
+      "photo": "images/countries/austria/1.jpg",
+      "bg": "linear-gradient(160deg,#1a4a2e 0%,#0d2d1a 55%,#051208 100%)",
+      "accent": "#4caf82"
+    },
+    {
       "flagImg": "https://flagcdn.com/40x30/de.png",
       "name": "Германия",
       "landmark": "Берлин · Мюнхен · Гамбург",
       "desc": "Технологии · Made in Germany · Карьера",
-      "price": "Бесплатно",
+      "price": "от €0/год",
       "photo": "images/countries/germany/1.jpg",
       "bg": "linear-gradient(160deg,#2a2a3a 0%,#161622 55%,#07070d 100%)",
       "accent": "#8a8ab0"
@@ -4102,26 +2362,6 @@ window.EA_CONTENT_PUBLISHED = {
       "accent": "#e06060"
     },
     {
-      "flagImg": "https://flagcdn.com/40x30/my.png",
-      "name": "Малайзия",
-      "landmark": "Куала-Лумпур · Пинанг · Джохор",
-      "desc": "Мусульм. среда · Азия · Безопасность",
-      "price": "от $4 000/год",
-      "photo": "images/countries/malasia/1.jpg",
-      "bg": "linear-gradient(160deg,#1a5c2e 0%,#0d3a1c 55%,#04130a 100%)",
-      "accent": "#5cba7a"
-    },
-    {
-      "flagImg": "https://flagcdn.com/40x30/at.png",
-      "name": "Австрия",
-      "landmark": "Вена · Зальцбург · Инсбрук",
-      "desc": "Безопасность · Европа · Высокое качество",
-      "price": "от €726/год",
-      "photo": "images/countries/austria/1.jpg",
-      "bg": "linear-gradient(160deg,#1a4a2e 0%,#0d2d1a 55%,#051208 100%)",
-      "accent": "#4caf82"
-    },
-    {
       "flagImg": "images/flags/trnc/40x30.png",
       "name": "Северный Кипр",
       "landmark": "Фамагуста · Кирения · Никосия",
@@ -4130,9 +2370,57 @@ window.EA_CONTENT_PUBLISHED = {
       "photo": "images/countries/kipr/1.jpg",
       "bg": "linear-gradient(160deg,#0d6b6b 0%,#074545 55%,#021818 100%)",
       "accent": "#4fc4c4"
+    },
+    {
+      "flagImg": "https://flagcdn.com/40x30/my.png",
+      "name": "Малайзия",
+      "landmark": "Куала-Лумпур · Пинанг · Джохор",
+      "desc": "Мусульм. среда · Азия · Безопасность",
+      "price": "от $4 000/год",
+      "photo": "images/countries/malasia/1.jpg",
+      "bg": "linear-gradient(160deg,#1a5c2e 0%,#0d3a1c 55%,#04130a 100%)",
+      "accent": "#5cba7a"
     }
   ],
   "countryDetails": {
+    "Италия": {
+      "iso": "it",
+      "slug": "italy",
+      "photo": "images/countries/italy/1.jpg",
+      "tagline": "Страна, где учёба соседствует с морем, Альпами и лучшей кухней мира",
+      "facts": {
+        "Столица": "Рим",
+        "Язык обучения": "Английский · Итальянский",
+        "Валюта": "Евро €",
+        "Учёба от": "€2 000/год",
+        "Виза": "Национальная виза D"
+      },
+      "why": [
+        {
+          "ic": "🎓",
+          "t": "Старейшие университеты Европы",
+          "d": "Болонья, Падуя, Сапиенца — вузы с многовековой историей и дипломами, которые признают во всём мире."
+        },
+        {
+          "ic": "💶",
+          "t": "Гранты покрывают почти всё",
+          "d": "Региональные стипендии DSU могут покрыть обучение, общежитие и питание — даже для иностранцев."
+        },
+        {
+          "ic": "🍝",
+          "t": "Качество жизни",
+          "d": "Море, горы, кухня и города-музеи. Студенческие скидки на всё — от музеев до поездов."
+        }
+      ],
+      "edu": "Государственные университеты Италии стоят €1 000–4 000 в год, а оплата часто зависит от дохода семьи — для студентов из Кыргызстана это одни из самых низких цен в Западной Европе. Сотни программ полностью на английском, а региональные гранты DSU способны сделать учёбу фактически бесплатной.",
+      "tourism": "Рим, Флоренция и Венеция — города-музеи под открытым небом, а от кампуса до моря или горнолыжных склонов часто пара часов на поезде. Выходные здесь превращаются в путешествия.",
+      "gallery": [
+        "Города и архитектура",
+        "Кампусы",
+        "Море и природа",
+        "Студенческая жизнь"
+      ]
+    },
     "США": {
       "iso": "us",
       "slug": "usa",
@@ -4171,41 +2459,41 @@ window.EA_CONTENT_PUBLISHED = {
         "Студенческая жизнь"
       ]
     },
-    "Италия": {
-      "iso": "it",
-      "slug": "italy",
-      "photo": "images/countries/italy/1.jpg",
-      "tagline": "Страна, где учёба соседствует с морем, Альпами и лучшей кухней мира",
+    "Австрия": {
+      "iso": "at",
+      "slug": "austria",
+      "photo": "images/countries/austria/1.jpg",
+      "tagline": "Почти бесплатное образование в самой комфортной стране Европы",
       "facts": {
-        "Столица": "Рим",
-        "Язык обучения": "Английский · Итальянский",
+        "Столица": "Вена",
+        "Язык обучения": "Немецкий · Английский",
         "Валюта": "Евро €",
-        "Учёба от": "€2 000/год",
-        "Виза": "Национальная виза D"
+        "Учёба от": "€726/год",
+        "Виза": "Студенческий ВНЖ"
       },
       "why": [
         {
-          "ic": "🎓",
-          "t": "Старейшие университеты Европы",
-          "d": "Болонья, Падуя, Сапиенца — вузы с многовековой историей и дипломами, которые признают во всём мире."
+          "ic": "🏛",
+          "t": "Символическая плата",
+          "d": "Государственные вузы Австрии стоят около €726 за семестр — даже для студентов не из ЕС."
         },
         {
-          "ic": "💶",
-          "t": "Гранты покрывают почти всё",
-          "d": "Региональные стипендии DSU могут покрыть обучение, общежитие и питание — даже для иностранцев."
+          "ic": "🥇",
+          "t": "Вена — лучший город мира",
+          "d": "Столица Австрии годами возглавляет рейтинги самых комфортных для жизни городов планеты."
         },
         {
-          "ic": "🍝",
-          "t": "Качество жизни",
-          "d": "Море, горы, кухня и города-музеи. Студенческие скидки на всё — от музеев до поездов."
+          "ic": "🚆",
+          "t": "Сердце Европы",
+          "d": "Прага, Будапешт, Мюнхен и Венеция — в нескольких часах на поезде. Вся Европа на выходные."
         }
       ],
-      "edu": "Государственные университеты Италии стоят €1 000–4 000 в год, а оплата часто зависит от дохода семьи — для студентов из Кыргызстана это одни из самых низких цен в Западной Европе. Сотни программ полностью на английском, а региональные гранты DSU способны сделать учёбу фактически бесплатной.",
-      "tourism": "Рим, Флоренция и Венеция — города-музеи под открытым небом, а от кампуса до моря или горнолыжных склонов часто пара часов на поезде. Выходные здесь превращаются в путешествия.",
+      "edu": "Венский университет основан в 1365 году — это старейший вуз немецкоязычного мира, и поступить в него реально без вступительных экзаменов на многие программы. Учёба на немецком почти бесплатна, а на английском работают магистратуры и часть бакалавриатов.",
+      "tourism": "Альпы для лыж и походов, Зальцбург Моцарта, дворцы и кофейни Вены. Безопасность, чистота и транспорт, который работает по секундам.",
       "gallery": [
-        "Города и архитектура",
+        "Вена",
+        "Альпы",
         "Кампусы",
-        "Море и природа",
         "Студенческая жизнь"
       ]
     },
@@ -4285,82 +2573,6 @@ window.EA_CONTENT_PUBLISHED = {
         "Студенческая жизнь"
       ]
     },
-    "Малайзия": {
-      "iso": "my",
-      "slug": "malasia",
-      "photo": "images/countries/malasia/1.jpg",
-      "tagline": "Британские и австралийские дипломы в сердце Азии — за половину цены",
-      "facts": {
-        "Столица": "Куала-Лумпур",
-        "Язык обучения": "Английский",
-        "Валюта": "Ринггит RM",
-        "Учёба от": "$4 000/год",
-        "Виза": "Student Pass"
-      },
-      "why": [
-        {
-          "ic": "🎓",
-          "t": "Мировые вузы — дешевле",
-          "d": "Кампусы Monash, Nottingham и Саутгемптона: тот же диплом, что в Австралии и Британии, но в 2–3 раза дешевле."
-        },
-        {
-          "ic": "🕌",
-          "t": "Комфортная среда",
-          "d": "Мусульманская страна с халяль-инфраструктурой, безопасными городами и дружелюбным отношением к студентам из ЦА."
-        },
-        {
-          "ic": "🌏",
-          "t": "Низкая стоимость жизни",
-          "d": "Жильё, еда и транспорт в Куала-Лумпуре в разы дешевле Европы — $400–600 в месяц на всё."
-        }
-      ],
-      "edu": "Малайзия собрала кампусы топовых британских и австралийских университетов: учишься в Куала-Лумпуре — получаешь тот же диплом, что выдают в Лондоне или Мельбурне. Всё обучение на английском, поступление без сложных экзаменов, а формат 2+1 позволяет закончить учёбу в головном кампусе.",
-      "tourism": "Башни-близнецы Петронас, остров Пинанг, джунгли и пляжи Борнео. Из Куала-Лумпура дешёвые рейсы по всей Азии — от Бали до Японии.",
-      "gallery": [
-        "Куала-Лумпур",
-        "Кампусы",
-        "Острова и природа",
-        "Студенческая жизнь"
-      ]
-    },
-    "Австрия": {
-      "iso": "at",
-      "slug": "austria",
-      "photo": "images/countries/austria/1.jpg",
-      "tagline": "Почти бесплатное образование в самой комфортной стране Европы",
-      "facts": {
-        "Столица": "Вена",
-        "Язык обучения": "Немецкий · Английский",
-        "Валюта": "Евро €",
-        "Учёба от": "€726/год",
-        "Виза": "Студенческий ВНЖ"
-      },
-      "why": [
-        {
-          "ic": "🏛",
-          "t": "Символическая плата",
-          "d": "Государственные вузы Австрии стоят около €726 за семестр — даже для студентов не из ЕС."
-        },
-        {
-          "ic": "🥇",
-          "t": "Вена — лучший город мира",
-          "d": "Столица Австрии годами возглавляет рейтинги самых комфортных для жизни городов планеты."
-        },
-        {
-          "ic": "🚆",
-          "t": "Сердце Европы",
-          "d": "Прага, Будапешт, Мюнхен и Венеция — в нескольких часах на поезде. Вся Европа на выходные."
-        }
-      ],
-      "edu": "Венский университет основан в 1365 году — это старейший вуз немецкоязычного мира, и поступить в него реально без вступительных экзаменов на многие программы. Учёба на немецком почти бесплатна, а на английском работают магистратуры и часть бакалавриатов.",
-      "tourism": "Альпы для лыж и походов, Зальцбург Моцарта, дворцы и кофейни Вены. Безопасность, чистота и транспорт, который работает по секундам.",
-      "gallery": [
-        "Вена",
-        "Альпы",
-        "Кампусы",
-        "Студенческая жизнь"
-      ]
-    },
     "Северный Кипр": {
       "iso": "trnc",
       "slug": "kipr",
@@ -4396,6 +2608,44 @@ window.EA_CONTENT_PUBLISHED = {
         "Море и пляжи",
         "Кампусы",
         "Древние города",
+        "Студенческая жизнь"
+      ]
+    },
+    "Малайзия": {
+      "iso": "my",
+      "slug": "malasia",
+      "photo": "images/countries/malasia/1.jpg",
+      "tagline": "Британские и австралийские дипломы в сердце Азии — за половину цены",
+      "facts": {
+        "Столица": "Куала-Лумпур",
+        "Язык обучения": "Английский",
+        "Валюта": "Ринггит RM",
+        "Учёба от": "$4 000/год",
+        "Виза": "Student Pass"
+      },
+      "why": [
+        {
+          "ic": "🎓",
+          "t": "Мировые вузы — дешевле",
+          "d": "Кампусы Monash, Nottingham и Саутгемптона: тот же диплом, что в Австралии и Британии, но в 2–3 раза дешевле."
+        },
+        {
+          "ic": "🕌",
+          "t": "Комфортная среда",
+          "d": "Мусульманская страна с халяль-инфраструктурой, безопасными городами и дружелюбным отношением к студентам из ЦА."
+        },
+        {
+          "ic": "🌏",
+          "t": "Низкая стоимость жизни",
+          "d": "Жильё, еда и транспорт в Куала-Лумпуре в разы дешевле Европы — $400–600 в месяц на всё."
+        }
+      ],
+      "edu": "Малайзия собрала кампусы топовых британских и австралийских университетов: учишься в Куала-Лумпуре — получаешь тот же диплом, что выдают в Лондоне или Мельбурне. Всё обучение на английском, поступление без сложных экзаменов, а формат 2+1 позволяет закончить учёбу в головном кампусе.",
+      "tourism": "Башни-близнецы Петронас, остров Пинанг, джунгли и пляжи Борнео. Из Куала-Лумпура дешёвые рейсы по всей Азии — от Бали до Японии.",
+      "gallery": [
+        "Куала-Лумпур",
+        "Кампусы",
+        "Острова и природа",
         "Студенческая жизнь"
       ]
     }
@@ -4723,10 +2973,12 @@ window.EA_CONTENT_PUBLISHED = {
     },
     {
       "name": "Исламбек",
-      "country": "🇺🇸 США",
+      "country": "США",
       "src": "videos/islambek.mp4",
       "poster": "thumbs/islambek.jpg",
-      "tag": "Отзыв"
+      "tag": "Интервью",
+      "uni": "США · бакалавриат",
+      "quote": "Рассказываю, как поступил в США и что дало обучение за рубежом."
     }
   ],
   "posts": [
@@ -4792,7 +3044,7 @@ window.EA_CONTENT_PUBLISHED = {
     "badges": [
       "ICEF Accredited — международная аккредитация",
       "Shorelight Partner — официальный партнёр",
-      "Гарантия по договору — возврат при отказе в поступлении*"
+      "Гарантия по договору — возврат при отказе в поступлении"
     ],
     "photo": "images/team.jpg"
   },
