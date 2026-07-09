@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   09.07.2026, 01:28:42
+   09.07.2026, 18:26:46
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4628,13 +4628,6 @@ window.EA_CONTENT_PUBLISHED = {
   ],
   "videos": [
     {
-      "name": "Айхан",
-      "country": "Италия ",
-      "src": "videos/aihan.mp4",
-      "poster": "thumbs/имя.jpg",
-      "tag": "Отзыв"
-    },
-    {
       "name": "Элана",
       "country": "Италия",
       "src": "videos/elana.mp4",
@@ -4730,12 +4723,10 @@ window.EA_CONTENT_PUBLISHED = {
     },
     {
       "name": "Исламбек",
-      "country": "США",
+      "country": "🇺🇸 США",
       "src": "videos/islambek.mp4",
       "poster": "thumbs/islambek.jpg",
-      "tag": "Интервью",
-      "uni": "США · бакалавриат",
-      "quote": "Рассказываю, как поступил в США и что дало обучение за рубежом."
+      "tag": "Отзыв"
     }
   ],
   "posts": [
@@ -4801,7 +4792,7 @@ window.EA_CONTENT_PUBLISHED = {
     "badges": [
       "ICEF Accredited — международная аккредитация",
       "Shorelight Partner — официальный партнёр",
-      "Гарантия по договору — возврат при отказе в визе"
+      "Гарантия по договору — возврат при отказе в поступлении*"
     ],
     "photo": "images/team.jpg"
   },
