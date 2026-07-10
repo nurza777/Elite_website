@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   10.07.2026, 12:22:30
+   11.07.2026, 00:47:07
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4627,6 +4627,13 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "videos": [
+    {
+      "name": "Жасмин ",
+      "country": "🇺🇸 США",
+      "src": "videos/Жасмин.mp4",
+      "poster": "thumbs/имя.jpg",
+      "tag": "Отзыв"
+    },
     {
       "name": "Элана",
       "country": "Италия",
