@@ -963,7 +963,7 @@ function ProgramUniCard({ p, u, idx }) {
 
   return (
     <article
-      className={"uni card uni--prog uni--prog-" + level}
+      className={"uni card uni--prog uni--prog-" + level + (u.elite ? " uni--elite" : "")}
       onClick={e => { if (e.target.closest("a,button")) return; window.location.href = href; }}
     >
       {/* Campus banner — same as the uni card */}
@@ -1186,7 +1186,7 @@ function Universities() {
               {chips(selFields, setFields, FIELDS)}
             </FilterSection>
 
-            <FilterSection label="Учебный год">
+            <FilterSection label="Учебный год / семестр">
               {chips(selIntakes, setIntakes, INTAKES)}
             </FilterSection>
 
@@ -1205,12 +1205,22 @@ function Universities() {
                 <span className="filter__price-pre">до $</span>
                 <input
                   type="number" min="0" max="70000" step="500" value={sliderVal}
-                  onChange={e => { const v = Math.max(0, Math.min(70000, +e.target.value || 0)); setPrice(v); setSlider(v); }}
+                  onChange={e => {
+                    const raw = e.target.value;
+                    if (raw === "") { setSlider(""); return; }      /* let the field be cleared while typing */
+                    const v = Math.max(0, Math.min(70000, parseInt(raw, 10) || 0));
+                    setPrice(v); setSlider(v);                       /* parseInt drops leading zeros (0200 -> 200) */
+                  }}
+                  onBlur={e => {
+                    if (sliderVal === "") { setPrice(70000); setSlider(70000); return; }
+                    /* normalize the visible text (React skips numerically-equal rewrites, so "0200" would stick) */
+                    e.target.value = String(sliderVal);
+                  }}
                   className="filter__price-input" aria-label="Максимальная стоимость в год, $"
                 />
                 <span className="filter__price-yr">/год</span>
               </div>
-              <input type="range" min="0" max="70000" step="500" value={sliderVal}
+              <input type="range" min="0" max="70000" step="500" value={sliderVal === "" ? 70000 : sliderVal}
                 onChange={e => setSlider(+e.target.value)}
                 onMouseUp={e => { setPrice(+e.target.value); setSlider(+e.target.value); }}
                 onTouchEnd={e => { const v = +e.target.value; setPrice(v); setSlider(v); }}
@@ -1277,7 +1287,7 @@ function Universities() {
 
                 return (
                   <article
-                    className="uni card" key={i}
+                    className={"uni card" + (u.elite ? " uni--elite" : "")} key={i}
                     onClick={e => {
                       if (e.target.closest("a,button")) return;
                       window.location.href = `university.html?u=${encodeURIComponent(u.short)}`;

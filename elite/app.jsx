@@ -25,7 +25,6 @@ function PageHome() {
     <>
       <Hero />
       <TrustBar />
-      <HomeSearch />
       <BeyondDiploma />
       <Quiz />
       <DeadlineBanner />
@@ -33,7 +32,7 @@ function PageHome() {
       <MediaFeed />
       <Stories />
       <PainSolution />
-      <AboutUs />
+      <ClientReviews />
       <FinalCTA />
     </>
   );

@@ -1,7 +1,7 @@
 /* ============================================================
    TRUST BAR (marquee) · PAIN→SOLUTION · COUNTRIES
    ============================================================ */
-const { useState } = React;
+const { useState, useRef, useEffect } = React;
 
 const UNI_LOGOS = [
   { src: "images/logos/catalog/polimi.png",    name: "Politecnico di Milano" },
@@ -49,47 +49,99 @@ function TrustBar() {
   );
 }
 
-const PAIN = [
-  ["Не знаешь, с чего вообще начать", "Пошаговый план с первого дня"],
-  ["Месяцами ищешь стипендии вслепую", "Мы знаем, где лежат $72 000 – $858 000"],
-  ["Ошибка в DS-160 = отказ в визе", "100% правильное заполнение анкеты"],
-  ["Слабое эссе = отказ приёмной комиссии", "Эссе проверяет основатель лично"],
-  ["Не знаешь, как вести себя на визовом интервью", "Финальный урок по интервью перед посольством"],
+/* «Почему Elite Academy» — аккордеон с фото-панелью (портировано с for-public) */
+const PAIN_ITEMS = [
+  {
+    title: "Мы рядом на каждом этапе",
+    body: "За каждым студентом закрепляется персональный ментор, который сопровождает его на каждом этапе: помогает принимать важные решения, отвечает на вопросы, напоминает о дедлайнах и всегда остается на связи. Вы никогда не останетесь один на пути к университету своей мечты.",
+    photo: "images/about1.jpg",
+  },
+  {
+    title: "Работаем с лучшими университетами мира",
+    body: "Мы сотрудничаем с ведущими государственными и частными университетами. Высокие требования и сложный конкурс для нас — не препятствие, а возможность открыть для вас двери в университет мечты.",
+    photo: "images/about2.jpg",
+  },
+  {
+    title: "Максимально повышаем ваши шансы на поступление",
+    body: "Мы не оставляем успех на волю случая. Наши эксперты подбирают сразу несколько университетов и программ, учитывая ваши оценки, цели и бюджет. Благодаря этому практически каждый наш студент получает приглашение на обучение.",
+    photo: "images/about3.jpg",
+  },
+  {
+    title: "Более 5 лет успешного опыта",
+    body: "За годы работы мы помогли более 1500 студентам поступить за границу и накопили огромный практический опыт. Мы знаем весь процесс изнутри: требования университетов, нюансы подачи документов, особенности получения визы и умеем находить решение даже в самых непростых ситуациях.",
+    photo: "images/about1.jpg",
+  },
+  {
+    title: "Дополнительные привилегии для наших студентов",
+    body: "При полном сопровождении мы подаем документы не только на поступление, но и на внутренние стипендии университетов и максимально возможные скидки. Это позволяет нашим студентам значительно сократить расходы на обучение.",
+    photo: "images/about2.jpg",
+  },
+  {
+    title: "Экономим ваше время, деньги и нервы",
+    body: "Услуги агентства — это инвестиция. В ваше спокойствие и уверенность. Мы изучаем все требования, дедлайны и даем вам четкую стратегию, по которой будем идти вместе с вами.",
+    photo: "images/about3.jpg",
+  },
 ];
 
 function PainSolution() {
+  const [active, setActive] = useState(0);
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setActive((i) => (i + 1) % PAIN_ITEMS.length);
+    }, 7000);
+    return () => clearInterval(timerRef.current);
+  }, [active]);
+
+  const pick = (i) => setActive(i);
+
   return (
     <section className="section pain">
       <div className="wrap">
-        <div className="section-head section-head--center" data-reveal>
-          <span className="eyebrow">Почему с нами</span>
-          <h2>Поступить самому — это лотерея.<br/><span className="text-blue">С нами — это система.</span></h2>
+        <div className="section-head" data-reveal>
+          <span className="eyebrow">Почему Elite Academy</span>
+          <h2>Не просто агентство —<br/><span className="text-blue">твоя команда поступления</span></h2>
         </div>
 
-        <div className="pain__grid">
-          <div className="pain__col pain__col--bad" data-reveal>
-            <div className="pain__col-h">
-              <span className="pain__col-badge pain__col-badge--bad">Без Elite Academy</span>
-            </div>
-            {PAIN.map((r, i) => (
-              <div className="pain__row pain__row--bad" key={i}>
-                <span className="pain__ic pain__ic--bad">✕</span>
-                <span>{r[0]}</span>
+        <div className="pain__accordion-wrap">
+          <div className="pain__accordion">
+            {PAIN_ITEMS.map((item, i) => (
+              <div
+                key={i}
+                className={"pain__acc-item" + (active === i ? " is-open" : "")}
+                onClick={() => pick(i)}
+              >
+                <div className="pain__acc-head">
+                  <span className="pain__acc-num">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="pain__acc-title">{item.title}</span>
+                  <span className="pain__acc-arrow" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </span>
+                </div>
+                <div className="pain__acc-body">
+                  <p>{item.body}</p>
+                  <div className="pain__acc-photo-mob">
+                    <img src={item.photo} alt={item.title} />
+                  </div>
+                </div>
               </div>
             ))}
+            <a href="#cta" className="btn btn--gold pain__acc-cta">Начать бесплатную консультацию →</a>
           </div>
 
-          <div className="pain__col pain__col--good" data-reveal data-delay="1">
-            <div className="pain__col-h">
-              <span className="pain__col-badge pain__col-badge--good">С Elite Academy</span>
-            </div>
-            {PAIN.map((r, i) => (
-              <div className="pain__row pain__row--good" key={i}>
-                <span className="pain__ic pain__ic--good">✓</span>
-                <span>{r[1]}</span>
-              </div>
+          <div className="pain__photo-panel">
+            {PAIN_ITEMS.map((item, i) => (
+              <img
+                key={i}
+                src={item.photo}
+                alt={item.title}
+                className={"pain__photo" + (active === i ? " is-active" : "")}
+              />
             ))}
-            <a href="#cta" className="btn btn--gold btn--block pain__cta">Начать с нами →</a>
           </div>
         </div>
       </div>
