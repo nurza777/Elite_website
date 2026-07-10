@@ -114,7 +114,7 @@ function FinalCTA() {
                   }} />
                   <input type="number" min="14" max="60" required placeholder={window.__EA_LANG === "en" ? "Your age" : window.__EA_LANG === "kg" ? "Жашыңыз" : "Ваш возраст"} value={age} onChange={e => setAge(e.target.value)} />
                   <input required placeholder={t("cta.cityPlaceholder")} value={city} onChange={e => setCity(e.target.value)} />
-                  <select required value={dest} onChange={e => setDest(e.target.value)} defaultValue="">
+                  <select required value={dest} onChange={e => setDest(e.target.value)}>
                     <option value="" disabled>{t("cta.destPlaceholder")}</option>
                     <option>{t("cta.dest.usa")}</option>
                     <option>{t("cta.dest.italy")}</option>

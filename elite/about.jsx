@@ -179,7 +179,7 @@ function ClientReviews() {
         <div className="section-head" data-reveal>
           <span className="eyebrow">{_tp("Отзывы", "Reviews", "Пикирлер")}</span>
           <h2>{_tp("Что говорят наши клиенты", "What our clients say", "Кардарларыбыз эмне дейт")}</h2>
-          <p className="section-sub">{_tp("Рейтинг 4.8 · 214 отзывов на ", "Rating 4.8 · 214 reviews on ", "Рейтинг 4.8 · 214 пикир ")}<a href={_2GIS} target="_blank" rel="noopener" className="link-blue">2GIS</a></p>
+          <p className="section-sub">{_tp("Рейтинг 4.9 · 196 отзывов на ", "Rating 4.9 · 196 reviews on ", "Рейтинг 4.9 · 196 пикир ")}<a href={_2GIS} target="_blank" rel="noopener" className="link-blue">2GIS</a></p>
         </div>
 
         <div className="reviews__slider">
