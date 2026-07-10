@@ -251,26 +251,28 @@ function ProgramCardCompact({ p, u, det, fmt, onMore }) {
   const tags = toTags(p.tags);
   return (
     <article className={"pcard-c pcard--" + level}>
-      <div className="pcard-c__top">
+      <div className="pcard-c__head">
         {u.logo
-          ? <img src={u.logo} className="pcard__logo" alt="" />
-          : <div className="pcard__logo pcard__logo--ph">{(u.short || "").slice(0, 2).toUpperCase()}</div>}
+          ? <img src={u.logo} className="pcard__logo pcard-c__logo" alt="" />
+          : <div className="pcard__logo pcard__logo--ph pcard-c__logo">{(u.short || "").slice(0, 2).toUpperCase()}</div>}
+        <div className="pcard-c__id-txt">
+          <div className="pcard-c__inst">{institution}{est ? " · EST. " + est : ""}</div>
+          <h3 className="pcard-c__title">{p.title}</h3>
+          {p.location && <div className="pcard-c__loc">📍 {p.location}</div>}
+        </div>
         <span className="pcard__badge">{p.levelLabel || programLevelLabel(level)}</span>
       </div>
-      <div className="pcard-c__inst">{institution}{est ? " · EST. " + est : ""}</div>
-      <h3 className="pcard-c__title">{p.title}</h3>
-      {p.location && <div className="pcard-c__loc">📍 {p.location}</div>}
       {tags.length > 0 && (
-        <div className="pcard__tags">{tags.slice(0, 3).map((t, i) => <span className="pcard__tag" key={i}>{t}</span>)}</div>
+        <div className="pcard__tags pcard-c__tags">{tags.slice(0, 3).map((t, i) => <span className="pcard__tag" key={i}>{t}</span>)}</div>
       )}
-      <div className="pcard-c__meta">
-        <span className="pcard__meta-l">Annual tuition</span>
-        <span className="pcard-c__meta-v">{tuition || "—"}</span>
+      {p.about && <p className="pcard-c__about">{p.about}</p>}
+      <div className="pcard-c__foot">
+        <div className="pcard-c__meta">
+          <span className="pcard__meta-l">Annual tuition</span>
+          <span className="pcard-c__meta-v">{tuition || "—"}</span>
+        </div>
+        <button className="pcard-c__more" onClick={onMore}>Подробнее →</button>
       </div>
-      {p.entrance && (
-        <div className="pcard__entrance"><span className="pcard__entrance-l">Entrance</span>{p.entrance}</div>
-      )}
-      <button className="pcard-c__more" onClick={onMore}>Подробнее →</button>
     </article>
   );
 }
@@ -301,19 +303,14 @@ function ProgramCards({ u, det, fmt }) {
   const hasBoth = bachelors.length > 0 && masters.length > 0;
   const [level, setLevel] = useState(bachelors.length ? "bachelor" : "master");
   const [open, setOpen] = useState(null);
-  const trackRef = useRef(null);
   const shown = level === "master" ? masters : bachelors;
-
-  const slide = (dir) => {
-    const el = trackRef.current; if (!el) return;
-    const card = el.querySelector(".pcard-c");
-    const dx = card ? card.offsetWidth + 18 : 340;
-    el.scrollBy({ left: dir * dx, behavior: "smooth" });
-  };
 
   if (!all.length) return null;
   return (
     <div className="pcards">
+      <p className="pcards__intro">
+        Актуальные программы {u.name}: направления, стоимость обучения и требования к поступлению — открой карточку, чтобы увидеть детали.
+      </p>
       {hasBoth && (
         <div className="pcards__tabs" role="tablist">
           <button className={"pcards__tab" + (level === "bachelor" ? " is-on" : "")} onClick={() => setLevel("bachelor")}>
@@ -324,18 +321,10 @@ function ProgramCards({ u, det, fmt }) {
           </button>
         </div>
       )}
-      <div className="pcards__carousel">
-        {shown.length > 1 && (
-          <button className="pcards__arr pcards__arr--prev" onClick={() => slide(-1)} aria-label="Назад">‹</button>
-        )}
-        <div className="pcards__track" ref={trackRef}>
-          {shown.map((p, i) => (
-            <ProgramCardCompact key={i} p={p} u={u} det={det} fmt={fmt} onMore={() => setOpen(p)} />
-          ))}
-        </div>
-        {shown.length > 1 && (
-          <button className="pcards__arr pcards__arr--next" onClick={() => slide(1)} aria-label="Вперёд">›</button>
-        )}
+      <div className="pcards__grid">
+        {shown.map((p, i) => (
+          <ProgramCardCompact key={i} p={p} u={u} det={det} fmt={fmt} onMore={() => setOpen(p)} />
+        ))}
       </div>
       <a href="#cta" className="btn btn--dark pcards__cta">Проверить свои шансы на поступление →</a>
       {open && <ProgramModal p={open} u={u} det={det} fmt={fmt} onClose={() => setOpen(null)} />}
