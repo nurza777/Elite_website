@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   11.07.2026, 11:20:16
+   11.07.2026, 11:33:54
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4628,13 +4628,6 @@ window.EA_CONTENT_PUBLISHED = {
   ],
   "videos": [
     {
-      "name": "Жасмин ",
-      "country": "США ",
-      "src": "videos/Жасмин.mp4",
-      "poster": "thumbs/жасмин.jpg",
-      "tag": "Отзыв"
-    },
-    {
       "name": "Элана",
       "country": "Италия",
       "src": "videos/elana.mp4",
@@ -4643,6 +4636,13 @@ window.EA_CONTENT_PUBLISHED = {
       "uni": "Università degli Studi di Milano",
       "scholarship": "Грант €7 000",
       "quote": "Я всегда мечтала учиться в Европе. Elite Academy помогли с документами, языком и нашли грант. Теперь учусь в Милане!"
+    },
+    {
+      "name": "Жасмин ",
+      "country": "США ",
+      "src": "videos/Жасмин.mp4",
+      "poster": "thumbs/жасмин.jpg",
+      "tag": "Отзыв"
     },
     {
       "name": "Нурсултан",
