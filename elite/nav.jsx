@@ -50,6 +50,7 @@ const MEGA = {
     cols: [
       { h: "Компания", items: [["О компании", "about.html"], ["Состав Elite", "about.html#team"], ["Аккредитации", "about.html#accreds"], ["Офис и контакты", "about.html#office"]] },
       { h: "Студенты", items: [["Истории студентов", "stories.html"], ["Видео-отзывы", "stories.html"], ["Кейсы стипендий", "stories.html"]] },
+      { h: "Карьера", items: [["Вакансии", "careers.html"], ["Наши отделы", "careers.html#departments"], ["Корпоративная жизнь", "careers.html#corp"]] },
       { h: "Блог", items: [["Все статьи", "stories.html#blog"]] },
     ],
     cta: "Познакомиться с нами →",

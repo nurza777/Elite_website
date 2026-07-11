@@ -104,6 +104,7 @@ function QuizLeadForm({ onDone, ans }) {
         dest: "Квиз — " + (ans.country || "не указано"),
         page: location.pathname.split("/").pop() || "index.html",
         time: new Date().toLocaleString("ru"),
+        ...(window.getUTM ? window.getUTM() : {}),
       }),
     }).catch(() => {});
     onDone();

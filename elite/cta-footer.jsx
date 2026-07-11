@@ -56,6 +56,7 @@ function FinalCTA() {
       name, phone: phone.replace(/^\+/, "").replace("(", "-").replace(")", ""), dest,
       page: location.pathname.split("/").pop() || "index.html",
       time: new Date().toLocaleString("ru"),
+      ...(window.getUTM ? window.getUTM() : {}),
     };
     try {
       await fetch(LEADS_URL, {
