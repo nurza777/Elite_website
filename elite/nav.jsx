@@ -8,9 +8,9 @@ const MEGA = {
   "Страны": {
     page: "countries.html",
     cols: [
-      { h: "nav.mega.englishSpeaking", items: ["США", "Великобритания", "Канада", "Австралия"] },
-      { h: "nav.mega.europe",          items: ["Италия", "Германия", "Франция", "Испания"] },
-      { h: "nav.mega.asia",            items: ["ОАЭ", "Китай", "Южная Корея"] },
+      { h: "nav.mega.englishSpeaking", items: [["США", "country.html?c=США"]] },
+      { h: "nav.mega.europe",          items: [["Италия", "country.html?c=Италия"], ["Германия", "country.html?c=Германия"], ["Австрия", "country.html?c=Австрия"], ["Польша", "country.html?c=Польша"]] },
+      { h: "nav.mega.asia",            items: [["Северный Кипр", "country.html?c=Северный Кипр"], ["Малайзия", "country.html?c=Малайзия"]] },
     ],
     cta: "nav.mega.allCountries",
     ctaHref: "countries.html",
@@ -82,19 +82,15 @@ const LANGS = ["RU", "EN", "KG"];
 const lang = (window.__EA_LANG || "ru").toUpperCase();
 
 function Logo({ light }) {
-  const col = light ? "#fff" : "var(--navy)";
   return (
     <a href="index.html" className="logo" aria-label="Elite Academy KG">
-      <span className="logo__mark" aria-hidden="true">
-        <img
-          className="logo__img-mark"
-          src={light ? "images/logo-icon-white.png" : "images/logo-icon-dark.png"}
-          alt=""
-        />
-      </span>
-      <span className="logo__txt" style={{ color: col }}>
-        Elite <b>Academy</b>
-        <i>{lang === "EN" ? "education abroad" : lang === "KG" ? "чет өлкөдө билим" : "образование за рубежом"}</i>
+      <img
+        className="logo__full"
+        src={light ? "images/logo-full-white.png" : "images/logo-full-navy.png"}
+        alt="Elite Academy"
+      />
+      <span className="logo__tagline" style={{ color: light ? "rgba(255,255,255,.6)" : "var(--muted)" }}>
+        {lang === "EN" ? "education abroad" : lang === "KG" ? "чет өлкөдө билим" : "образование за рубежом"}
       </span>
     </a>
   );
@@ -215,10 +211,10 @@ function Navbar() {
         </div>
       </div>
 
-      {/* Mobile sticky bottom CTA bar */}
+      {/* Mobile sticky bottom CTA bar — contacts come from the admin "office" key */}
       <div className="bottombar">
-        <a href="tel:+996555720712" className="bottombar__btn bottombar__btn--ghost">{t("nav.call")}</a>
-        <a href="https://wa.me/996555720712" target="_blank" rel="noopener" className="bottombar__btn bottombar__btn--tg">WhatsApp</a>
+        <a href={"tel:+" + ((window.eaContent && (window.eaContent("office", null) || {}).phone) || "+996 555 720 712").replace(/\D/g, "")} className="bottombar__btn bottombar__btn--ghost">{t("nav.call")}</a>
+        <a href={"https://wa.me/" + ((window.eaContent && ((window.eaContent("office", null) || {}).whatsapp || (window.eaContent("office", null) || {}).phone)) || "996555720712").replace(/\D/g, "")} target="_blank" rel="noopener" className="bottombar__btn bottombar__btn--tg">WhatsApp</a>
       </div>
     </>
   );
