@@ -166,6 +166,16 @@ var EA_UNI_DETAILS_DEFAULT = {
         ]
       },
       {
+        level: "bachelor",
+        title: "Biology of Human and Environmental Health",
+        location: "Bologna",
+        institution: "University of Bologna",
+        established: "1088",
+        tags: ["Biology", "Environmental"],
+        tuition: "€256 / year",
+        language: "English"
+      },
+      {
         level: "master",
         title: "Artificial Intelligence",
         location: "Bologna",
@@ -294,9 +304,933 @@ var EA_UNI_DETAILS_DEFAULT = {
       }
     ] },
   "Sapienza": { founded: 1303, students: "≈110 000", site: "uniroma1.it",
-    about: "Один из крупнейших университетов Европы, главный государственный вуз Рима. Лидер мировых рейтингов по классическим наукам и археологии, широкий выбор англоязычных программ." },
+    about: "Один из крупнейших университетов Европы, главный государственный вуз Рима. Лидер мировых рейтингов по классическим наукам и археологии, широкий выбор англоязычных программ.",
+    programs: [
+      {
+        level: "bachelor",
+        title: "Business Management",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Business", "Management"],
+        tuition: "€256 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Applied Dynamic and Clinical Psychology",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Psychology", "Clinical Psychology"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Astrophysics and Cosmology",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Physics", "Astronomy"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Architecture — Urban Regeneration",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Architecture", "Design"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Architecture",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Architecture", "Design"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Artificial Intelligence and Robotics",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["AI", "Robotics"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Biochemistry",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Biology", "Chemistry"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Business Management",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Business", "Management"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Chemical Engineering",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Engineering", "Chemistry"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Cognitive Forensic Sciences",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Psychology", "Law"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Cognitive Neuroscience",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Psychology", "Neuroscience"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Computer Science",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Computer Science"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Control Engineering",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Engineering", "Automation"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Cultural Heritage in the Near and Middle East, and in Africa",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Archaeology", "Humanities"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Cybersecurity",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Computer Science", "Cybersecurity"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Data Science",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Data Science", "Computer Science"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Design, Multimedia and Visual Communication",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Design", "Media"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Development and International Cooperation Studies",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["International Relations", "Development"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Economics",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Science"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Economics and Communication for Management and Innovation",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Economics", "Management"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Electrical Engineering",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Engineering", "Electronics"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Electronics Engineering",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Engineering", "Electronics"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Energy Engineering",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Engineering", "Energy"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Engineering in Computer Science and Artificial Intelligence",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Engineering", "AI"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "English and Anglo-American Studies",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Linguistics", "Humanities"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Environmental and Sustainable Building Engineering",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Engineering", "Sustainability"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Environmental Engineering",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Engineering", "Environmental"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "European Studies",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Political Science", "Law"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Fashion Theory and Practices",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Fashion", "Design"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Finance and Insurance",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Finance", "Insurance"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Genetics and Molecular Biology",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Biology", "Biotechnology"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Green Industrial Engineering for Sustainable Development",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Engineering", "Industrial"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Health Economics",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Economics", "Health"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Landscape Architecture",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Architecture", "Design"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Management Engineering",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Engineering", "Management"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Mechanical Engineering",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Engineering", "Mechanical"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Mediterranean Archaeology",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Archaeology", "Humanities"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Nanotechnology Engineering",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Engineering", "Nanotechnology"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Physics",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Physics", "Science"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Product and Service Design",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Design", "Management"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Safety and Civil Protection Engineering",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Engineering", "Civil"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Science and Technology for the Conservation of Cultural Heritage",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Humanities", "Science"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Space and Astronautical Engineering",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Engineering", "Aerospace"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Statistical Methods and Applications",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Mathematics", "Statistics"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Telecommunication Engineering",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Engineering", "Telecommunications"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Transport Systems Engineering",
+        location: "Rome",
+        institution: "Sapienza University of Rome",
+        established: "1303",
+        tags: ["Engineering", "Transportation"],
+        tuition: "",
+        language: "English"
+      }
+    ] },
   "UniPD":    { founded: 1222, students: "≈65 000", site: "unipd.it",
-    about: "Один из старейших университетов мира — здесь преподавал Галилей. Сильны медицина, психология и инженерия; развитая система стипендий для иностранцев." },
+    about: "Один из старейших университетов мира — здесь преподавал Галилей. Сильны медицина, психология и инженерия; развитая система стипендий для иностранцев.",
+    programs: [
+      {
+        level: "bachelor",
+        title: "Animal Care",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Veterinary", "Science"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "bachelor",
+        title: "Psychological Science",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Psychology"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "bachelor",
+        title: "Techniques and Methods in Psychological Science",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Psychology"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "bachelor",
+        title: "Information Engineering",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Engineering", "Computer Science"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "bachelor",
+        title: "Biology of Human and Environmental Health",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Biology", "Environmental"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "bachelor",
+        title: "Earth and Climate Dynamics",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Science", "Environmental"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Biotechnologies for Food Science",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Biology", "Biotechnology"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Forest Sciences",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Agriculture", "Environmental"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Food and Health",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Food Science", "Health"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Food, Nutrition and Health",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Food Science", "Health"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Italian Food and Wine",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Food Science", "Agribusiness"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Sustainable Agriculture",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Agriculture", "Sustainability"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Environmental Sciences for the Ecological Transition",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Engineering", "Environmental"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Management for Sustainable Firms",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Business", "Management"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Accounting, Finance and Business Consulting",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Business", "Consulting"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Applied Economics",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Economics", "Mathematics"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "European and Global Studies",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Political Science", "International Relations"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Human Rights and Multi-level Governance",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Law", "Political Science"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Aerospace Engineering",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Engineering", "Aerospace"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Chemical and Process Engineering",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Engineering", "Chemistry"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Computer Engineering",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Engineering", "Computer Science"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Cybersecurity",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Computer Science", "Cybersecurity"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Control Systems Engineering",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Engineering", "Automation"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Electrical Engineering",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Engineering", "Electronics"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Electronic Engineering",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Engineering", "Electronics"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Energy Engineering",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Engineering", "Energy"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Environmental Engineering",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Engineering", "Environmental"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "ICT for Internet and Multimedia",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Engineering", "Telecommunications"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Intelligent Civil Infrastructures Engineering",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Engineering", "Civil"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Management Engineering",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Engineering", "Management"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Materials Engineering",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Engineering", "Materials"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Mathematical Engineering",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Engineering", "Mathematics"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Mechanical Engineering for Product Innovation",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Engineering", "Mechanical"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Mechatronics Engineering",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Engineering", "Automation"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Water and Geological Risk Engineering",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Engineering", "Environmental"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Applied Sciences to Cultural Heritage, Materials and Sites",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Humanities", "Science"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Communication Strategies",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Communications", "Media"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "English Studies",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Linguistics", "Humanities"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Local Development",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Social Sciences", "Economics"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Mobility Studies",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Social Sciences", "Transportation"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Social Sciences and Digital Data",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Social Sciences", "Data Science"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Pharmaceutical Biotechnologies",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Biology", "Pharmacy"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Clinical, Social and Intercultural Psychology",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Psychology", "Social Sciences"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Cognitive Neuroscience and Clinical Neuropsychology",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Psychology", "Neuroscience"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Cognitive Sciences for Human-Centric Technologies",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Psychology", "Computer Science"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Applied Child and Adolescent Psychology",
+        location: "Padova",
+        institution: "University of Padova",
+        established: "1222",
+        tags: ["Psychology", "Education"],
+        tuition: "",
+        language: "English"
+      }
+    ] },
   "CaFosc":   { founded: 1868, site: "unive.it",
     about: "Университет в центре Венеции, первая в Италии школа коммерции. Известен экономикой, языками и востоковедением; учёба проходит в исторических палаццо на каналах." },
   "LUISS":    { founded: 1974, site: "luiss.it",
@@ -308,9 +1242,243 @@ var EA_UNI_DETAILS_DEFAULT = {
   "UniTO":    { founded: 1404, students: "≈80 000", site: "unito.it",
     about: "Один из крупнейших классических университетов Италии. Сильные медицина, право и экономика; среди выпускников — нобелевские лауреаты и два президента страны." },
   "UniPI":    { founded: 1343, students: "≈45 000", site: "unipi.it",
-    about: "Исторический университет Тосканы, альма-матер Галилео Галилея. Сегодня — один из сильнейших в Италии центров информатики и физики." },
+    about: "Исторический университет Тосканы, альма-матер Галилео Галилея. Сегодня — один из сильнейших в Италии центров информатики и физики.",
+    programs: [
+      {
+        level: "bachelor",
+        title: "Business Management",
+        location: "Pisa",
+        institution: "University of Pisa",
+        established: "1343",
+        tags: ["Business", "Management"],
+        tuition: "€140 / year",
+        language: "English"
+      }
+    ] },
   "TorVerg":  { founded: 1982, site: "uniroma2.it",
-    about: "Современный кампусный университет на юге Рима. Сильны медицина, инженерия и экономика; один из лидеров Италии по числу англоязычных программ." },
+    about: "Современный кампусный университет на юге Рима. Сильны медицина, инженерия и экономика; один из лидеров Италии по числу англоязычных программ.",
+    programs: [
+      {
+        level: "bachelor",
+        title: "Business Administration and Economics",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Business", "Economics"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "bachelor",
+        title: "Global Governance",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Political Science", "International Relations"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "bachelor",
+        title: "Innovation Tourism for Made in Italy",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Tourism", "Management"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "bachelor",
+        title: "Engineering Sciences",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Engineering"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Business Administration",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Business", "Management"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Sport and Health Promotion",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Sport Science", "Health"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Astrophysics and Space Science",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Physics", "Astronomy"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "European Economy and Business Law",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Economics", "Law"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Tourism Strategy, Cultural Heritage and Made in Italy",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Humanities", "Science"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Finance and Banking",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Finance", "Banking"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "ICT and Internet Engineering",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Engineering", "Telecommunications"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Biotechnology for Industry and Health",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Biology", "Biotechnology"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Physics of Complex Systems and Big Data",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Physics", "Science"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Physics of Fundamental Interactions and Experimental Techniques",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Physics", "Science"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Art History in Rome, from Late Antiquity to the Present",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Art", "Humanities"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Chemistry for Nano-Engineering",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Engineering", "Chemistry"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Clinical Psychosexology",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Psychology", "Clinical Psychology"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Economics",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Science"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Management Engineering",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Engineering", "Management"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Engineering Sciences",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Engineering"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Mechatronics Engineering",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Engineering", "Automation"],
+        tuition: "€240 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Scienze della Storia e del Documento",
+        location: "Rome",
+        institution: "University of Rome Tor Vergata",
+        established: "1982",
+        tags: ["Humanities", "History"],
+        tuition: "€240 / year",
+        language: "Italian/English"
+      }
+    ] },
   "UniFI":    { founded: 1321, students: "≈50 000", site: "unifi.it",
     about: "Классический университет Флоренции — столицы Ренессанса. Особенно силён в архитектуре, дизайне, искусствоведении и аграрных науках." },
   "UniSI":    { founded: 1240, site: "unisi.it",
@@ -340,13 +1508,227 @@ var EA_UNI_DETAILS_DEFAULT = {
   "UniPA":    { founded: 1806, site: "unipa.it",
     about: "Главный университет Сицилии в Палермо. Широкий выбор программ при одной из самых низких стоимостей обучения и жизни в Западной Европе." },
   "UniME":    { founded: 1548, site: "unime.it",
-    about: "Старинный сицилийский университет у Мессинского пролива. Сильны медицина, ветеринария и право; доступные цены на обучение и проживание." },
+    about: "Старинный сицилийский университет у Мессинского пролива. Сильны медицина, ветеринария и право; доступные цены на обучение и проживание.",
+    programs: [
+      {
+        level: "bachelor",
+        title: "Business Management",
+        location: "Messina",
+        institution: "University of Messina",
+        established: "1548",
+        tags: ["Business", "Management"],
+        tuition: "€256 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Business Consulting and Management",
+        location: "Messina",
+        institution: "University of Messina",
+        established: "1548",
+        tags: ["Business", "Management"],
+        tuition: "€256 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Civil Engineering",
+        location: "Messina",
+        institution: "University of Messina",
+        established: "1548",
+        tags: ["Engineering", "Civil"],
+        tuition: "€256 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Cognitive Science and Theory of Communication",
+        location: "Messina",
+        institution: "University of Messina",
+        established: "1548",
+        tags: ["Psychology", "Neuroscience"],
+        tuition: "€256 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Data Science",
+        location: "Messina",
+        institution: "University of Messina",
+        established: "1548",
+        tags: ["Data Science", "Computer Science"],
+        tuition: "€256 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Engineering in Computer Science",
+        location: "Messina",
+        institution: "University of Messina",
+        established: "1548",
+        tags: ["Engineering", "Computer Science"],
+        tuition: "€256 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Geophysical Sciences for Seismic Risk",
+        location: "Messina",
+        institution: "University of Messina",
+        established: "1548",
+        tags: ["Science", "Geophysics"],
+        tuition: "€256 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Global Security Studies",
+        location: "Messina",
+        institution: "University of Messina",
+        established: "1548",
+        tags: ["Political Science", "Security"],
+        tuition: "€256 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Mechanical Engineering",
+        location: "Messina",
+        institution: "University of Messina",
+        established: "1548",
+        tags: ["Engineering", "Mechanical"],
+        tuition: "€256 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Physics: Material Physics and Devices",
+        location: "Messina",
+        institution: "University of Messina",
+        established: "1548",
+        tags: ["Physics", "Materials"],
+        tuition: "€256 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Quantitative Methods for Finance",
+        location: "Messina",
+        institution: "University of Messina",
+        established: "1548",
+        tags: ["Finance", "Mathematics"],
+        tuition: "€256 / year",
+        language: "English"
+      }
+    ] },
   "UniCT":    { founded: 1434, site: "unict.it",
     about: "Старейший университет Сицилии у подножия Этны. Сильная медицина и инженерия; Катания — главный технологический хаб юга Италии («Etna Valley»)." },
   "UniSA":    { founded: 1968, site: "unisa.it",
     about: "Наследник средневековой Салернской врачебной школы — первой медицинской школы Европы. Современный кампус под Салерно, сильны инженерия и информатика." },
   "UniCAS":   { founded: 1979, site: "unicas.it",
-    about: "Компактный государственный университет между Римом и Неаполем. Доступные цены, сильная инженерия и спортивные науки, дружелюбная среда для иностранцев." },
+    about: "Компактный государственный университет между Римом и Неаполем. Доступные цены, сильная инженерия и спортивные науки, дружелюбная среда для иностранцев.",
+    programs: [
+      {
+        level: "bachelor",
+        title: "Economics and Business",
+        location: "Cassino",
+        institution: "University of Cassino",
+        established: "1979",
+        tags: ["Economics", "Business"],
+        tuition: "",
+        language: "English"
+      },
+      {
+        level: "bachelor",
+        title: "Computer Engineering",
+        location: "Cassino",
+        institution: "University of Cassino",
+        established: "1979",
+        tags: ["Engineering", "Computer Science"],
+        tuition: "€140 / year",
+        language: "English"
+      },
+      {
+        level: "bachelor",
+        title: "Economics with Data Science",
+        location: "Cassino",
+        institution: "University of Cassino",
+        established: "1979",
+        tags: ["Economics", "Data Science"],
+        tuition: "€140 / year",
+        language: "English"
+      },
+      {
+        level: "bachelor",
+        title: "Environmental and Civil Engineering",
+        location: "Cassino",
+        institution: "University of Cassino",
+        established: "1979",
+        tags: ["Engineering", "Environmental"],
+        tuition: "€140 / year",
+        language: "English"
+      },
+      {
+        level: "bachelor",
+        title: "Industrial Engineering Technology",
+        location: "Cassino",
+        institution: "University of Cassino",
+        established: "1979",
+        tags: ["Engineering", "Industrial"],
+        tuition: "€140 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Economics and Entrepreneurship",
+        location: "Cassino",
+        institution: "University of Cassino",
+        established: "1979",
+        tags: ["Business", "Management"],
+        tuition: "€140 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Global Economy and Business",
+        location: "Cassino",
+        institution: "University of Cassino",
+        established: "1979",
+        tags: ["Economics", "Business"],
+        tuition: "€140 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Civil and Environmental Engineering",
+        location: "Cassino",
+        institution: "University of Cassino",
+        established: "1979",
+        tags: ["Engineering", "Civil"],
+        tuition: "€140 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Mechanical Engineering",
+        location: "Cassino",
+        institution: "University of Cassino",
+        established: "1979",
+        tags: ["Engineering", "Mechanical"],
+        tuition: "€140 / year",
+        language: "English"
+      },
+      {
+        level: "master",
+        title: "Telecommunications Engineering",
+        location: "Cassino",
+        institution: "University of Cassino",
+        established: "1979",
+        tags: ["Engineering", "Telecommunications"],
+        tuition: "€140 / year",
+        language: "English"
+      }
+    ] },
   "UniUD":    { founded: 1978, site: "uniud.it",
     about: "Университет на северо-востоке Италии, недалеко от Австрии и Словении. Силён в бизнесе, виноделии и инженерии; высокое качество жизни региона Фриули." },
   "UniCamp":  { founded: 1991, site: "unicampania.it",
