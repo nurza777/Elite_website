@@ -135,7 +135,10 @@ function ProgramCard({ p, u, det, fmt }) {
   const tuition = p.tuition || (u.price ? fmt(u.price) + " / year" : "");
   const tags = toTags(p.tags);
   const reqs = toLines(p.requirements);
+  const docs = toLines(p.documents);
   const dls = toLines(p.deadlines);
+  const er = p.engReqs || null;
+  const hasEr = er && Object.values(er).some(v => v && v !== "-" && v !== "—");
 
   return (
     <article className={"pcard pcard--" + level}>
@@ -159,6 +162,10 @@ function ProgramCard({ p, u, det, fmt }) {
           <span className="pcard__badge">{p.levelLabel || programLevelLabel(level)}</span>
           {tuition && (<><span className="pcard__meta-l">Annual tuition</span><span className="pcard__meta-v">{tuition}</span></>)}
           {p.funding && (<><span className="pcard__meta-l">Funding</span><span className="pcard__meta-v">{p.funding}</span></>)}
+          {p.scholarship && (
+            <><span className="pcard__meta-l">Scholarship</span>
+            <span className="pcard__meta-v">{p.scholarship}{p.grant ? " · Grant available" : ""}</span></>
+          )}
         </div>
       </header>
 
@@ -167,16 +174,43 @@ function ProgramCard({ p, u, det, fmt }) {
           <div className="pcard__col-h">About program</div>
           {p.paidEducation && (<div className="pcard__kv"><span className="pcard__kv-l">If paid education</span><span className="pcard__kv-v">{p.paidEducation}</span></div>)}
           {p.language && (<div className="pcard__kv"><span className="pcard__kv-l">Language of study</span><span className="pcard__kv-v">{p.language}</span></div>)}
+          {p.duration && (<div className="pcard__kv"><span className="pcard__kv-l">Duration</span><span className="pcard__kv-v">{p.duration}</span></div>)}
+          {p.appFee && (<div className="pcard__kv"><span className="pcard__kv-l">Application fee</span><span className="pcard__kv-v">{p.appFee}</span></div>)}
           {p.studyPlan && (<a className="pcard__link" href={p.studyPlan} target="_blank" rel="noopener">Study plan ↗</a>)}
+          {!p.studyPlan && p.studyPlanLabel && (<div className="pcard__kv"><span className="pcard__kv-l">Study plan</span><span className="pcard__kv-v">{p.studyPlanLabel}</span></div>)}
           {p.about && <p className="pcard__about">{p.about}</p>}
         </div>
 
         <div className="pcard__col">
           <div className="pcard__col-h">Requirements</div>
-          {p.entrance && (
+          {hasEr && (
+            <div className="pcard__engreqs">
+              <div className="pcard__engreqs-h">English language</div>
+              <table className="pcard__engtbl">
+                <tbody>
+                  {er.ielts && er.ielts !== "-" && er.ielts !== "—" && <tr><td>IELTS</td><td>{er.ielts}</td></tr>}
+                  {er.toefl && er.toefl !== "-" && er.toefl !== "—" && <tr><td>TOEFL iBT</td><td>{er.toefl}</td></tr>}
+                  {er.duolingo && er.duolingo !== "-" && er.duolingo !== "—" && <tr><td>Duolingo</td><td>{er.duolingo}</td></tr>}
+                  {er.other && er.other !== "-" && er.other !== "—" && <tr><td>Other</td><td>{er.other}</td></tr>}
+                </tbody>
+              </table>
+            </div>
+          )}
+          {p.entrance && !hasEr && (
             <div className="pcard__entrance"><span className="pcard__entrance-l">Entrance</span>{p.entrance}</div>
           )}
-          {reqs.length > 0 && <ProgramLines lines={reqs} bullet={reqs.length > 1} />}
+          {reqs.length > 0 && (
+            <>
+              <div className="pcard__engreqs-h">Academic requirements</div>
+              <ProgramLines lines={reqs} bullet={reqs.length > 1} />
+            </>
+          )}
+          {docs.length > 0 && (
+            <>
+              <div className="pcard__engreqs-h">Required documents</div>
+              <ProgramLines lines={docs} bullet />
+            </>
+          )}
         </div>
 
         <div className="pcard__col">

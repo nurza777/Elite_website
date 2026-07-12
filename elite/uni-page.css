@@ -485,6 +485,17 @@
   color: var(--gray-600);
 }
 
+.pcard__engreqs { margin-bottom: 14px; }
+.pcard__engreqs-h {
+  font-size: 13px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--gray-600); margin: 14px 0 7px;
+}
+.pcard__engreqs-h:first-child { margin-top: 0; }
+.pcard__engtbl { border-collapse: collapse; font-size: 14px; width: 100%; }
+.pcard__engtbl td { padding: 4px 10px 4px 0; vertical-align: top; }
+.pcard__engtbl td:first-child { font-weight: 700; color: var(--gray-700); white-space: nowrap; min-width: 80px; }
+.pcard__engtbl td:last-child { font-weight: 600; }
+
 .pcard__lines { list-style: none; margin: 0; padding: 0; }
 .pcard__lines .pcard__line,
 .pcard__lines .pcard__line-head { font-size: 14px; line-height: 1.6; }
