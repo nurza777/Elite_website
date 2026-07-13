@@ -124,14 +124,15 @@ function Quiz() {
   const isResult = step === total;
   const progress = isResult ? 100 : Math.round((step / total) * 100);
 
-  // Restore once on mount
+  // Restore once on mount (step clamped: an out-of-range value crashed the whole section)
   useEffect(() => {
     const s = window.eaQuizGet && window.eaQuizGet();
     if (s && typeof s.step === "number") {
-      setStep(s.step);
+      const st = Math.min(Math.max(0, s.step), total);
+      setStep(st);
       setAns(s.ans || {});
       setDone(!!s.done);
-      if (s.step > 0 && !s.done) setResumed(true);
+      if (st > 0 && !s.done) setResumed(true);
     }
   }, []);
 
@@ -145,7 +146,8 @@ function Quiz() {
     setAns((a) => ({ ...a, [key]: val }));
     setDir(1);
     setResumed(false);
-    setTimeout(() => setStep((s) => s + 1), 180);
+    /* clamp: двойной клик по варианту успевал прибавить шаг дважды и уводил за пределы теста */
+    setTimeout(() => setStep((s) => Math.min(total, s + 1)), 180);
   };
   const back = () => { setDir(-1); setStep((s) => Math.max(0, s - 1)); };
   const restart = () => { setAns({}); setStep(0); setDone(false); setResumed(false); };

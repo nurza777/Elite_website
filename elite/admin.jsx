@@ -164,111 +164,10 @@ function fmtKB(bytes) {
   return bytes >= 1024 * 1024 ? (bytes / (1024 * 1024)).toFixed(1) + " МБ" : Math.round(bytes / 1024) + " КБ";
 }
 
-/* ---------- client-side video compression before GitHub upload ----------
-   GitHub's Contents API chokes on large base64 payloads (raw phone video
-   can be 50-200MB) and fails with a confusing 401. This re-encodes the
-   video in-browser via <canvas> + MediaRecorder: downscales to maxDim on
-   the longer side and re-encodes at a modest bitrate — real-time (takes
-   as long as the clip's duration), not instant like image compression.
-   Falls back to null (caller uploads the original file) if the browser
-   doesn't support MediaRecorder/captureStream. */
-function pickVideoMimeType() {
-  const candidates = [
-    "video/mp4;codecs=avc1,mp4a.40.2",
-    "video/mp4",
-    "video/webm;codecs=vp9,opus",
-    "video/webm;codecs=vp8,opus",
-    "video/webm",
-  ];
-  if (!window.MediaRecorder || !MediaRecorder.isTypeSupported) return "";
-  return candidates.find((c) => MediaRecorder.isTypeSupported(c)) || "";
-}
-
-function compressVideoFile(file, { maxDim = 1280, videoBitsPerSecond = 2_000_000, audioBitsPerSecond = 128_000, onProgress } = {}) {
-  return new Promise((resolve, reject) => {
-    if (!file.type || !file.type.startsWith("video/")) { resolve(null); return; }
-    const mimeType = pickVideoMimeType();
-    if (!mimeType) { resolve(null); return; }
-
-    const url = URL.createObjectURL(file);
-    const video = document.createElement("video");
-    video.src = url;
-    video.muted = true;   // required for autoplay; captured audio track is unaffected
-    video.playsInline = true;
-    // Must be attached to the DOM (off-screen) — detached <video> elements
-    // don't reliably decode/advance playback in every browser, which would
-    // stall captureStream() forever.
-    video.style.cssText = "position:fixed;left:-9999px;top:0;width:1px;height:1px;";
-    document.body.appendChild(video);
-
-    const cleanup = () => { URL.revokeObjectURL(url); video.remove(); if (canvasEl) canvasEl.remove(); };
-    let canvasEl = null;
-
-    video.onloadedmetadata = () => {
-      let width = video.videoWidth, height = video.videoHeight;
-      if (!width || !height) { cleanup(); resolve(null); return; }
-      if (width > maxDim || height > maxDim) {
-        if (width >= height) { height = Math.round(height * maxDim / width); width = maxDim; }
-        else { width = Math.round(width * maxDim / height); height = maxDim; }
-      }
-      const canvas = document.createElement("canvas");
-      canvasEl = canvas;
-      canvas.width = width; canvas.height = height;
-      canvas.style.cssText = "position:fixed;left:-9999px;top:0;";
-      document.body.appendChild(canvas);
-      const ctx = canvas.getContext("2d");
-
-      let sourceStream;
-      try { sourceStream = video.captureStream ? video.captureStream() : video.mozCaptureStream(); }
-      catch (e) { cleanup(); resolve(null); return; }
-      if (!sourceStream) { cleanup(); resolve(null); return; }
-
-      const canvasStream = canvas.captureStream(30);
-      const outStream = new MediaStream([...canvasStream.getVideoTracks(), ...sourceStream.getAudioTracks()]);
-
-      let recorder;
-      try { recorder = new MediaRecorder(outStream, { mimeType, videoBitsPerSecond, audioBitsPerSecond }); }
-      catch (e) { cleanup(); resolve(null); return; }
-
-      const chunks = [];
-      recorder.ondataavailable = (e) => { if (e.data.size > 0) chunks.push(e.data); };
-
-      let raf;
-      const draw = () => {
-        if (video.paused || video.ended) return;
-        ctx.drawImage(video, 0, 0, width, height);
-        if (onProgress && video.duration) onProgress(Math.min(99, Math.round((video.currentTime / video.duration) * 100)));
-        raf = requestAnimationFrame(draw);
-      };
-
-      recorder.onstop = () => {
-        cancelAnimationFrame(raf);
-        cleanup();
-        const blob = new Blob(chunks, { type: mimeType.split(";")[0] });
-        if (!blob.size) { resolve(null); return; }
-        const reader = new FileReader();
-        reader.onload = () => resolve({
-          dataUrl: reader.result,
-          base64: reader.result.split(",")[1],
-          size: blob.size,
-          origSize: file.size,
-          width, height,
-          ext: mimeType.indexOf("video/mp4") === 0 ? "mp4" : "webm",
-        });
-        reader.onerror = () => reject(new Error("Ошибка чтения сжатого видео"));
-        reader.readAsDataURL(blob);
-      };
-      recorder.onerror = (e) => { cancelAnimationFrame(raf); cleanup(); reject(e.error || new Error("Ошибка записи видео")); };
-
-      video.onended = () => { if (recorder.state !== "inactive") recorder.stop(); };
-      video.onerror = () => { cancelAnimationFrame(raf); cleanup(); reject(new Error("Не удалось прочитать видео")); };
-
-      recorder.start();
-      video.play().then(draw).catch(() => { cleanup(); resolve(null); });
-    };
-    video.onerror = () => { cleanup(); resolve(null); };
-  });
-}
+/* Видео НЕ пересжимаем в браузере: MediaRecorder-транскодинг давал дёрганое
+   видео и рассинхрон звука (кадры рисуются по requestAnimationFrame, а аудио
+   пишется в реальном времени). Видео готовим заранее: MP4 (H.264), до 900px,
+   ~1 Mbps — и загружаем как есть. */
 
 function UploadSlot({ label, path, token, branch, accept = "image/jpeg,image/png,image/webp", hint, onSuccess, maxDim = 1500 }) {
   const [file, setFile] = React.useState(null);
@@ -711,40 +610,34 @@ function VidPathField({ l, v, on, token, branch }) {
   const [file, setFile] = React.useState(null);
   const [st, setSt] = React.useState(null);
   const [err, setErr] = React.useState(null);
-  const [progress, setProgress] = React.useState(0);
-  const [compressed, setCompressed] = React.useState(null);
-
-  const COMPRESS_THRESHOLD = 5 * 1024 * 1024; // skip re-encoding small clips
+  const [warn, setWarn] = React.useState(null);
 
   function onFile(e) {
     const f = e.target.files[0];
-    if (!f) return;
-    setFile(f); setSt(null); setErr(null); setProgress(0); setCompressed(null);
     e.target.value = "";
+    if (!f) return;
+    setSt(null); setErr(null); setWarn(null);
+    /* GitHub API не примет очень большие файлы */
+    if (f.size > 45 * 1024 * 1024) {
+      setErr("Файл " + fmtKB(f.size) + " — слишком большой (макс. 45 МБ). Сожми видео перед загрузкой: MP4 (H.264), до 900px, ~1 Mbps.");
+      return;
+    }
+    if (f.size > 10 * 1024 * 1024) {
+      setWarn("Видео " + fmtKB(f.size) + " — тяжёлое. Лучше сжать заранее до MP4 (H.264, до 900px, ~1 Mbps) — иначе у посетителей будут лаги.");
+    }
+    if (!/\.mp4$/i.test(f.name)) {
+      setWarn("Файл не .mp4 — в браузерах может не воспроизвестись. Конвертируй в MP4 (H.264).");
+    }
+    setFile(f);
   }
 
   async function upload() {
     if (!file || !v) return;
     if (!token) { setErr("Нет токена — добавь в «Публикации»"); return; }
-    setSt("busy"); setErr(null); setProgress(0);
+    setSt("busy"); setErr(null);
     try {
-      let base64, targetPath = v;
-      if (file.size > COMPRESS_THRESHOLD) {
-        setSt("compressing");
-        const c = await compressVideoFile(file, { onProgress: setProgress });
-        if (c) {
-          base64 = c.base64;
-          setCompressed(c);
-          // keep the path's extension in sync with what the browser could actually encode
-          if (!targetPath.toLowerCase().endsWith("." + c.ext)) {
-            targetPath = targetPath.replace(/\.[a-z0-9]+$/i, "") + "." + c.ext;
-            on(targetPath);
-          }
-        }
-      }
-      setSt("busy");
-      if (!base64) base64 = await fileToBase64(file);
-      await ghUploadMedia(token, branch, targetPath, base64);
+      const base64 = await fileToBase64(file);
+      await ghUploadMedia(token, branch, v, base64);
       setSt("ok"); setFile(null); setOpen(false);
     } catch (e2) { setSt("err"); setErr(e2.message); }
   }
@@ -762,15 +655,13 @@ function VidPathField({ l, v, on, token, branch }) {
       {open && v && <video key={v} src={v} controls className="afield__preview-vid" />}
       {file && (
         <div className="afield__upload-bar">
-          <span className="afield__fname">{file.name.length > 30 ? file.name.slice(0, 28) + "…" : file.name}</span>
-          <button className="abtn abtn--primary" onClick={upload} disabled={st === "busy" || st === "compressing"}>
-            {st === "compressing" ? `Сжимаю видео… ${progress}%` : st === "busy" ? "Загружаю…" : "↑ Загрузить"}
+          <span className="afield__fname">{file.name.length > 30 ? file.name.slice(0, 28) + "…" : file.name} ({fmtKB(file.size)})</span>
+          <button className="abtn abtn--primary" onClick={upload} disabled={st === "busy"}>
+            {st === "busy" ? "Загружаю…" : "↑ Загрузить"}
           </button>
         </div>
       )}
-      {compressed && (
-        <div className="afield__hint">Сжато: {fmtKB(compressed.origSize)} → {fmtKB(compressed.size)} ({compressed.width}×{compressed.height})</div>
-      )}
+      {warn && <div className="afield__status afield__err" style={{ color: "#b45309" }}>⚠ {warn}</div>}
       {st === "ok"  && <div className="afield__status afield__ok">✓ Загружено</div>}
       {st === "err" && <div className="afield__status afield__err">{err}</div>}
     </div>
