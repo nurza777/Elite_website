@@ -107,6 +107,33 @@ function programLevelLabel(level) {
   return "BACHELOR'S";
 }
 
+/* Минималистичные линейные иконки (наследуют цвет через currentColor) */
+function IcBanknote({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="2" y="6" width="20" height="12" rx="2"/>
+      <circle cx="12" cy="12" r="2.6"/>
+      <path d="M5.5 9.5v0M18.5 14.5v0"/>
+    </svg>
+  );
+}
+function IcAward({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="8.5" r="5"/>
+      <path d="M8.8 12.7 7.5 21l4.5-2.6L16.5 21l-1.3-8.3"/>
+    </svg>
+  );
+}
+function IcCap({ size = 13 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M22 9.5 12 4.5 2 9.5l10 5 10-5z"/>
+      <path d="M6 12v4.3c0 1.5 2.7 2.7 6 2.7s6-1.2 6-2.7V12"/>
+    </svg>
+  );
+}
+
 /* Render an array of lines; a line starting with "# " becomes a bold sub-heading */
 function ProgramLines({ lines, bullet }) {
   return (
@@ -160,11 +187,11 @@ function ProgramCard({ p, u, det, fmt }) {
           </div>
         </div>
         <div className="pcard__meta">
-          <span className="pcard__badge"><span className="pcard__badge-ic" aria-hidden="true">🎓</span>{p.levelLabel || programLevelLabel(level)}</span>
-          {tuition && (<span className="pcard__fin"><span className="pcard__fin-ic" aria-hidden="true">💵</span>{tuition}</span>)}
-          {p.funding && (<span className="pcard__fin"><span className="pcard__fin-ic" aria-hidden="true">💰</span>{p.funding}</span>)}
+          <span className="pcard__badge"><span className="pcard__badge-ic"><IcCap /></span>{p.levelLabel || programLevelLabel(level)}</span>
+          {tuition && (<span className="pcard__fin"><span className="pcard__fin-ic"><IcBanknote /></span>{tuition}</span>)}
+          {p.funding && (<span className="pcard__fin"><span className="pcard__fin-ic"><IcAward /></span>{p.funding}</span>)}
           {p.scholarship && (
-            <span className="pcard__fin"><span className="pcard__fin-ic" aria-hidden="true">💰</span>{p.scholarship}{p.grant ? " · Grant available" : ""}</span>
+            <span className="pcard__fin"><span className="pcard__fin-ic"><IcAward /></span>{p.scholarship}{p.grant ? " · Grant available" : ""}</span>
           )}
         </div>
       </header>
@@ -252,7 +279,7 @@ function ProgramCardCompact({ p, u, det, fmt, onMore }) {
           <h3 className="pcard-c__title">{p.title}</h3>
           {p.location && <div className="pcard-c__loc">📍 {p.location}</div>}
         </div>
-        <span className="pcard__badge"><span className="pcard__badge-ic" aria-hidden="true">🎓</span>{p.levelLabel || programLevelLabel(level)}</span>
+        <span className="pcard__badge"><span className="pcard__badge-ic"><IcCap /></span>{p.levelLabel || programLevelLabel(level)}</span>
       </div>
       {tags.length > 0 && (
         <div className="pcard__tags pcard-c__tags">{tags.slice(0, 3).map((t, i) => <span className="pcard__tag" key={i}>{t}</span>)}</div>
