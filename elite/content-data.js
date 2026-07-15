@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   15.07.2026, 12:24:46
+   15.07.2026, 12:28:43
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4631,7 +4631,7 @@ window.EA_CONTENT_PUBLISHED = {
       "name": "Азиза",
       "country": "Италия ",
       "src": "videos/Азиза.mp4",
-      "poster": "thumbs/имя.jpg",
+      "poster": "thumbs/Азиза.jpg",
       "tag": "Отзыв"
     },
     {
