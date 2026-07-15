@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   15.07.2026, 11:24:14
+   15.07.2026, 11:29:48
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4631,7 +4631,7 @@ window.EA_CONTENT_PUBLISHED = {
       "name": "Акылай ",
       "country": "Италия 🇮🇹",
       "src": "videos/Акылай.mp4",
-      "poster": "thumbs/имя.jpg",
+      "poster": "thumbs/Акылай.jpg",
       "tag": "Отзыв"
     },
     {
