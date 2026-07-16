@@ -2,7 +2,8 @@
 Фото приглашений - виз - студентов/
 
 # Videos exceeding GitHub 100MB limit — keep locally only
-videos/ademi.mp4
+# (ademi.mp4 — оригинал утерян; карточка убрана из media-feed,
+#  вернуть можно загрузкой видео через админку)
 videos/*.MOV
 videos/*.mov
 

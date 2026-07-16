@@ -4714,15 +4714,6 @@ window.EA_CONTENT_PUBLISHED = {
       "quote": "Учусь в Италии — мечта стала реальностью благодаря Elite Academy."
     },
     {
-      "name": "Адеми",
-      "country": "Италия",
-      "src": "videos/ademi.mp4",
-      "poster": "thumbs/ademi.png",
-      "tag": "Отзыв",
-      "uni": "Италия · бакалавриат",
-      "quote": "Поступление прошло легче, чем я думала — спасибо за чёткий план."
-    },
-    {
       "name": "Нурзар",
       "country": "США",
       "src": "videos/nurzar.mp4",
