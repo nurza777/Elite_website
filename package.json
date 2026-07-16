@@ -1,0 +1,10 @@
+{
+  "name": "elite-website",
+  "private": true,
+  "description": "Elite Academy KG — сборка (прекомпиляция JSX для продакшена, см. scripts/build.sh)",
+  "devDependencies": {
+    "@babel/cli": "^7.28.0",
+    "@babel/core": "^7.28.0",
+    "@babel/preset-react": "^7.27.0"
+  }
+}

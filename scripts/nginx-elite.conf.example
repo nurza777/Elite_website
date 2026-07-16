@@ -8,7 +8,10 @@ server {
     listen 80;
     server_name eliteacademy.kg www.eliteacademy.kg;
 
-    root /var/www/elite;          # путь к репозиторию на сервере
+    # Папка СБОРКИ (scripts/build.sh), не сам репозиторий — там
+    # прекомпилированный быстрый вариант сайта. Если сборку не
+    # используете, укажите путь к репозиторию.
+    root /var/www/elite-www;
     index index.html;
 
     # ---- ссылки без .html (как /universities → universities.html) ----

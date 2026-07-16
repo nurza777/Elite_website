@@ -9,9 +9,13 @@
 #   2. Пережимает тяжёлые видео, загруженные через админку
 #      (страховка: браузерное сжатие в админке не всегда срабатывает).
 #
+#   3. Если задана папка сборки — пересобирает сайт (прекомпиляция
+#      JSX, см. scripts/build.sh) и nginx отдаёт быстрый вариант.
+#
 # Установка (один раз, на сервере):
-#   chmod +x scripts/deploy.sh
-#   crontab -e   → добавить строку (путь поправить под себя):
+#   chmod +x scripts/deploy.sh scripts/build.sh
+#   crontab -e   → добавить строки (пути поправить под себя):
+#   ELITE_BUILD_DIR=/var/www/elite-www
 #   * * * * * /var/www/elite/scripts/deploy.sh >> /var/log/elite-deploy.log 2>&1
 #
 # Чтобы сжатые видео уезжали обратно в GitHub (рекомендуется),
@@ -28,11 +32,13 @@ cd "$REPO_DIR"
 git fetch origin "$BRANCH" --quiet
 LOCAL=$(git rev-parse HEAD)
 REMOTE=$(git rev-parse "origin/$BRANCH")
+UPDATED=0
 
 if [ "$LOCAL" != "$REMOTE" ]; then
   # rebase, а не reset: локальные коммиты сжатия видео не теряются
   git pull --rebase --quiet origin "$BRANCH"
   echo "$(date '+%F %T') deployed $(git rev-parse --short HEAD)"
+  UPDATED=1
 fi
 
 # ---- пережать тяжёлые видео из админки (>900px или >1.2 Mbps) ----
@@ -61,4 +67,9 @@ if [ "$CHANGED" = "1" ]; then
   git add videos
   git commit --quiet -m "server: auto-compress admin-uploaded videos"
   git push --quiet origin "HEAD:$BRANCH" || echo "$(date '+%F %T') push failed (нет write-доступа?) — сжатие осталось локально"
+fi
+
+# ---- пересборка (прекомпиляция JSX), если задана папка сборки ----
+if { [ "$UPDATED" = "1" ] || [ "$CHANGED" = "1" ]; } && [ -n "${ELITE_BUILD_DIR:-}" ]; then
+  bash "$REPO_DIR/scripts/build.sh" "$ELITE_BUILD_DIR"
 fi
