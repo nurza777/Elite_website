@@ -3,6 +3,11 @@
    ============================================================ */
 const { useState, useEffect, useRef } = React;
 
+/* Admin overrides (key "home" → hero.*): a filled field replaces the
+   localized default; empty fields keep the t() translation. */
+const _HERO_OV = (((window.eaContent && window.eaContent("home", null)) || {}).hero) || {};
+const _hov = (field, tKey) => _HERO_OV[field] || t(tKey);
+
 const FEATURED_STUDENTS = [
   {
     n: "Нурзар", country: "США", u: "Roosevelt University, Чикаго",
@@ -180,20 +185,20 @@ function Hero() {
         <div className="hero__left">
           <div className="hero__badge" data-reveal>
             <span className="hero__badge-dot"></span>
-            {t("hero.badge")}
+            {_hov("badge", "hero.badge")}
           </div>
 
           <h1 className="hero__h1" data-reveal data-delay="1">
-            <span className="grad-gold">{t("hero.h1a")}</span><br/>{t("hero.h1b")}
+            <span className="grad-gold">{_hov("h1a", "hero.h1a")}</span><br/>{_hov("h1b", "hero.h1b")}
           </h1>
 
           <p className="hero__sub" data-reveal data-delay="2">
-            {t("hero.sub")}
+            {_hov("sub", "hero.sub")}
           </p>
 
           <div className="hero__cta" data-reveal data-delay="3">
-            <a href="#cta" className="btn btn--gold btn--lg">{t("hero.ctaPrimary")}</a>
-            <a href="#quiz" className="btn btn--ghost-light btn--lg">{t("hero.ctaSecondary")}</a>
+            <a href="#cta" className="btn btn--gold btn--lg">{_hov("ctaPrimary", "hero.ctaPrimary")}</a>
+            <a href="#quiz" className="btn btn--ghost-light btn--lg">{_hov("ctaSecondary", "hero.ctaSecondary")}</a>
           </div>
 
           <div className="hero__stats" data-reveal data-delay="5">

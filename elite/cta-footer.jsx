@@ -3,6 +3,19 @@
    ============================================================ */
 const { useState, useEffect, useRef } = React;
 const LEADS_URL = "https://script.google.com/macros/s/AKfycbw4i67Vtu9cMUjZvXxVCZ0ZdeDndAG2GqY0eS7PznuBGxZeG4PkwHbe8xN-RAoa35BW/exec";
+
+/* Site-wide contacts from the admin "office" key (falls back to defaults) */
+const _CT = (window.eaContent && window.eaContent("office", null)) || {};
+const CT_PHONE  = _CT.phone || "+996 555 720 712";
+const CT_TEL    = "tel:+" + CT_PHONE.replace(/\D/g, "");
+const CT_EMAIL  = _CT.email || "eliteacademykg@gmail.com";
+const CT_IG_URL = "https://www.instagram.com/" + (_CT.instagram || "@eliteacademy.kg").replace("@", "") + "/";
+const CT_TIKTOK = _CT.tiktok || "https://www.tiktok.com/@eliteacademy.kg";
+const CT_TG     = _CT.telegram || "https://t.me/eliteacademykg";
+const CT_ADDR   = _CT.address || null; /* null → localized inline default */
+
+/* FinalCTA text overrides from the admin "home" key */
+const _CTA_OV = (((window.eaContent && window.eaContent("home", null)) || {}).finalCta) || {};
 const FOOTER_MAP_COORDS = [74.590385, 42.843700];
 const FOOTER_DGIS_KEY   = "de8b758a-a208-4a05-9f30-25eb492f4364";
 
@@ -65,8 +78,8 @@ function FinalCTA() {
       <div className="finalcta__mesh" aria-hidden="true"></div>
       <div className="wrap finalcta__inner">
         <div className="finalcta__head" data-reveal>
-          <span className="eyebrow eyebrow--light">{t("cta.eyebrow")}</span>
-          <h2>{t("cta.h2").split("\n").map((line, i) => <span key={i}>{line}{i === 0 && <br/>}</span>)}</h2>
+          <span className="eyebrow eyebrow--light">{_CTA_OV.eyebrow || t("cta.eyebrow")}</span>
+          <h2>{(_CTA_OV.h2 || t("cta.h2")).split("\n").map((line, i) => <span key={i}>{line}{i === 0 && <br/>}</span>)}</h2>
         </div>
 
         <div className="finalcta__grid">
@@ -97,8 +110,8 @@ function FinalCTA() {
           <div className="finalcta__form-wrap card" data-reveal data-delay="1">
             {!sent ? (
               <>
-                <h3 className="finalcta__form-t">{t("cta.formTitle")}</h3>
-                <p className="finalcta__form-sub">{t("cta.formSub")}</p>
+                <h3 className="finalcta__form-t">{_CTA_OV.formTitle || t("cta.formTitle")}</h3>
+                <p className="finalcta__form-sub">{_CTA_OV.formSub || t("cta.formSub")}</p>
                 <form className="finalcta__form" onSubmit={handleSubmit}>
                   <input required placeholder={t("cta.namePlaceholder")} value={name} onChange={e => setName(e.target.value)} />
                   <input required placeholder="+996(___)-___-___" inputMode="tel" value={phone} onChange={e => {
@@ -169,13 +182,13 @@ function Footer() {
           <Logo light />
           <p className="footer__about">{t("footer.about")}</p>
           <div className="footer__socials">
-            <a href="https://www.instagram.com/eliteacademy.kg" className="footer__social" aria-label="Instagram" target="_blank" rel="noopener">
+            <a href={CT_IG_URL} className="footer__social" aria-label="Instagram" target="_blank" rel="noopener">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
             </a>
-            <a href="https://www.tiktok.com/@eliteacademy.kg" className="footer__social" aria-label="TikTok" target="_blank" rel="noopener">
+            <a href={CT_TIKTOK} className="footer__social" aria-label="TikTok" target="_blank" rel="noopener">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V9.01a8.16 8.16 0 0 0 4.77 1.52V7.09a4.85 4.85 0 0 1-1.01-.4z"/></svg>
             </a>
-            <a href="https://t.me/eliteacademykg" className="footer__social" aria-label="Telegram" target="_blank" rel="noopener">
+            <a href={CT_TG} className="footer__social" aria-label="Telegram" target="_blank" rel="noopener">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </a>
           </div>
@@ -194,9 +207,9 @@ function Footer() {
 
         <div className="footer__col footer__contacts">
           <div className="footer__h">{t("footer.contacts")}</div>
-          <div className="footer__contact">{window.__EA_LANG === "en" ? "Bishkek, 169 Isy Akhunbaeva St, Binokl BC, 6th floor" : window.__EA_LANG === "kg" ? "Бишкек ш., Иса Ахунбаев көчөсү 169, «Бинокль» ББ, 6-кабат" : "г. Бишкек, ул. Исы Ахунбаева 169, БЦ «Бинокль», 6 этаж"}</div>
-          <a href="tel:+996555720712" className="footer__contact">+996 555 720 712</a>
-          <a href="mailto:eliteacademykg@gmail.com" className="footer__contact">eliteacademykg@gmail.com</a>
+          <div className="footer__contact">{CT_ADDR || (window.__EA_LANG === "en" ? "Bishkek, 169 Isy Akhunbaeva St, Binokl BC, 6th floor" : window.__EA_LANG === "kg" ? "Бишкек ш., Иса Ахунбаев көчөсү 169, «Бинокль» ББ, 6-кабат" : "г. Бишкек, ул. Исы Ахунбаева 169, БЦ «Бинокль», 6 этаж")}</div>
+          <a href={CT_TEL} className="footer__contact">{CT_PHONE}</a>
+          <a href={"mailto:" + CT_EMAIL} className="footer__contact">{CT_EMAIL}</a>
           <div className="footer__contact">{t("footer.hours")}</div>
           <FooterMap />
         </div>

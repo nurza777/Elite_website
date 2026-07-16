@@ -154,8 +154,13 @@ const REVIEWS_KG = [
   { name: "Эрлан С.", stars: 5, text: "АКШда спорттук стипендия — бул тек гана топ спортчулар үчүн деп ойлочумун. Elite Academy баары мүмкүн экенин далилдеди. Азыр футбол ойноп, окуп жатам!", date: "Сентябрь 2023" },
   { name: "Асель Б.", stars: 5, text: "Баарына сунуштайм! Абдан кылдат мамиле, дайыма байланышта. Түндүк Кипр менен жардам беришти — арзан жана сапаттуу болуп чыкты. Elite Academyге рахмат!", date: "Август 2023" },
 ];
-const REVIEWS = (_ABL === "en" ? REVIEWS_EN : _ABL === "kg" ? REVIEWS_KG : REVIEWS_RU)
-  .map(r => ({ ...r, link: _2GIS }));
+const REVIEWS_LOCALIZED = (_ABL === "en" ? REVIEWS_EN : _ABL === "kg" ? REVIEWS_KG : REVIEWS_RU);
+/* Admin overrides (key "reviews" = { sub, items:[{name, stars, text, date}] }) */
+const _RV_OV = (window.eaContent && window.eaContent("reviews", null)) || null;
+const REVIEWS = ((_RV_OV && Array.isArray(_RV_OV.items) && _RV_OV.items.length ? _RV_OV.items : REVIEWS_LOCALIZED))
+  .map(r => ({ ...r, stars: Math.max(1, Math.min(5, +r.stars || 5)), link: _2GIS }));
+const REVIEWS_SUB = (_RV_OV && _RV_OV.sub) || _tp("Рейтинг 4.9 · 196 отзывов на ", "Rating 4.9 · 196 reviews on ", "Рейтинг 4.9 · 196 пикир ");
+window.EA_REVIEWS_STATE = { sub: REVIEWS_SUB, items: REVIEWS.map(({ link, ...r }) => r) };
 
 function StarIcon() {
   return (
@@ -168,7 +173,7 @@ function StarIcon() {
 function ClientReviews() {
   const [idx, setIdx] = React.useState(0);
   const visible = 3;
-  const max = REVIEWS.length - visible;
+  const max = Math.max(0, REVIEWS.length - visible); /* не даём Array(-N) упасть при <3 отзывах */
 
   function prev() { setIdx(i => Math.max(0, i - 1)); }
   function next() { setIdx(i => Math.min(max, i + 1)); }
@@ -179,7 +184,7 @@ function ClientReviews() {
         <div className="section-head" data-reveal>
           <span className="eyebrow">{_tp("Отзывы", "Reviews", "Пикирлер")}</span>
           <h2>{_tp("Что говорят наши клиенты", "What our clients say", "Кардарларыбыз эмне дейт")}</h2>
-          <p className="section-sub">{_tp("Рейтинг 4.9 · 196 отзывов на ", "Rating 4.9 · 196 reviews on ", "Рейтинг 4.9 · 196 пикир ")}<a href={_2GIS} target="_blank" rel="noopener" className="link-blue">2GIS</a></p>
+          <p className="section-sub">{REVIEWS_SUB}<a href={_2GIS} target="_blank" rel="noopener" className="link-blue">2GIS</a></p>
         </div>
 
         <div className="reviews__slider">
@@ -300,28 +305,31 @@ function Accreditations() {
    OFFICE — address, hours, rating + Google Maps embed
    ============================================================ */
 const OFFICE_RU = {
-  rating: "4.8", reviews: "214 отзывов на 2GIS",
+  rating: "4.9", reviews: "196 отзывов на 2GIS",
   address: "ул. Исы Ахунбаева 169, БЦ «Бинокль», 6 этаж",
   hours: "ПН–ПТ 10:00–19:00 · СБ 12:00–19:00",
   phone: "+996 555 720 712", email: "eliteacademykg@gmail.com", instagram: "@eliteacademy.kg",
+  whatsapp: "+996 555 720 712",
+  tiktok: "https://www.tiktok.com/@eliteacademy.kg",
+  telegram: "https://t.me/eliteacademykg",
   map: "БЦ Бинокль, Ахунбаева 169, Бишкек",
 };
 const OFFICE_EN = {
-  rating: "4.8", reviews: "214 reviews on 2GIS",
+  ...OFFICE_RU,
+  reviews: "196 reviews on 2GIS",
   address: "169 Isy Akhunbaeva St, Binokl Business Center, 6th floor",
   hours: "Mon–Fri 10:00–19:00 · Sat 12:00–19:00",
-  phone: "+996 555 720 712", email: "eliteacademykg@gmail.com", instagram: "@eliteacademy.kg",
-  map: "БЦ Бинокль, Ахунбаева 169, Бишкек",
 };
 const OFFICE_KG = {
-  rating: "4.8", reviews: "2GISте 214 пикир",
+  ...OFFICE_RU,
+  reviews: "2GISте 196 пикир",
   address: "Иса Ахунбаев көчөсү 169, «Бинокль» ББ, 6-кабат",
   hours: "ДҮЙ–ЖУМ 10:00–19:00 · ИШ 12:00–19:00",
-  phone: "+996 555 720 712", email: "eliteacademykg@gmail.com", instagram: "@eliteacademy.kg",
-  map: "БЦ Бинокль, Ахунбаева 169, Бишкек",
 };
-const OFFICE = _ABL === "en" ? OFFICE_EN : _ABL === "kg" ? OFFICE_KG
-  : (window.eaContent ? window.eaContent("office", OFFICE_RU) : OFFICE_RU);
+/* Admin-edited office/contacts win on ALL languages (was: RU only) */
+const OFFICE_LOC = _ABL === "en" ? OFFICE_EN : _ABL === "kg" ? OFFICE_KG : OFFICE_RU;
+const _OF_OV = (window.eaContent && window.eaContent("office", null)) || null;
+const OFFICE = _OF_OV ? { ...OFFICE_LOC, ..._OF_OV } : OFFICE_LOC;
 window.EA_OFFICE = OFFICE;
 
 const DGIS_KEY      = "de8b758a-a208-4a05-9f30-25eb492f4364";

@@ -301,6 +301,10 @@ function buildInitial() {
     office: clone(window.EA_OFFICE || {}),
     accreds: clone(window.EA_ACCREDS || []),
     careers: clone(window.EA_CAREERS || { heroPhoto: "", deptPhotos: { marketing: "", sales: "", admission: "" }, corpPhotos: Array(8).fill(""), applyUrl: "" }),
+    /* Главная: hero/дедлайн/finalCta — пустое поле = текст сайта по умолчанию */
+    home: clone((window.eaContent && window.eaContent("home", null)) || { hero: {}, deadline: {}, finalCta: {} }),
+    painItems: clone(window.EA_PAIN_ITEMS || []),
+    reviews: clone(window.EA_REVIEWS_STATE || { sub: "", items: [] }),
   };
 }
 
@@ -333,6 +337,7 @@ function buildContent(s) {
     videos: s.videos, posts: s.posts,
     about: s.about, team: s.team, office: s.office, accreds: s.accreds,
     careers: s.careers,
+    home: s.home, painItems: s.painItems, reviews: s.reviews,
   };
 }
 
@@ -807,16 +812,55 @@ function CareersEditor({ careers, setCareers, token, branch }) {
    MAIN APP
    ============================================================ */
 const SECTIONS = [
+  ["home", "🏠 Главная"],
   ["unis", "🎓 Вузы"],
   ["countries", "🌍 Страны"],
   ["stories", "💬 Истории"],
   ["videos", "🎬 Видео-отзывы"],
+  ["reviews", "⭐ Отзывы"],
   ["posts", "📰 Блог"],
   ["about", "ℹ️ О нас"],
   ["careers", "💼 Вакансии"],
   ["media", "📸 Медиа"],
   ["publish", "⚙️ Публикация"],
 ];
+
+/* ============================================================
+   HOME PAGE EDITOR — hero, deadline banner, final CTA.
+   Пустое поле = используется стандартный (переведённый) текст сайта.
+   ============================================================ */
+function HomeEditor({ home, setHome }) {
+  const upd = (group, k) => (v) => setHome({ ...home, [group]: { ...(home[group] || {}), [k]: v } });
+  const g = (group, k) => ((home[group] || {})[k]) || "";
+  return (
+    <div className="aform" style={{ maxWidth: 860 }}>
+      <div className="aform__head">
+        <h3>Главная страница</h3>
+        <a href="index.html" target="_blank" rel="noopener" className="abtn">Открыть страницу ↗</a>
+      </div>
+      <div className="aform__grid">
+        <div className="aform__divider">Хиро (первый экран) — пустое поле = стандартный текст с переводами</div>
+        <TIn l="Бейдж (строка над заголовком)" v={g("hero", "badge")} on={upd("hero", "badge")} ph="Аккредитовано ICEF · 1500+ студентов за рубежом" wide />
+        <TIn l="Заголовок — строка 1 (золотая)" v={g("hero", "h1a")} on={upd("hero", "h1a")} ph="Твой путь" />
+        <TIn l="Заголовок — строка 2" v={g("hero", "h1b")} on={upd("hero", "h1b")} ph="к учёбе за рубежом" />
+        <Area l="Подзаголовок" v={g("hero", "sub")} on={upd("hero", "sub")} />
+        <TIn l="Кнопка основная" v={g("hero", "ctaPrimary")} on={upd("hero", "ctaPrimary")} ph="Получить бесплатную консультацию" />
+        <TIn l="Кнопка вторичная" v={g("hero", "ctaSecondary")} on={upd("hero", "ctaSecondary")} ph="Узнать свои шансы →" />
+
+        <div className="aform__divider">Баннер дедлайна (на главной, в каталоге и на «Программах»)</div>
+        <TIn l="Дата дедлайна (ГГГГ-ММ-ДД)" v={g("deadline", "date")} on={upd("deadline", "date")} ph="2026-08-31" />
+        <TIn l="Заголовок" v={g("deadline", "title")} on={upd("deadline", "title")} ph="Дедлайн подачи на осенний семестр" wide />
+        <TIn l="Подзаголовок" v={g("deadline", "sub")} on={upd("deadline", "sub")} ph="Набор закрывается — успей пройти оценку и забронировать место" wide />
+
+        <div className="aform__divider">Финальный блок с формой (на всех страницах)</div>
+        <TIn l="Строка над заголовком" v={g("finalCta", "eyebrow")} on={upd("finalCta", "eyebrow")} ph="Сделай первый шаг" wide />
+        <Area l="Заголовок (перенос строки = новая строка на сайте)" v={g("finalCta", "h2")} on={upd("finalCta", "h2")} />
+        <TIn l="Заголовок формы" v={g("finalCta", "formTitle")} on={upd("finalCta", "formTitle")} ph="Начни сейчас" />
+        <Area l="Подзаголовок формы" v={g("finalCta", "formSub")} on={upd("finalCta", "formSub")} />
+      </div>
+    </div>
+  );
+}
 
 /* ============================================================
    ABOUT PAGE EDITOR
@@ -860,14 +904,17 @@ function AboutEditor({ about, setAbout, team, setTeam, office, setOffice }) {
               on={(v) => updT("badges", v.split("\n").filter(Boolean))} rows={3} />
         <TIn l="Фото команды (путь к файлу)" v={team.photo || ""} on={(v) => updT("photo", v)} ph="images/team.jpg" wide />
 
-        <div className="aform__divider">Офис и контакты</div>
-        <TIn l="Рейтинг" v={office.rating} on={(v) => updO("rating", v)} ph="4.8" />
-        <TIn l="Подпись рейтинга" v={office.reviews} on={(v) => updO("reviews", v)} ph="214 отзывов на 2GIS" />
+        <div className="aform__divider">Офис и контакты — телефон, соцсети и адрес используются по всему сайту (шапка, футер, плавающий чат)</div>
+        <TIn l="Рейтинг" v={office.rating} on={(v) => updO("rating", v)} ph="4.9" />
+        <TIn l="Подпись рейтинга" v={office.reviews} on={(v) => updO("reviews", v)} ph="196 отзывов на 2GIS" />
         <TIn l="Адрес" v={office.address} on={(v) => updO("address", v)} wide />
         <TIn l="График работы" v={office.hours} on={(v) => updO("hours", v)} wide />
-        <TIn l="Телефон / WhatsApp" v={office.phone} on={(v) => updO("phone", v)} />
+        <TIn l="Телефон" v={office.phone} on={(v) => updO("phone", v)} />
+        <TIn l="WhatsApp (если отличается от телефона)" v={office.whatsapp || ""} on={(v) => updO("whatsapp", v)} ph="+996 555 720 712" />
         <TIn l="Email" v={office.email} on={(v) => updO("email", v)} />
         <TIn l="Instagram" v={office.instagram} on={(v) => updO("instagram", v)} ph="@eliteacademy.kg" />
+        <TIn l="TikTok (ссылка)" v={office.tiktok || ""} on={(v) => updO("tiktok", v)} ph="https://www.tiktok.com/@eliteacademy.kg" />
+        <TIn l="Telegram (ссылка)" v={office.telegram || ""} on={(v) => updO("telegram", v)} ph="https://t.me/eliteacademykg" />
         <TIn l="Адрес для Google Maps" v={office.map} on={(v) => updO("map", v)} />
       </div>
     </div>
@@ -1235,6 +1282,35 @@ function AdminApp() {
         </nav>
 
         <main className="amain">
+          {section === "home" && (
+            <>
+              <HomeEditor home={state.home} setHome={set("home")} />
+              <div className="amain__note" style={{ marginTop: 26 }}>Блок «Почему Elite Academy» (аккордеон с фото):</div>
+              <SimpleList
+                list={state.painItems} setList={set("painItems")} titleKey="title" addLabel="+ Пункт"
+                token={ghToken} branch={ghBranch}
+                addTemplate={{ title: "Новый пункт", body: "", photo: "images/about1.jpg" }}
+                schema={[["title", "Заголовок"], ["body", "Текст", "area"], ["photo", "Фото", "imgpath"]]}
+              />
+            </>
+          )}
+          {section === "reviews" && (
+            <>
+              <div className="amain__note">Блок «Что говорят наши клиенты» (2GIS) на главной.</div>
+              <div className="aform" style={{ maxWidth: 860, marginBottom: 20 }}>
+                <div className="aform__grid">
+                  <TIn l="Строка рейтинга (текст перед ссылкой на 2GIS)" v={state.reviews.sub || ""} on={(v) => set("reviews")({ ...state.reviews, sub: v })} ph="Рейтинг 4.9 · 196 отзывов на " wide />
+                </div>
+              </div>
+              <SimpleList
+                list={state.reviews.items || []} setList={(v) => set("reviews")({ ...state.reviews, items: v })}
+                titleKey="name" addLabel="+ Отзыв"
+                token={ghToken} branch={ghBranch}
+                addTemplate={{ name: "Имя Ф.", stars: 5, text: "", date: "" }}
+                schema={[["name", "Имя"], ["stars", "Звёзды (1–5)"], ["text", "Текст отзыва", "area"], ["date", "Дата (текстом)"]]}
+              />
+            </>
+          )}
           {section === "unis" && <UnisEditor list={state.unis} setList={set("unis")} token={ghToken} branch={ghBranch} />}
           {section === "countries" && <CountriesEditor list={state.countries} setList={setCountries} />}
           {section === "stories" && (

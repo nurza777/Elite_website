@@ -47,7 +47,12 @@ function FlipDigit({ value }) {
   );
 }
 
-const FALL_DEADLINE = new Date("2026-08-31T23:59:00").getTime();
+/* Admin overrides (key "home" → deadline.*): date (ГГГГ-ММ-ДД), title, sub;
+   empty fields keep the localized defaults. */
+const _DL_OV = (((window.eaContent && window.eaContent("home", null)) || {}).deadline) || {};
+const FALL_DEADLINE = new Date(
+  _DL_OV.date ? (_DL_OV.date.includes("T") ? _DL_OV.date : _DL_OV.date + "T23:59:00") : "2026-08-31T23:59:00"
+).getTime();
 const _CD_LABELS = [["d", _kp("дней", "days", "күн")], ["h", _kp("часов", "hours", "саат")], ["m", _kp("минут", "minutes", "мүнөт")], ["s", _kp("секунд", "seconds", "секунд")]];
 
 function DeadlineBanner() {
@@ -61,8 +66,8 @@ function DeadlineBanner() {
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>
             <div>
-              <div className="scholar__deadline-h">{_kp("Дедлайн подачи на осенний семестр", "Fall semester application deadline", "Күзгү семестрге тапшыруу дедлайны")}</div>
-              <div className="scholar__deadline-sub">{_kp("Набор закрывается — успей пройти оценку и забронировать место", "Enrolment is closing — take the assessment and reserve your spot in time", "Кабыл алуу жабылып жатат — баалоодон өтүп, оруңду брондоп үлгүр")}</div>
+              <div className="scholar__deadline-h">{_DL_OV.title || _kp("Дедлайн подачи на осенний семестр", "Fall semester application deadline", "Күзгү семестрге тапшыруу дедлайны")}</div>
+              <div className="scholar__deadline-sub">{_DL_OV.sub || _kp("Набор закрывается — успей пройти оценку и забронировать место", "Enrolment is closing — take the assessment and reserve your spot in time", "Кабыл алуу жабылып жатат — баалоодон өтүп, оруңду брондоп үлгүр")}</div>
             </div>
           </div>
           <div className="countdown">
@@ -127,8 +132,8 @@ function Scholarships() {
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </span>
             <div>
-              <div className="scholar__deadline-h">{_kp("Дедлайн подачи на осенний семестр", "Fall semester application deadline", "Күзгү семестрге тапшыруу дедлайны")}</div>
-              <div className="scholar__deadline-sub">{_kp("Набор закрывается — успей пройти оценку и забронировать место", "Enrolment is closing — take the assessment and reserve your spot in time", "Кабыл алуу жабылып жатат — баалоодон өтүп, оруңду брондоп үлгүр")}</div>
+              <div className="scholar__deadline-h">{_DL_OV.title || _kp("Дедлайн подачи на осенний семестр", "Fall semester application deadline", "Күзгү семестрге тапшыруу дедлайны")}</div>
+              <div className="scholar__deadline-sub">{_DL_OV.sub || _kp("Набор закрывается — успей пройти оценку и забронировать место", "Enrolment is closing — take the assessment and reserve your spot in time", "Кабыл алуу жабылып жатат — баалоодон өтүп, оруңду брондоп үлгүр")}</div>
             </div>
           </div>
           <div className="countdown">

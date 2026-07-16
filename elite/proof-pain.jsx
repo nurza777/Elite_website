@@ -140,7 +140,7 @@ function TrustBar() {
   );
 }
 
-const PAIN_ITEMS = [
+const PAIN_ITEMS_DEFAULT = [
   {
     title: _ppp("Мы рядом на каждом этапе", "We’re with you at every step", "Ар бир этапта жаныңдабыз"),
     body: _ppp("За каждым студентом закрепляется персональный ментор, который сопровождает его на каждом этапе: помогает принимать важные решения, отвечает на вопросы, напоминает о дедлайнах и всегда остается на связи. Вы никогда не останетесь один на пути к университету своей мечты.", "Each student is assigned a personal mentor who accompanies them at every stage: helps make important decisions, answers questions, reminds about deadlines and always stays in touch. You’ll never be alone on the way to your dream university.", "Ар бир студентке жеке ментор бекитилет, ал ар бир этапта коштойт: маанилүү чечимдерди кабыл алууга жардам берет, суроолорго жооп берет, дедлайндарды эскертет жана дайыма байланышта болот. Кыялыңдагы университетке жолдо эч качан жалгыз калбайсың."),
@@ -172,6 +172,9 @@ const PAIN_ITEMS = [
     photo: "images/about3.jpg",
   },
 ];
+/* Admin-edited accordion items (key "painItems") win over the defaults */
+const PAIN_ITEMS = window.eaContent ? window.eaContent("painItems", PAIN_ITEMS_DEFAULT) : PAIN_ITEMS_DEFAULT;
+window.EA_PAIN_ITEMS = PAIN_ITEMS;
 
 function PainSolution() {
   const [active, setActive] = useState(0);
