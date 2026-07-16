@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   15.07.2026, 12:28:43
+   16.07.2026, 18:27:06
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4429,7 +4429,7 @@ window.EA_CONTENT_PUBLISHED = {
   "storyGrid": [
     {
       "n": "Элана",
-      "u": "Università degli Studi di Milano",
+      "u": "Cassino University",
       "s": "Грант + €7 000",
       "t": "Италия",
       "level": "Бакалавр",
@@ -4712,6 +4712,15 @@ window.EA_CONTENT_PUBLISHED = {
       "tag": "Отзыв",
       "uni": "Италия · бакалавриат",
       "quote": "Учусь в Италии — мечта стала реальностью благодаря Elite Academy."
+    },
+    {
+      "name": "Адеми",
+      "country": "Италия",
+      "src": "videos/ademi.mp4",
+      "poster": "thumbs/ademi.png",
+      "tag": "Отзыв",
+      "uni": "Италия · бакалавриат",
+      "quote": "Поступление прошло легче, чем я думала — спасибо за чёткий план."
     },
     {
       "name": "Нурзар",
