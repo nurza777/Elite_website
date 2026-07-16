@@ -439,6 +439,21 @@ function UniversityProfile() {
 
   /* ?p=N — a specific program picked in the catalog */
   const allPrograms = window.eaUniPrograms(u);
+
+  /* CTA card: tuition from the lowest-cost authored program (if > €1000),
+     fall back to u.price. Authored programs have string tuitions like
+     "$2,750 / year" or "€2,420 / year". Auto-generated ones mirror u.price. */
+  const progNums = allPrograms
+    .map(p => { const m = (p.tuition || "").match(/[\d,]+/); return m ? parseInt(m[0].replace(/,/g, "")) : null; })
+    .filter(n => n && n > 1000);
+  const ctaTuitionStr = progNums.length ? "$" + Math.min(...progNums).toLocaleString("ru") : fmt(u.price);
+
+  /* Scholarship / grant badges — driven by program data + uni flags */
+  const hasScholarship = u.meritBased || allPrograms.some(p => !!(p.funding || p.scholarship));
+  const hasGrant = u.needBased || allPrograms.some(p => p.grant === true);
+  /* Stakeholder rule: Italian state universities hide the "Грант" badge */
+  const italyState = u.country === "Италия" && u.type === "Государственный";
+  const showGrant = hasGrant && !italyState;
   const progIdx = parseInt(params.get("p"), 10);
   const focusProgram = Number.isInteger(progIdx) && allPrograms[progIdx] ? progIdx : null;
 
@@ -492,12 +507,12 @@ function UniversityProfile() {
             </div>
 
             <div className="uprof-hero__aside card">
-              <div className="uprof__price-l">Обучение в год</div>
-              <div className="uprof__price">{fmt(u.price)}</div>
-              {(u.meritBased || u.needBased) && (
+              <div className="uprof__price-l">ОБУЧЕНИЕ В ГОД</div>
+              <div className="uprof__price">{ctaTuitionStr}</div>
+              {(hasScholarship || showGrant) && (
                 <div className="uprof__schol">
-                  {u.meritBased && <span className="uprof__schol-tag">Стипендия</span>}
-                  {u.needBased && <span className="uprof__schol-tag uprof__schol-tag--grant">Грант</span>}
+                  {hasScholarship && <span className="uprof__schol-tag">Стипендия</span>}
+                  {showGrant && <span className="uprof__schol-tag uprof__schol-tag--grant">Грант</span>}
                 </div>
               )}
               {u.appFee > 0 && (
