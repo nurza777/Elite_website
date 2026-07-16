@@ -1,0 +1,50 @@
+# ============================================================
+# Elite Academy — образец конфига nginx для сайта на сервере.
+# Положить в /etc/nginx/sites-available/elite, поправить пути и
+# домен, включить: ln -s в sites-enabled, nginx -t, systemctl reload nginx.
+# HTTPS: certbot --nginx -d eliteacademy.kg -d www.eliteacademy.kg
+# ============================================================
+server {
+    listen 80;
+    server_name eliteacademy.kg www.eliteacademy.kg;
+
+    root /var/www/elite;          # путь к репозиторию на сервере
+    index index.html;
+
+    # ---- ссылки без .html (как /universities → universities.html) ----
+    location / {
+        try_files $uri $uri.html $uri/ =404;
+    }
+
+    # ---- сжатие текстовых ответов ----
+    gzip on;
+    gzip_types text/css application/javascript application/json image/svg+xml;
+    gzip_min_length 1024;
+
+    # ---- кэширование: медиа надолго, html всегда свежий ----
+    location ~* \.(jpg|jpeg|png|webp|svg|mp4|woff2?)$ {
+        expires 30d;
+        add_header Cache-Control "public";
+    }
+    location ~* \.(js|css)$ {
+        # скрипты подключены с ?v=версией — можно кэшировать
+        expires 7d;
+        add_header Cache-Control "public";
+    }
+    location ~* \.html$ {
+        add_header Cache-Control "no-cache";
+    }
+
+    # ---- админка: доступ только команде ----
+    # Вариант А: по паролю (создать файл: htpasswd -c /etc/nginx/.elite_admin admin)
+    location = /admin.html {
+        auth_basic "Elite Admin";
+        auth_basic_user_file /etc/nginx/.elite_admin;
+    }
+    # Вариант Б: вместо auth_basic — по IP офиса:
+    #   allow 1.2.3.4; deny all;
+
+    # ---- служебное ----
+    location ~ /\.git { deny all; }
+    location ~ ^/scripts/ { deny all; }
+}

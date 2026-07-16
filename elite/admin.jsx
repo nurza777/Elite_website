@@ -12,7 +12,7 @@
        .then(b => console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")))
    and put the result into PASS_SHA256 below.
    ============================================================ */
-const { useState, useEffect, useMemo } = React;
+const { useState, useEffect, useMemo, useRef } = React;
 
 const LS_KEY = "ea_content_v1";
 const SESSION_KEY = "ea_admin_ok";
@@ -61,7 +61,7 @@ function contentFileText(content) {
     "window.EA_CONTENT_PUBLISHED = " + JSON.stringify(content, null, 2) + ";\n";
 }
 
-async function ghPublish(token, branch, fileText) {
+async function ghPublish(token, branch, fileText, expectedSha) {
   const api = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}`;
   const headers = {
     Authorization: "Bearer " + token,
@@ -73,6 +73,12 @@ async function ghPublish(token, branch, fileText) {
   if (g.status === 200) sha = (await g.json()).sha;
   else if (g.status === 401) throw new Error("Неверный ключ доступа (token). Проверь в «Публикации».");
   else if (g.status !== 404) throw new Error("GitHub: ошибка " + g.status);
+  /* Кто-то публиковал после того, как эта админка была открыта: публикация
+     перезапишет его правки нашей (устаревшей) копией всего контента. */
+  if (expectedSha && sha && sha !== expectedSha &&
+      !window.confirm("⚠️ Пока админка была открыта, контент уже публиковали (видимо, коллега).\n\nЕсли продолжить — ЕГО правки будут перезаписаны твоей копией.\nЕсли не уверен — нажми «Отмена», согласуй с коллегой, обнови страницу и внеси правки заново.\n\nВсё равно опубликовать?")) {
+    throw new Error("Публикация отменена — контент менялся параллельно.");
+  }
   const body = { message: "Обновление контента из админ-панели", content: utf8b64(fileText), branch };
   if (sha) body.sha = sha;
   const p = await fetch(api, { method: "PUT", headers, body: JSON.stringify(body) });
@@ -81,7 +87,8 @@ async function ghPublish(token, branch, fileText) {
     if (p.status === 404) throw new Error("Нет доступа к репозиторию — у ключа должны быть права Contents: Read and write.");
     throw new Error("GitHub " + p.status + ": " + (j.message || "не удалось опубликовать"));
   }
-  return (await p.json()).commit;
+  const pj = await p.json();
+  return { commit: pj.commit, contentSha: pj.content && pj.content.sha };
 }
 
 /* ---------- Media upload helpers ---------- */
@@ -1186,6 +1193,18 @@ function AdminApp() {
   const set = (k) => (v) => { setState((s) => ({ ...s, [k]: v })); setDirty(true); };
   const setCountries = (v) => { setState((s) => ({ ...s, countries: v })); setDirty(true); };
 
+  /* sha опубликованного контента на момент открытия админки — чтобы поймать
+     параллельную публикацию коллеги перед перезаписью (репозиторий публичный,
+     GET работает без токена) */
+  const loadedShaRef = useRef(null);
+  useEffect(() => {
+    if (!authed) return;
+    fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}?ref=${encodeURIComponent(ghBranch)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => { if (j && j.sha) loadedShaRef.current = j.sha; })
+      .catch(() => {});
+  }, [authed, ghBranch]);
+
   function save() {
     try {
       localStorage.setItem(LS_KEY, JSON.stringify(buildContent(state)));
@@ -1204,8 +1223,9 @@ function AdminApp() {
     save();
     setPub({ busy: true, ok: null, err: null });
     try {
-      const commit = await ghPublish(ghToken, ghBranch, contentFileText(buildContent(state)));
-      setPub({ busy: false, ok: "Опубликовано ✓ (" + (commit && commit.sha ? commit.sha.slice(0, 7) : "ok") + ")", err: null });
+      const r = await ghPublish(ghToken, ghBranch, contentFileText(buildContent(state)), loadedShaRef.current);
+      if (r.contentSha) loadedShaRef.current = r.contentSha;
+      setPub({ busy: false, ok: "Опубликовано ✓ (" + (r.commit && r.commit.sha ? r.commit.sha.slice(0, 7) : "ok") + ")", err: null });
     } catch (e) {
       setPub({ busy: false, ok: null, err: e.message });
     }
