@@ -367,12 +367,15 @@ function FocusProgram({ u, det, fmt, all, idx }) {
 
 function ProgramCards({ u, det, fmt }) {
   const all = window.eaUniPrograms(u);
-  const bachelors = all.filter((p) => (p.level || "bachelor") !== "master");
-  const masters = all.filter((p) => p.level === "master");
-  const hasBoth = bachelors.length > 0 && masters.length > 0;
-  const [level, setLevel] = useState(bachelors.length ? "bachelor" : "master");
+  const groups = [
+    ["foundation", "Foundation",   all.filter((p) => p.level === "foundation")],
+    ["bachelor",   "Бакалавриат",  all.filter((p) => (p.level || "bachelor") !== "master" && p.level !== "foundation")],
+    ["master",     "Магистратура", all.filter((p) => p.level === "master")],
+  ].filter(([, , list]) => list.length > 0);
+  const [level, setLevel] = useState((groups.find(([k]) => k === "bachelor") || groups[0] || ["bachelor"])[0]);
   const [open, setOpen] = useState(null);
-  const shown = level === "master" ? masters : bachelors;
+  const active = groups.find(([k]) => k === level) || groups[0];
+  const shown = active ? active[2] : [];
 
   if (!all.length) return null;
   return (
@@ -380,14 +383,13 @@ function ProgramCards({ u, det, fmt }) {
       <p className="pcards__intro">
         Актуальные программы {u.name}: направления, стоимость обучения и требования к поступлению — открой карточку, чтобы увидеть детали.
       </p>
-      {hasBoth && (
+      {groups.length > 1 && (
         <div className="pcards__tabs" role="tablist">
-          <button className={"pcards__tab" + (level === "bachelor" ? " is-on" : "")} onClick={() => setLevel("bachelor")}>
-            Бакалавриат <span>{bachelors.length}</span>
-          </button>
-          <button className={"pcards__tab" + (level === "master" ? " is-on" : "")} onClick={() => setLevel("master")}>
-            Магистратура <span>{masters.length}</span>
-          </button>
+          {groups.map(([k, label, list]) => (
+            <button key={k} className={"pcards__tab" + (level === k ? " is-on" : "")} onClick={() => setLevel(k)}>
+              {label} <span>{list.length}</span>
+            </button>
+          ))}
         </div>
       )}
       <div className="pcards__scroll">

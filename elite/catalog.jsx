@@ -848,12 +848,13 @@ function eaAutoProgram(u, level) {
   const langTest = tests.join(" / ");
   const exams = (u.exams && u.exams.length) ? u.exams.join(", ") : "Not required";
   const isB = level === "bachelor";
+  const isF = level === "foundation";
   const seasons = (u.intake || []).map((s) => PROG_SEASON_EN[s] || s);
   const funding = u.needBased ? "Need-based grant" : (u.meritBased ? "Merit scholarship" : "");
   return {
     level,
-    title: fieldEn + (isB ? " — Bachelor" : " — Master"),
-    tags: [fieldEn, isB ? "Bachelor's" : "Master's"],
+    title: isF ? "Foundation Year — " + fieldEn : fieldEn + (isB ? " — Bachelor" : " — Master"),
+    tags: [fieldEn, isF ? "Foundation" : (isB ? "Bachelor's" : "Master's")],
     tuition: u.price ? "$" + u.price.toLocaleString("en-US") + " / year" : "",
     funding,
     language: "English",
@@ -861,20 +862,26 @@ function eaAutoProgram(u, level) {
     requirements: [
       "Minimum GPA: " + (u.gpaMin || "—"),
       "English test: " + langTest,
-      "Prior education: " + (isB ? "High-school diploma (11 years)" : "Bachelor's degree"),
-      "Entrance exams: " + exams,
+      "Prior education: " + (isB || isF ? "High-school diploma (11 years)" : "Bachelor's degree"),
+      "Entrance exams: " + (isF ? "Not required" : exams),
     ],
     deadlines: seasons.length ? ["Intakes: " + seasons.join(" · ")] : [],
   };
 }
 
 function eaUniPrograms(u) {
+  const lv = u.levels || "";
   const det = (window.EA_UNI_DETAILS || {})[u.short];
   const authored = (det && Array.isArray(det.programs)) ? det.programs.filter(Boolean) : [];
-  if (authored.length) return authored;
-  const lv = u.levels || "";
+  if (authored.length) {
+    /* authored sets have no foundation entries — auto-add one for unis that offer it */
+    if (lv.includes("Foundation") && !authored.some(p => p.level === "foundation"))
+      return [...authored, eaAutoProgram(u, "foundation")];
+    return authored;
+  }
   const out = [];
-  if (lv.includes("Бакалавр") || lv.includes("Колледж") || lv.includes("Foundation")) out.push(eaAutoProgram(u, "bachelor"));
+  if (lv.includes("Foundation")) out.push(eaAutoProgram(u, "foundation"));
+  if (lv.includes("Бакалавр") || lv.includes("Колледж")) out.push(eaAutoProgram(u, "bachelor"));
   if (lv.includes("Магистр")) out.push(eaAutoProgram(u, "master"));
   if (!out.length) out.push(eaAutoProgram(u, "bachelor"));
   return out;
@@ -908,8 +915,45 @@ const ALL_COUNTRIES = ["Италия","США","Северный Кипр","Ма
 const FIELDS   = ["IT","Business","Medicine","Law","Engineering","Design","Economics","Education"];
 const LEVELS   = ["Колледж","Foundation","Бакалавр","Магистр","PhD"];
 const INTAKES  = ["Осень","Зима","Весна","Лето"];
-const ENG_TESTS= ["TOEFL","IELTS","DET"];
-const INT_EXAMS = [...new Set(UNIS.flatMap(u => u.exams || []))].filter(Boolean).sort();
+/* Языковые тесты per uni: engTests вуза + упоминания в текстах программ
+   (engReqs / entrance / requirements). DET = Duolingo English Test —
+   в фильтре показываем полное имя «Duolingo». */
+const UNI_ENG_TESTS = new Map(UNIS.map(u => {
+  const set = new Set((u.engTests || []).map(t => t === "DET" ? "Duolingo" : t));
+  eaUniPrograms(u).forEach(p => {
+    const er = p.engReqs || {};
+    if (er.ielts    && er.ielts    !== "-") set.add("IELTS");
+    if (er.toefl    && er.toefl    !== "-") set.add("TOEFL");
+    if (er.duolingo && er.duolingo !== "-") set.add("Duolingo");
+    const text = [p.entrance || "", er.other || "", ...(p.requirements || [])].join(" ");
+    if (/\bIELTS\b/i.test(text)) set.add("IELTS");
+    if (/\bTOEFL\b/i.test(text)) set.add("TOEFL");
+    if (/\bDET\b/.test(text) || /Duolingo[^\d-]*\d/i.test(text)) set.add("Duolingo");
+    if (/\bPTE\b/.test(text))   set.add("PTE");
+  });
+  return [u, set];
+}));
+const ENG_TESTS = [...new Set([].concat(...[...UNI_ENG_TESTS.values()].map(s => [...s])))].sort();
+/* Entrance exams per uni: the uni's own exams list plus every known exam
+   mentioned in its program texts (entrance / requirements / about).
+   "Cent-s/Tolc" and TOLC-I/E variants collapse into one TOLC option. */
+const EXAM_PATTERNS = [
+  ["SAT",  /\bSAT\b/],
+  ["ACT",  /\bACT\b/],
+  ["TOLC", /TOLC/i],
+  ["IMAT", /\bIMAT\b/i],
+  ["GMAT", /\bGMAT\b/i],
+  ["GRE",  /\bGRE\b/],
+];
+const UNI_EXAMS = new Map(UNIS.map(u => {
+  const set = new Set((u.exams || []).filter(Boolean).map(e => /tolc|cent/i.test(e) ? "TOLC" : e));
+  const text = eaUniPrograms(u)
+    .map(p => [p.entrance || "", p.about || "", ...(p.requirements || [])].join(" "))
+    .join(" ");
+  EXAM_PATTERNS.forEach(([name, re]) => { if (re.test(text)) set.add(name); });
+  return [u, set];
+}));
+const INT_EXAMS = [...new Set([].concat(...[...UNI_EXAMS.values()].map(s => [...s])))].sort();
 const GPA_OPTS = ["4/4","3/4","2.5/4","2/4"];
 const TYPES    = ["Государственный","Частный"];
 const COUNTRY_FLAGS = { "Италия":"🇮🇹","США":"🇺🇸","Северный Кипр":"🇨🇾","Малайзия":"🇲🇾","Германия":"🇩🇪","Польша":"🇵🇱","Австрия":"🇦🇹" };
@@ -1026,21 +1070,24 @@ function ProgramUniCard({ p, u, idx }) {
   );
 }
 
-/* Faculties that actually match at least one program — used to hide
-   dead-end options from the "Направление" dropdown (computed once). */
-const FACULTY_HAS_PROGRAMS = (() => {
-  const set = new Set();
-  const allFacs = [...new Set(Object.values(FIELD_FACULTIES).flat())];
-  allFacs.forEach(fac => {
-    const qf = fac.toLowerCase();
-    const hit = UNIS.some(u => eaUniPrograms(u).some(p =>
-      (p.title || "").toLowerCase().includes(qf) ||
-      u.name.toLowerCase().includes(qf) ||
-      PROG_TAGS(p.tags).some(t => t.toLowerCase().includes(qf))
-    ));
-    if (hit) set.add(fac);
-  });
-  return set;
+/* Все уникальные названия программ — для выпадающего списка «Направление»
+   с собственным мини-поиском (computed once). */
+const ALL_PROG_TITLES = [...new Set(
+  UNIS.flatMap(u => eaUniPrograms(u).map(p => p.title).filter(Boolean))
+)].sort((a, b) => a.localeCompare(b, "en"));
+
+/* Программы, сгруппированные по основным направлениям — для левой
+   колонки дропдауна «Направление» (computed once). */
+const FIELD_PROGRAMS = (() => {
+  const sets = {};
+  FIELDS.forEach(f => { sets[f] = new Set(); });
+  UNIS.forEach(u => eaUniPrograms(u).forEach(p => {
+    if (!p.title) return;
+    FIELDS.forEach(f => { if (progMatchesField(p, u, f)) sets[f].add(p.title); });
+  }));
+  const out = {};
+  FIELDS.forEach(f => { out[f] = [...sets[f]].sort((a, b) => a.localeCompare(b, "en")); });
+  return out;
 })();
 
 /* ============================================================
@@ -1053,7 +1100,8 @@ function Universities() {
   const [selCountries,setCntrs]   = useState(_INIT_COUNTRY ? [_INIT_COUNTRY] : []);
   const [selLevel,    setLevel]   = useState(_INIT_LEVEL);
   const [selFields,   setFields]  = useState(_INIT_FIELD   ? [_INIT_FIELD]   : []);
-  const [openField,   setOpenField] = useState(null); // направление с раскрытым списком факультетов
+  const [progOpen,    setProgOpen] = useState(false); // раскрыт ли список программ в «Направление»
+  const [progQ,       setProgQ]    = useState("");    // мини-поиск внутри списка программ
   const [selIntakes,  setIntakes] = useState([]);
   const [selEngTests, setEngTests]= useState([]);
   const [selExams,    setExams]   = useState([]);
@@ -1095,7 +1143,7 @@ function Universities() {
   );
 
   const reset = () => {
-    setQ(""); setPrice(70000); setFields([]); setOpenField(null); setCntrs([]); setLevel("");
+    setQ(""); setPrice(70000); setFields([]); setProgOpen(false); setProgQ(""); setCntrs([]); setLevel("");
     setIntakes([]); setEngTests([]); setExams([]); setGpa(4); setType("");
     setBools({});
   };
@@ -1112,8 +1160,8 @@ function Universities() {
     if (maxPrice === 0 ? !u.needBased : u.price > maxPrice) return false;
     if (selCountries.length > 0 && !selCountries.includes(u.country)) return false;
     if (selIntakes.length   > 0 && !selIntakes.some(i  => u.intake.includes(i)))    return false;
-    if (selEngTests.length  > 0 && !selEngTests.some(t  => u.engTests.includes(t))) return false;
-    if (selExams.length     > 0 && !selExams.some(e    => u.exams.includes(e)))     return false;
+    if (selEngTests.length  > 0 && !selEngTests.some(t  => UNI_ENG_TESTS.get(u).has(t))) return false;
+    if (selExams.length     > 0 && !selExams.some(e    => UNI_EXAMS.get(u).has(e))) return false;
     if (selGpa < 4 && GPA_ORDER[u.gpaMin] > selGpa) return false;
     if (selType && u.type !== selType) return false;
     if (bools.needBased    && !u.needBased)    return false;
@@ -1201,41 +1249,68 @@ function Universities() {
             </FilterSection>
 
             <FilterSection label="Направление">
-              {/* Клик по направлению открывает под ним выпадающий список
-                  факультетов (как дропдаун в нав-баре) */}
-              <div className="filter__chips">
-                {FIELDS.map(f => {
-                  const on = selFields.includes(f);
-                  const open = openField === f;
-                  const facs = (FIELD_FACULTIES[f] || []).filter(fac => FACULTY_HAS_PROGRAMS.has(fac));
-                  return (
-                    <React.Fragment key={f}>
+              {/* Кнопка-дропдаун открывает двухпанельный список: слева основные
+                  направления, справа — все программы выбранного направления.
+                  Выбор направления фильтрует каталог; выбор программы
+                  подставляется в общий поиск */}
+              <button
+                className={"filter__prog-toggle" + (progOpen ? " is-open" : "")}
+                onClick={() => setProgOpen(o => !o)}
+              >
+                <span className="filter__prog-toggle-txt">
+                  {ALL_PROG_TITLES.includes(q) ? q : (selFields[0] || "Все программы")}
+                </span>
+                <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </button>
+              {progOpen && (() => {
+                const panelField = selFields[0] || "";
+                const pool = panelField ? (FIELD_PROGRAMS[panelField] || []) : ALL_PROG_TITLES;
+                const pq = progQ.trim().toLowerCase();
+                const titles = pq ? pool.filter(t => t.toLowerCase().includes(pq)) : pool;
+                return (
+                  <div className="filter__prog-panel filter__prog-panel--split">
+                    <div className="filter__prog-fields">
                       <button
-                        className={"filter__chip filter__chip--dd" + (on ? " is-on" : "") + (open ? " is-open" : "")}
-                        onClick={() => {
-                          if (on) { setFields(selFields.filter(x => x !== f)); setOpenField(null); }
-                          else { setFields([...selFields, f]); setOpenField(f); }
-                        }}
-                      >
-                        {f}
-                        <svg width="9" height="9" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                      </button>
-                      {open && facs.length > 0 && (
-                        <div className="filter__dd">
-                          {facs.map((fac, i) => (
-                            <button
-                              type="button"
-                              key={i}
-                              className={"filter__dd-item" + (q.toLowerCase() === fac.toLowerCase() ? " is-on" : "")}
-                              onClick={() => setQ(cur => cur.toLowerCase() === fac.toLowerCase() ? "" : fac)}
-                            >{fac}</button>
-                          ))}
-                        </div>
-                      )}
-                    </React.Fragment>
-                  );
-                })}
-              </div>
+                        type="button"
+                        className={"filter__prog-field" + (!panelField ? " is-on" : "")}
+                        onClick={() => setFields([])}
+                      >Все</button>
+                      {FIELDS.map(f => (
+                        <button
+                          type="button"
+                          key={f}
+                          className={"filter__prog-field" + (panelField === f ? " is-on" : "")}
+                          onClick={() => setFields(panelField === f ? [] : [f])}
+                        >{f}</button>
+                      ))}
+                    </div>
+                    <div className="filter__prog-main">
+                      <div className="filter__search filter__search--sm">
+                        <svg width="14" height="14" viewBox="0 0 20 20"><circle cx="9" cy="9" r="6.2" stroke="currentColor" strokeWidth="1.8" fill="none"/><path d="M14 14l4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
+                        <input
+                          value={progQ}
+                          onChange={e => setProgQ(e.target.value)}
+                          placeholder="Найти программу…"
+                          autoFocus
+                        />
+                      </div>
+                      <div className="filter__prog-list">
+                        {titles.map(t => (
+                          <button
+                            type="button"
+                            key={t}
+                            className={"filter__dd-item" + (q === t ? " is-on" : "")}
+                            onClick={() => setQ(cur => cur === t ? "" : t)}
+                          >{t}</button>
+                        ))}
+                        {titles.length === 0 && (
+                          <div className="filter__prog-empty">Ничего не найдено</div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
             </FilterSection>
 
             <FilterSection label="Учебный год / семестр">
@@ -1248,6 +1323,20 @@ function Universities() {
 
             <FilterSection label="Внутренние экзамены">
               {chips(selExams, setExams, INT_EXAMS)}
+            </FilterSection>
+
+            <FilterSection label="Минимальный GPA">
+              <div className="filter__price-row">
+                <span className="filter__price-pre">мой GPA</span>
+                <span className="filter__price-input" style={{fontWeight:700,minWidth:36,textAlign:"center"}}>
+                  {selGpa >= 4 ? "—" : selGpa.toFixed(1)}
+                </span>
+                <span className="filter__price-yr">/4</span>
+              </div>
+              <input type="range" min="2" max="4" step="0.5" value={selGpa}
+                onChange={e => setGpa(+e.target.value)}
+                className="filter__range" />
+              <div className="filter__range-ends"><span>2.0</span><span>4.0 (все)</span></div>
             </FilterSection>
 
             <div className="filter__group">Затем — университет</div>
@@ -1282,20 +1371,6 @@ function Universities() {
 
             <FilterSection label="Тип вуза">
               {chipsSingle(selType, setType, TYPES)}
-            </FilterSection>
-
-            <FilterSection label="Минимальный GPA">
-              <div className="filter__price-row">
-                <span className="filter__price-pre">мой GPA</span>
-                <span className="filter__price-input" style={{fontWeight:700,minWidth:36,textAlign:"center"}}>
-                  {selGpa >= 4 ? "—" : selGpa.toFixed(1)}
-                </span>
-                <span className="filter__price-yr">/4</span>
-              </div>
-              <input type="range" min="2" max="4" step="0.5" value={selGpa}
-                onChange={e => setGpa(+e.target.value)}
-                className="filter__range" />
-              <div className="filter__range-ends"><span>2.0</span><span>4.0 (все)</span></div>
             </FilterSection>
 
             <div className="filter filter--checks">

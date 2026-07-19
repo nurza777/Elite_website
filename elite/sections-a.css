@@ -336,6 +336,58 @@
 }
 .filter__dd-item:hover { background: var(--light-bg); color: var(--blue); }
 .filter__dd-item.is-on { background: var(--navy); color: #fff; }
+/* «Направление»: одна select-подобная кнопка + панель со всеми программами и мини-поиском */
+.filter__prog-toggle {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  border: 1.5px solid var(--line); border-radius: var(--r-sm);
+  padding: 10px 13px; background: none; cursor: pointer;
+  font-family: var(--font-head); font-weight: 600; font-size: 13.5px; color: var(--text);
+  transition: border-color .18s, color .18s;
+}
+.filter__prog-toggle:hover { border-color: var(--blue); color: var(--blue); }
+.filter__prog-toggle svg { flex-shrink: 0; opacity: .7; transition: transform .25s var(--ease); }
+.filter__prog-toggle.is-open svg { transform: rotate(180deg); }
+.filter__prog-toggle-txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; }
+.filter__prog-panel {
+  margin-top: 6px;
+  background: var(--white); border: 1.5px solid var(--line); border-radius: 12px;
+  box-shadow: 0 14px 30px -16px rgba(6,64,102,.35);
+  padding: 7px;
+  animation: filterDdIn .22s var(--ease);
+}
+/* Двухпанельный вариант: слева направления, справа программы выбранного.
+   Отрицательные боковые отступы растягивают панель на паддинги карточки
+   фильтров — правой колонке достаётся больше ширины. */
+.filter__prog-panel--split { display: flex; padding: 0; overflow: hidden; margin-left: -16px; margin-right: -16px; }
+.filter__prog-fields {
+  flex: 0 0 96px; display: flex; flex-direction: column; gap: 2px;
+  padding: 7px 5px; border-right: 1.5px solid var(--line);
+  background: var(--light-bg);
+  max-height: 320px; overflow-y: auto;
+}
+.filter__prog-field {
+  text-align: left; padding: 8px 7px; border-radius: 8px;
+  background: none; border: none; cursor: pointer;
+  font-family: var(--font-head); font-size: 12px; font-weight: 600; color: var(--muted);
+  transition: background .15s, color .15s;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.filter__prog-field:hover { background: rgba(255,255,255,.9); color: var(--blue); }
+.filter__prog-field.is-on { background: var(--navy); color: #fff; }
+.filter__prog-main { flex: 1; min-width: 0; padding: 7px; display: flex; flex-direction: column; }
+/* Разделители между программами — длинные названия в две строки читаются легче */
+.filter__prog-list .filter__dd-item { border-bottom: 1px solid var(--line); border-radius: 0; }
+.filter__prog-list .filter__dd-item:last-child { border-bottom: none; }
+.filter__prog-list .filter__dd-item.is-on { border-radius: 8px; border-bottom-color: transparent; }
+.filter__search--sm { padding: 7px 10px; margin-bottom: 6px; }
+.filter__search--sm input { font-size: 13px; }
+.filter__prog-list {
+  max-height: 260px; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.filter__prog-list::-webkit-scrollbar { width: 5px; }
+.filter__prog-list::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+.filter__prog-empty { padding: 10px 11px; font-size: 13px; color: var(--muted); }
 /* Заголовки групп фильтров: «Сначала — программа» / «Затем — университет» */
 .filter__group {
   font-family: var(--font-head); font-weight: 800; font-size: 12px;
