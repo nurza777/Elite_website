@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   20.07.2026, 14:53:16
+   20.07.2026, 15:02:09
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4412,7 +4412,7 @@ window.EA_CONTENT_PUBLISHED = {
     {
       "name": "Нурзар",
       "from": "США",
-      "quote": "Даже не верила, что смогу поступить в США. С Elite Academy всё оказалось реально — сейчас уже второй курс!",
+      "quote": "Даже не верил, что сможет поступить в США. С Elite Academy всё оказалось реально — сейчас уже второй курс!",
       "uni": "Roosevelt University, Чикаго",
       "videoSrc": "videos/nurzar.mp4",
       "poster": "thumbs/nurzar.jpg"
