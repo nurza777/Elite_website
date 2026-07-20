@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   20.07.2026, 14:51:32
+   20.07.2026, 14:53:16
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4627,6 +4627,13 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "videos": [
+    {
+      "name": "Айжамал",
+      "country": "Италия 🇮🇹",
+      "src": "videos/Айжамал.mp4",
+      "poster": "thumbs/Айжамал.jpg",
+      "tag": "Отзыв"
+    },
     {
       "name": "Азиза",
       "country": "Италия ",
