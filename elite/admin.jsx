@@ -605,8 +605,8 @@ function ImgPathField({ l, v, on, token, branch }) {
         <input className="ainput ainput--flex" value={v || ""} onChange={e => { on(e.target.value); setFile(null); setPreview(null); setSt(null); }} placeholder="thumbs/имя.jpg" />
         {preview
           ? <button className="abtn abtn--primary" onClick={upload} disabled={st === "busy"}>{st === "busy" ? "Идёт…" : "↑ Загрузить"}</button>
-          : <label className="abtn" title="Выбрать файл для замены" style={{ cursor: "pointer" }}>
-              📁 <input type="file" accept="image/jpeg,image/png,image/webp" onChange={onFile} style={{ display: "none" }} />
+          : <label className="abtn" title="Выбрать файл для замены" style={{ cursor: "pointer", whiteSpace: "nowrap" }}>
+              📁 Загрузить <input type="file" accept="image/jpeg,image/png,image/webp" onChange={onFile} style={{ display: "none" }} />
             </label>
         }
       </div>
@@ -660,8 +660,8 @@ function VidPathField({ l, v, on, token, branch }) {
       <div className="afield__vid-row">
         <input className="ainput ainput--flex" value={v || ""} onChange={e => { on(e.target.value); setOpen(false); setFile(null); setSt(null); }} placeholder="videos/имя.mp4" />
         {v && <button className="abtn" type="button" onClick={() => setOpen(o => !o)}>{open ? "Скрыть" : "▶ Смотреть"}</button>}
-        <label className="abtn" title="Загрузить новый файл" style={{ cursor: "pointer" }}>
-          📁 <input type="file" accept="video/mp4,video/quicktime,video/*" onChange={onFile} style={{ display: "none" }} />
+        <label className="abtn" title="Выбрать видеофайл с компьютера" style={{ cursor: "pointer", whiteSpace: "nowrap" }}>
+          📁 Загрузить <input type="file" accept="video/mp4,video/quicktime,video/*" onChange={onFile} style={{ display: "none" }} />
         </label>
       </div>
       {open && v && <video key={v} src={v} controls className="afield__preview-vid" />}
