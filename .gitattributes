@@ -1,0 +1,2 @@
+# Vendored third-party bundles — keep byte-identical to upstream (no EOL conversion)
+elite/vendor/** -text

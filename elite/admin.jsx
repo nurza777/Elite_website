@@ -171,10 +171,78 @@ function fmtKB(bytes) {
   return bytes >= 1024 * 1024 ? (bytes / (1024 * 1024)).toFixed(1) + " МБ" : Math.round(bytes / 1024) + " КБ";
 }
 
-/* Видео НЕ пересжимаем в браузере: MediaRecorder-транскодинг давал дёрганое
-   видео и рассинхрон звука (кадры рисуются по requestAnimationFrame, а аудио
-   пишется в реальном времени). Видео готовим заранее: MP4 (H.264), до 900px,
-   ~1 Mbps — и загружаем как есть. */
+/* ---------- video compression via ffmpeg.wasm ----------
+   Настоящий ffmpeg (libx264 + AAC), скомпилированный в WebAssembly, — кодирует
+   офлайн, поэтому рассинхрона звука, которым страдал прежний MediaRecorder-
+   подход, здесь не бывает. Движок (~31 МБ, elite/vendor/ffmpeg/) подгружается
+   при первом сжатии и кэшируется браузером. Кодирование однопоточное:
+   минутный телефонный ролик занимает несколько минут — для редких загрузок
+   в админке это приемлемо. */
+var _ffmpegPromise = null;
+
+function ffLoadScript(src) {
+  return new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = src;
+    s.onload = resolve;
+    s.onerror = () => reject(new Error("Не удалось загрузить " + src));
+    document.head.appendChild(s);
+  });
+}
+
+function getFFmpeg() {
+  if (!_ffmpegPromise) {
+    _ffmpegPromise = (async () => {
+      const base = new URL("elite/vendor/ffmpeg/", window.location.href).href;
+      if (!window.FFmpegWASM) await ffLoadScript(base + "ffmpeg.js");
+      const ffmpeg = new window.FFmpegWASM.FFmpeg();
+      /* абсолютные URL: воркер ffmpeg живёт в elite/vendor/ffmpeg/ и относительные
+         пути резолвил бы неверно */
+      await ffmpeg.load({ coreURL: base + "ffmpeg-core.js", wasmURL: base + "ffmpeg-core.wasm" });
+      return ffmpeg;
+    })();
+    _ffmpegPromise.catch(() => { _ffmpegPromise = null; }); /* не кэшировать неудачную загрузку */
+  }
+  return _ffmpegPromise;
+}
+
+function uint8ToBase64(u8) {
+  let bin = "";
+  const CH = 0x8000; /* String.fromCharCode падает на больших массивах — кусками */
+  for (let i = 0; i < u8.length; i += CH) bin += String.fromCharCode.apply(null, u8.subarray(i, i + CH));
+  return btoa(bin);
+}
+
+/* Те же настройки, что при ручной перекодировке: H.264 main + AAC, ширина
+   до 900px, CFR 30fps, aresample против дрейфа звука, faststart. */
+async function compressVideoFile(file, { onProgress } = {}) {
+  const ffmpeg = await getFFmpeg();
+  const m = file.name.match(/\.[a-z0-9]+$/i);
+  const inName = "in" + (m ? m[0].toLowerCase() : ".mp4");
+  await ffmpeg.writeFile(inName, new Uint8Array(await file.arrayBuffer()));
+  const progressHandler = (e) => { if (onProgress) onProgress(Math.max(0, Math.min(100, Math.round((e.progress || 0) * 100)))); };
+  ffmpeg.on("progress", progressHandler);
+  try {
+    const code = await ffmpeg.exec([
+      "-i", inName,
+      "-vf", "scale='min(900,iw)':-2,fps=30",
+      "-c:v", "libx264", "-profile:v", "main", "-pix_fmt", "yuv420p",
+      "-preset", "veryfast", "-crf", "26", "-maxrate", "1.5M", "-bufsize", "3M",
+      "-c:a", "aac", "-b:a", "96k", "-ac", "2", "-af", "aresample=async=1",
+      "-movflags", "+faststart",
+      "out.mp4",
+    ]);
+    if (code !== 0) throw new Error("ffmpeg завершился с ошибкой (код " + code + ")");
+    const out = await ffmpeg.readFile("out.mp4");
+    if (!out || !out.length) throw new Error("Сжатие не удалось: пустой результат");
+    return { data: out, size: out.length, origSize: file.size };
+  } finally {
+    ffmpeg.off("progress", progressHandler);
+    try { await ffmpeg.deleteFile(inName); } catch (e) {}
+    try { await ffmpeg.deleteFile("out.mp4"); } catch (e) {}
+  }
+}
+window.eaCompressVideo = compressVideoFile; /* для отладки из консоли */
 
 function UploadSlot({ label, path, token, branch, accept = "image/jpeg,image/png,image/webp", hint, onSuccess, maxDim = 1500 }) {
   const [file, setFile] = React.useState(null);
@@ -623,22 +691,25 @@ function VidPathField({ l, v, on, token, branch }) {
   const [st, setSt] = React.useState(null);
   const [err, setErr] = React.useState(null);
   const [warn, setWarn] = React.useState(null);
+  const [progress, setProgress] = React.useState(-1);
+  const [compressed, setCompressed] = React.useState(null);
+
+  /* до порога маленькие mp4 идут как есть; всё остальное пересжимаем */
+  const COMPRESS_THRESHOLD = 8 * 1024 * 1024;
+  const MAX_UPLOAD = 45 * 1024 * 1024;   /* лимит GitHub API */
+  const MAX_SOURCE = 500 * 1024 * 1024;  /* больше в память wasm не влезет */
 
   function onFile(e) {
     const f = e.target.files[0];
     e.target.value = "";
     if (!f) return;
-    setSt(null); setErr(null); setWarn(null);
-    /* GitHub API не примет очень большие файлы */
-    if (f.size > 45 * 1024 * 1024) {
-      setErr("Файл " + fmtKB(f.size) + " — слишком большой (макс. 45 МБ). Сожми видео перед загрузкой: MP4 (H.264), до 900px, ~1 Mbps.");
+    setSt(null); setErr(null); setWarn(null); setCompressed(null);
+    if (f.size > MAX_SOURCE) {
+      setErr("Файл " + fmtKB(f.size) + " — слишком большой даже для автосжатия (макс. 500 МБ). Обрежь видео или сожми его вручную.");
       return;
     }
-    if (f.size > 10 * 1024 * 1024) {
-      setWarn("Видео " + fmtKB(f.size) + " — тяжёлое. Лучше сжать заранее до MP4 (H.264, до 900px, ~1 Mbps) — иначе у посетителей будут лаги.");
-    }
-    if (!/\.mp4$/i.test(f.name)) {
-      setWarn("Файл не .mp4 — в браузерах может не воспроизвестись. Конвертируй в MP4 (H.264).");
+    if (f.size > COMPRESS_THRESHOLD || !/\.mp4$/i.test(f.name)) {
+      setWarn("Видео " + fmtKB(f.size) + " будет автоматически сжато при загрузке (MP4 H.264, до 900px). Это может занять несколько минут — не закрывай вкладку.");
     }
     setFile(f);
   }
@@ -646,11 +717,26 @@ function VidPathField({ l, v, on, token, branch }) {
   async function upload() {
     if (!file || !v) return;
     if (!token) { setErr("Нет токена — добавь в «Публикации»"); return; }
-    setSt("busy"); setErr(null);
+    setErr(null);
     try {
-      const base64 = await fileToBase64(file);
-      await ghUploadMedia(token, branch, v, base64);
-      setSt("ok"); setFile(null); setOpen(false);
+      let base64, targetPath = v;
+      if (file.size > COMPRESS_THRESHOLD || !/\.mp4$/i.test(file.name)) {
+        setSt("compressing"); setProgress(-1);
+        const c = await compressVideoFile(file, { onProgress: setProgress });
+        if (c.size > MAX_UPLOAD) throw new Error("Даже после сжатия видео весит " + fmtKB(c.size) + " (макс. 45 МБ) — обрежь ролик покороче.");
+        setCompressed(c);
+        base64 = uint8ToBase64(c.data);
+        /* результат всегда mp4 — поправить расширение в пути, если оно другое */
+        if (!/\.mp4$/i.test(targetPath)) {
+          targetPath = targetPath.replace(/\.[a-z0-9]+$/i, "") + ".mp4";
+          on(targetPath);
+        }
+      } else {
+        base64 = await fileToBase64(file);
+      }
+      setSt("busy");
+      await ghUploadMedia(token, branch, targetPath, base64);
+      setSt("ok"); setFile(null); setOpen(false); setWarn(null);
     } catch (e2) { setSt("err"); setErr(e2.message); }
   }
 
@@ -668,12 +754,17 @@ function VidPathField({ l, v, on, token, branch }) {
       {file && (
         <div className="afield__upload-bar">
           <span className="afield__fname">{file.name.length > 30 ? file.name.slice(0, 28) + "…" : file.name} ({fmtKB(file.size)})</span>
-          <button className="abtn abtn--primary" onClick={upload} disabled={st === "busy"}>
-            {st === "busy" ? "Загружаю…" : "↑ Загрузить"}
+          <button className="abtn abtn--primary" onClick={upload} disabled={st === "busy" || st === "compressing"}>
+            {st === "compressing"
+              ? (progress < 0 ? "Готовлю кодировщик…" : "Сжимаю… " + progress + "%")
+              : st === "busy" ? "Загружаю…" : "↑ Загрузить"}
           </button>
         </div>
       )}
-      {warn && <div className="afield__status afield__err" style={{ color: "#b45309" }}>⚠ {warn}</div>}
+      {compressed && st !== "err" && (
+        <div className="afield__status afield__ok">Сжато: {fmtKB(compressed.origSize)} → {fmtKB(compressed.size)}</div>
+      )}
+      {warn && st !== "ok" && <div className="afield__status afield__err" style={{ color: "#b45309" }}>⚠ {warn}</div>}
       {st === "ok"  && <div className="afield__status afield__ok">✓ Загружено</div>}
       {st === "err" && <div className="afield__status afield__err">{err}</div>}
     </div>
