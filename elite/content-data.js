@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   21.07.2026, 15:12:50
+   21.07.2026, 15:18:51
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -476,13 +476,13 @@ window.EA_CONTENT_PUBLISHED = {
       "short": "Bellevue",
       "loc": "Сиэтл",
       "country": "США",
-      "qs": 480,
       "price": 11000,
       "type": "Государственный",
       "field": "IT",
       "levels": "Колледж · Бакалавр",
       "elite": true,
       "meritBased": true,
+      "qs": null,
       "flag": "🇺🇸"
     },
     {
