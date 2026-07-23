@@ -116,7 +116,6 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             candidate = os.path.join(ROOT, path.lstrip("/") + ".html")
             if os.path.exists(candidate):
                 self.path = path + ".html" + raw[len(path):]
-        self.log(raw, "")
         self._safe(super().do_GET)
 
     def do_HEAD(self):
@@ -149,6 +148,14 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def log(self, path, note):
         stamp = datetime.now().strftime("%d.%m %H:%M:%S")
         print(f"{stamp}  {self.client_address[0]:<15} {path} {note}".rstrip(), flush=True)
+
+    def log_request(self, code="-", size="-"):
+        """Пишем и код ответа: без него 404 в логе не отличить от успеха,
+        а именно ненайденный файл — первая причина, почему сайт
+        останавливается на заставке «Загрузка…»."""
+        c = getattr(code, "value", code)
+        note = "" if str(c) == "200" else f"<-- {c}"
+        self.log(self.path, note)
 
     def log_message(self, *args):
         pass  # свой формат лога выше
