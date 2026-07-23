@@ -9,3 +9,7 @@ videos/*.mov
 node_modules/
 Thumbs.db
 .DS_Store
+
+# Python bytecode (от serve_lan.py)
+__pycache__/
+*.pyc
