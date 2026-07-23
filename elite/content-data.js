@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   23.07.2026, 15:40:38
+   23.07.2026, 15:42:15
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4638,7 +4638,7 @@ window.EA_CONTENT_PUBLISHED = {
       "name": "Альмира",
       "country": "Италия 🇮🇹",
       "src": "videos/Альмира.mp4",
-      "poster": "thumbs/Альмар.jpg",
+      "poster": "thumbs/Альмара.jpg",
       "tag": "Отзыв"
     },
     {
