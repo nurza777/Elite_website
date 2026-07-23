@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   21.07.2026, 15:55:21
+   23.07.2026, 15:40:38
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4432,7 +4432,7 @@ window.EA_CONTENT_PUBLISHED = {
       "u": "Cassino University",
       "s": "Бесплатное обучение и стипендия €7 500 в год",
       "t": "Италия",
-      "level": "Бакалавр",
+      "level": "Магистр",
       "video": "videos/elana.mp4",
       "poster": "thumbs/elana.jpg"
     },
@@ -4628,10 +4628,17 @@ window.EA_CONTENT_PUBLISHED = {
   ],
   "videos": [
     {
-      "name": "Айжамал",
+      "name": "Имя",
+      "country": "🇺🇸 США",
+      "src": "videos/имя.mp4",
+      "poster": "thumbs/имя.jpg",
+      "tag": "Отзыв"
+    },
+    {
+      "name": "Альмира",
       "country": "Италия 🇮🇹",
-      "src": "videos/Айжамал.mp4",
-      "poster": "thumbs/Айжамал.jpg",
+      "src": "videos/Альмира.mp4",
+      "poster": "thumbs/Альмар.jpg",
       "tag": "Отзыв"
     },
     {
@@ -4837,7 +4844,7 @@ window.EA_CONTENT_PUBLISHED = {
     "rating": "4.8",
     "reviews": "214 отзывов на 2GIS",
     "address": "ул. Исы Ахунбаева 169, БЦ «Бинокль», 6 этаж",
-    "hours": "ПН–ПТ 12:00–20:00 · СБ 12:00–19:00",
+    "hours": "ПН–ПТ 10:00–19:00 · СБ 12:00–19:00",
     "phone": "+996 555 720 712",
     "email": "eliteacademykg@gmail.com",
     "instagram": "@eliteacademy.kg",
@@ -4992,5 +4999,6 @@ window.EA_CONTENT_PUBLISHED = {
         "date": "Август 2023"
       }
     ]
-  }
+  },
+  "beyond": {}
 };
