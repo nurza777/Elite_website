@@ -8,7 +8,7 @@ const { useState, useRef } = React;
 const _SL = (window.__EA_LANG || "ru");
 const _sp = (ru, en, kg) => _SL === "en" ? en : _SL === "kg" ? kg : ru;
 const _sCountry = (c) => (window.t ? window.t("country." + c) : c);
-const _sLevel = (l) => l === "Бакалавр" ? _sp("Бакалавр", "Bachelor’s", "Бакалавр") : l === "Магистр" ? _sp("Магистр", "Master’s", "Магистр") : l;
+const _sLevel = (l) => l === "Бакалавр" ? _sp("Бакалавр", "Bachelor’s", "Бакалавр") : l === "Магистр" ? _sp("Магистр", "Master’s", "Магистр") : l === "Foundation" ? _sp("Foundation", "Foundation", "Foundation") : l;
 const _sSum = (s) => (s || "").replace("Грант", _sp("Грант", "Grant", "Грант")).replace("Стипендия", _sp("Стипендия", "Scholarship", "Стипендия"));
 
 const STORY_CARDS_DEFAULT = [

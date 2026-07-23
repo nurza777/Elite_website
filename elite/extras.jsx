@@ -181,7 +181,6 @@ function FloatingChat() {
         <div className="fchat__menu">
           <div className="fchat__head">
             <div className="fchat__head-t">{t("extras.chatHead")}</div>
-            <div className="fchat__head-s">{t("extras.chatSub")}</div>
           </div>
           <a href={"https://wa.me/" + ((_FC_CT.whatsapp || _FC_CT.phone || "996555720712")).replace(/\D/g, "")} target="_blank" rel="noopener" className="fchat__opt fchat__opt--wa">
             <span className="fchat__opt-ic" aria-hidden="true">

@@ -356,6 +356,11 @@ const BEYOND = [
   { cls: "world",   video: "videos/beyond-world.mp4",   poster: "images/beyond/world.jpg"   },
 ];
 
+/* Admin overrides (key "beyond"): заполненное поле заменяет перевод по
+   умолчанию, пустое — оставляет t(). */
+const _BEY_OV = (window.eaContent && window.eaContent("beyond", null)) || {};
+const _bov = (field, tKey) => _BEY_OV[field] || t(tKey);
+
 function BeyondCell({ item }) {
   const ref = React.useRef(null);
   const [sound, setSound] = React.useState(false);
@@ -397,8 +402,8 @@ function BeyondCell({ item }) {
       <div className="beyond__scrim" />
       <div className="beyond__overlay" />
       <div className="beyond__content">
-        <strong className="beyond__title">{t("beyond." + item.cls + ".title")}</strong>
-        <span className="beyond__sub">{t("beyond." + item.cls + ".sub")}</span>
+        <strong className="beyond__title">{_bov(item.cls + "Title", "beyond." + item.cls + ".title")}</strong>
+        <span className="beyond__sub">{_bov(item.cls + "Sub", "beyond." + item.cls + ".sub")}</span>
       </div>
       <span className="beyond__play" aria-hidden="true">
         {sound ? (
@@ -417,7 +422,7 @@ function BeyondDiploma() {
     <section className="beyond" id="beyond">
       <div className="wrap">
         <div className="beyond__head" data-reveal>
-          <h2 className="beyond__h2"><span className="text-blue">{t("beyond.h2a")}</span><br/>{t("beyond.h2b")}</h2>
+          <h2 className="beyond__h2"><span className="text-blue">{_bov("h2a", "beyond.h2a")}</span><br/>{_bov("h2b", "beyond.h2b")}</h2>
         </div>
       </div>
       <div className="beyond__grid" data-reveal data-delay="1">

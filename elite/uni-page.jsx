@@ -215,7 +215,11 @@ function UniversityProfile() {
             <div className="uprof__about-main">
               <span className="eyebrow">{window.t("uni.aboutEyebrow")}</span>
               <h2 className="uprof__about-h">{window.t("uni.aboutH")}</h2>
-              <p className="uprof__about-text">{aboutMain}</p>
+              {/* Описание может быть длинным: пустая строка (или перенос) в тексте
+                  из админки = новый абзац */}
+              {String(aboutMain).split(/\n\s*\n|\n/).map((p) => p.trim()).filter(Boolean).map((p, i) => (
+                <p className="uprof__about-text" key={i}>{p}</p>
+              ))}
               <p className="uprof__about-text uprof__about-text--muted">{aboutExtra}</p>
             </div>
           </div>

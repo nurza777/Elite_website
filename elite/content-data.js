@@ -4837,7 +4837,7 @@ window.EA_CONTENT_PUBLISHED = {
     "rating": "4.8",
     "reviews": "214 отзывов на 2GIS",
     "address": "ул. Исы Ахунбаева 169, БЦ «Бинокль», 6 этаж",
-    "hours": "ПН–ПТ 10:00–19:00 · СБ 12:00–19:00",
+    "hours": "ПН–ПТ 12:00–20:00 · СБ 12:00–19:00",
     "phone": "+996 555 720 712",
     "email": "eliteacademykg@gmail.com",
     "instagram": "@eliteacademy.kg",

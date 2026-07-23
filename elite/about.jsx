@@ -307,7 +307,7 @@ function Accreditations() {
 const OFFICE_RU = {
   rating: "4.9", reviews: "196 отзывов на 2GIS",
   address: "ул. Исы Ахунбаева 169, БЦ «Бинокль», 6 этаж",
-  hours: "ПН–ПТ 10:00–19:00 · СБ 12:00–19:00",
+  hours: "ПН–ПТ 12:00–20:00 · СБ 12:00–19:00",
   phone: "+996 555 720 712", email: "eliteacademykg@gmail.com", instagram: "@eliteacademy.kg",
   whatsapp: "+996 555 720 712",
   tiktok: "https://www.tiktok.com/@eliteacademy.kg",
@@ -318,13 +318,13 @@ const OFFICE_EN = {
   ...OFFICE_RU,
   reviews: "196 reviews on 2GIS",
   address: "169 Isy Akhunbaeva St, Binokl Business Center, 6th floor",
-  hours: "Mon–Fri 10:00–19:00 · Sat 12:00–19:00",
+  hours: "Mon–Fri 12:00–20:00 · Sat 12:00–19:00",
 };
 const OFFICE_KG = {
   ...OFFICE_RU,
   reviews: "2GISте 196 пикир",
   address: "Иса Ахунбаев көчөсү 169, «Бинокль» ББ, 6-кабат",
-  hours: "ДҮЙ–ЖУМ 10:00–19:00 · ИШ 12:00–19:00",
+  hours: "ДҮЙ–ЖУМ 12:00–20:00 · ИШ 12:00–19:00",
 };
 /* Admin-edited office/contacts win on ALL languages (was: RU only) */
 const OFFICE_LOC = _ABL === "en" ? OFFICE_EN : _ABL === "kg" ? OFFICE_KG : OFFICE_RU;
