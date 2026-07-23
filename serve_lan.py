@@ -37,8 +37,9 @@ LAN_NETWORKS = [
     ipaddress.ip_network("192.168.0.0/16"),  # обычный офисный роутер
     ipaddress.ip_network("127.0.0.0/8"),     # сама машина
     ipaddress.ip_network("169.254.0.0/16"),  # авто-адрес без DHCP
+    ipaddress.ip_network("100.64.0.0/10"),   # Tailscale — доступ вне офиса
     ipaddress.ip_network("::1/128"),         # localhost IPv6
-    ipaddress.ip_network("fc00::/7"),        # частная сеть IPv6
+    ipaddress.ip_network("fc00::/7"),        # частная сеть IPv6 (и Tailscale IPv6)
     ipaddress.ip_network("fe80::/10"),       # link-local IPv6
 ]
 
@@ -78,6 +79,16 @@ def lan_addresses():
         if a not in uniq and is_lan_client(a) and not a.startswith("127."):
             uniq.append(a)
     return uniq
+
+
+TAILSCALE_NET = ipaddress.ip_network("100.64.0.0/10")
+
+
+def is_tailscale(addr):
+    try:
+        return ipaddress.ip_address(addr) in TAILSCALE_NET
+    except ValueError:
+        return False
 
 
 class Handler(http.server.SimpleHTTPRequestHandler):
@@ -178,16 +189,23 @@ if __name__ == "__main__":
     print("=" * 58)
     print("  Elite Academy — dev-версия сайта запущена")
     print("=" * 58)
-    if ips:
+    office = [ip for ip in ips if not is_tailscale(ip)]
+    ts = [ip for ip in ips if is_tailscale(ip)]
+    if office:
         print("  Ссылка для команды (открывать в офисном WiFi):")
-        for ip in ips:
+        for ip in office:
             print(f"      http://{ip}:{PORT}")
     else:
         print("  ВНИМАНИЕ: не нашёл локальный IP — проверь, что машина")
         print("  подключена к офисной сети.")
+    if ts:
+        print()
+        print("  Через Tailscale (работает и вне офиса):")
+        for ip in ts:
+            print(f"      http://{ip}:{PORT}")
     print(f"  На этой машине:  http://localhost:{PORT}")
     print()
-    print("  Доступ разрешён только из локальной сети.")
+    print("  Доступ: только офисная сеть" + (" и Tailscale." if ts else "."))
     print("  Остановить — Ctrl+C. Окно не закрывать.")
     print("=" * 58)
     print()
