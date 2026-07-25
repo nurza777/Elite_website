@@ -634,7 +634,7 @@ function CountriesEditor({ list, setList }) {
 }
 
 /* ---------- Image path field: preview + upload ---------- */
-function ImgPathField({ l, v, on, token, branch }) {
+function ImgPathField({ l, v, on, token, branch, ph }) {
   const [imgErr, setImgErr] = React.useState(false);
   const [file, setFile] = React.useState(null);
   const [preview, setPreview] = React.useState(null);
@@ -675,7 +675,7 @@ function ImgPathField({ l, v, on, token, branch }) {
         {!preview && <div className="afield__preview-overlay">Заменить</div>}
       </div>
       <div className="afield__vid-row">
-        <input className="ainput ainput--flex" value={v || ""} onChange={e => { on(e.target.value); setFile(null); setPreview(null); setSt(null); }} placeholder="thumbs/имя.jpg" />
+        <input className="ainput ainput--flex" value={v || ""} onChange={e => { on(e.target.value); setFile(null); setPreview(null); setSt(null); }} placeholder={ph || "thumbs/имя.jpg"} />
         {preview
           ? <button className="abtn abtn--primary" onClick={upload} disabled={st === "busy"}>{st === "busy" ? "Идёт…" : "↑ Загрузить"}</button>
           : <label className="abtn" title="Выбрать файл для замены" style={{ cursor: "pointer", whiteSpace: "nowrap" }}>
@@ -690,7 +690,7 @@ function ImgPathField({ l, v, on, token, branch }) {
 }
 
 /* ---------- Video path field: preview + upload ---------- */
-function VidPathField({ l, v, on, token, branch }) {
+function VidPathField({ l, v, on, token, branch, ph }) {
   const [open, setOpen] = React.useState(false);
   const [file, setFile] = React.useState(null);
   const [st, setSt] = React.useState(null);
@@ -749,7 +749,7 @@ function VidPathField({ l, v, on, token, branch }) {
     <div className="afield">
       <label className="afield__label">{l}</label>
       <div className="afield__vid-row">
-        <input className="ainput ainput--flex" value={v || ""} onChange={e => { on(e.target.value); setOpen(false); setFile(null); setSt(null); }} placeholder="videos/имя.mp4" />
+        <input className="ainput ainput--flex" value={v || ""} onChange={e => { on(e.target.value); setOpen(false); setFile(null); setSt(null); }} placeholder={ph || "videos/имя.mp4"} />
         {v && <button className="abtn" type="button" onClick={() => setOpen(o => !o)}>{open ? "Скрыть" : "▶ Смотреть"}</button>}
         <label className="abtn" title="Выбрать видеофайл с компьютера" style={{ cursor: "pointer", whiteSpace: "nowrap" }}>
           📁 Загрузить <input type="file" accept="video/mp4,video/quicktime,video/*" onChange={onFile} style={{ display: "none" }} />
@@ -933,14 +933,14 @@ const SECTIONS = [
    Пустое поле = используется стандартный (переведённый) текст сайта.
    ============================================================ */
 const BEYOND_CELLS = [
-  ["travel",  "Путешествия",  "Новые страны каждые каникулы"],
-  ["career",  "Карьера",      "Международное резюме с первого дня"],
-  ["friends", "Друзья",       "Со всего мира — на всю жизнь"],
-  ["network", "Знакомства",   "Alumni-сеть в 40+ странах"],
-  ["world",   "Среда",        "100+ национальностей рядом"],
+  ["travel",  "Путешествия",  "Новые страны каждые каникулы",       "большая плитка, почти квадрат — ≈ 1200×1050 px"],
+  ["career",  "Карьера",      "Международное резюме с первого дня",  "квадратная плитка — ≈ 700×720 px"],
+  ["friends", "Друзья",       "Со всего мира — на всю жизнь",        "квадратная плитка — ≈ 700×720 px"],
+  ["network", "Знакомства",   "Alumni-сеть в 40+ странах",           "горизонтальная плитка — ≈ 700×500 px"],
+  ["world",   "Среда",        "100+ национальностей рядом",          "горизонтальная плитка — ≈ 700×500 px"],
 ];
 
-function HomeEditor({ home, setHome, beyond, setBeyond }) {
+function HomeEditor({ home, setHome, beyond, setBeyond, token, branch }) {
   const upd = (group, k) => (v) => setHome({ ...home, [group]: { ...(home[group] || {}), [k]: v } });
   const g = (group, k) => ((home[group] || {})[k]) || "";
   const updB = (k) => (v) => setBeyond({ ...beyond, [k]: v });
@@ -974,10 +974,22 @@ function HomeEditor({ home, setHome, beyond, setBeyond }) {
         <div className="aform__divider">Блок «Образование за рубежом — это не только диплом» (главная)</div>
         <TIn l="Заголовок — строка 1 (синяя)" v={gb("h2a")} on={updB("h2a")} ph="Образование за рубежом —" wide />
         <TIn l="Заголовок — строка 2" v={gb("h2b")} on={updB("h2b")} ph="это не только диплом" wide />
-        {BEYOND_CELLS.map(([key, phTitle, phSub]) => (
+        <div className="ahint" style={{ gridColumn: "1 / -1", marginTop: -4 }}>
+          У каждой плитки видео проигрывается при наведении, а фото показывается,
+          пока курсор не навёл. Плитки разного размера — держи под каждую свой
+          размер фото (подписан ниже), тогда ничего не обрежется криво.
+        </div>
+        {BEYOND_CELLS.map(([key, phTitle, phSub, sizeHint]) => (
           <React.Fragment key={key}>
-            <TIn l={`Плитка «${phTitle}» — заголовок`} v={gb(key + "Title")} on={updB(key + "Title")} ph={phTitle} />
-            <TIn l={`Плитка «${phTitle}» — подпись`} v={gb(key + "Sub")} on={updB(key + "Sub")} ph={phSub} />
+            <div className="aform__sub" style={{ gridColumn: "1 / -1" }}>
+              <div className="aform__sub-h">Плитка «{phTitle}» — {sizeHint}</div>
+              <div className="aform__grid aform__grid--inner">
+                <TIn l="Заголовок" v={gb(key + "Title")} on={updB(key + "Title")} ph={phTitle} />
+                <TIn l="Подпись" v={gb(key + "Sub")} on={updB(key + "Sub")} ph={phSub} />
+                <VidPathField l="Видео (при наведении)" v={gb(key + "Video")} on={updB(key + "Video")} token={token} branch={branch} ph={`videos/beyond-${key}.mp4`} />
+                <ImgPathField l={`Фото — ${sizeHint}`} v={gb(key + "Poster")} on={updB(key + "Poster")} token={token} branch={branch} ph={`images/beyond/${key}.jpg`} />
+              </div>
+            </div>
           </React.Fragment>
         ))}
       </div>
@@ -1420,7 +1432,7 @@ function AdminApp() {
         <main className="amain">
           {section === "home" && (
             <>
-              <HomeEditor home={state.home} setHome={set("home")} beyond={state.beyond} setBeyond={set("beyond")} />
+              <HomeEditor home={state.home} setHome={set("home")} beyond={state.beyond} setBeyond={set("beyond")} token={ghToken} branch={ghBranch} />
               <div className="amain__note" style={{ marginTop: 26 }}>Блок «Почему Elite Academy» (аккордеон с фото):</div>
               <SimpleList
                 list={state.painItems} setList={set("painItems")} titleKey="title" addLabel="+ Пункт"
@@ -1451,14 +1463,20 @@ function AdminApp() {
           {section === "countries" && <CountriesEditor list={state.countries} setList={setCountries} />}
           {section === "stories" && (
             <>
-              <div className="amain__note">Карусель больших историй (главная и «Истории»). Ниже — сетка студентов.</div>
+              <div className="amain__note">
+                Карусель больших историй (главная и «Истории»). Ниже — сетка студентов.<br />
+                <b>Размер фото-обложки: вертикальное, 9:16 (например 720×1280 px).</b> Видео — тоже вертикальное.
+              </div>
               <SimpleList
                 list={state.storyCards} setList={set("storyCards")} titleKey="name" addLabel="+ История"
                 token={ghToken} branch={ghBranch}
                 addTemplate={{ name: "Имя", from: "🇺🇸 США", quote: "", uni: "🎓 Университет", videoSrc: "videos/имя.mp4", poster: "thumbs/имя.jpg" }}
                 schema={[["name", "Имя"], ["from", "Страна (с флагом)"], ["quote", "Цитата", "area"], ["uni", "Подпись вуза"], ["videoSrc", "Путь к видео", "vidpath"], ["poster", "Превью (обложка)", "imgpath"]]}
               />
-              <div className="amain__note" style={{ marginTop: 26 }}>Сетка студентов (фильтруется по стране):</div>
+              <div className="amain__note" style={{ marginTop: 26 }}>
+                Сетка студентов (фильтруется по стране).<br />
+                <b>Размер фото: горизонтальное, 4:3 (например 800×600 px), лицо ближе к верху.</b> Видео — тоже 4:3.
+              </div>
               <SimpleList
                 list={state.storyGrid} setList={set("storyGrid")} titleKey="n" addLabel="+ Студент"
                 token={ghToken} branch={ghBranch}
@@ -1468,12 +1486,18 @@ function AdminApp() {
             </>
           )}
           {section === "videos" && (
-            <SimpleList
-              list={state.videos} setList={set("videos")} titleKey="name" addLabel="+ Видео"
-              token={ghToken} branch={ghBranch}
-              addTemplate={{ name: "Имя", country: "🇺🇸 США", src: "videos/имя.mp4", poster: "thumbs/имя.jpg", tag: "Отзыв" }}
-              schema={[["name", "Имя"], ["country", "Страна (с флагом)"], ["src", "Путь к видео (videos/…)", "vidpath"], ["poster", "Превью (thumbs/…)", "imgpath"], ["tag", "Метка", "select", ["Отзыв", "Интервью"]]]}
-            />
+            <>
+              <div className="amain__note">
+                Лента видео-отзывов на главной.<br />
+                <b>Видео и фото-обложка — вертикальные, 9:16 (например 720×1280 px).</b>
+              </div>
+              <SimpleList
+                list={state.videos} setList={set("videos")} titleKey="name" addLabel="+ Видео"
+                token={ghToken} branch={ghBranch}
+                addTemplate={{ name: "Имя", country: "🇺🇸 США", src: "videos/имя.mp4", poster: "thumbs/имя.jpg", tag: "Отзыв" }}
+                schema={[["name", "Имя"], ["country", "Страна (с флагом)"], ["src", "Путь к видео (videos/…)", "vidpath"], ["poster", "Превью (thumbs/…)", "imgpath"], ["tag", "Метка", "select", ["Отзыв", "Интервью"]]]}
+              />
+            </>
           )}
           {section === "posts" && (
             <SimpleList

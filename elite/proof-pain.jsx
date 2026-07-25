@@ -388,7 +388,7 @@ function BeyondCell({ item }) {
       tabIndex={0}
     >
       <img
-        src={item.poster}
+        src={_BEY_OV[item.cls + "Poster"] || item.poster}
         alt={item.title}
         className={"beyond__poster" + (playing ? " beyond__poster--hide" : "")}
         loading="lazy"
@@ -396,7 +396,7 @@ function BeyondCell({ item }) {
       <video
         ref={ref}
         className="beyond__video"
-        src={item.video}
+        src={_BEY_OV[item.cls + "Video"] || item.video}
         muted loop playsInline preload="metadata"
       />
       <div className="beyond__scrim" />
