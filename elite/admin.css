@@ -297,3 +297,43 @@ body { background: var(--gray-100); }
 /* ---------- CareersEditor card sections ---------- */
 .acard { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; }
 .acard__title { font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--navy); padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+/* ---------- Фоновая очередь загрузки (плавающая панель) ---------- */
+.uploadctr {
+  position: fixed; right: 18px; bottom: 18px; z-index: 9000;
+  width: 340px; max-width: calc(100vw - 36px);
+  background: #fff; border: 1px solid var(--border); border-radius: 12px;
+  box-shadow: 0 18px 44px -14px rgba(6,32,72,.4);
+  overflow: hidden; font-size: 13px;
+}
+.uploadctr__head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 14px; background: var(--navy); color: #fff; cursor: pointer;
+  font-family: var(--font-head, inherit);
+}
+.uploadctr__head-act { display: flex; align-items: center; gap: 10px; }
+.uploadctr__x {
+  background: rgba(255,255,255,.16); border: none; color: #fff;
+  border-radius: 6px; padding: 3px 9px; font-size: 12px; cursor: pointer;
+}
+.uploadctr__x:hover { background: rgba(255,255,255,.28); }
+.uploadctr__toggle { opacity: .8; font-size: 11px; }
+.uploadctr__list { max-height: 46vh; overflow-y: auto; }
+.uploadctr__row { padding: 9px 14px; border-bottom: 1px solid var(--border); }
+.uploadctr__row:last-child { border-bottom: none; }
+.uploadctr__row--done { background: #f2fbf4; }
+.uploadctr__row--error { background: #fdf2f2; }
+.uploadctr__row-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.uploadctr__path {
+  font-family: monospace; font-size: 12px; color: var(--navy);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;
+}
+.uploadctr__state { font-size: 11.5px; color: var(--muted, #64748b); white-space: nowrap; flex-shrink: 0; }
+.uploadctr__row--done .uploadctr__state { color: #1a7a48; }
+.uploadctr__bar { height: 5px; border-radius: 3px; background: #e6ebf2; margin-top: 6px; overflow: hidden; }
+.uploadctr__bar-fill { height: 100%; background: var(--blue); transition: width .3s; }
+.uploadctr__err { margin-top: 5px; color: #c0392b; font-size: 12px; word-break: break-word; }
+.uploadctr__retry {
+  margin-left: 6px; background: none; border: none; color: var(--blue);
+  text-decoration: underline; cursor: pointer; font-size: 12px; padding: 0;
+}

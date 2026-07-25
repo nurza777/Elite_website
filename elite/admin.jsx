@@ -246,6 +246,160 @@ async function compressVideoFile(file, { onProgress } = {}) {
 }
 window.eaCompressVideo = compressVideoFile; /* для отладки из консоли */
 
+/* ============================================================
+   ФОНОВАЯ ОЧЕРЕДЬ ЗАГРУЗКИ
+   Живёт вне React, поэтому загрузка не прерывается при переходе
+   между разделами админки. Позволяет поставить в очередь сразу
+   несколько файлов: фото грузятся по 3 параллельно, видео — по
+   одному (в памяти один экземпляр ffmpeg, два сжатия сразу нельзя).
+   ============================================================ */
+const IMG_PARALLEL = 3;
+const VID_MAX_UPLOAD = 45 * 1024 * 1024;   // лимит GitHub API
+const VID_COMPRESS_OVER = 8 * 1024 * 1024; // меньше — грузим как есть
+
+const uploadMgr = {
+  items: [],
+  subs: new Set(),
+  seq: 0,
+  imgActive: 0,
+  vidBusy: false,
+
+  subscribe(fn) { this.subs.add(fn); return () => this.subs.delete(fn); },
+  notify() { this.subs.forEach((fn) => { try { fn(); } catch (e) {} }); },
+  active() { return this.items.some((i) => i.status !== "done" && i.status !== "error"); },
+
+  enqueue({ kind, path, file, token, branch }) {
+    const item = { id: ++this.seq, kind, path, file, token, branch,
+      name: file.name, size: file.size, status: "queued", progress: 0, note: "", error: null };
+    this.items.push(item);
+    this.notify();
+    this.pump();
+    return item.id;
+  },
+
+  clearFinished() {
+    this.items = this.items.filter((i) => i.status !== "done" && i.status !== "error");
+    this.notify();
+  },
+
+  retry(id) {
+    const it = this.items.find((i) => i.id === id);
+    if (it && it.status === "error") { it.status = "queued"; it.error = null; it.progress = 0; this.notify(); this.pump(); }
+  },
+
+  pump() {
+    for (const it of this.items) {
+      if (it.status !== "queued") continue;
+      if (it.kind === "video") {
+        if (this.vidBusy) continue;
+        this.vidBusy = true;
+        this.runVideo(it);
+      } else {
+        if (this.imgActive >= IMG_PARALLEL) continue;
+        this.imgActive++;
+        this.runImage(it);
+      }
+    }
+  },
+
+  async runVideo(it) {
+    try {
+      if (!it.token) throw new Error("Нет токена — добавь его в разделе «Публикация»");
+      let base64;
+      const needCompress = it.size > VID_COMPRESS_OVER || !/\.mp4$/i.test(it.name);
+      if (needCompress) {
+        it.status = "compressing"; it.progress = 0; it.note = "готовлю кодировщик…"; this.notify();
+        const c = await compressVideoFile(it.file, { onProgress: (p) => { it.progress = p; it.note = ""; this.notify(); } });
+        if (c.size > VID_MAX_UPLOAD) throw new Error("после сжатия " + fmtKB(c.size) + " — всё ещё больше 45 МБ, обрежь ролик");
+        it.note = "сжато: " + fmtKB(it.size) + " → " + fmtKB(c.size);
+        base64 = uint8ToBase64(c.data);
+      } else {
+        base64 = await fileToBase64(it.file);
+      }
+      it.status = "uploading"; this.notify();
+      await ghUploadMedia(it.token, it.branch, it.path, base64);
+      it.status = "done"; it.progress = 100; this.notify();
+    } catch (e) {
+      it.status = "error"; it.error = e.message; this.notify();
+    } finally {
+      this.vidBusy = false;
+      this.pump();
+    }
+  },
+
+  async runImage(it) {
+    try {
+      if (!it.token) throw new Error("Нет токена — добавь его в разделе «Публикация»");
+      it.status = "uploading"; this.notify();
+      let base64;
+      const c = await compressImageFile(it.file, it.path).catch(() => null);
+      if (c) { base64 = c.base64; it.note = fmtKB(it.size) + " → " + fmtKB(c.size); }
+      else { base64 = await fileToBase64(it.file); }
+      await ghUploadMedia(it.token, it.branch, it.path, base64);
+      it.status = "done"; this.notify();
+    } catch (e) {
+      it.status = "error"; it.error = e.message; this.notify();
+    } finally {
+      this.imgActive--;
+      this.pump();
+    }
+  },
+};
+window.eaUploadMgr = uploadMgr; /* для отладки из консоли */
+
+/* Хук: перерисовывать компонент при изменениях очереди */
+function useUploads() {
+  const [, force] = React.useReducer((x) => x + 1, 0);
+  React.useEffect(() => uploadMgr.subscribe(force), []);
+  return uploadMgr.items;
+}
+
+/* Плавающая панель со статусом всех загрузок — монтируется один раз в
+   корне админки, поэтому переживает переключение разделов. */
+function UploadCenter() {
+  const items = useUploads();
+  const [min, setMin] = React.useState(false);
+  if (!items.length) return null;
+  const active = items.filter((i) => i.status !== "done" && i.status !== "error").length;
+  const errs = items.filter((i) => i.status === "error").length;
+  const label = (it) => {
+    if (it.status === "queued") return "в очереди";
+    if (it.status === "compressing") return it.note || ("сжимаю… " + it.progress + "%");
+    if (it.status === "uploading") return "загружаю…";
+    if (it.status === "done") return "✓ готово" + (it.note ? " · " + it.note : "");
+    return "ошибка";
+  };
+  return (
+    <div className="uploadctr">
+      <div className="uploadctr__head" onClick={() => setMin((m) => !m)}>
+        <b>{active > 0 ? `Загрузка (${active})…` : errs > 0 ? `Загрузка: ${errs} с ошибкой` : "Загрузка завершена"}</b>
+        <div className="uploadctr__head-act">
+          {active === 0 && <button className="uploadctr__x" onClick={(e) => { e.stopPropagation(); uploadMgr.clearFinished(); }}>Очистить</button>}
+          <span className="uploadctr__toggle">{min ? "▲" : "▼"}</span>
+        </div>
+      </div>
+      {!min && (
+        <div className="uploadctr__list">
+          {items.map((it) => (
+            <div key={it.id} className={"uploadctr__row uploadctr__row--" + it.status}>
+              <div className="uploadctr__row-top">
+                <span className="uploadctr__path" title={it.path}>{it.kind === "video" ? "🎬" : "🖼"} {it.path}</span>
+                <span className="uploadctr__state">{label(it)}</span>
+              </div>
+              {(it.status === "compressing") && (
+                <div className="uploadctr__bar"><div className="uploadctr__bar-fill" style={{ width: Math.max(2, it.progress) + "%" }} /></div>
+              )}
+              {it.status === "error" && (
+                <div className="uploadctr__err">{it.error} <button className="uploadctr__retry" onClick={() => uploadMgr.retry(it.id)}>повторить</button></div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function UploadSlot({ label, path, token, branch, accept = "image/jpeg,image/png,image/webp", hint, onSuccess, maxDim = 1500 }) {
   const [file, setFile] = React.useState(null);
   const [preview, setPreview] = React.useState(null);
@@ -633,145 +787,91 @@ function CountriesEditor({ list, setList }) {
   );
 }
 
-/* ---------- Image path field: preview + upload ---------- */
+/* ---------- Image path field: preview + queue upload ---------- */
 function ImgPathField({ l, v, on, token, branch, ph }) {
   const [imgErr, setImgErr] = React.useState(false);
-  const [file, setFile] = React.useState(null);
-  const [preview, setPreview] = React.useState(null);
-  const [st, setSt] = React.useState(null);
-  const [err, setErr] = React.useState(null);
+  const [localPreview, setLocalPreview] = React.useState(null);
+  const [msg, setMsg] = React.useState(null);
   React.useEffect(() => { setImgErr(false); }, [v]);
 
   function onFile(e) {
     const f = e.target.files[0];
-    if (!f) return;
-    setFile(f); setSt(null); setErr(null);
-    const r = new FileReader();
-    r.onload = () => setPreview(r.result);
-    r.readAsDataURL(f);
     e.target.value = "";
+    if (!f) return;
+    setMsg(null);
+    if (!token) { setMsg({ err: true, text: "Сначала добавь токен в разделе «Публикация»" }); return; }
+    const target = v || (ph || "thumbs/имя.jpg");
+    if (!v) on(target); // если путь был пуст — показать, куда уйдёт файл
+    // локальное превью сразу, чтобы было видно что выбрано
+    const r = new FileReader();
+    r.onload = () => setLocalPreview(r.result);
+    r.readAsDataURL(f);
+    uploadMgr.enqueue({ kind: "image", path: target, file: f, token, branch });
+    setMsg({ err: false, text: "В очереди — следи за статусом внизу." });
   }
 
-  async function upload() {
-    if (!file || !preview || !v) return;
-    if (!token) { setErr("Нет токена — добавь в «Публикации»"); return; }
-    setSt("busy"); setErr(null);
-    try {
-      await ghUploadMedia(token, branch, v, preview.split(",")[1]);
-      setSt("ok"); setFile(null); setPreview(null); setImgErr(false);
-    } catch (e2) { setSt("err"); setErr(e2.message); }
-  }
-
-  const thumb = preview || (v && !imgErr ? v : null);
+  const thumb = localPreview || (v && !imgErr ? v : null);
   return (
     <div className="afield">
       <label className="afield__label">{l}</label>
-      <div className="afield__preview-wrap" onClick={() => !file && document.getElementById("af-img-" + l)?.click()} title="Нажми для замены">
+      <div className="afield__preview-wrap" onClick={() => document.getElementById("af-img-" + l)?.click()} title="Нажми, чтобы выбрать файл">
         {thumb
-          ? <img src={thumb} alt="" className={"afield__preview-img" + (preview ? " afield__preview-img--new" : "")} onError={() => setImgErr(true)} />
+          ? <img src={thumb} alt="" className={"afield__preview-img" + (localPreview ? " afield__preview-img--new" : "")} onError={() => setImgErr(true)} />
           : <div className="afield__preview-empty">нет превью · нажми чтобы загрузить</div>
         }
         <input id={"af-img-" + l} type="file" accept="image/jpeg,image/png,image/webp" onChange={onFile} style={{ display: "none" }} />
-        {!preview && <div className="afield__preview-overlay">Заменить</div>}
+        <div className="afield__preview-overlay">Заменить</div>
       </div>
       <div className="afield__vid-row">
-        <input className="ainput ainput--flex" value={v || ""} onChange={e => { on(e.target.value); setFile(null); setPreview(null); setSt(null); }} placeholder={ph || "thumbs/имя.jpg"} />
-        {preview
-          ? <button className="abtn abtn--primary" onClick={upload} disabled={st === "busy"}>{st === "busy" ? "Идёт…" : "↑ Загрузить"}</button>
-          : <label className="abtn" title="Выбрать файл для замены" style={{ cursor: "pointer", whiteSpace: "nowrap" }}>
-              📁 Загрузить <input type="file" accept="image/jpeg,image/png,image/webp" onChange={onFile} style={{ display: "none" }} />
-            </label>
-        }
+        <input className="ainput ainput--flex" value={v || ""} onChange={e => { on(e.target.value); setLocalPreview(null); setMsg(null); }} placeholder={ph || "thumbs/имя.jpg"} />
+        <label className="abtn" title="Выбрать файл для замены" style={{ cursor: "pointer", whiteSpace: "nowrap" }}>
+          📁 Загрузить <input type="file" accept="image/jpeg,image/png,image/webp" onChange={onFile} style={{ display: "none" }} />
+        </label>
       </div>
-      {st === "ok"  && <div className="afield__status afield__ok">✓ Загружено</div>}
-      {st === "err" && <div className="afield__status afield__err">{err}</div>}
+      {msg && <div className={"afield__status " + (msg.err ? "afield__err" : "afield__ok")}>{msg.text}</div>}
     </div>
   );
 }
 
-/* ---------- Video path field: preview + upload ---------- */
+/* ---------- Video path field: preview + queue upload ---------- */
 function VidPathField({ l, v, on, token, branch, ph }) {
   const [open, setOpen] = React.useState(false);
-  const [file, setFile] = React.useState(null);
-  const [st, setSt] = React.useState(null);
-  const [err, setErr] = React.useState(null);
-  const [warn, setWarn] = React.useState(null);
-  const [progress, setProgress] = React.useState(-1);
-  const [compressed, setCompressed] = React.useState(null);
-
-  /* до порога маленькие mp4 идут как есть; всё остальное пересжимаем */
-  const COMPRESS_THRESHOLD = 8 * 1024 * 1024;
-  const MAX_UPLOAD = 45 * 1024 * 1024;   /* лимит GitHub API */
-  const MAX_SOURCE = 500 * 1024 * 1024;  /* больше в память wasm не влезет */
+  const [msg, setMsg] = React.useState(null);
+  const MAX_SOURCE = 500 * 1024 * 1024; // больше в память wasm не влезет
 
   function onFile(e) {
     const f = e.target.files[0];
     e.target.value = "";
     if (!f) return;
-    setSt(null); setErr(null); setWarn(null); setCompressed(null);
+    setMsg(null);
+    if (!token) { setMsg({ err: true, text: "Сначала добавь токен в разделе «Публикация»" }); return; }
     if (f.size > MAX_SOURCE) {
-      setErr("Файл " + fmtKB(f.size) + " — слишком большой даже для автосжатия (макс. 500 МБ). Обрежь видео или сожми его вручную.");
+      setMsg({ err: true, text: "Файл " + fmtKB(f.size) + " — больше 500 МБ, обрежь или сожми вручную" });
       return;
     }
-    if (f.size > COMPRESS_THRESHOLD || !/\.mp4$/i.test(f.name)) {
-      setWarn("Видео " + fmtKB(f.size) + " будет автоматически сжато при загрузке (MP4 H.264, до 900px). Это может занять несколько минут — не закрывай вкладку.");
-    }
-    setFile(f);
-  }
-
-  async function upload() {
-    if (!file || !v) return;
-    if (!token) { setErr("Нет токена — добавь в «Публикации»"); return; }
-    setErr(null);
-    try {
-      let base64, targetPath = v;
-      if (file.size > COMPRESS_THRESHOLD || !/\.mp4$/i.test(file.name)) {
-        setSt("compressing"); setProgress(-1);
-        const c = await compressVideoFile(file, { onProgress: setProgress });
-        if (c.size > MAX_UPLOAD) throw new Error("Даже после сжатия видео весит " + fmtKB(c.size) + " (макс. 45 МБ) — обрежь ролик покороче.");
-        setCompressed(c);
-        base64 = uint8ToBase64(c.data);
-        /* результат всегда mp4 — поправить расширение в пути, если оно другое */
-        if (!/\.mp4$/i.test(targetPath)) {
-          targetPath = targetPath.replace(/\.[a-z0-9]+$/i, "") + ".mp4";
-          on(targetPath);
-        }
-      } else {
-        base64 = await fileToBase64(file);
-      }
-      setSt("busy");
-      await ghUploadMedia(token, branch, targetPath, base64);
-      setSt("ok"); setFile(null); setOpen(false); setWarn(null);
-    } catch (e2) { setSt("err"); setErr(e2.message); }
+    // видео всегда сохраняем как .mp4: путь правим сразу, до постановки в очередь
+    let target = v || (ph || "videos/имя.mp4");
+    if (!/\.mp4$/i.test(target)) target = target.replace(/\.[a-z0-9]+$/i, "") + ".mp4";
+    on(target); // поле показывает, куда уйдёт файл (и помечает форму как несохранённую)
+    uploadMgr.enqueue({ kind: "video", path: target, file: f, token, branch });
+    const heavy = f.size > 8 * 1024 * 1024;
+    setMsg({ err: false, text: heavy
+      ? "В очереди. Сжатие идёт в фоне (несколько минут) — можно работать дальше, следи снизу."
+      : "В очереди — следи за статусом внизу." });
   }
 
   return (
     <div className="afield">
       <label className="afield__label">{l}</label>
       <div className="afield__vid-row">
-        <input className="ainput ainput--flex" value={v || ""} onChange={e => { on(e.target.value); setOpen(false); setFile(null); setSt(null); }} placeholder={ph || "videos/имя.mp4"} />
+        <input className="ainput ainput--flex" value={v || ""} onChange={e => { on(e.target.value); setOpen(false); setMsg(null); }} placeholder={ph || "videos/имя.mp4"} />
         {v && <button className="abtn" type="button" onClick={() => setOpen(o => !o)}>{open ? "Скрыть" : "▶ Смотреть"}</button>}
         <label className="abtn" title="Выбрать видеофайл с компьютера" style={{ cursor: "pointer", whiteSpace: "nowrap" }}>
           📁 Загрузить <input type="file" accept="video/mp4,video/quicktime,video/*" onChange={onFile} style={{ display: "none" }} />
         </label>
       </div>
       {open && v && <video key={v} src={v} controls className="afield__preview-vid" />}
-      {file && (
-        <div className="afield__upload-bar">
-          <span className="afield__fname">{file.name.length > 30 ? file.name.slice(0, 28) + "…" : file.name} ({fmtKB(file.size)})</span>
-          <button className="abtn abtn--primary" onClick={upload} disabled={st === "busy" || st === "compressing"}>
-            {st === "compressing"
-              ? (progress < 0 ? "Готовлю кодировщик…" : "Сжимаю… " + progress + "%")
-              : st === "busy" ? "Загружаю…" : "↑ Загрузить"}
-          </button>
-        </div>
-      )}
-      {compressed && st !== "err" && (
-        <div className="afield__status afield__ok">Сжато: {fmtKB(compressed.origSize)} → {fmtKB(compressed.size)}</div>
-      )}
-      {warn && st !== "ok" && <div className="afield__status afield__err" style={{ color: "#b45309" }}>⚠ {warn}</div>}
-      {st === "ok"  && <div className="afield__status afield__ok">✓ Загружено</div>}
-      {st === "err" && <div className="afield__status afield__err">{err}</div>}
+      {msg && <div className={"afield__status " + (msg.err ? "afield__err" : "afield__ok")}>{msg.text}</div>}
     </div>
   );
 }
@@ -1381,7 +1481,9 @@ function AdminApp() {
   }
 
   useEffect(() => {
-    const onBeforeUnload = (e) => { if (dirty) { e.preventDefault(); e.returnValue = ""; } };
+    // предупреждаем при закрытии вкладки, если есть несохранённые правки
+    // ИЛИ идёт загрузка в фоне (иначе прервётся сжатие/выгрузка видео)
+    const onBeforeUnload = (e) => { if (dirty || uploadMgr.active()) { e.preventDefault(); e.returnValue = ""; } };
     window.addEventListener("beforeunload", onBeforeUnload);
     return () => window.removeEventListener("beforeunload", onBeforeUnload);
   }, [dirty]);
@@ -1532,6 +1634,7 @@ function AdminApp() {
           )}
         </main>
       </div>
+      <UploadCenter />
     </div>
   );
 }
