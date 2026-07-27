@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   27.07.2026, 16:42:58
+   27.07.2026, 17:04:31
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4627,13 +4627,6 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "videos": [
-    {
-      "name": "Отзыв Акинай ",
-      "country": "Италия ",
-      "src": "videos/Акинай .mp4",
-      "poster": "thumbs/Акинай.jpg",
-      "tag": "Отзыв"
-    },
     {
       "name": "Айжамал ",
       "country": "🇺🇸 США",
