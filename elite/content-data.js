@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   27.07.2026, 17:26:20
+   27.07.2026, 17:45:25
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4412,7 +4412,7 @@ window.EA_CONTENT_PUBLISHED = {
     {
       "name": "Нурзар",
       "from": "США",
-      "quote": "Я получил отказ в визе , но не сдался и благодаря поддержки семьи и Elite academy у меня все получилось ! ",
+      "quote": "Даже не верил, что сможет поступить в США. С Elite Academy всё оказалось реально — сейчас уже второй курс!",
       "uni": "Roosevelt University, Чикаго",
       "videoSrc": "videos/nurzar.mp4",
       "poster": "thumbs/nurzar.jpg"
@@ -4628,9 +4628,16 @@ window.EA_CONTENT_PUBLISHED = {
   ],
   "videos": [
     {
-      "name": "Имя",
+      "name": "Мээрим ",
+      "country": "Италия ",
+      "src": "videos/Мээрим .mp4",
+      "poster": "thumbs/имя.jpg",
+      "tag": "Отзыв"
+    },
+    {
+      "name": "Бермет ",
       "country": "🇺🇸 США",
-      "src": "videos/имя.mp4",
+      "src": "videos/Бермет.mp4",
       "poster": "thumbs/имя.jpg",
       "tag": "Отзыв"
     },
