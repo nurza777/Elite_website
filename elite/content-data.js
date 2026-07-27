@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   27.07.2026, 17:45:25
+   27.07.2026, 17:49:20
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4631,14 +4631,14 @@ window.EA_CONTENT_PUBLISHED = {
       "name": "Мээрим ",
       "country": "Италия ",
       "src": "videos/Мээрим .mp4",
-      "poster": "thumbs/имя.jpg",
+      "poster": "thumbs/Мээрим.jpg",
       "tag": "Отзыв"
     },
     {
       "name": "Бермет ",
       "country": "🇺🇸 США",
       "src": "videos/Бермет.mp4",
-      "poster": "thumbs/имя.jpg",
+      "poster": "thumbs/Бермет.jpg",
       "tag": "Отзыв"
     },
     {
