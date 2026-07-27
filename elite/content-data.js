@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   27.07.2026, 17:24:18
+   27.07.2026, 17:26:20
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4412,7 +4412,7 @@ window.EA_CONTENT_PUBLISHED = {
     {
       "name": "Нурзар",
       "from": "США",
-      "quote": "Получил отказ в визу , но не сдался и благодаря поддержки семьи и Elite academy у него все получилось ! ",
+      "quote": "Я получил отказ в визе , но не сдался и благодаря поддержки семьи и Elite academy у меня все получилось ! ",
       "uni": "Roosevelt University, Чикаго",
       "videoSrc": "videos/nurzar.mp4",
       "poster": "thumbs/nurzar.jpg"
