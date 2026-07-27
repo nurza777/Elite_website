@@ -97,14 +97,23 @@ async function ghPublish(token, branch, fileText, expectedSha) {
 async function ghUploadMedia(token, branch, path, base64) {
   const api = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`;
   const headers = { Authorization: "Bearer " + token, Accept: "application/vnd.github+json", "Content-Type": "application/json" };
-  let sha = null;
-  const g = await fetch(`${api}?ref=${encodeURIComponent(branch)}`, { headers });
-  if (g.status === 200) sha = (await g.json()).sha;
-  else if (g.status === 401) throw new Error("Неверный ключ доступа");
-  else if (g.status !== 404) throw new Error("GitHub: ошибка " + g.status);
-  const body = { message: "Медиа: " + path.split("/").pop(), content: base64, branch };
-  if (sha) body.sha = sha;
-  const p = await fetch(api, { method: "PUT", headers, body: JSON.stringify(body) });
+  /* Одна попытка: GET текущий sha файла -> PUT новый коммит. */
+  async function attempt() {
+    let sha = null;
+    const g = await fetch(`${api}?ref=${encodeURIComponent(branch)}`, { headers });
+    if (g.status === 200) sha = (await g.json()).sha;
+    else if (g.status === 401) throw new Error("Неверный ключ доступа");
+    else if (g.status !== 404) throw new Error("GitHub: ошибка " + g.status);
+    const body = { message: "Медиа: " + path.split("/").pop(), content: base64, branch };
+    if (sha) body.sha = sha;
+    const p = await fetch(api, { method: "PUT", headers, body: JSON.stringify(body) });
+    return p;
+  }
+  /* 409/422 = кто-то (другая вкладка/ПК) записал этот же файл между нашими
+     GET и PUT: sha устарел. Перечитываем свежий sha и пробуем ещё раз —
+     чтобы при параллельной работе не приходилось жать «повторить» вручную. */
+  let p = await attempt();
+  if (p.status === 409 || p.status === 422) p = await attempt();
   if (!p.ok) {
     const j = await p.json().catch(() => ({}));
     throw new Error("GitHub " + p.status + ": " + (j.message || "ошибка загрузки"));
