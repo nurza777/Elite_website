@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   27.07.2026, 18:14:53
+   27.07.2026, 18:40:48
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4631,7 +4631,7 @@ window.EA_CONTENT_PUBLISHED = {
       "name": "Сыймык ",
       "country": "🇺🇸 США",
       "src": "videos/Сыймык.mp4",
-      "poster": "thumbs/имя.jpg",
+      "poster": "thumbs/Сыймык.jpg",
       "tag": "Отзыв"
     },
     {
