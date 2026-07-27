@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   23.07.2026, 15:42:15
+   27.07.2026, 15:33:19
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4628,10 +4628,10 @@ window.EA_CONTENT_PUBLISHED = {
   ],
   "videos": [
     {
-      "name": "Имя",
+      "name": "Айжамал ",
       "country": "🇺🇸 США",
-      "src": "videos/имя.mp4",
-      "poster": "thumbs/имя.jpg",
+      "src": "videos/Айжамал.mp4",
+      "poster": "thumbs/Айжамал.jpg",
       "tag": "Отзыв"
     },
     {
