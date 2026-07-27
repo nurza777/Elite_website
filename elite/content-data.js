@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   27.07.2026, 17:50:28
+   27.07.2026, 18:11:06
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4627,6 +4627,13 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "videos": [
+    {
+      "name": "Сыймык ",
+      "country": "🇺🇸 США",
+      "src": "videos/Сыймык.mp4",
+      "poster": "thumbs/имя.jpg",
+      "tag": "Отзыв"
+    },
     {
       "name": "Мээрим ",
       "country": "Италия ",
