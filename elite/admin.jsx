@@ -182,6 +182,20 @@ function fmtKB(bytes) {
   return bytes >= 1024 * 1024 ? (bytes / (1024 * 1024)).toFixed(1) + " МБ" : Math.round(bytes / 1024) + " КБ";
 }
 
+/* Имя → латинское имя файла: «Айгерим Т.» → "aigerim-t". Нужно, чтобы у
+   каждой записи (студента, отзыва) был свой файл — иначе при пустом пути
+   несколько загрузок ушли бы в один и тот же videos/имя.mp4. */
+const _TRANSLIT = {
+  а:"a",б:"b",в:"v",г:"g",д:"d",е:"e",ё:"e",ж:"zh",з:"z",и:"i",й:"i",к:"k",л:"l",м:"m",
+  н:"n",о:"o",п:"p",р:"r",с:"s",т:"t",у:"u",ф:"f",х:"h",ц:"c",ч:"ch",ш:"sh",щ:"sch",
+  ъ:"",ы:"y",ь:"",э:"e",ю:"yu",я:"ya",
+  ү:"u",ұ:"u",ө:"o",ң:"ng",қ:"k",ғ:"g",һ:"h",і:"i",ә:"a",
+};
+function slugify(str) {
+  const s = (str || "").toLowerCase().split("").map((ch) => (ch in _TRANSLIT ? _TRANSLIT[ch] : ch)).join("");
+  return s.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "file";
+}
+
 /* ---------- video compression via ffmpeg.wasm ----------
    Настоящий ffmpeg (libx264 + AAC), скомпилированный в WebAssembly, — кодирует
    офлайн, поэтому рассинхрона звука, которым страдал прежний MediaRecorder-
@@ -933,13 +947,18 @@ function SimpleList({ list, setList, schema, titleKey, addTemplate, addLabel, to
             </div>
           </div>
           <div className="aform__grid">
-            {schema.map(([k, l, type, opts]) =>
-              type === "area"      ? <Area key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} />
-              : type === "select"  ? <Sel  key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} opts={opts} />
-              : type === "imgpath" ? <ImgPathField key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} token={token} branch={branch} />
-              : type === "vidpath" ? <VidPathField key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} token={token} branch={branch} />
-              : <TIn key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} />
-            )}
+            {schema.map(([k, l, type, opts]) => {
+              /* имя файла по умолчанию — из названия записи, чтобы у каждой
+                 записи был свой файл (иначе загрузки перезаписывали бы одну) */
+              const slug = slugify(x[titleKey]);
+              return (
+                type === "area"      ? <Area key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} />
+                : type === "select"  ? <Sel  key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} opts={opts} />
+                : type === "imgpath" ? <ImgPathField key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} token={token} branch={branch} ph={"thumbs/" + slug + ".jpg"} />
+                : type === "vidpath" ? <VidPathField key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} token={token} branch={branch} ph={"videos/" + slug + ".mp4"} />
+                : <TIn key={k} l={l} v={x[k]} on={(v) => upd(sel, k, v)} />
+              );
+            })}
           </div>
         </div>
       ) : (
