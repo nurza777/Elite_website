@@ -254,25 +254,25 @@ function VisionMission() {
    ACCREDITATIONS — partner / accreditation cards (about page)
    ============================================================ */
 const ACCREDS_RU = [
-  { name: "ICEF", tag: "Аккредитация", logo: "../images/logos/icef.jpg", desc: "Международная сеть проверенных агентств образования. Аккредитация подтверждает стандарты работы и прозрачность для вузов-партнёров." },
-  { name: "American Academy", tag: "Языковой партнёр", logo: "../images/logos/american_academy.jpg", desc: "Лицензированный центр иностранных языков в Бишкеке — партнёр Elite Academy по языковой подготовке. Курсы английского и китайского: доводим студентов до уровня, необходимого для поступления и учёбы за рубежом." },
-  { name: "Shorelight", tag: "Партнёрство", logo: "../images/logos/shorelight.jpg", desc: "Официальный партнёр Shorelight — прямые соглашения с университетами США, быстрые офферы и стипендии для наших студентов." },
-  { name: "Apply Wave", tag: "Платформа", logo: "../images/logos/applywave.jpg", desc: "Партнёрская платформа подачи заявок: документы уходят в приёмные комиссии напрямую, без посредников." },
-  { name: "Birpofi", tag: "Переводы", logo: "../images/logos/birpofi.png", desc: "Аккредитованная переводческая компания — переводы документов, которые принимают посольства и приёмные комиссии." },
+  { name: "ICEF", tag: "Аккредитация", logo: "images/logos/icef.jpg", desc: "Международная сеть проверенных агентств образования. Аккредитация подтверждает стандарты работы и прозрачность для вузов-партнёров." },
+  { name: "American Academy", tag: "Языковой партнёр", logo: "images/logos/american_academy.jpg", desc: "Лицензированный центр иностранных языков в Бишкеке — партнёр Elite Academy по языковой подготовке. Курсы английского и китайского: доводим студентов до уровня, необходимого для поступления и учёбы за рубежом." },
+  { name: "Shorelight", tag: "Партнёрство", logo: "images/logos/shorelight.jpg", desc: "Официальный партнёр Shorelight — прямые соглашения с университетами США, быстрые офферы и стипендии для наших студентов." },
+  { name: "Apply Wave", tag: "Платформа", logo: "images/logos/applywave.jpg", desc: "Партнёрская платформа подачи заявок: документы уходят в приёмные комиссии напрямую, без посредников." },
+  { name: "Birpofi", tag: "Переводы", logo: "images/logos/birpofi.png", desc: "Аккредитованная переводческая компания — переводы документов, которые принимают посольства и приёмные комиссии." },
 ];
 const ACCREDS_EN = [
-  { name: "ICEF", tag: "Accreditation", logo: "../images/logos/icef.jpg", desc: "An international network of vetted education agencies. The accreditation confirms our standards and transparency for partner universities." },
-  { name: "American Academy", tag: "Language partner", logo: "../images/logos/american_academy.jpg", desc: "A licensed foreign-language centre in Bishkek — Elite Academy’s partner for language preparation. English and Chinese courses: we bring students to the level needed to enrol and study abroad." },
-  { name: "Shorelight", tag: "Partnership", logo: "../images/logos/shorelight.jpg", desc: "An official Shorelight partner — direct agreements with US universities, fast offers and scholarships for our students." },
-  { name: "Apply Wave", tag: "Platform", logo: "../images/logos/applywave.jpg", desc: "A partner application platform: documents go straight to admissions offices, with no intermediaries." },
-  { name: "Birpofi", tag: "Translations", logo: "../images/logos/birpofi.png", desc: "An accredited translation company — document translations accepted by embassies and admissions offices." },
+  { name: "ICEF", tag: "Accreditation", logo: "images/logos/icef.jpg", desc: "An international network of vetted education agencies. The accreditation confirms our standards and transparency for partner universities." },
+  { name: "American Academy", tag: "Language partner", logo: "images/logos/american_academy.jpg", desc: "A licensed foreign-language centre in Bishkek — Elite Academy’s partner for language preparation. English and Chinese courses: we bring students to the level needed to enrol and study abroad." },
+  { name: "Shorelight", tag: "Partnership", logo: "images/logos/shorelight.jpg", desc: "An official Shorelight partner — direct agreements with US universities, fast offers and scholarships for our students." },
+  { name: "Apply Wave", tag: "Platform", logo: "images/logos/applywave.jpg", desc: "A partner application platform: documents go straight to admissions offices, with no intermediaries." },
+  { name: "Birpofi", tag: "Translations", logo: "images/logos/birpofi.png", desc: "An accredited translation company — document translations accepted by embassies and admissions offices." },
 ];
 const ACCREDS_KG = [
-  { name: "ICEF", tag: "Аккредитация", logo: "../images/logos/icef.jpg", desc: "Текшерилген билим берүү агенттиктеринин эл аралык тармагы. Аккредитация иштин стандарттарын жана өнөктөш вуздар үчүн ачыктыкты ырастайт." },
-  { name: "American Academy", tag: "Тил өнөктөшү", logo: "../images/logos/american_academy.jpg", desc: "Бишкектеги лицензияланган чет тилдер борбору — Elite Academynin тил даярдыгы боюнча өнөктөшү. Англис жана кытай курстары: студенттерди чет өлкөгө тапшыруу жана окуу үчүн керектүү деңгээлге жеткиребиз." },
-  { name: "Shorelight", tag: "Өнөктөштүк", logo: "../images/logos/shorelight.jpg", desc: "Shorelighttin расмий өнөктөшү — АКШнын университеттери менен түз келишимдер, тез офферлер жана студенттерибиз үчүн стипендиялар." },
-  { name: "Apply Wave", tag: "Платформа", logo: "../images/logos/applywave.jpg", desc: "Өнөктөш тапшыруу платформасы: документтер ортомчусуз түз кабыл алуу комиссияларына жөнөтүлөт." },
-  { name: "Birpofi", tag: "Котормолор", logo: "../images/logos/birpofi.png", desc: "Аккредитацияланган котормо компаниясы — элчиликтер жана кабыл алуу комиссиялары кабыл алган документтердин котормолору." },
+  { name: "ICEF", tag: "Аккредитация", logo: "images/logos/icef.jpg", desc: "Текшерилген билим берүү агенттиктеринин эл аралык тармагы. Аккредитация иштин стандарттарын жана өнөктөш вуздар үчүн ачыктыкты ырастайт." },
+  { name: "American Academy", tag: "Тил өнөктөшү", logo: "images/logos/american_academy.jpg", desc: "Бишкектеги лицензияланган чет тилдер борбору — Elite Academynin тил даярдыгы боюнча өнөктөшү. Англис жана кытай курстары: студенттерди чет өлкөгө тапшыруу жана окуу үчүн керектүү деңгээлге жеткиребиз." },
+  { name: "Shorelight", tag: "Өнөктөштүк", logo: "images/logos/shorelight.jpg", desc: "Shorelighttin расмий өнөктөшү — АКШнын университеттери менен түз келишимдер, тез офферлер жана студенттерибиз үчүн стипендиялар." },
+  { name: "Apply Wave", tag: "Платформа", logo: "images/logos/applywave.jpg", desc: "Өнөктөш тапшыруу платформасы: документтер ортомчусуз түз кабыл алуу комиссияларына жөнөтүлөт." },
+  { name: "Birpofi", tag: "Котормолор", logo: "images/logos/birpofi.png", desc: "Аккредитацияланган котормо компаниясы — элчиликтер жана кабыл алуу комиссиялары кабыл алган документтердин котормолору." },
 ];
 const ACCREDS = _ABL === "en" ? ACCREDS_EN : _ABL === "kg" ? ACCREDS_KG
   : (window.eaContent ? window.eaContent("accreds", ACCREDS_RU) : ACCREDS_RU);

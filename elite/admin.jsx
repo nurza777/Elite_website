@@ -1128,7 +1128,7 @@ function HomeEditor({ home, setHome, beyond, setBeyond, token, branch }) {
 /* ============================================================
    ABOUT PAGE EDITOR
    ============================================================ */
-function AboutEditor({ about, setAbout, team, setTeam, office, setOffice }) {
+function AboutEditor({ about, setAbout, team, setTeam, office, setOffice, token, branch }) {
   const updA = (k, v) => setAbout({ ...about, [k]: v });
   const updT = (k, v) => setTeam({ ...team, [k]: v });
   const updO = (k, v) => setOffice({ ...office, [k]: v });
@@ -1149,6 +1149,10 @@ function AboutEditor({ about, setAbout, team, setTeam, office, setOffice }) {
         <TIn l="Фото «О нас» (путь к файлу)" v={about.photo || ""} on={(v) => updA("photo", v)} ph="images/team.jpg" wide />
         <TIn l="Цифра на фото" v={about.fcN} on={(v) => updA("fcN", v)} ph="1500+" />
         <TIn l="Подпись к цифре" v={about.fcL} on={(v) => updA("fcL", v)} />
+
+        <div className="aform__divider">Сертификат ICEF (крупный бейдж на странице «О нас»)</div>
+        <ImgPathField l="Фото сертификата" v={about.badge} on={(v) => updA("badge", v)} token={token} branch={branch} ph="images/icef-badge.png" />
+        <TIn l="Подпись/alt-текст сертификата" v={about.badgeAlt || ""} on={(v) => updA("badgeAlt", v)} ph="ICEF Accredited — статус #6696" wide />
         {(about.stats || []).map((s, i) => (
           <div className="aform__sub" key={i}>
             <div className="aform__sub-h">Статистика {i + 1}</div>
@@ -1642,12 +1646,14 @@ function AdminApp() {
                 about={state.about} setAbout={set("about")}
                 team={state.team} setTeam={set("team")}
                 office={state.office} setOffice={set("office")}
+                token={ghToken} branch={ghBranch}
               />
               <div className="amain__note" style={{ marginTop: 26 }}>Карточки «Аккредитации и партнёры»:</div>
               <SimpleList
                 list={state.accreds} setList={set("accreds")} titleKey="name" addLabel="+ Карточка"
-                addTemplate={{ name: "Название", tag: "Партнёрство", desc: "" }}
-                schema={[["name", "Название"], ["tag", "Метка"], ["desc", "Описание", "area"]]}
+                token={ghToken} branch={ghBranch}
+                addTemplate={{ name: "Название", tag: "Партнёрство", desc: "", logo: "" }}
+                schema={[["name", "Название"], ["tag", "Метка"], ["desc", "Описание", "area"], ["logo", "Логотип", "imgpath"]]}
               />
             </>
           )}
