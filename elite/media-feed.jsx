@@ -6,7 +6,14 @@
 
 const _ML = (window.__EA_LANG || "ru");
 const _mp = (ru, en, kg) => _ML === "en" ? en : _ML === "kg" ? kg : ru;
-const _mCountry = (c) => (window.t ? window.t("country." + c) : c);
+const _mCountry = (c) => {
+  if (!c) return c;
+  const clean = String(c).replace(/^[^\p{L}]+|[^\p{L}]+$/gu, "");
+  if (!window.t) return clean;
+  const key = "country." + clean;
+  const tr = window.t(key);
+  return tr !== key ? tr : clean;
+};
 
 const VIDEOS_DEFAULT = [
   { name: "Элана",     country: "Италия", src: "videos/elana.mp4",     poster: "thumbs/elana.jpg",     tag: _mp("Отзыв","Review","Пикир"),    uni: "Università degli Studi di Milano", scholarship: _mp("Грант €7 000","Grant €7,000","Грант €7 000"), quote: _mp("Я всегда мечтала учиться в Европе. Elite Academy помогли с документами, языком и нашли грант. Теперь учусь в Милане!","I always dreamed of studying in Europe. Elite Academy helped with documents, language and found a grant. Now I study in Milan!","Мен ар дайым Европада окууну кыялданчумун. Elite Academy документтер, тил менен жардам берип, грант тапты. Азыр Миланда окуп жатам!") },

@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   23.07.2026, 15:42:15
+   27.07.2026, 19:10:53
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4628,10 +4628,38 @@ window.EA_CONTENT_PUBLISHED = {
   ],
   "videos": [
     {
-      "name": "Имя",
-      "country": "🇺🇸 США",
-      "src": "videos/имя.mp4",
-      "poster": "thumbs/имя.jpg",
+      "name": "Сыймык ",
+      "country": "Италия 🇮🇹",
+      "src": "videos/Сыймык.mp4",
+      "poster": "thumbs/Сыймык.jpg",
+      "tag": "Отзыв"
+    },
+    {
+      "name": "Мээрим ",
+      "country": "Италия 🇮🇹",
+      "src": "videos/Мээрим .mp4",
+      "poster": "thumbs/Мээрим.jpg",
+      "tag": "Отзыв"
+    },
+    {
+      "name": "Бермет ",
+      "country": "США ",
+      "src": "videos/Бермет.mp4",
+      "poster": "thumbs/Бермет.jpg",
+      "tag": "Отзыв"
+    },
+    {
+      "name": "Отзыв Акинай ",
+      "country": "Италия 🇮🇹",
+      "src": "videos/Акинай .mp4",
+      "poster": "thumbs/Акинай.jpg",
+      "tag": "Отзыв"
+    },
+    {
+      "name": "Айжамал ",
+      "country": "Италия 🇮🇹",
+      "src": "videos/Айжамал.mp4",
+      "poster": "thumbs/Айжамал.jpg",
       "tag": "Отзыв"
     },
     {
