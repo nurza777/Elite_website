@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   28.08.2026, 18:07:44
+   28.08.2026, 18:12:13
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4406,7 +4406,7 @@ window.EA_CONTENT_PUBLISHED = {
       "name": "Элана",
       "from": "Италия",
       "quote": "Я всегда мечтала учиться в Европе. Elite Academy помогли с документами, языком и нашли грант. Теперь учусь в Италии!",
-      "uni": "(Università degli Studi di Cassino e del Lazio Meridionale",
+      "uni": "Università degli Studi di Cassino",
       "videoSrc": "videos/elana.mp4",
       "poster": "thumbs/elana.jpg"
     },
@@ -4422,7 +4422,7 @@ window.EA_CONTENT_PUBLISHED = {
       "name": "Анель",
       "from": "Италия",
       "quote": "Команда Elite Academy — профессионалы. Они знают каждый шаг и помогают на каждом этапе. Без них я бы не справилась.",
-      "uni": "(Università degli Studi di Cassino e del Lazio Meridionale",
+      "uni": "Università degli Studi di Cassino",
       "videoSrc": "videos/anel.mp4",
       "poster": "thumbs/anel.jpg"
     }
@@ -4439,7 +4439,7 @@ window.EA_CONTENT_PUBLISHED = {
     },
     {
       "n": "Нурсултан",
-      "u": "Università di Bologna",
+      "u": "University of Messina",
       "s": "Грант + €6 500",
       "t": "Италия",
       "level": "Бакалавр",
@@ -4448,7 +4448,7 @@ window.EA_CONTENT_PUBLISHED = {
     },
     {
       "n": "Анель",
-      "u": "Università di Roma La Sapienza",
+      "u": "Università degli Studi di Cassino",
       "s": "Грант + €8 000",
       "t": "Италия",
       "level": "Магистр",
@@ -4466,7 +4466,7 @@ window.EA_CONTENT_PUBLISHED = {
     },
     {
       "n": "Асема",
-      "u": "Università di Torino",
+      "u": "Università degli Studi di Cassino",
       "s": "Стипендия €5 000",
       "t": "Италия",
       "level": "Бакалавр",
@@ -4475,7 +4475,7 @@ window.EA_CONTENT_PUBLISHED = {
     },
     {
       "n": "Калия",
-      "u": "Università di Napoli Federico II",
+      "u": "Università degli Studi di Cassino",
       "s": "Стипендия €4 500",
       "t": "Италия",
       "level": "Бакалавр",
@@ -4493,7 +4493,7 @@ window.EA_CONTENT_PUBLISHED = {
     },
     {
       "n": "Амир",
-      "u": "Bellevue College",
+      "u": "Rowan university",
       "s": "$95 000",
       "t": "США",
       "level": "Бакалавр",
