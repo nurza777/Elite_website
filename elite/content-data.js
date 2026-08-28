@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   28.08.2026, 16:40:11
+   28.08.2026, 16:44:40
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4086,7 +4086,7 @@ window.EA_CONTENT_PUBLISHED = {
       "name": "Германия",
       "landmark": "Берлин · Мюнхен · Гамбург",
       "desc": "Технологии · Made in Germany · Карьера",
-      "price": "Бесплатно",
+      "price": "На контрактной основе ",
       "photo": "images/countries/germany/1.jpg",
       "bg": "linear-gradient(160deg,#2a2a3a 0%,#161622 55%,#07070d 100%)",
       "accent": "#8a8ab0"
@@ -4216,9 +4216,9 @@ window.EA_CONTENT_PUBLISHED = {
       "tagline": "Бесплатные государственные университеты и сильнейшая инженерия Европы",
       "facts": {
         "Столица": "Берлин",
-        "Язык обучения": "Немецкий · Английский",
+        "Язык обучения": " Английский",
         "Валюта": "Евро €",
-        "Учёба от": "€0/год",
+        "Учёба от": "от 7000€",
         "Виза": "Национальная виза D"
       },
       "why": [
@@ -4457,7 +4457,7 @@ window.EA_CONTENT_PUBLISHED = {
     {
       "n": "Амирхан",
       "u": "La Sapienza University ",
-      "s": "Грант + €9 000",
+      "s": "Грант + €8 000",
       "t": "Италия",
       "level": "Бакалавр",
       "video": "videos/amirkhan.mp4",
@@ -4627,6 +4627,13 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "videos": [
+    {
+      "name": "Самая ",
+      "country": "🇺🇸 США",
+      "src": "videos/Сумая.mp4",
+      "poster": "thumbs/имя.jpg",
+      "tag": "Отзыв"
+    },
     {
       "name": "Сыймык ",
       "country": "Италия 🇮🇹",
@@ -4885,31 +4892,31 @@ window.EA_CONTENT_PUBLISHED = {
     {
       "name": "ICEF",
       "tag": "Аккредитация",
-      "logo": "../images/logos/icef.jpg",
+      "logo": "images/logos/icef.jpg",
       "desc": "Международная сеть проверенных агентств образования. Аккредитация подтверждает стандарты работы и прозрачность для вузов-партнёров."
     },
     {
       "name": "American Academy",
       "tag": "Языковой партнёр",
-      "logo": "../images/logos/american_academy.jpg",
+      "logo": "images/logos/american_academy.jpg",
       "desc": "Лицензированный центр иностранных языков в Бишкеке — партнёр Elite Academy по языковой подготовке. Курсы английского и китайского: доводим студентов до уровня, необходимого для поступления и учёбы за рубежом."
     },
     {
       "name": "Shorelight",
       "tag": "Партнёрство",
-      "logo": "../images/logos/shorelight.jpg",
+      "logo": "images/logos/shorelight.jpg",
       "desc": "Официальный партнёр Shorelight — прямые соглашения с университетами США, быстрые офферы и стипендии для наших студентов."
     },
     {
       "name": "Apply Wave",
       "tag": "Платформа",
-      "logo": "../images/logos/applywave.jpg",
+      "logo": "images/logos/applywave.jpg",
       "desc": "Партнёрская платформа подачи заявок: документы уходят в приёмные комиссии напрямую, без посредников."
     },
     {
       "name": "Birpofi",
       "tag": "Переводы",
-      "logo": "../images/logos/birpofi.png",
+      "logo": "images/logos/birpofi.png",
       "desc": "Аккредитованная переводческая компания — переводы документов, которые принимают посольства и приёмные комиссии."
     }
   ],
