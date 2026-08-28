@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   27.07.2026, 19:10:53
+   28.08.2026, 16:38:03
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -476,13 +476,13 @@ window.EA_CONTENT_PUBLISHED = {
       "short": "Bellevue",
       "loc": "Сиэтл",
       "country": "США",
+      "qs": 480,
       "price": 11000,
       "type": "Государственный",
       "field": "IT",
       "levels": "Колледж · Бакалавр",
       "elite": true,
       "meritBased": true,
-      "qs": null,
       "flag": "🇺🇸"
     },
     {
@@ -1275,7 +1275,7 @@ window.EA_CONTENT_PUBLISHED = {
       "short": "UVA",
       "loc": "Шарлотсвилл",
       "country": "США",
-      "qs": 268,
+      "qs": 201,
       "price": 54000,
       "type": "Государственный",
       "field": "Бизнес",
@@ -4412,7 +4412,7 @@ window.EA_CONTENT_PUBLISHED = {
     {
       "name": "Нурзар",
       "from": "США",
-      "quote": "Даже не верил, что сможет поступить в США. С Elite Academy всё оказалось реально — сейчас уже второй курс!",
+      "quote": "Даже не верила, что смогу поступить в США. С Elite Academy всё оказалось реально — сейчас уже второй курс!",
       "uni": "Roosevelt University, Чикаго",
       "videoSrc": "videos/nurzar.mp4",
       "poster": "thumbs/nurzar.jpg"
@@ -4429,10 +4429,10 @@ window.EA_CONTENT_PUBLISHED = {
   "storyGrid": [
     {
       "n": "Элана",
-      "u": "Cassino University",
-      "s": "Бесплатное обучение и стипендия €7 500 в год",
+      "u": "Università degli Studi di Milano",
+      "s": "Грант + €7 000",
       "t": "Италия",
-      "level": "Магистр",
+      "level": "Бакалавр",
       "video": "videos/elana.mp4",
       "poster": "thumbs/elana.jpg"
     },
@@ -4617,7 +4617,7 @@ window.EA_CONTENT_PUBLISHED = {
       "poster": "thumbs/madina.jpg"
     },
     {
-      "n": "Кыял",
+      "n": "Кыялл",
       "u": "",
       "s": "",
       "t": "США",
@@ -4627,69 +4627,6 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "videos": [
-    {
-      "name": "Сыймык ",
-      "country": "Италия 🇮🇹",
-      "src": "videos/Сыймык.mp4",
-      "poster": "thumbs/Сыймык.jpg",
-      "tag": "Отзыв"
-    },
-    {
-      "name": "Мээрим ",
-      "country": "Италия 🇮🇹",
-      "src": "videos/Мээрим .mp4",
-      "poster": "thumbs/Мээрим.jpg",
-      "tag": "Отзыв"
-    },
-    {
-      "name": "Бермет ",
-      "country": "США ",
-      "src": "videos/Бермет.mp4",
-      "poster": "thumbs/Бермет.jpg",
-      "tag": "Отзыв"
-    },
-    {
-      "name": "Отзыв Акинай ",
-      "country": "Италия 🇮🇹",
-      "src": "videos/Акинай .mp4",
-      "poster": "thumbs/Акинай.jpg",
-      "tag": "Отзыв"
-    },
-    {
-      "name": "Айжамал ",
-      "country": "Италия 🇮🇹",
-      "src": "videos/Айжамал.mp4",
-      "poster": "thumbs/Айжамал.jpg",
-      "tag": "Отзыв"
-    },
-    {
-      "name": "Альмира",
-      "country": "Италия 🇮🇹",
-      "src": "videos/Альмира.mp4",
-      "poster": "thumbs/Альмара.jpg",
-      "tag": "Отзыв"
-    },
-    {
-      "name": "Азиза",
-      "country": "Италия ",
-      "src": "videos/Азиза.mp4",
-      "poster": "thumbs/Азиза.jpg",
-      "tag": "Отзыв"
-    },
-    {
-      "name": "Акылай ",
-      "country": "Италия ",
-      "src": "videos/Акылай.mp4",
-      "poster": "thumbs/Акылай.jpg",
-      "tag": "Отзыв"
-    },
-    {
-      "name": "Жасмин ",
-      "country": "США  ",
-      "src": "videos/Жасмин.mp4",
-      "poster": "thumbs/жасмин.jpg",
-      "tag": "Отзыв"
-    },
     {
       "name": "Элана",
       "country": "Италия",
@@ -4790,6 +4727,13 @@ window.EA_CONTENT_PUBLISHED = {
       "src": "videos/islambek.mp4",
       "poster": "thumbs/islambek.jpg",
       "tag": "Отзыв"
+    },
+    {
+      "name": "Айхан",
+      "country": "🇺🇸 США",
+      "src": "videos/aihan.mp4",
+      "poster": "thumbs/имя.jpg",
+      "tag": "Отзыв"
     }
   ],
   "posts": [
@@ -4855,7 +4799,7 @@ window.EA_CONTENT_PUBLISHED = {
     "badges": [
       "ICEF Accredited — международная аккредитация",
       "Shorelight Partner — официальный партнёр",
-      "Гарантия по договору — возврат при отказе в поступлении"
+      "Гарантия по договору — возврат при отказе в визе"
     ],
     "photo": "images/team.jpg"
   },
@@ -4885,31 +4829,31 @@ window.EA_CONTENT_PUBLISHED = {
     {
       "name": "ICEF",
       "tag": "Аккредитация",
-      "logo": "images/logos/icef.jpg",
+      "logo": "../images/logos/icef.jpg",
       "desc": "Международная сеть проверенных агентств образования. Аккредитация подтверждает стандарты работы и прозрачность для вузов-партнёров."
     },
     {
       "name": "American Academy",
       "tag": "Языковой партнёр",
-      "logo": "images/logos/american_academy.jpg",
+      "logo": "../images/logos/american_academy.jpg",
       "desc": "Лицензированный центр иностранных языков в Бишкеке — партнёр Elite Academy по языковой подготовке. Курсы английского и китайского: доводим студентов до уровня, необходимого для поступления и учёбы за рубежом."
     },
     {
       "name": "Shorelight",
       "tag": "Партнёрство",
-      "logo": "images/logos/shorelight.jpg",
+      "logo": "../images/logos/shorelight.jpg",
       "desc": "Официальный партнёр Shorelight — прямые соглашения с университетами США, быстрые офферы и стипендии для наших студентов."
     },
     {
       "name": "Apply Wave",
       "tag": "Платформа",
-      "logo": "images/logos/applywave.jpg",
+      "logo": "../images/logos/applywave.jpg",
       "desc": "Партнёрская платформа подачи заявок: документы уходят в приёмные комиссии напрямую, без посредников."
     },
     {
       "name": "Birpofi",
       "tag": "Переводы",
-      "logo": "images/logos/birpofi.png",
+      "logo": "../images/logos/birpofi.png",
       "desc": "Аккредитованная переводческая компания — переводы документов, которые принимают посольства и приёмные комиссии."
     }
   ],
