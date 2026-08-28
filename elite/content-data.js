@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   28.08.2026, 17:40:31
+   28.08.2026, 18:07:44
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4406,7 +4406,7 @@ window.EA_CONTENT_PUBLISHED = {
       "name": "Элана",
       "from": "Италия",
       "quote": "Я всегда мечтала учиться в Европе. Elite Academy помогли с документами, языком и нашли грант. Теперь учусь в Италии!",
-      "uni": "Università degli Studi di Milano",
+      "uni": "(Università degli Studi di Cassino e del Lazio Meridionale",
       "videoSrc": "videos/elana.mp4",
       "poster": "thumbs/elana.jpg"
     },
@@ -4422,7 +4422,7 @@ window.EA_CONTENT_PUBLISHED = {
       "name": "Анель",
       "from": "Италия",
       "quote": "Команда Elite Academy — профессионалы. Они знают каждый шаг и помогают на каждом этапе. Без них я бы не справилась.",
-      "uni": "Università di Roma",
+      "uni": "(Università degli Studi di Cassino e del Lazio Meridionale",
       "videoSrc": "videos/anel.mp4",
       "poster": "thumbs/anel.jpg"
     }
