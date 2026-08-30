@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   30.08.2026, 19:16:56
+   30.08.2026, 19:24:26
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4429,6 +4429,15 @@ window.EA_CONTENT_PUBLISHED = {
   ],
   "storyGrid": [
     {
+      "n": "Гулнур",
+      "u": "Tor Vergato",
+      "s": "Полный Грант",
+      "t": "Италия",
+      "level": "Бакалавр",
+      "video": "videos/gulnur.mp4",
+      "poster": "thumbs/gulnur.jpg"
+    },
+    {
       "n": "Альбина",
       "u": "Rowan university",
       "s": "Поступила 4 вуза,общая сумма скидок 150000$",
@@ -4516,7 +4525,7 @@ window.EA_CONTENT_PUBLISHED = {
       "t": "США",
       "level": "Бакалавр",
       "video": "videos/baimurat.mp4",
-      "poster": ""
+      "poster": "thumbs/baimurat.jpg"
     },
     {
       "n": "Элана",
