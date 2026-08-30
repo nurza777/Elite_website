@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   30.08.2026, 20:10:25
+   30.08.2026, 20:18:39
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4428,6 +4428,15 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "storyGrid": [
+    {
+      "n": "Нурсултан",
+      "u": "Link Campus university",
+      "s": "",
+      "t": "Италия",
+      "level": "Foundation",
+      "video": "videos/nursultan.mp4",
+      "poster": "thumbs/nursultan.jpg"
+    },
     {
       "n": "Малика",
       "u": "Tor Vergato",
