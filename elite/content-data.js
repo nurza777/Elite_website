@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   30.08.2026, 19:27:27
+   30.08.2026, 19:47:11
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4428,6 +4428,15 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "storyGrid": [
+    {
+      "n": "Дамир",
+      "u": "Rowan university",
+      "s": "17000$",
+      "t": "США",
+      "level": "Бакалавр",
+      "video": "videos/damir.mp4",
+      "poster": "thumbs/damir.jpg"
+    },
     {
       "n": "Гулнур",
       "u": "Tor Vergato",
