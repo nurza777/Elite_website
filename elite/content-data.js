@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   30.08.2026, 15:04:54
+   30.08.2026, 16:37:48
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4438,13 +4438,13 @@ window.EA_CONTENT_PUBLISHED = {
       "poster": ""
     },
     {
-      "n": "Имя",
-      "u": "Университет",
-      "s": "Грант",
+      "n": "Акинай",
+      "u": "PADUA University",
+      "s": "Полный грант в топовый вуз",
       "t": "Италия",
-      "level": "",
-      "video": "",
-      "poster": ""
+      "level": "Бакалавр",
+      "video": "videos/akinai.mp4",
+      "poster": "thumbs/akinai.jpg"
     },
     {
       "n": "Баймурат",
