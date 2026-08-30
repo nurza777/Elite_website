@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   30.08.2026, 16:37:48
+   30.08.2026, 16:57:22
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4429,13 +4429,22 @@ window.EA_CONTENT_PUBLISHED = {
   ],
   "storyGrid": [
     {
+      "n": "Акылай",
+      "u": "Rowan university",
+      "s": "Скидка 750000$",
+      "t": "США",
+      "level": "Бакалавр",
+      "video": "videos/akylai.mp4",
+      "poster": "thumbs/Akylai.jpg"
+    },
+    {
       "n": "Айтегин",
       "u": "Rowan university",
       "s": "Общая сумма от 7 вузов 300000$",
       "t": "США",
       "level": "Бакалавр",
       "video": "videos/aitegin.mp4",
-      "poster": ""
+      "poster": "thumbs/aitegin.jpg"
     },
     {
       "n": "Акинай",
@@ -4478,7 +4487,7 @@ window.EA_CONTENT_PUBLISHED = {
       "u": "Università degli Studi di Cassino",
       "s": "Грант + €8 000",
       "t": "Италия",
-      "level": "Магистр",
+      "level": "Бакалавр",
       "video": "videos/anel.mp4",
       "poster": "thumbs/anel.jpg"
     },
