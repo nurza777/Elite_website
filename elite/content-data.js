@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   30.08.2026, 20:18:39
+   30.08.2026, 20:31:03
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4428,6 +4428,15 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "storyGrid": [
+    {
+      "n": "Улук",
+      "u": "Rowan university",
+      "s": "100000$",
+      "t": "США",
+      "level": "Бакалавр",
+      "video": "videos/uluk.mp4",
+      "poster": "thumbs/uluk.jpg"
+    },
     {
       "n": "Нурсултан",
       "u": "Link Campus university",
