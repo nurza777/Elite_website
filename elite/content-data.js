@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   30.08.2026, 14:56:29
+   30.08.2026, 15:04:54
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4428,6 +4428,24 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "storyGrid": [
+    {
+      "n": "Айтегин",
+      "u": "Rowan university",
+      "s": "Общая сумма от 7 вузов 300000$",
+      "t": "США",
+      "level": "Бакалавр",
+      "video": "videos/aitegin.mp4",
+      "poster": ""
+    },
+    {
+      "n": "Имя",
+      "u": "Университет",
+      "s": "Грант",
+      "t": "Италия",
+      "level": "",
+      "video": "",
+      "poster": ""
+    },
     {
       "n": "Баймурат",
       "u": "NEW-YORK FILM ACADEMY",
