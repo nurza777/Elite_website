@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   30.08.2026, 19:47:11
+   30.08.2026, 19:51:27
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4428,6 +4428,15 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "storyGrid": [
+    {
+      "n": "Темирлан",
+      "u": "Rowan university",
+      "s": "15000$",
+      "t": "США",
+      "level": "Бакалавр",
+      "video": "videos/temirlan.mp4",
+      "poster": "thumbs/temirlan.jpg"
+    },
     {
       "n": "Дамир",
       "u": "Rowan university",
