@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   30.08.2026, 16:58:56
+   30.08.2026, 17:10:57
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4428,6 +4428,15 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "storyGrid": [
+    {
+      "n": "Альмира",
+      "u": "Università degli Studi di Cassino",
+      "s": "Полный Грант",
+      "t": "Италия",
+      "level": "Бакалавр",
+      "video": "videos/almira.mp4",
+      "poster": "thumbs/almira.jpg"
+    },
     {
       "n": "Акылай",
       "u": "Rowan university",
