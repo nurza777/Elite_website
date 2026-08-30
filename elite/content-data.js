@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   30.08.2026, 19:11:43
+   30.08.2026, 19:16:56
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4428,6 +4428,15 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "storyGrid": [
+    {
+      "n": "Альбина",
+      "u": "Rowan university",
+      "s": "Поступила 4 вуза,общая сумма скидок 150000$",
+      "t": "США",
+      "level": "Бакалавр",
+      "video": "videos/albina.mp4",
+      "poster": "thumbs/albina.jpg"
+    },
     {
       "n": "Байскалбек",
       "u": "University at Buffalo",
