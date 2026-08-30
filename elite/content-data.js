@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   30.08.2026, 20:31:03
+   30.08.2026, 20:47:14
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4428,6 +4428,15 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "storyGrid": [
+    {
+      "n": "Юсуф",
+      "u": "Rowan university",
+      "s": "",
+      "t": "США",
+      "level": "Бакалавр",
+      "video": "videos/yusuf.mp4",
+      "poster": "thumbs/yusuf.jpg"
+    },
     {
       "n": "Улук",
       "u": "Rowan university",
