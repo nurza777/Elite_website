@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   30.08.2026, 20:04:20
+   30.08.2026, 20:10:25
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4428,6 +4428,15 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "storyGrid": [
+    {
+      "n": "Малика",
+      "u": "Tor Vergato",
+      "s": "Полный Грант",
+      "t": "Италия",
+      "level": "Бакалавр",
+      "video": "videos/malika.mp4",
+      "poster": "thumbs/malika.jpg"
+    },
     {
       "n": "Даниель",
       "u": "Drexel university",
