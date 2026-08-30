@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   30.08.2026, 18:46:56
+   30.08.2026, 19:11:43
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4428,6 +4428,15 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "storyGrid": [
+    {
+      "n": "Байскалбек",
+      "u": "University at Buffalo",
+      "s": "Виза с первого раза",
+      "t": "США",
+      "level": "Бакалавр",
+      "video": "videos/baisalbek.mp4",
+      "poster": "thumbs/baisalbek.jpg"
+    },
     {
       "n": "Алихан",
       "u": "Rowan university",
