@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   30.08.2026, 18:27:36
+   30.08.2026, 18:46:56
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4428,6 +4428,15 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "storyGrid": [
+    {
+      "n": "Алихан",
+      "u": "Rowan university",
+      "s": "Помогли поступить в 12 вузов,в общей сумме 1 млн$ скидки",
+      "t": "США",
+      "level": "Бакалавр",
+      "video": "videos/alihan.mp4",
+      "poster": "thumbs/alihan.jpg"
+    },
     {
       "n": "Аяна",
       "u": "Tor Vergato",
