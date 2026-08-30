@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   28.08.2026, 18:32:37
+   30.08.2026, 14:56:29
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4428,6 +4428,15 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "storyGrid": [
+    {
+      "n": "Баймурат",
+      "u": "NEW-YORK FILM ACADEMY",
+      "s": "19000$",
+      "t": "США",
+      "level": "Бакалавр",
+      "video": "videos/baimurat.mp4",
+      "poster": ""
+    },
     {
       "n": "Элана",
       "u": "Cassino University",
