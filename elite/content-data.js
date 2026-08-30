@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   30.08.2026, 19:56:17
+   30.08.2026, 20:04:20
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4428,6 +4428,15 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "storyGrid": [
+    {
+      "n": "Даниель",
+      "u": "Drexel university",
+      "s": "160000$",
+      "t": "США",
+      "level": "Бакалавр",
+      "video": "videos/daniel.mp4",
+      "poster": "thumbs/daniel.jpg"
+    },
     {
       "n": "Темирлан",
       "u": "Rowan university",
