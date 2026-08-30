@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   30.08.2026, 17:24:46
+   30.08.2026, 18:27:36
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4428,6 +4428,15 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "storyGrid": [
+    {
+      "n": "Аяна",
+      "u": "Tor Vergato",
+      "s": "Полный Грант",
+      "t": "Италия",
+      "level": "Бакалавр",
+      "video": "Аяна.mp4",
+      "poster": "thumbs/Аяна.jpg"
+    },
     {
       "n": "Болотбек",
       "u": "Link Campus university",
