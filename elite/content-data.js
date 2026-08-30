@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   30.08.2026, 17:12:15
+   30.08.2026, 17:24:46
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4428,6 +4428,15 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "storyGrid": [
+    {
+      "n": "Болотбек",
+      "u": "Link Campus university",
+      "s": "Поступил в Рим",
+      "t": "Италия",
+      "level": "Foundation",
+      "video": "videos/Болотбек.mp4",
+      "poster": "thumbs/Болотбек.jpg"
+    },
     {
       "n": "Альмира",
       "u": "Università degli Studi di Cassino",
