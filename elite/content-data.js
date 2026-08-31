@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   30.08.2026, 20:47:14
+   31.08.2026, 12:22:26
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4431,7 +4431,7 @@ window.EA_CONTENT_PUBLISHED = {
     {
       "n": "Юсуф",
       "u": "Rowan university",
-      "s": "",
+      "s": "Получил визу после 2 отказов",
       "t": "США",
       "level": "Бакалавр",
       "video": "videos/yusuf.mp4",
