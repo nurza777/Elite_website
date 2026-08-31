@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   31.08.2026, 15:01:28
+   31.08.2026, 15:11:23
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4498,7 +4498,7 @@ window.EA_CONTENT_PUBLISHED = {
       "t": "Италия",
       "level": "Foundation",
       "video": "videos/nursultan.mp4",
-      "poster": "thumbs/nursultan.jpg"
+      "poster": "thumbs/nursultaan.jpg"
     },
     {
       "n": "Малика",
