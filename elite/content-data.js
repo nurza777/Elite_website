@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   31.08.2026, 12:22:26
+   31.08.2026, 12:38:53
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4428,6 +4428,15 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "storyGrid": [
+    {
+      "n": "Нурсултан",
+      "u": "Rowan university",
+      "s": "15000$",
+      "t": "США",
+      "level": "Бакалавр",
+      "video": "videos/nurs.mp4",
+      "poster": "thumbs/nursultan.jpg"
+    },
     {
       "n": "Юсуф",
       "u": "Rowan university",
