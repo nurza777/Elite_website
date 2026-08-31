@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   31.08.2026, 12:38:53
+   31.08.2026, 14:29:40
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4428,6 +4428,33 @@ window.EA_CONTENT_PUBLISHED = {
     }
   ],
   "storyGrid": [
+    {
+      "n": "Нурайым",
+      "u": "Cassino University",
+      "s": "Полный Грант",
+      "t": "Италия",
+      "level": "Бакалавр",
+      "video": "videos/nuraiym.mp4",
+      "poster": ""
+    },
+    {
+      "n": "Даниель",
+      "u": "Sunway University",
+      "s": "",
+      "t": "Малайзия",
+      "level": "Бакалавр",
+      "video": "videos/daniell.mp4",
+      "poster": "thumbs/imya.jpg"
+    },
+    {
+      "n": "Нуртенир",
+      "u": "Rowan university",
+      "s": "",
+      "t": "США",
+      "level": "Бакалавр",
+      "video": "videos/nurtenir.mp4",
+      "poster": "thumbs/Нуртенир.jpg"
+    },
     {
       "n": "Нурсултан",
       "u": "Rowan university",
