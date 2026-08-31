@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   31.08.2026, 14:29:40
+   31.08.2026, 15:01:28
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4429,6 +4429,15 @@ window.EA_CONTENT_PUBLISHED = {
   ],
   "storyGrid": [
     {
+      "n": "Имя",
+      "u": "Университет",
+      "s": "Грант",
+      "t": "Италия",
+      "level": "",
+      "video": "videos/imya.mp4",
+      "poster": ""
+    },
+    {
       "n": "Нурайым",
       "u": "Cassino University",
       "s": "Полный Грант",
@@ -4462,7 +4471,7 @@ window.EA_CONTENT_PUBLISHED = {
       "t": "США",
       "level": "Бакалавр",
       "video": "videos/nurs.mp4",
-      "poster": "thumbs/nursultan.jpg"
+      "poster": "thumbs/nursultann.jpg"
     },
     {
       "n": "Юсуф",
