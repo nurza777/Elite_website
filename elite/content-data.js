@@ -1,6 +1,6 @@
 /* ============================================================
    PUBLISHED CONTENT — published from admin.html
-   31.08.2026, 15:11:23
+   31.08.2026, 16:18:21
    ============================================================ */
 window.EA_CONTENT_PUBLISHED = {
   "unis": [
@@ -4429,12 +4429,12 @@ window.EA_CONTENT_PUBLISHED = {
   ],
   "storyGrid": [
     {
-      "n": "Имя",
-      "u": "Университет",
-      "s": "Грант",
+      "n": "Акылай",
+      "u": "Messina university",
+      "s": "Полный Грант",
       "t": "Италия",
-      "level": "",
-      "video": "videos/imya.mp4",
+      "level": "Бакалавр",
+      "video": "videos/akylaii.mp4",
       "poster": ""
     },
     {
