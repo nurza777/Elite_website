@@ -217,6 +217,7 @@ function App() {
       <Footer />
       <StickyQuizCTA />
       <FloatingChat />
+      <SaveContact />
       <ExitIntent />
       <GlobalFX />
     </>

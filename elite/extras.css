@@ -329,3 +329,41 @@
 img.about__photo { object-fit: cover; display: block; }
 img.team__photo  { width: 100%; object-fit: cover; display: block; }
 img.post__cover  { width: 100%; object-fit: cover; display: block; }
+
+/* ============================================================
+   SAVE-CONTACT PROMPT — мобильный баннер «сохрани наш контакт»
+   Появляется над нижней панелью (.bottombar), только на телефонах.
+   ============================================================ */
+.savecontact{
+  position: fixed; left: 12px; right: 12px; z-index: 65;
+  bottom: calc(74px + env(safe-area-inset-bottom)); /* над .bottombar */
+  display: grid; grid-template-columns: auto 1fr;
+  grid-template-areas: "ic body" "btn btn"; gap: 11px 12px; align-items: center;
+  padding: 14px 15px; border-radius: 16px;
+  background: var(--navy); color: #fff;
+  box-shadow: 0 12px 36px -10px rgba(6,64,102,.6);
+  animation: savecontactIn .35s cubic-bezier(.2,.8,.3,1) both;
+}
+@keyframes savecontactIn{ from{ opacity:0; transform: translateY(16px) } to{ opacity:1; transform:none } }
+.savecontact__ic{
+  grid-area: ic; width: 42px; height: 42px; border-radius: 11px;
+  display: grid; place-items: center; color: var(--gold);
+  background: rgba(255,255,255,.12);
+}
+.savecontact__body{ grid-area: body; display: flex; flex-direction: column; gap: 3px; min-width: 0 }
+.savecontact__t{ font-family: var(--font-head); font-weight: 800; font-size: 15px; line-height: 1.2 }
+.savecontact__s{ font-size: 12.5px; line-height: 1.35; color: rgba(255,255,255,.82) }
+.savecontact__btn{
+  grid-area: btn; display: block; width: 100%; text-align: center;
+  padding: 12px 15px; border-radius: 11px;
+  background: var(--gold); color: #1a1206;
+  font-family: var(--font-head); font-weight: 800; font-size: 14.5px; line-height: 1.1;
+}
+.savecontact__x{
+  position: absolute; top: -9px; right: -9px; width: 26px; height: 26px;
+  border-radius: 50%; background: #fff; color: var(--navy);
+  border: none; font-size: 13px; font-weight: 700; cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,.25); display: grid; place-items: center;
+}
+/* десктоп сюда не попадёт (компонент только на мобильных), но на всякий случай */
+@media (min-width: 1081px){ .savecontact{ display: none } }

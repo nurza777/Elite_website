@@ -314,8 +314,42 @@ function GlobalFX() {
   return null;
 }
 
+/* ── Save-contact prompt (mobile) ───────────────────────────────
+   Телефон, открыв .vcf, сам предлагает «Добавить контакт». Так наш
+   номер попадает в книгу, и сообщения в WhatsApp приходят от
+   «Elite Academy», а не с незнакомого номера (который WhatsApp прячет). */
+function SaveContact() {
+  const [show, setShow] = React.useState(false);
+  React.useEffect(() => {
+    const isMobile = window.matchMedia("(hover: none)").matches || window.innerWidth < 720;
+    if (!isMobile) return;
+    try { if (localStorage.getItem("ea_vcard_done") === "1") return; } catch (e) {}
+    const id = setTimeout(() => setShow(true), 3500); // не в лоб — дать осмотреться
+    return () => clearTimeout(id);
+  }, []);
+  const done = () => {
+    setShow(false);
+    try { localStorage.setItem("ea_vcard_done", "1"); } catch (e) {}
+  };
+  if (!show) return null;
+  return (
+    <div className="savecontact" role="dialog" aria-label={t("vcard.title")}>
+      <button className="savecontact__x" onClick={done} aria-label={t("vcard.close")}>✕</button>
+      <div className="savecontact__ic" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M6 16c.5-1.6 1.7-2.4 3-2.4s2.5.8 3 2.4"/><path d="M15 9h3M15 13h3"/></svg>
+      </div>
+      <div className="savecontact__body">
+        <strong className="savecontact__t">{t("vcard.title")}</strong>
+        <span className="savecontact__s">{t("vcard.sub")}</span>
+      </div>
+      <a className="savecontact__btn" href="contacts.vcf" download="Elite Academy.vcf" onClick={done}>{t("vcard.btn")}</a>
+    </div>
+  );
+}
+
 window.ScrollProgress = ScrollProgress;
 window.StickyQuizCTA = StickyQuizCTA;
 window.ExitIntent = ExitIntent;
 window.FloatingChat = FloatingChat;
+window.SaveContact = SaveContact;
 window.GlobalFX = GlobalFX;

@@ -223,6 +223,10 @@
       'extras.chatHours': 'ПН–ПТ 12:00–20:00 · СБ 12:00–19:00',
       'extras.closeChat': 'Закрыть чат',
       'extras.openChat': 'Открыть чат',
+      'vcard.title': 'Сохраните наш контакт',
+      'vcard.sub': 'Чтобы наши ответы в WhatsApp приходили от «Elite Academy», а не с незнакомого номера.',
+      'vcard.btn': 'Сохранить в контакты',
+      'vcard.close': 'Закрыть',
       /* HOME SEARCH */
       'hs.label': 'Найди университет своей мечты',
       'hs.anyCountry': 'Любая страна',
@@ -702,6 +706,10 @@
       'extras.chatHours': 'Mon–Fri 12:00–20:00 · Sat 12:00–19:00',
       'extras.closeChat': 'Close chat',
       'extras.openChat': 'Open chat',
+      'vcard.title': 'Save our contact',
+      'vcard.sub': 'So our WhatsApp replies come from “Elite Academy”, not an unknown number.',
+      'vcard.btn': 'Save to contacts',
+      'vcard.close': 'Close',
       /* HOME SEARCH */
       'hs.label': 'Find Your Dream University',
       'hs.anyCountry': 'Any Country',
@@ -1181,6 +1189,10 @@
       'extras.chatHours': 'Дш–Жм 12:00–20:00 · Иш 12:00–19:00',
       'extras.closeChat': 'Чатты жабуу',
       'extras.openChat': 'Чатты ачуу',
+      'vcard.title': 'Байланышыбызды сактап коюңуз',
+      'vcard.sub': 'WhatsApp’тагы жоопторубуз бейтааныш номерден эмес, «Elite Academy» деп келиши үчүн.',
+      'vcard.btn': 'Контактка сактоо',
+      'vcard.close': 'Жабуу',
       /* HOME SEARCH */
       'hs.label': 'Кыялыңдагы университетти тап',
       'hs.anyCountry': 'Каалаган өлкө',
